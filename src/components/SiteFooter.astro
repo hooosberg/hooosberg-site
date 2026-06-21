@@ -9,26 +9,30 @@ const { locale = "zh-CN" } = Astro.props;
 const text = uiText[locale];
 const brandTitle = brandNameByLocale[locale];
 const links = getLocalizedSocialLinks(locale);
+const isEnglish = locale === "en";
 const legalLinks = [
-  { label: locale === "en" ? "Privacy" : "隐私政策", url: toLocalizedPath("/privacy", locale) },
-  { label: locale === "en" ? "Terms" : "服务条款", url: toLocalizedPath("/terms", locale) },
-  { label: locale === "en" ? "Cookies" : "Cookie 说明", url: toLocalizedPath("/cookies", locale) },
+  { label: isEnglish ? "Privacy" : "隐私政策", url: toLocalizedPath("/privacy", locale) },
+  { label: isEnglish ? "Terms" : "服务条款", url: toLocalizedPath("/terms", locale) },
+  { label: isEnglish ? "Cookies" : "Cookie 说明", url: toLocalizedPath("/cookies", locale) },
 ];
+const footerNote = isEnglish
+  ? "Public project notes, AI tutorials, and product pages. Legal, privacy, and analytics details are documented in the pages below."
+  : "这里记录公开项目、AI 教程和产品页面。隐私、服务条款与网站统计说明以底部对应页面为准。";
+const copyrightText = `© ${new Date().getFullYear()} Hooosberg.`;
 ---
 
 <footer class="site-footer">
   <div class="site-footer__inner">
-    <div class="site-footer__primary">
-      <div>
-        <strong>{brandTitle}</strong>
-        <p>{text.footerCopy}</p>
-      </div>
-      <nav aria-label="Footer links">
-        {links.map((link) => <a href={link.url} target={link.url.startsWith("http") ? "_blank" : undefined} rel="noreferrer">{link.label}</a>)}
-      </nav>
+    <div class="site-footer__brand">
+      <strong>{brandTitle}</strong>
+      <p>{text.footerCopy}</p>
     </div>
+    <nav class="site-footer__social" aria-label={isEnglish ? "Social links" : "社交链接"}>
+      {links.map((link) => <a href={link.url} target={link.url.startsWith("http") ? "_blank" : undefined} rel="noreferrer">{link.label}</a>)}
+    </nav>
     <nav class="site-footer__legal" aria-label={locale === "en" ? "Legal links" : "法律链接"}>
       {legalLinks.map((link) => <a href={link.url}>{link.label}</a>)}
     </nav>
+    <p class="site-footer__note">{footerNote} <span>{copyrightText}</span></p>
   </div>
 </footer>
