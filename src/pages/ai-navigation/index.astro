@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, ExternalLink, Mail, Search } from "@lucide/astro";
+import { ExternalLink, Mail, Search } from "@lucide/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { socialLinks } from "../../data/products";
 import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../utils/structuredData";
@@ -22,8 +22,6 @@ type ToolGroup = {
   shortLabel: string;
   summary: string;
   items: ToolItem[];
-  moreTarget?: string;
-  moreLabel?: string;
 };
 
 type AlternativePair = {
@@ -231,8 +229,6 @@ const groups: ToolGroup[] = [
     title: "OpenAI / ChatGPT 生态",
     shortLabel: "OpenAI",
     summary: "先放 OpenAI 的拳头产品 ChatGPT，再放开发者热度最高的 Codex 和平台入口；Deep Research、Canvas、Projects 归入 ChatGPT 能力。",
-    moreTarget: "openai-suite",
-    moreLabel: "查看更多 OpenAI 生态",
     items: [
       chatgpt,
       codex,
@@ -246,8 +242,6 @@ const groups: ToolGroup[] = [
     title: "Anthropic / Claude 生态",
     shortLabel: "Claude",
     summary: "先放 Claude 主入口，再放开发者最常用的 Claude Code，最后放面向知识工作的 Cowork 和少量扩展入口。",
-    moreTarget: "anthropic-suite",
-    moreLabel: "查看更多 Anthropic 生态",
     items: [
       claude,
       claudeCode,
@@ -261,8 +255,6 @@ const groups: ToolGroup[] = [
     title: "Google / Gemini 生态",
     shortLabel: "Google",
     summary: "按真实使用热度排序：Gemini 主应用、NotebookLM、AI Studio、Stitch，再补少量开发、创作和搜索入口。",
-    moreTarget: "google-suite",
-    moreLabel: "查看更多 Google AI 生态",
     items: [
       gemini,
       notebookLm,
@@ -704,12 +696,6 @@ const jsonLd = [
               })}
             </div>
 
-            {group.moreTarget && (
-              <a class="directory-more-link" href={`#${group.moreTarget}`} data-directory-jump={group.moreTarget}>
-                {group.moreLabel ?? "查看更多"}
-                <ArrowRight size={14} aria-hidden="true" />
-              </a>
-            )}
           </section>
         ))}
 
@@ -803,7 +789,6 @@ const jsonLd = [
     const sidebar = document.querySelector(".directory-sidebar");
     const alternativeCards = Array.from(document.querySelectorAll("[data-alternative-card]"));
     const alternativeEmpty = document.querySelector("[data-alternative-empty]");
-    const localJumps = Array.from(document.querySelectorAll("[data-directory-jump]"));
     const firstCategory = groups[0]?.dataset.directoryGroup || "top";
     let activeCategory = "all";
     let currentCategory = firstCategory;
@@ -929,13 +914,6 @@ const jsonLd = [
     filters.forEach((filter) => {
       filter.addEventListener("click", () => {
         setCategory(filter.dataset.directoryFilter || "all");
-      });
-    });
-
-    localJumps.forEach((jump) => {
-      jump.addEventListener("click", () => {
-        setMode("ranking");
-        setCategory(jump.dataset.directoryJump || "all");
       });
     });
 

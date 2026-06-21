@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, ExternalLink, Mail, Search } from "@lucide/astro";
+import { ExternalLink, Mail, Search } from "@lucide/astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getLocalizedSocialLinks } from "../../../utils/i18n";
 import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../../utils/structuredData";
@@ -22,8 +22,6 @@ type ToolGroup = {
   shortLabel: string;
   summary: string;
   items: ToolItem[];
-  moreTarget?: string;
-  moreLabel?: string;
 };
 
 type AlternativePair = {
@@ -227,8 +225,6 @@ const groups: ToolGroup[] = [
     title: "OpenAI / ChatGPT Ecosystem",
     shortLabel: "OpenAI",
     summary: "ChatGPT first, then the developer products most relevant to builders: Codex, the API platform, Apps SDK, and Agent Builder.",
-    moreTarget: "openai-suite",
-    moreLabel: "View OpenAI ecosystem",
     items: [
       chatgpt,
       codex,
@@ -242,8 +238,6 @@ const groups: ToolGroup[] = [
     title: "Anthropic / Claude Ecosystem",
     shortLabel: "Claude",
     summary: "Claude as the main app, Claude Code for software work, and Anthropic's newer knowledge-work and browser directions.",
-    moreTarget: "anthropic-suite",
-    moreLabel: "View Anthropic ecosystem",
     items: [
       claude,
       claudeCode,
@@ -257,8 +251,6 @@ const groups: ToolGroup[] = [
     title: "Google / Gemini Ecosystem",
     shortLabel: "Google",
     summary: "Gemini, NotebookLM, AI Studio, Stitch, Antigravity, Jules, Search AI Mode, and Flow as the practical Google AI surface map.",
-    moreTarget: "google-suite",
-    moreLabel: "View Google AI ecosystem",
     items: [
       gemini,
       notebookLm,
@@ -702,12 +694,6 @@ const jsonLd = [
               })}
             </div>
 
-            {group.moreTarget && (
-              <a class="directory-more-link" href={`#${group.moreTarget}`} data-directory-jump={group.moreTarget}>
-                {group.moreLabel ?? "View more"}
-                <ArrowRight size={14} aria-hidden="true" />
-              </a>
-            )}
           </section>
         ))}
 
@@ -805,7 +791,6 @@ const jsonLd = [
     const sidebar = document.querySelector(".directory-sidebar");
     const alternativeCards = Array.from(document.querySelectorAll("[data-alternative-card]"));
     const alternativeEmpty = document.querySelector("[data-alternative-empty]");
-    const localJumps = Array.from(document.querySelectorAll("[data-directory-jump]"));
     const firstCategory = groups[0]?.dataset.directoryGroup || "top";
     let activeCategory = "all";
     let currentCategory = firstCategory;
@@ -931,13 +916,6 @@ const jsonLd = [
     filters.forEach((filter) => {
       filter.addEventListener("click", () => {
         setCategory(filter.dataset.directoryFilter || "all");
-      });
-    });
-
-    localJumps.forEach((jump) => {
-      jump.addEventListener("click", () => {
-        setMode("ranking");
-        setCategory(jump.dataset.directoryJump || "all");
       });
     });
 

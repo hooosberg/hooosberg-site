@@ -150,6 +150,9 @@ test("English AI guide has search, full workflow categories, and regional altern
   assert.match(html, /Curation standard/, "English AI guide should explain the directory standard");
   assert.match(html, /Regional alternatives/, "English AI guide should translate the alternatives section");
   assert.doesNotMatch(html, /国内平替|分类排行|入库标准|搜索工具/, "English AI guide chrome should not expose Chinese UI labels");
+  assert.doesNotMatch(html, /class="directory-more-link"[\s\S]*View OpenAI ecosystem/, "English OpenAI ecosystem should not render a redundant more-products button");
+  assert.doesNotMatch(html, /class="directory-more-link"[\s\S]*View Anthropic ecosystem/, "English Anthropic ecosystem should not render a redundant more-products button");
+  assert.doesNotMatch(html, /class="directory-more-link"[\s\S]*View Google AI ecosystem/, "English Google ecosystem should not render a redundant more-products button");
 });
 
 test("major section pages expose independent topic-cluster structured data", async () => {

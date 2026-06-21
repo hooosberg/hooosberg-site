@@ -134,12 +134,9 @@ test("AI navigation renders as a standalone directory page", async () => {
   assert.deepEqual(cardNames(groupSection(html, "openai-suite")).slice(0, 3), ["ChatGPT", "OpenAI Codex", "OpenAI API Platform"], "OpenAI ecosystem should start with ChatGPT, Codex, then the developer platform");
   assert.deepEqual(cardNames(groupSection(html, "anthropic-suite")).slice(0, 3), ["Claude", "Claude Code", "Claude Cowork"], "Anthropic ecosystem should start with Claude, Claude Code, then Claude Cowork");
   assert.deepEqual(cardNames(groupSection(html, "google-suite")).slice(0, 4), ["Gemini", "NotebookLM", "Google AI Studio", "Google Stitch"], "Google ecosystem should start with the Gemini app, NotebookLM, developer platform, then the hot UI prototyping product");
-  assert.match(groupSection(html, "openai-suite"), /href="#openai-suite"[\s\S]*data-directory-jump="openai-suite"[\s\S]*查看更多 OpenAI 生态/, "OpenAI ecosystem more link should filter to the local sidebar category");
-  assert.match(groupSection(html, "anthropic-suite"), /href="#anthropic-suite"[\s\S]*data-directory-jump="anthropic-suite"[\s\S]*查看更多 Anthropic 生态/, "Anthropic ecosystem more link should filter to the local sidebar category");
-  assert.match(groupSection(html, "google-suite"), /href="#google-suite"[\s\S]*data-directory-jump="google-suite"[\s\S]*查看更多 Google AI 生态/, "Google ecosystem more link should filter to the local sidebar category");
-  assert.doesNotMatch(groupSection(html, "openai-suite"), /查看更多 OpenAI 生态[\s\S]*target="_blank"/, "OpenAI ecosystem more link should not leave the directory");
-  assert.doesNotMatch(groupSection(html, "anthropic-suite"), /查看更多 Anthropic 生态[\s\S]*target="_blank"/, "Anthropic ecosystem more link should not leave the directory");
-  assert.doesNotMatch(groupSection(html, "google-suite"), /查看更多 Google AI 生态[\s\S]*target="_blank"/, "Google ecosystem more link should not leave the directory");
+  assert.doesNotMatch(groupSection(html, "openai-suite"), /class="directory-more-link"[\s\S]*查看更多 OpenAI 生态/, "OpenAI ecosystem should not render a redundant more-products button");
+  assert.doesNotMatch(groupSection(html, "anthropic-suite"), /class="directory-more-link"[\s\S]*查看更多 Anthropic 生态/, "Anthropic ecosystem should not render a redundant more-products button");
+  assert.doesNotMatch(groupSection(html, "google-suite"), /class="directory-more-link"[\s\S]*查看更多 Google AI 生态/, "Google ecosystem should not render a redundant more-products button");
 
   assert.match(html, /🇺🇸 美国/, "cards should show United States country flag labels");
   assert.match(html, /🇨🇳 中国/, "cards should show China country flag labels");
