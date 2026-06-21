@@ -2,6 +2,7 @@
 import { ArrowRight, ExternalLink, Mail, Search } from "@lucide/astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getLocalizedSocialLinks } from "../../../utils/i18n";
+import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../../utils/structuredData";
 
 type CountryCode = "us" | "cn" | "uk" | "au" | "ca" | "fr" | "global";
 
@@ -562,14 +563,33 @@ const alternativePairs: AlternativePair[] = [
 
 const totalItems = groups.reduce((sum, group) => sum + group.items.length, 0);
 const emailLink = getLocalizedSocialLinks("en").find((link) => link.originalLabel === "Email");
+const pageDescription = "A practical, searchable AI tool guide for builders: global AI assistants, coding agents, model APIs, product research, design tools, hosting, launch channels, payments, learning resources, and regional alternatives.";
+const toolItems = groups.flatMap((group) =>
+  group.items.map((item) => ({
+    name: item.name,
+    url: item.url,
+    description: `${group.title}: ${item.description}`,
+  })),
+);
+const jsonLd = [
+  buildSectionCollectionJsonLd({
+    locale: "en",
+    path: "/en/ai-navigation",
+    name: "AI Tool Guide",
+    description: pageDescription,
+    topics: ["AI tools directory", "AI coding tools", "AI tool guide", "ChatGPT alternatives", "AI developer tools"],
+  }),
+  buildItemListJsonLd("https://hooosberg.com/en/ai-navigation#tool-list", toolItems),
+];
 ---
 
 <BaseLayout
   locale="en"
   title="AI Tool Guide | Hooosberg"
-  description="A practical, searchable AI tool guide for builders: global AI assistants, coding agents, model APIs, product research, design tools, hosting, launch channels, payments, learning resources, and regional alternatives."
+  description={pageDescription}
   canonicalPath="/en/ai-navigation"
   mainClass="main--ai-directory"
+  jsonLd={jsonLd}
 >
   <section class="ai-directory-hero">
     <div>

@@ -1,6 +1,7 @@
 ---
 import { ArrowRight, BarChart3, BriefcaseBusiness, Building2, Palette, Search, Wrench } from "@lucide/astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { buildSectionWebPageJsonLd } from "../../../utils/structuredData";
 
 const services = [
   {
@@ -46,13 +47,22 @@ const services = [
     icon: Wrench,
   },
 ];
+const pageDescription = "Enterprise AI strategy, AI workflow consulting, product commercialization, brand aesthetics, and AI agent automation services.";
+const jsonLd = buildSectionWebPageJsonLd({
+  locale: "en",
+  path: "/en/services",
+  name: "Hooosberg AI Consulting and Automation Services",
+  description: pageDescription,
+  topics: ["AI automation services", "AI workflow consulting", "AI product prototype service", "business automation with AI"],
+});
 ---
 
 <BaseLayout
   locale="en"
   title="Services | Hooosberg"
-  description="Enterprise AI strategy, AI workflow consulting, product commercialization, brand aesthetics, and AI agent automation services."
+  description={pageDescription}
   canonicalPath="/en/services"
+  jsonLd={jsonLd}
 >
   <section class="page-hero page-hero--narrow courses-hero commerce-hero">
     <p class="commerce-kicker">Services</p>

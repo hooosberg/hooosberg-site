@@ -6,7 +6,7 @@ import ProductIcon from "../../../components/ProductIcon.astro";
 import { getArticlesForProduct } from "../../../data/articles";
 import { products, type Product, type ProductAction } from "../../../data/products";
 import { getLocalizedProduct, getLocalizedArticle, toLocalizedPath } from "../../../utils/i18n";
-import { buildProductJsonLd } from "../../../utils/structuredData";
+import { buildProductJsonLd, buildProductWebPageJsonLd } from "../../../utils/structuredData";
 
 export function getStaticPaths() {
   return products.map((product) => ({
@@ -51,7 +51,7 @@ if (product.website) {
 }
 addAction(product.secondaryAction);
 
-const productJsonLd = buildProductJsonLd(product, "en");
+const productJsonLd = [buildProductWebPageJsonLd(product, "en"), buildProductJsonLd(product, "en")];
 ---
 
 <BaseLayout

@@ -7,6 +7,11 @@ const enHomePage = new URL("../dist/en/index.html", import.meta.url);
 const enCoursesPage = new URL("../dist/en/courses/index.html", import.meta.url);
 const enServicesPage = new URL("../dist/en/services/index.html", import.meta.url);
 const enAiNavigationPage = new URL("../dist/en/ai-navigation/index.html", import.meta.url);
+const coursesPage = new URL("../dist/courses/index.html", import.meta.url);
+const servicesPage = new URL("../dist/services/index.html", import.meta.url);
+const linksPage = new URL("../dist/links/index.html", import.meta.url);
+const appsPage = new URL("../dist/apps/index.html", import.meta.url);
+const blogPage = new URL("../dist/blog/index.html", import.meta.url);
 const productPage = new URL("../dist/apps/witnote/index.html", import.meta.url);
 const enProductPage = new URL("../dist/en/apps/witnote/index.html", import.meta.url);
 const articlePage = new URL("../dist/blog/drowsebook-market-research/index.html", import.meta.url);
@@ -23,6 +28,10 @@ function jsonLdItems(html) {
 
 function findJsonLd(html, type) {
   return jsonLdItems(html).find((item) => item["@type"] === type);
+}
+
+function findJsonLdById(html, id) {
+  return jsonLdItems(html).find((item) => item["@id"] === id);
 }
 
 test("core pages expose canonical, hreflang, social metadata, and JSON-LD", async () => {
@@ -42,6 +51,8 @@ test("core pages expose canonical, hreflang, social metadata, and JSON-LD", asyn
   assert.match(productHtml, /"downloadUrl":"https:\/\/apps\.apple\.com\/us\/app\/witnote-local-ai-writer\/id6756833873"/, "product JSON-LD should expose the primary download URL");
   assert.match(productHtml, /"sameAs":\["https:\/\/github\.com\/hooosberg\/WitNote"/, "product JSON-LD should expose repo and legacy/canonical profiles as sameAs");
   assert.match(productHtml, /"keywords":\[/, "product JSON-LD should expose searchable product keywords");
+  assert.match(productHtml, /"@id":"https:\/\/hooosberg\.com\/apps\/witnote#webpage"/, "product pages should identify themselves as independent landing pages");
+  assert.match(productHtml, /"mainEntity":\{"@id":"https:\/\/hooosberg\.com\/apps\/witnote#software"\}/, "product landing page JSON-LD should point to its SoftwareApplication entity");
 
   assert.match(enProductHtml, /<html[^>]*lang="en"/, "English product should use an English html lang");
   assert.match(enProductHtml, /<link rel="canonical" href="https:\/\/hooosberg\.com\/en\/apps\/witnote">/, "English product should canonicalize to the /en product URL");
@@ -139,6 +150,56 @@ test("English AI guide has search, full workflow categories, and regional altern
   assert.match(html, /Curation standard/, "English AI guide should explain the directory standard");
   assert.match(html, /Regional alternatives/, "English AI guide should translate the alternatives section");
   assert.doesNotMatch(html, /国内平替|分类排行|入库标准|搜索工具/, "English AI guide chrome should not expose Chinese UI labels");
+});
+
+test("major section pages expose independent topic-cluster structured data", async () => {
+  const [aiHtml, appsHtml, blogHtml] = await Promise.all([
+    readFile(enAiNavigationPage, "utf8"),
+    readFile(appsPage, "utf8"),
+    readFile(blogPage, "utf8"),
+  ]);
+
+  const aiCollection = findJsonLd(aiHtml, "CollectionPage");
+  const aiItemList = findJsonLdById(aiHtml, "https://hooosberg.com/en/ai-navigation#tool-list");
+  assert.equal(aiCollection?.name, "AI Tool Guide", "AI guide should identify itself as an independent CollectionPage");
+  assert.match(aiCollection?.description ?? "", /AI tool guide|coding agents|model APIs/i, "AI guide description should target tool-directory search intent");
+  assert.equal(aiCollection?.about?.[0]?.name, "AI tools directory", "AI guide should expose its main keyword topic");
+  assert.ok(aiItemList?.itemListElement?.length >= 12, "AI guide should expose a large tool ItemList for crawlers");
+  assert.ok(
+    aiItemList?.itemListElement?.some((item) => item.item?.name === "ChatGPT"),
+    "AI guide ItemList should include major searchable tools",
+  );
+
+  const appsCollection = findJsonLd(appsHtml, "CollectionPage");
+  const appsItemList = findJsonLdById(appsHtml, "https://hooosberg.com/apps#product-list");
+  assert.equal(appsCollection?.name, "Hooosberg Products", "Products page should identify itself as a product collection");
+  assert.equal(appsCollection?.about?.[0]?.name, "indie AI apps", "Products page should expose its main keyword topic");
+  assert.ok(appsItemList?.itemListElement?.length >= 7, "Products page should expose priority products as an ItemList");
+
+  const blogCollection = findJsonLd(blogHtml, "CollectionPage");
+  const blogItemList = findJsonLdById(blogHtml, "https://hooosberg.com/blog#article-list");
+  assert.equal(blogCollection?.name, "Hooosberg Build Diaries", "Blog page should identify itself as a build-diary collection");
+  assert.equal(blogCollection?.about?.[0]?.name, "AI product build diaries", "Blog page should expose its main keyword topic");
+  assert.ok(blogItemList?.itemListElement?.length >= 20, "Blog page should expose recent articles as an ItemList");
+});
+
+test("commercial and contact navigation pages expose focused WebPage entities", async () => {
+  const [coursesHtml, servicesHtml, linksHtml] = await Promise.all([
+    readFile(coursesPage, "utf8"),
+    readFile(servicesPage, "utf8"),
+    readFile(linksPage, "utf8"),
+  ]);
+
+  const courses = findJsonLd(coursesHtml, "WebPage");
+  const services = findJsonLd(servicesHtml, "WebPage");
+  const links = findJsonLd(linksHtml, "WebPage");
+
+  assert.equal(courses?.["@id"], "https://hooosberg.com/courses#webpage", "Courses should expose a stable WebPage entity");
+  assert.equal(courses?.about?.[0]?.name, "AI coding course", "Courses should expose its search topic");
+  assert.equal(services?.["@id"], "https://hooosberg.com/services#webpage", "Services should expose a stable WebPage entity");
+  assert.equal(services?.about?.[0]?.name, "AI automation services", "Services should expose its search topic");
+  assert.equal(links?.["@id"], "https://hooosberg.com/links#webpage", "Contact links should expose a stable WebPage entity");
+  assert.equal(links?.about?.[0]?.name, "Hooosberg official links", "Contact page should expose its search topic");
 });
 
 test("robots and sitemap exist and avoid legacy legal URLs", async () => {

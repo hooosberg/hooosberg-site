@@ -9,6 +9,7 @@ import {
   Wrench,
 } from "@lucide/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { buildSectionWebPageJsonLd } from "../../utils/structuredData";
 
 const services = [
   {
@@ -54,9 +55,17 @@ const services = [
     icon: Wrench,
   },
 ];
+const pageDescription = "湖森堡AI_hooosberg 的 AI 企业落地、产品开发和艺术顾问服务。";
+const jsonLd = buildSectionWebPageJsonLd({
+  locale: "zh-CN",
+  path: "/services",
+  name: "湖森堡 AI 咨询与自动化服务",
+  description: pageDescription,
+  topics: ["AI automation services", "AI workflow consulting", "AI product prototype service", "business automation with AI"],
+});
 ---
 
-<BaseLayout title="服务 | 湖森堡AI_hooosberg" description="湖森堡AI_hooosberg 的 AI 企业落地、产品开发和艺术顾问服务。">
+<BaseLayout title="服务 | 湖森堡AI_hooosberg" description={pageDescription} jsonLd={jsonLd}>
   <section class="page-hero page-hero--narrow courses-hero commerce-hero">
     <p class="commerce-kicker">Services</p>
     <h1>服务</h1>

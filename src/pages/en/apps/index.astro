@@ -2,13 +2,32 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import ProductCard from "../../../components/ProductCard.astro";
 import { productsByLatest } from "../../../data/products";
+import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../../utils/structuredData";
+
+const pageDescription = "Apps, AI tools, postmortems, and developer products built by Hooosberg.";
+const productItems = productsByLatest.map((product) => ({
+  name: product.displayName,
+  url: `/en/apps/${product.slug}`,
+  description: product.summary,
+}));
+const jsonLd = [
+  buildSectionCollectionJsonLd({
+    locale: "en",
+    path: "/en/apps",
+    name: "Hooosberg Products",
+    description: pageDescription,
+    topics: ["indie AI apps", "local-first AI apps", "AI developer tools", "Hooosberg products"],
+  }),
+  buildItemListJsonLd("https://hooosberg.com/en/apps#product-list", productItems),
+];
 ---
 
 <BaseLayout
   locale="en"
   title="Products | Hooosberg"
-  description="Apps, AI tools, postmortems, and developer products built by Hooosberg."
+  description={pageDescription}
   canonicalPath="/en/apps"
+  jsonLd={jsonLd}
 >
   <section class="page-hero page-hero--narrow">
     <h1>Products</h1>

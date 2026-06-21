@@ -2,6 +2,7 @@
 import { ExternalLink } from "@lucide/astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getLocalizedSocialLinks } from "../../../utils/i18n";
+import { buildSectionWebPageJsonLd } from "../../../utils/structuredData";
 
 const linkCards = getLocalizedSocialLinks("en");
 
@@ -32,13 +33,22 @@ const contactSections = [
     className: "platform-card-grid--direct",
   },
 ];
+const pageDescription = "Hooosberg video channels, social profiles, email, and Telegram contact links.";
+const jsonLd = buildSectionWebPageJsonLd({
+  locale: "en",
+  path: "/en/links",
+  name: "Hooosberg Official Links",
+  description: pageDescription,
+  topics: ["Hooosberg official links", "Hooosberg contact", "social profiles", "official support"],
+});
 ---
 
 <BaseLayout
   locale="en"
   title="Contact | Hooosberg"
-  description="Hooosberg video channels, social profiles, email, and Telegram contact links."
+  description={pageDescription}
   canonicalPath="/en/links"
+  jsonLd={jsonLd}
 >
   <section class="page-hero page-hero--narrow">
     <h1>Contact</h1>

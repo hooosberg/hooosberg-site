@@ -2,6 +2,7 @@
 import { ExternalLink } from "@lucide/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { socialLinks } from "../../data/products";
+import { buildSectionWebPageJsonLd } from "../../utils/structuredData";
 
 const platformHandles: Record<string, string> = {
   GitHub: "搜索：hooosberg",
@@ -49,9 +50,17 @@ const contactSections = [
     className: "platform-card-grid--direct",
   },
 ];
+const pageDescription = "湖森堡AI_hooosberg 视频账号、社交媒体账号、邮箱和电报联系方式。";
+const jsonLd = buildSectionWebPageJsonLd({
+  locale: "zh-CN",
+  path: "/links",
+  name: "湖森堡官方联系方式",
+  description: pageDescription,
+  topics: ["Hooosberg official links", "Hooosberg contact", "social profiles", "official support"],
+});
 ---
 
-<BaseLayout title="联系 | 湖森堡AI_hooosberg" description="湖森堡AI_hooosberg 视频账号、社交媒体账号、邮箱和电报联系方式。">
+<BaseLayout title="联系 | 湖森堡AI_hooosberg" description={pageDescription} jsonLd={jsonLd}>
   <section class="page-hero page-hero--narrow">
     <h1>联系</h1>
     <p>这里是我们的视频账号和社交媒体账号，最后是邮箱和电报。想看过程、跟进产品、交流合作，都可以从这里找到我。</p>

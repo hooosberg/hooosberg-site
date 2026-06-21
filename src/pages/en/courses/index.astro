@@ -2,6 +2,7 @@
 import { ArrowRight, BookOpen } from "@lucide/astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { socialLinks } from "../../../data/products";
+import { buildSectionWebPageJsonLd } from "../../../utils/structuredData";
 
 const bilibiliLink = socialLinks.find((link) => link.label === "B站");
 
@@ -15,13 +16,22 @@ const courseTopics = [
   "Prompt workflows",
   "Product launch postmortems",
 ];
+const pageDescription = "Practical AI programming, office automation, app development, market analysis, and product launch course direction by Hooosberg.";
+const jsonLd = buildSectionWebPageJsonLd({
+  locale: "en",
+  path: "/en/courses",
+  name: "Hooosberg AI Programming Courses",
+  description: pageDescription,
+  topics: ["AI coding course", "AI programming course", "AI office automation course", "app development course"],
+});
 ---
 
 <BaseLayout
   locale="en"
   title="Courses | Hooosberg"
-  description="Practical AI programming, office automation, app development, market analysis, and product launch course direction by Hooosberg."
+  description={pageDescription}
   canonicalPath="/en/courses"
+  jsonLd={jsonLd}
 >
   <section class="page-hero page-hero--narrow courses-hero courses-hero--focused">
     <p class="commerce-kicker">Courses</p>

@@ -5,7 +5,7 @@ import ProductActionButton from "../../components/ProductActionButton.astro";
 import ProductIcon from "../../components/ProductIcon.astro";
 import { getArticlesForProduct } from "../../data/articles";
 import { getProductTimelineNote, products, type Product, type ProductAction } from "../../data/products";
-import { buildProductJsonLd } from "../../utils/structuredData";
+import { buildProductJsonLd, buildProductWebPageJsonLd } from "../../utils/structuredData";
 
 export function getStaticPaths() {
   return products.map((product) => ({
@@ -84,7 +84,7 @@ if (product.website) {
 
 addAction(product.secondaryAction);
 
-const productJsonLd = buildProductJsonLd(product, "zh-CN");
+const productJsonLd = [buildProductWebPageJsonLd(product, "zh-CN"), buildProductJsonLd(product, "zh-CN")];
 ---
 
 <BaseLayout

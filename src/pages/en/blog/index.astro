@@ -2,6 +2,7 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { articlesByDate } from "../../../data/articles";
 import { diarySectionsLocalized, getLocalizedArticle } from "../../../utils/i18n";
+import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../../utils/structuredData";
 
 const localizedArticles = articlesByDate.map((article) => getLocalizedArticle(article, "en"));
 const diaryGroups = diarySectionsLocalized.en.map((section) => ({
@@ -10,13 +11,32 @@ const diaryGroups = diarySectionsLocalized.en.map((section) => ({
 }));
 
 const articleHref = (slug: string, kind: string) => `/en/blog/${slug}?kind=${kind}`;
+const pageDescription = "Product diaries, reading notes, resource notes, and essays about AI, indie apps, product launches, and real build decisions.";
+const jsonLd = [
+  buildSectionCollectionJsonLd({
+    locale: "en",
+    path: "/en/blog",
+    name: "Hooosberg Build Diaries",
+    description: pageDescription,
+    topics: ["AI product build diaries", "indie app development", "AI coding case studies", "App Store review lessons"],
+  }),
+  buildItemListJsonLd(
+    "https://hooosberg.com/en/blog#article-list",
+    localizedArticles.map((article) => ({
+      name: article.title,
+      url: `/en/blog/${article.slug}`,
+      description: article.excerpt,
+    })),
+  ),
+];
 ---
 
 <BaseLayout
   locale="en"
   title="Journal | Hooosberg"
-  description="Product diaries, reading notes, resource notes, and essays about AI, indie apps, product launches, and real build decisions."
+  description={pageDescription}
   canonicalPath="/en/blog"
+  jsonLd={jsonLd}
 >
   <section class="page-hero page-hero--narrow">
     <h1>Journal</h1>

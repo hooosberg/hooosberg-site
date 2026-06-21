@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { articlesByDate, diarySections } from "../../data/articles";
+import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../utils/structuredData";
 
 const diaryGroups = diarySections.map((section) => ({
   ...section,
@@ -8,9 +9,27 @@ const diaryGroups = diarySections.map((section) => ({
 }));
 
 const articleHref = (slug: string, kind: string) => `/blog/${slug}?kind=${kind}`;
+const pageDescription = "产品日记、读书日记、资源分享和随想日记。";
+const jsonLd = [
+  buildSectionCollectionJsonLd({
+    locale: "zh-CN",
+    path: "/blog",
+    name: "Hooosberg Build Diaries",
+    description: pageDescription,
+    topics: ["AI product build diaries", "indie app development", "AI coding case studies", "App Store review lessons"],
+  }),
+  buildItemListJsonLd(
+    "https://hooosberg.com/blog#article-list",
+    articlesByDate.map((article) => ({
+      name: article.title,
+      url: `/blog/${article.slug}`,
+      description: article.excerpt,
+    })),
+  ),
+];
 ---
 
-<BaseLayout title="日记 | 湖森堡AI_hooosberg" description="产品日记、读书日记、资源分享和随想日记。">
+<BaseLayout title="日记 | 湖森堡AI_hooosberg" description={pageDescription} jsonLd={jsonLd}>
   <section class="page-hero page-hero--narrow">
     <h1>日记</h1>
     <p>

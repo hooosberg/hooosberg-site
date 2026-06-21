@@ -2,6 +2,7 @@
 import { ArrowRight, BookOpen } from "@lucide/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { socialLinks } from "../../data/products";
+import { buildSectionWebPageJsonLd } from "../../utils/structuredData";
 
 const bilibiliLink = socialLinks.find((link) => link.label === "B站");
 
@@ -15,9 +16,17 @@ const courseTopics = [
   "提示词工作流",
   "产品发布复盘",
 ];
+const pageDescription = "入门Ai编程实践课程：湖森堡AI_hooosberg 在 B 站更新的 AI 编程、办公自动化、App 开发、市场分析和开发实战教程。";
+const jsonLd = buildSectionWebPageJsonLd({
+  locale: "zh-CN",
+  path: "/courses",
+  name: "湖森堡 AI 编程课程",
+  description: pageDescription,
+  topics: ["AI coding course", "AI programming course", "AI office automation course", "app development course"],
+});
 ---
 
-<BaseLayout title="课程 | 湖森堡AI_hooosberg" description="入门Ai编程实践课程：湖森堡AI_hooosberg 在 B 站更新的 AI 编程、办公自动化、App 开发、市场分析和开发实战教程。">
+<BaseLayout title="课程 | 湖森堡AI_hooosberg" description={pageDescription} jsonLd={jsonLd}>
   <section class="page-hero page-hero--narrow courses-hero courses-hero--focused">
     <p class="commerce-kicker">Courses</p>
     <h1>课程</h1>

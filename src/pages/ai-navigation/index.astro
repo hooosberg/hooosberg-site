@@ -2,6 +2,7 @@
 import { ArrowRight, ExternalLink, Mail, Search } from "@lucide/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { socialLinks } from "../../data/products";
+import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../utils/structuredData";
 
 type CountryCode = "us" | "cn" | "uk" | "au" | "ca" | "fr" | "global";
 
@@ -566,12 +567,31 @@ const alternativePairs: AlternativePair[] = [
 
 const totalItems = groups.reduce((sum, group) => sum + group.items.length, 0);
 const emailLink = socialLinks.find((link) => link.label === "Email");
+const pageDescription = "亲自试用后筛选的 AI 工具排行榜导航：不做工具大杂烩，只收录真正高频、成熟、值得国际用户选择的顶级 AI 产品，并提供国内平替和中美产品对照。";
+const toolItems = groups.flatMap((group) =>
+  group.items.map((item) => ({
+    name: item.name,
+    url: item.url,
+    description: `${group.title}: ${item.description}`,
+  })),
+);
+const jsonLd = [
+  buildSectionCollectionJsonLd({
+    locale: "zh-CN",
+    path: "/ai-navigation",
+    name: "AI 工具排行榜导航",
+    description: pageDescription,
+    topics: ["AI product navigation", "AI tools directory", "AI coding tools", "ChatGPT alternatives", "AI developer tools"],
+  }),
+  buildItemListJsonLd("https://hooosberg.com/ai-navigation#tool-list", toolItems),
+];
 ---
 
 <BaseLayout
   title="AI 导航 | 湖森堡AI_hooosberg"
-  description="亲自试用后筛选的 AI 工具排行榜导航：不做工具大杂烩，只收录真正高频、成熟、值得国际用户选择的顶级 AI 产品，并提供国内平替和中美产品对照。"
+  description={pageDescription}
   mainClass="main--ai-directory"
+  jsonLd={jsonLd}
 >
   <section class="ai-directory-hero">
     <div>
