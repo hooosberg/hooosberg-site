@@ -1,0 +1,106 @@
+---
+import { toLocalizedPath, type Locale } from "../utils/i18n";
+
+type Props = {
+  locale?: Locale;
+};
+
+const { locale = "zh-CN" } = Astro.props;
+const isEnglish = locale === "en";
+const privacyPath = toLocalizedPath("/privacy", locale);
+const cookiesPath = toLocalizedPath("/cookies", locale);
+const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? "G-80YLYDWMT6";
+---
+
+{
+  measurementId && (
+    <div class="analytics-consent" data-analytics-consent hidden>
+      <div class="analytics-consent__copy">
+        <strong>{isEnglish ? "Analytics choices" : "网站统计选择"}</strong>
+        <p>
+          {isEnglish
+            ? "We use Google Analytics only after you agree, so we can understand site traffic and improve the website."
+            : "我们只会在你同意后加载 Google Analytics，用来了解访问情况并改进网站。"}
+        </p>
+        <div class="analytics-consent__links">
+          <a href={privacyPath}>{isEnglish ? "Privacy" : "隐私政策"}</a>
+          <a href={cookiesPath}>{isEnglish ? "Cookies" : "Cookie 说明"}</a>
+        </div>
+      </div>
+      <div class="analytics-consent__actions">
+        <button type="button" class="button button--secondary" data-analytics-decline>
+          {isEnglish ? "Decline" : "拒绝"}
+        </button>
+        <button type="button" class="button button--primary" data-analytics-accept>
+          {isEnglish ? "Accept analytics" : "同意统计"}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+{
+  measurementId && (
+    <script is:inline define:vars={{ measurementId }}>
+      (() => {
+        const consentKey = "hooosberg-analytics-consent";
+        const banner = document.querySelector("[data-analytics-consent]");
+        const acceptButton = document.querySelector("[data-analytics-accept]");
+        const declineButton = document.querySelector("[data-analytics-decline]");
+
+        const loadGoogleAnalytics = () => {
+          if (!measurementId || window.__hooosbergAnalyticsLoaded) return;
+          window.__hooosbergAnalyticsLoaded = true;
+
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function gtag() {
+            window.dataLayer.push(arguments);
+          };
+
+          const script = document.createElement("script");
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+          document.head.appendChild(script);
+
+          window.gtag("js", new Date());
+          window.gtag("config", measurementId);
+        };
+
+        const setChoice = (choice) => {
+          try {
+            localStorage.setItem(consentKey, choice);
+          } catch {
+            // Storage can be disabled; keep the current page usable.
+          }
+          if (banner) banner.hidden = true;
+          if (choice === "accepted") loadGoogleAnalytics();
+        };
+
+        try {
+          const savedChoice = localStorage.getItem(consentKey);
+          if (savedChoice === "accepted") {
+            loadGoogleAnalytics();
+          } else if (savedChoice !== "declined" && banner) {
+            banner.hidden = false;
+          }
+        } catch {
+          if (banner) banner.hidden = false;
+        }
+
+        acceptButton?.addEventListener("click", () => setChoice("accepted"));
+        declineButton?.addEventListener("click", () => setChoice("declined"));
+
+        window.HooosbergAnalytics = {
+          resetConsent() {
+            try {
+              localStorage.removeItem(consentKey);
+            } catch {
+              // Ignore storage errors.
+            }
+            if (banner) banner.hidden = false;
+          },
+        };
+      })();
+    </script>
+  )
+}

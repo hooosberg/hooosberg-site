@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Cookie 说明 | 湖森堡AI_hooosberg"
+  description="湖森堡AI_hooosberg 网站的本地存储、Cookie 和统计同意选择说明。"
+  canonicalPath="/cookies"
+>
+  <section class="legal-page">
+    <p class="hero-kicker">Legal</p>
+    <h1>Cookie 与统计说明</h1>
+    <p class="legal-page__updated">最后更新：2026-06-21</p>
+
+    <p>
+      hooosberg.com 会尽量减少不必要的追踪。网站本身主要使用浏览器本地存储来保存语言、主题和统计同意选择。
+    </p>
+
+    <h2>必要偏好</h2>
+    <p>
+      网站可能在你的浏览器中保存主题、语言和 Cookie/统计选择。这些设置用于让网站按你的偏好显示，通常不会发送到我们的服务器。
+    </p>
+
+    <h2>分析工具</h2>
+    <p>
+      如果配置了 Google Analytics，网站只会在你点击同意后加载统计脚本。
+      统计用于了解页面访问量、内容表现和网站改进方向。拒绝后，非必要统计脚本不会加载。
+    </p>
+
+    <h2>如何更改选择</h2>
+    <p>
+      你可以清除浏览器中 hooosberg.com 的站点数据来重置选择。也可以打开开发者工具执行：
+    </p>
+    <pre><code>window.HooosbergAnalytics?.resetConsent()</code></pre>
+
+    <h2>外部平台</h2>
+    <p>
+      当你点击第三方链接或嵌入内容时，对方平台可能按自己的规则使用 Cookie、日志或统计技术。
+      这些行为由第三方平台的政策控制。
+    </p>
+  </section>
+</BaseLayout>

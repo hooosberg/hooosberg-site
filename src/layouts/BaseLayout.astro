@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import AnalyticsConsent from "../components/AnalyticsConsent.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import {
@@ -130,5 +131,6 @@ const htmlLang = localeMeta[locale].htmlLang;
       <slot />
     </main>
     <SiteFooter locale={locale} />
+    <AnalyticsConsent locale={locale} />
   </body>
 </html>

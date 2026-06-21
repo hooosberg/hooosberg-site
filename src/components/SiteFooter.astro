@@ -1,5 +1,5 @@
 ---
-import { brandNameByLocale, getLocalizedSocialLinks, uiText, type Locale } from "../utils/i18n";
+import { brandNameByLocale, getLocalizedSocialLinks, toLocalizedPath, uiText, type Locale } from "../utils/i18n";
 
 type Props = {
   locale?: Locale;
@@ -9,6 +9,11 @@ const { locale = "zh-CN" } = Astro.props;
 const text = uiText[locale];
 const brandTitle = brandNameByLocale[locale];
 const links = getLocalizedSocialLinks(locale);
+const legalLinks = [
+  { label: locale === "en" ? "Privacy" : "隐私政策", url: toLocalizedPath("/privacy", locale) },
+  { label: locale === "en" ? "Terms" : "服务条款", url: toLocalizedPath("/terms", locale) },
+  { label: locale === "en" ? "Cookies" : "Cookie 说明", url: toLocalizedPath("/cookies", locale) },
+];
 ---
 
 <footer class="site-footer">
@@ -19,6 +24,7 @@ const links = getLocalizedSocialLinks(locale);
     </div>
     <nav aria-label="Footer links">
       {links.map((link) => <a href={link.url} target={link.url.startsWith("http") ? "_blank" : undefined} rel="noreferrer">{link.label}</a>)}
+      {legalLinks.map((link) => <a href={link.url}>{link.label}</a>)}
     </nav>
   </div>
 </footer>

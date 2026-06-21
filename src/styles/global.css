@@ -4248,3 +4248,124 @@ main.main--ai-directory {
     --mobile-header-stick: 124px;
   }
 }
+
+.legal-page {
+  width: min(var(--narrow), calc(100% - 48px));
+  margin: 0 auto;
+  padding: 72px 0 96px;
+}
+
+.legal-page h1 {
+  margin: 10px 0 8px;
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1.02;
+}
+
+.legal-page h2 {
+  margin: 42px 0 12px;
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.legal-page p,
+.legal-page li {
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.legal-page ul {
+  display: grid;
+  gap: 10px;
+  padding-left: 20px;
+}
+
+.legal-page pre {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+  padding: 16px;
+}
+
+.legal-page code {
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+}
+
+.legal-page__updated {
+  margin-top: 0;
+}
+
+.analytics-consent {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 120;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  width: min(680px, calc(100% - 48px));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface-solid) 94%, transparent);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  backdrop-filter: blur(18px) saturate(160%);
+}
+
+.analytics-consent__copy strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+.analytics-consent__copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.analytics-consent__links,
+.analytics-consent__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.analytics-consent__links {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.analytics-consent__links a:hover {
+  color: var(--text);
+}
+
+.analytics-consent__actions {
+  justify-content: end;
+}
+
+.analytics-consent__actions .button {
+  min-height: 42px;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .analytics-consent {
+    right: 16px;
+    bottom: 16px;
+    grid-template-columns: 1fr;
+    width: calc(100% - 32px);
+  }
+
+  .analytics-consent__actions {
+    justify-content: stretch;
+  }
+
+  .analytics-consent__actions .button {
+    flex: 1;
+  }
+}

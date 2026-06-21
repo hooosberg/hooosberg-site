@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  locale="en"
+  title="Cookie Notice | Hooosberg"
+  description="Cookie and local storage notice for Hooosberg, including analytics consent choices."
+  canonicalPath="/en/cookies"
+>
+  <section class="legal-page">
+    <p class="hero-kicker">Legal</p>
+    <h1>Cookie Notice</h1>
+    <p class="legal-page__updated">Last updated: 2026-06-21</p>
+
+    <p>
+      hooosberg.com keeps tracking minimal. The website mainly uses browser local storage for language, theme, and analytics consent choices.
+    </p>
+
+    <h2>Essential preferences</h2>
+    <p>
+      Theme, language, and analytics consent choices may be stored in your browser so the site can respect your preferences.
+    </p>
+
+    <h2>Analytics</h2>
+    <p>
+      If Google Analytics is configured, the analytics script loads only after you accept analytics. It helps us understand traffic,
+      content performance, and improvement priorities. If you decline, non-essential analytics does not load.
+    </p>
+
+    <h2>Changing your choice</h2>
+    <p>
+      You can clear site data for hooosberg.com in your browser, or run this in developer tools:
+    </p>
+    <pre><code>window.HooosbergAnalytics?.resetConsent()</code></pre>
+
+    <h2>External platforms</h2>
+    <p>
+      Third-party links or embedded services may use cookies, logs, or analytics under their own policies.
+    </p>
+  </section>
+</BaseLayout>

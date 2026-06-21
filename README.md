@@ -1,100 +1,91 @@
-# hooosberg-site
+# Hooosberg AI Website
 
-`hooosberg.com` 个人站本地原型。
+Source code for [hooosberg.com](https://hooosberg.com), the public website for 湖森堡AI_hooosberg.
 
-源码仓库现在位于：
+Hooosberg is a public notebook for real product work in the AI era: independent apps, AI tools, launch notes, failed-product postmortems, AI coding workflows, and long-term build diaries.
 
-```text
-/Users/maohuhu/Desktop/编程项目/ai教程项目/hooosberg-site/github
-```
+## What The Site Contains
 
-本地不上传资料放在：
+- Product pages for independent apps and tools.
+- Build diaries that show requirements, prompts, code decisions, launch work, and postmortems.
+- AI tool navigation for builders choosing coding agents, model platforms, design tools, hosting, and learning resources.
+- Course and service entry points.
+- Bilingual routes: Chinese at `/` and English at `/en`.
+- Site-wide privacy, terms, and cookie pages.
 
-```text
-../local
-```
+## Tech Stack
 
-网站相关开发文档统一放在上级项目根目录：
+- [Astro](https://astro.build/)
+- TypeScript
+- Static HTML output
+- Cloudflare Pages
+- GitHub-driven deployment
 
-```text
-../../docs/website
-```
+Cloudflare Pages builds from the `main` branch. Every normal update flows through GitHub, then Cloudflare automatically publishes the new build.
 
-重点文档：
-
-- `../../docs/website/seo-i18n-architecture.md`
-- `../../docs/website/development-diary-workflow.md`
-
-当前目标：
-
-- 首页首屏直接展示产品矩阵和下载入口。
-- `/apps` 展示所有产品。
-- `/apps/<slug>` 提供每个产品的独立落地页、下载链接、隐私政策和支持入口。
-- `/privacy/<slug>` 与 `/support/<slug>` 先建立 App Store 可用路径。
-- `/blog`、`/courses`、`/links` 先作为后续内容入口。
-- `/en/...` 提供英文镜像路径；中文保留根路径，英文统一放在 `/en` 下。
-- 所有核心页面输出 canonical、hreflang、Open Graph、Twitter Card 和结构化数据；构建时生成 `robots.txt`、`sitemap-index.xml`。
-
-## 本地开发
+## Local Development
 
 ```bash
-cd /Users/maohuhu/Desktop/编程项目/ai教程项目/hooosberg-site/github
 npm install
 npm run dev -- --port 4321
 ```
 
-打开：
+Open:
 
 ```text
 http://localhost:4321/
 ```
 
-如果 4321 被占用，Astro 会自动尝试下一个端口，例如 `http://localhost:4323/`。
-
-## 构建
+## Build And Test
 
 ```bash
-cd /Users/maohuhu/Desktop/编程项目/ai教程项目/hooosberg-site/github
 npm run build
+npm test
 ```
 
-## GitHub 与 Cloudflare Pages
+`npm test` runs the production build and the Node test suite under `tests/`.
 
-GitHub 仓库根目录使用当前 `github/` 文件夹。
+## Deployment
 
-Cloudflare Pages 推荐设置：
+Production is hosted on Cloudflare Pages:
 
-- Framework preset: `Astro`
 - Build command: `npm run build`
-- Build output directory: `dist`
+- Output directory: `dist`
 - Production branch: `main`
+- Live site: <https://hooosberg.com>
 
-不要上传 `../local` 中的文件。敏感配置放在 Cloudflare Pages 的 Environment variables 或 Secrets 中，不写入源码仓库。
+Deployment and troubleshooting notes are recorded in [docs/deployment-runbook.md](docs/deployment-runbook.md).
 
-## 产品数据
+## Analytics And Privacy
 
-产品集中维护在：
+The site includes a consent-based analytics loader. Google Analytics only loads after a visitor accepts analytics.
+
+Set the public Measurement ID as:
 
 ```text
-src/data/products.ts
+PUBLIC_GA_MEASUREMENT_ID=G-80YLYDWMT6
 ```
 
-新增产品时，先补这里，再检查：
+The Measurement ID is not a secret. Tokens, credentials, private drafts, and local-only material do not belong in this repository.
 
-- `/apps`
-- `/apps/<slug>`
-- `/privacy/<slug>`
-- `/terms/<slug>`
-- `/en/apps/<slug>`
-- `/en/privacy/<slug>`
-- `/en/terms/<slug>`
+## Repository Structure
 
-## 多语言与 SEO
+```text
+src/
+  components/   Reusable Astro components
+  data/         Product and article data
+  layouts/      Base page layout and SEO shell
+  pages/        Static routes
+  styles/       Global CSS
+public/         Static assets and Cloudflare Pages headers
+docs/           Deployment, GitHub publishing, and operations notes
+tests/          Build-time integrity tests
+```
 
-当前规则：
+## Local-Only Material
 
-- 中文 canonical：`/<route>`，例如 `/apps/witnote`、`/blog/drowsebook-market-research`。
-- 英文 canonical：`/en/<route>`，例如 `/en/apps/witnote`、`/en/blog/drowsebook-market-research`。
-- 旧兼容法律路径：`/<slug>/privacy`、`/<slug>/terms` 会 canonical 到 `/privacy/<slug>`、`/terms/<slug>`，并从 sitemap 过滤。
-- 非中文浏览器首次访问中文根路径时，会自动跳到英文镜像路径；用户手动切换语言后会记住选择。
-- 主题默认按本地时间自动选择，用户点击主题按钮后会记住手动选择。
+The wider local project uses a sibling folder named `local/` for private or unpublished material. That folder is intentionally outside this Git repository and should not be uploaded.
+
+## License
+
+No formal open-source license has been selected yet. Until a license is added, the source is public for viewing and reference, but reuse rights are not granted by default.
