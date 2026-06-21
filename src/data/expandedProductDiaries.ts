@@ -224,7 +224,7 @@ export const expandedProductDiaries: ArticleSeed[] = [
           heading: "Apple 原文要点",
           paragraphs: [
             "Guideline 4 - Design：Apple 认为 App 的用户界面造成低于 App Store 用户预期的体验。具体问题是主窗口关闭后没有可重新打开的菜单项。",
-            "审核环境是 MacBook Pro (14-inch, Nov 2024)，Submission ID 为 966c35e0-da24-4350-a6e7-e8dcb3bd8c2d，Version reviewed 是 1.2.4。完整原信和回复已经归档在上架助手。"
+            "审核环境是 MacBook Pro (14-inch, Nov 2024)，Version reviewed 是 1.2.4。具体提交编号、完整原信和回复留在内部归档。"
           ],
         },
         {
@@ -463,7 +463,7 @@ export const expandedProductDiaries: ArticleSeed[] = [
           heading: "Apple 原文要点",
           paragraphs: [
             "Guideline 2.1(a)：Settings... 按钮点击后无响应，属于 App Completeness bug。Guideline 2.3.6：App 可访问不受限制的互联网内容，因此 Age Rating 必须选择 Yes for Unrestricted Web Access。",
-            "审核设备是 MacBook Pro (14-inch, Nov 2024)，Submission ID 为 77e5d3ce-ba06-4518-8432-e06a91722c5f。完整原信、第一次回复和第二次回复都已归档到上架助手。"
+            "审核设备是 MacBook Pro (14-inch, Nov 2024)。具体提交编号、完整原信、第一次回复和第二次回复留在内部归档。"
           ],
         },
         {
@@ -702,7 +702,7 @@ export const expandedProductDiaries: ArticleSeed[] = [
           heading: "第一轮原文要点",
           paragraphs: [
             "Guideline 5.2.5：metadata 里不当使用 App Store 相关术语，可能造成 Apple 产品或服务混淆。Guideline 2.3.10：描述包含 Google Play 等第三方平台引用，对 App Store 用户不相关。",
-            "Guideline 2.1：App 启动后显示空白页。Guideline 1.5：Support URL 指向 GitHub Issues，不是用户可用的支持信息网页。完整原文已归档到上架助手。"
+            "Guideline 2.1：App 启动后显示空白页。Guideline 1.5：Support URL 指向 GitHub Issues，不是用户可用的支持信息网页。完整原文留在内部归档。"
           ],
         },
         {
@@ -934,14 +934,14 @@ export const expandedProductDiaries: ArticleSeed[] = [
       body: [
         "TrekReel 的一次拒审不是代码问题，而是 App Store Connect 字段理解问题。2026-04-01，Apple 按 Guideline 2.3.2 打回 1.0.4，原因是 IAP Promotional Image 使用了 App 内截图。",
         "Apple 原文要点是：Your promotional image is a screenshot taken from the app。中文翻译就是：你的促销图是一张从 App 内截取的截图。",
-        "根因很朴素：我们把内部付费墙截图误上传到可选 Promotional Image，而不是只放在 Review Information 里。最后选择不公开推广这个 IAP，从 ASC 清除 Promotional Image，回复说明后继续审核。"
+        "根因很朴素：我们把 App 内付费墙截图误上传到可选 Promotional Image，而不是只放在 Review Information 里。最后选择不公开推广这个 IAP，从 ASC 清除 Promotional Image，回复说明后继续审核。"
       ],
       sections: [
         {
           heading: "Apple 原文要点",
           paragraphs: [
             "Guideline 2.3.2 - Accurate Metadata：Apple 认为要展示在 App Store 上的 promotional image 没有充分代表对应的 promoted In-App Purchase 或 win-back offer。",
-            "具体问题是促销图来自 App 内截图。审核设备是 MacBook Air (15-inch, M3, 2024)，Submission ID 为 7d6cfa98-ca9f-4d92-9bda-aa078e2a70ed。"
+            "具体问题是促销图来自 App 内截图。审核设备是 MacBook Air (15-inch, M3, 2024)，具体提交编号留在内部归档。"
           ],
         },
         {
@@ -1551,9 +1551,9 @@ export const expandedProductDiaries: ArticleSeed[] = [
           ],
         },
         {
-          heading: "拒审记录要进入上架助手",
+          heading: "拒审记录要进入发布复盘",
           paragraphs: [
-            "这次复盘最重要的不是把一封信处理完，而是把 Apple 的原始问题、修复映射、验证截图、回复草稿、重提状态都放进上架助手。下一个 AI、语音、情绪或 IAP 产品遇到类似问题时，可以直接复用这套检查表。",
+            "这次复盘最重要的不是把一封信处理完，而是把 Apple 的原始问题、修复映射、验证截图、回复草稿、重提状态都整理成发布复盘。下一个 AI、语音、情绪或 IAP 产品遇到类似问题时，可以直接复用这套检查表。",
             "官网上不应该把这种状态藏起来。未上架就显示“App Store 即将上架”，开发日记则公开写清楚被拒原因和处理经验。真实进度本身就是产品信任的一部分。"
           ],
         },
@@ -1697,7 +1697,7 @@ export const expandedProductDiaries: ArticleSeed[] = [
       tags: ["App Store", "审核", "内容"],
       order: 5,
       body: [
-        "本轮资料里没有找到 Rushi 被拒审的原信；相反，上架助手把它作为 DrowseBook 的对照案例：Rushi 选 Lifestyle，通过工具定位和来源说明降低了 China mainland 内容风险。",
+        "本轮资料里没有找到 Rushi 被拒审的原信；相反，发布复盘把它作为 DrowseBook 的对照案例：Rushi 选 Lifestyle，通过工具定位和来源说明降低了 China mainland 内容风险。",
         "Rushi 这类产品在 App Store 上架时，需要让审核员快速理解：它提供什么内容、来源是什么、是否收集数据、是否有付费和社区功能。",
         "类目风险通常来自表达不清。越像一个安静阅读工具，越要在说明里避免夸张效果承诺；越可能被误解成宗教服务，越要把它写成离线、买断、无广告、无账号的个人工具。"
       ],

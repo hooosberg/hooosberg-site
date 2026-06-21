@@ -14,6 +14,7 @@ import ProductCard from "../components/ProductCard.astro";
 import ProductProgressTimeline from "../components/ProductProgressTimeline.astro";
 import { productDiaryArticles } from "../data/articles";
 import { productsByLatest, socialLinks } from "../data/products";
+import { buildHomeJsonLd } from "../utils/structuredData";
 
 const featuredProducts = productsByLatest.slice(0, 6);
 const featuredArticles = productDiaryArticles.slice(0, 4);
@@ -53,6 +54,7 @@ const socialCards = socialLinks
 <BaseLayout
   title="湖森堡AI_hooosberg | 哲学 艺术 AI"
   description="分享 AI 时代真实产品开发、思考过程、产品日记和独立开发历险。"
+  jsonLd={buildHomeJsonLd("zh-CN")}
 >
   <section class="landing-hero">
     <div class="hero-grid" aria-hidden="true"></div>

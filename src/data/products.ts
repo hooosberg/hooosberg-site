@@ -371,18 +371,18 @@ export const products: Product[] = [
     learnSlug: "mood-button-local-voice",
     privacy: privacyLocal("设计方向以本地语音和本地模型为核心，正式上架前需要逐项核对隐私标签。"),
     features: ["语音情绪记录", "Apple MLX 本地推理", "Qwen3 轻量交互", "低干扰日记体验"],
-    buildNotes: ["本地语音 AI 和情绪产品边界。", "2026-06-17 被 App Review 拒回，上架助手已记录后续修复、审核回复和重提材料。"],
+    buildNotes: ["本地语音 AI 和情绪产品边界。", "2026-06-17 被 App Review 拒回，后续修复、审核回复和重提材料已进入发布记录。"],
     courseHooks: ["本地 AI", "语音日记", "情绪产品设计"],
     detail: {
       overview: [
         "Mood Button 是 iPhone 上的本地 AI 语音情绪日记。它的真实发布状态不是已上架：2026-06-17 App Review 拒回了 build 1.0 (2)，原因集中在 iPad UI、AI 数据流隐私说明，以及 IAP 入口可见性。",
-        "上架助手台账记录了后续修复：App Review Notes 和隐私政策补充了“无第三方托管 AI 服务接收用户内容”的说明，iPad 截图和 IAP 路径也完成了验证和读回检查。",
+        "发布记录保留了后续修复线索：App Review Notes 和隐私政策补充了“无第三方托管 AI 服务接收用户内容”的说明，iPad 截图和 IAP 路径也完成了验证和读回检查。",
         "所以这里不把旧 GitHub Pages 硬写成主下载入口。主按钮只显示 App Store 即将上架，等审核通过后再切换到真实 App Store 链接。"
       ],
       proofPoints: [
-        { label: "审核状态", value: "被拒后处理中", note: "2026-06-17 被拒；后续修复、回复和重提材料已进入上架助手记录。" },
+        { label: "审核状态", value: "被拒后处理中", note: "2026-06-17 被拒；后续修复、回复和重提材料已进入发布记录。" },
         { label: "拒审问题", value: "4.0 / 5.1 / 2.1(b)", note: "iPad UI、AI 隐私披露、IAP Unlock Home Skins 可见性。" },
-        { label: "事实源", value: "上架助手台账", note: "LocalMoodVoice 上架记录 + 老板秘书项目流转表。" },
+        { label: "事实源", value: "公开发布进度", note: "来自已公开的产品状态、审核节点和发布准备记录。" },
         { label: "公开材料", value: "GitHub Pages", note: "旧产品页保留为审核材料、隐私政策和支持页面，不冒充已上架下载入口。" }
       ],
       valueProps: [
@@ -628,7 +628,7 @@ export const productProgressItems: ProductProgressItem[] = [
     phase: "App Review",
     status: "6/17 被拒，复审中",
     next: "等 Apple 复审；通过后切 App Store 链接",
-    source: "上架助手 LocalMoodVoice 台账 + 老板秘书项目流转表",
+    source: "公开发布进度 2026-06-21",
     progress: 94,
     tone: "review",
     segments: [
@@ -642,7 +642,7 @@ export const productProgressItems: ProductProgressItem[] = [
     phase: "App Store",
     status: "已上架",
     next: "补产品档案、ASO 和首轮素材",
-    source: "老板秘书项目进度快照 2026-06-14",
+    source: "公开发布进度 2026-06-14",
     progress: 100,
     tone: "live",
     segments: [
@@ -657,7 +657,7 @@ export const productProgressItems: ProductProgressItem[] = [
     phase: "已上线",
     status: "已上线 + 已推",
     next: "观察反馈；下版补 Mahjong 搜索",
-    source: "老板秘书项目流转表 2026-05-23",
+    source: "公开发布进度 2026-05-23",
     progress: 100,
     tone: "live",
     segments: [
@@ -672,7 +672,7 @@ export const productProgressItems: ProductProgressItem[] = [
     phase: "App Store",
     status: "v1.1 已通过",
     next: "进入下一轮发版推广和经营观察",
-    source: "用户 2026-06-21 确认 + 老板秘书项目流转表",
+    source: "公开发布进度 2026-06-21",
     progress: 100,
     tone: "live",
     segments: [
@@ -687,7 +687,7 @@ export const productProgressItems: ProductProgressItem[] = [
     phase: "已开发",
     status: "Ready + 已推",
     next: "存量观察，Native v2 文档另线推进",
-    source: "老板秘书项目流转表 2026-05-23",
+    source: "公开发布进度 2026-05-23",
     progress: 100,
     tone: "live",
     segments: [
@@ -700,7 +700,7 @@ export const productProgressItems: ProductProgressItem[] = [
     phase: "已开发",
     status: "Ready + 观察",
     next: "做路线样片、ASO 和体验验证",
-    source: "老板秘书项目流转表 2026-05-23",
+    source: "公开发布进度 2026-05-23",
     progress: 100,
     tone: "live",
     segments: [
@@ -713,7 +713,7 @@ export const productProgressItems: ProductProgressItem[] = [
     phase: "已开发",
     status: "Ready + 已推",
     next: "失败复盘，保留方法论",
-    source: "老板秘书项目流转表 2026-05-23",
+    source: "公开发布进度 2026-05-23",
     progress: 100,
     tone: "live",
     segments: [
@@ -726,7 +726,7 @@ export const productProgressItems: ProductProgressItem[] = [
     phase: "已开发",
     status: "Ready",
     next: "继续限免、送码和二次推广",
-    source: "老板秘书项目流转表 2026-05-23",
+    source: "公开发布进度 2026-05-23",
     progress: 100,
     tone: "live",
     segments: [
@@ -740,7 +740,7 @@ export const productProgressItems: ProductProgressItem[] = [
     phase: "已开发",
     status: "Ready",
     next: "失败复盘，低维护观察",
-    source: "老板秘书项目流转表 2026-05-23",
+    source: "公开发布进度 2026-05-23",
     progress: 100,
     tone: "live",
     segments: [
@@ -754,7 +754,7 @@ export const productProgressItems: ProductProgressItem[] = [
     phase: "候选",
     status: "暂缓",
     next: "等 Mood Button 复审结果再排期",
-    source: "老板秘书项目流转表 2026-05-24",
+    source: "公开发布进度 2026-05-24",
     progress: 12,
     tone: "observe",
     segments: [

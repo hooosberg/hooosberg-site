@@ -15,6 +15,16 @@ const enGlotShotArticlePage = new URL("../dist/en/blog/glotshot-app-store-lesson
 const robotsPage = new URL("../dist/robots.txt", import.meta.url);
 const sitemapIndex = new URL("../dist/sitemap-index.xml", import.meta.url);
 
+function jsonLdItems(html) {
+  return [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((match) =>
+    JSON.parse(match[1]),
+  );
+}
+
+function findJsonLd(html, type) {
+  return jsonLdItems(html).find((item) => item["@type"] === type);
+}
+
 test("core pages expose canonical, hreflang, social metadata, and JSON-LD", async () => {
   const [productHtml, enProductHtml, articleHtml, enArticleHtml] = await Promise.all([
     readFile(productPage, "utf8"),
@@ -28,6 +38,10 @@ test("core pages expose canonical, hreflang, social metadata, and JSON-LD", asyn
   assert.match(productHtml, /property="og:title"/, "Open Graph title should render");
   assert.match(productHtml, /name="twitter:card" content="summary_large_image"/, "Twitter card should render");
   assert.match(productHtml, /"@type":"SoftwareApplication"/, "product pages should include SoftwareApplication JSON-LD");
+  assert.match(productHtml, /"publisher":\{"@type":"Organization","name":"Hooosberg"/, "product JSON-LD should connect apps to the site organization");
+  assert.match(productHtml, /"downloadUrl":"https:\/\/apps\.apple\.com\/us\/app\/witnote-local-ai-writer\/id6756833873"/, "product JSON-LD should expose the primary download URL");
+  assert.match(productHtml, /"sameAs":\["https:\/\/github\.com\/hooosberg\/WitNote"/, "product JSON-LD should expose repo and legacy/canonical profiles as sameAs");
+  assert.match(productHtml, /"keywords":\[/, "product JSON-LD should expose searchable product keywords");
 
   assert.match(enProductHtml, /<html[^>]*lang="en"/, "English product should use an English html lang");
   assert.match(enProductHtml, /<link rel="canonical" href="https:\/\/hooosberg\.com\/en\/apps\/witnote">/, "English product should canonicalize to the /en product URL");
@@ -39,16 +53,27 @@ test("core pages expose canonical, hreflang, social metadata, and JSON-LD", asyn
   assert.match(enArticleHtml, /This English page is generated from the same public product facts/, "English article should render an indexable English body");
 });
 
-test("language switch and automatic locale routing are present", async () => {
+test("homepages expose organization website entities without automatic locale redirects", async () => {
   const [homeHtml, enHomeHtml] = await Promise.all([
     readFile(homePage, "utf8"),
     readFile(enHomePage, "utf8"),
   ]);
 
   assert.match(homeHtml, /data-language-switch[^>]*data-target-locale="en"/, "Chinese pages should offer an English switch");
-  assert.match(homeHtml, /navigator\.languages/, "Chinese pages should contain browser-language detection");
+  assert.doesNotMatch(homeHtml, /navigator\.languages/, "Chinese pages should not auto-route crawlers or visitors by browser language");
+  assert.doesNotMatch(homeHtml, /window\.location\.replace/, "Chinese pages should not redirect automatically by locale");
   assert.match(enHomeHtml, /data-language-switch[^>]*data-target-locale="zh-CN"/, "English pages should offer a Chinese switch");
   assert.match(enHomeHtml, /href="\/"/, "English nav should link back to the Chinese home route through the switch/header alternates");
+
+  const organization = findJsonLd(homeHtml, "Organization");
+  const website = findJsonLd(homeHtml, "WebSite");
+  const person = findJsonLd(homeHtml, "Person");
+
+  assert.equal(organization?.name, "Hooosberg", "Chinese homepage should identify the organization entity");
+  assert.equal(organization?.url, "https://hooosberg.com/", "organization entity should use the canonical apex domain");
+  assert.ok(organization?.sameAs?.includes("https://github.com/hooosberg"), "organization entity should link to the public GitHub profile");
+  assert.equal(website?.publisher?.["@id"], "https://hooosberg.com/#organization", "website entity should connect to the organization");
+  assert.equal(person?.["@id"], "https://hooosberg.com/#founder", "homepage should expose the public founder/person entity");
 });
 
 test("English brand and pricing use localized presentation", async () => {

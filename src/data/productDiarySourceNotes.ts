@@ -111,7 +111,7 @@ export const productDiarySourceNotes: Record<string, ProductDiarySourceNote> = {
     reusableLesson: "视觉工具要从数据入口讲到导出结果，用户购买的是可发布素材，不是中间预览。",
   },
   "mood-button": {
-    sourceAreas: ["LocalMoodVoice 开发计划", "模型验证记录", "上架收尾盘点", "App Review 修复记录"],
+    sourceAreas: ["Mood Button 开发计划", "模型验证记录", "上架收尾盘点", "App Review 修复记录"],
     records: [
       "Mood Button 的 docs 覆盖语音到多语日记、AI 线索生成、本地 AI 显性验证、MLX 真实模型测试和 iPad 原生适配。",
       "上架记录包含上传前状态复核、TestFlight 收费墙、产品名称和 GitHub 重命名、App Review 拒回后的修复路径。",

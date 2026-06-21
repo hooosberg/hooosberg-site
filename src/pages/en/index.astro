@@ -5,6 +5,7 @@ import ProductCard from "../../components/ProductCard.astro";
 import { productDiaryArticles } from "../../data/articles";
 import { productsByLatest, socialLinks } from "../../data/products";
 import { getLocalizedArticle, getLocalizedSocialLinks } from "../../utils/i18n";
+import { buildHomeJsonLd } from "../../utils/structuredData";
 
 const featuredProducts = productsByLatest.slice(0, 6);
 const featuredArticles = productDiaryArticles.slice(0, 4).map((article) => getLocalizedArticle(article, "en"));
@@ -47,6 +48,7 @@ const socialCards = localizedSocialLinks
   title="Hooosberg | Philosophy, Art, AI"
   description="Real product builds, AI-assisted development, indie app diaries, postmortems, and global-facing product pages by Hooosberg."
   canonicalPath="/en"
+  jsonLd={buildHomeJsonLd("en")}
 >
   <section class="landing-hero">
     <div class="hero-grid" aria-hidden="true"></div>

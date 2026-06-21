@@ -54,7 +54,7 @@ Production is hosted on Cloudflare Pages:
 - Production branch: `main`
 - Live site: <https://hooosberg.com>
 
-Deployment and troubleshooting notes are recorded in [docs/deployment-runbook.md](docs/deployment-runbook.md).
+Deployment, publishing, SEO, and operating notes are private local project documents and are not committed to this public source repository.
 
 ## Analytics And Privacy
 
@@ -78,13 +78,12 @@ src/
   pages/        Static routes
   styles/       Global CSS
 public/         Static assets and Cloudflare Pages headers
-docs/           Deployment, GitHub publishing, and operations notes
 tests/          Build-time integrity tests
 ```
 
 ## Local-Only Material
 
-The wider local project uses a sibling folder named `local/` for private or unpublished material. That folder is intentionally outside this Git repository and should not be uploaded.
+The wider local project keeps private or unpublished material outside this Git repository. Local-only material includes deployment runbooks, GitHub publishing notes, SEO/growth plans, account/provider notes, drafts, screenshots, credentials, and operating records.
 
 ## License
 

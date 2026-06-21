@@ -74,7 +74,7 @@ test("product progress timeline is rendered on homepage and catalog", async () =
 
   for (const html of [homeHtml, appsHtml]) {
     assert.match(html, /苹果商店上架流程甘特图/, "progress timeline heading should render");
-    assert.match(html, /秘书总后台同步/, "progress timeline should identify the secretary dashboard source");
+    assert.match(html, /产品进度同步/, "progress timeline should identify the public progress source");
     assert.match(html, /6\/17 被拒/, "progress timeline should include the Mood Button rejection milestone");
   }
 });

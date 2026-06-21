@@ -5,7 +5,8 @@ import ProductActionButton from "../../../components/ProductActionButton.astro";
 import ProductIcon from "../../../components/ProductIcon.astro";
 import { getArticlesForProduct } from "../../../data/articles";
 import { products, type Product, type ProductAction } from "../../../data/products";
-import { absoluteUrl, getLocalizedProduct, getLocalizedArticle, toLocalizedPath } from "../../../utils/i18n";
+import { getLocalizedProduct, getLocalizedArticle, toLocalizedPath } from "../../../utils/i18n";
+import { buildProductJsonLd } from "../../../utils/structuredData";
 
 export function getStaticPaths() {
   return products.map((product) => ({
@@ -50,29 +51,7 @@ if (product.website) {
 }
 addAction(product.secondaryAction);
 
-const productJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: product.displayName,
-  description: product.summary,
-  url: absoluteUrl(`/en/apps/${product.slug}`),
-  applicationCategory: product.category,
-  operatingSystem: product.platforms.join(", "),
-  image: absoluteUrl(product.icon ?? "/brand/hooosberg-ai-icon.png"),
-  inLanguage: "en",
-  author: {
-    "@type": "Person",
-    name: "Hooosberg",
-    url: absoluteUrl("/en"),
-  },
-  offers: product.primaryAction.url
-    ? {
-        "@type": "Offer",
-        url: product.primaryAction.url,
-        availability: product.primaryAction.disabled ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
-      }
-    : undefined,
-};
+const productJsonLd = buildProductJsonLd(product, "en");
 ---
 
 <BaseLayout

@@ -49,8 +49,6 @@ const alternatePaths = { ...getAlternatePaths(canonicalPath), ...explicitAlterna
 const canonicalUrl = absoluteUrl(canonicalPath);
 const imageUrl = absoluteUrl(image);
 const jsonLdItems = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
-const oppositeLocale: Locale = locale === "en" ? "zh-CN" : "en";
-const oppositeHref = alternatePaths[oppositeLocale] ?? getAlternatePaths(canonicalPath)[oppositeLocale];
 const htmlLang = localeMeta[locale].htmlLang;
 ---
 
@@ -95,28 +93,6 @@ const htmlLang = localeMeta[locale].htmlLang;
           document.documentElement.dataset.theme = saved || timed;
         } catch {
           document.documentElement.dataset.theme = "light";
-        }
-      })();
-    </script>
-    <script is:inline define:vars={{ locale, oppositeHref }}>
-      (() => {
-        try {
-          const key = "hooosberg-locale";
-          const currentLocale = locale;
-          const target = oppositeHref;
-          const saved = localStorage.getItem(key);
-          const languages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
-          const usesChinese = languages.some((language) => /^zh\b/i.test(language));
-
-          if (currentLocale === "zh-CN" && target && !saved && !usesChinese) {
-            window.location.replace(`${target}${window.location.search}${window.location.hash}`);
-          }
-
-          if (currentLocale === "zh-CN" && target && saved === "en") {
-            window.location.replace(`${target}${window.location.search}${window.location.hash}`);
-          }
-        } catch {
-          // Keep the static page usable when storage or language APIs are unavailable.
         }
       })();
     </script>
