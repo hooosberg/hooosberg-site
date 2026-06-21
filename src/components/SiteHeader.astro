@@ -36,20 +36,22 @@ const brandTitle = brandNameByLocale[locale];
       <nav class="nav-links" aria-label="Primary navigation">
         {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
       </nav>
-      <a
-        class="language-switch"
-        href={languageHref}
-        hreflang={localeMeta[targetLocale].hreflang}
-        data-language-switch
-        data-target-locale={targetLocale}
-        aria-label={text.languageSwitch}
-      >
-        {localeMeta[targetLocale].shortLabel}
-      </a>
-      <button class="theme-toggle" type="button" data-theme-toggle aria-label={text.themeToggle}>
-        <Sun class="theme-icon theme-icon--sun" size={17} aria-hidden="true" />
-        <Moon class="theme-icon theme-icon--moon" size={17} aria-hidden="true" />
-      </button>
+      <div class="site-header__actions">
+        <a
+          class="language-switch"
+          href={languageHref}
+          hreflang={localeMeta[targetLocale].hreflang}
+          data-language-switch
+          data-target-locale={targetLocale}
+          aria-label={text.languageSwitch}
+        >
+          {localeMeta[targetLocale].shortLabel}
+        </a>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label={text.themeToggle}>
+          <Sun class="theme-icon theme-icon--sun" size={17} aria-hidden="true" />
+          <Moon class="theme-icon theme-icon--moon" size={17} aria-hidden="true" />
+        </button>
+      </div>
     </div>
   </div>
 </header>
@@ -57,13 +59,24 @@ const brandTitle = brandNameByLocale[locale];
 <script is:inline>
   (() => {
     const root = document.documentElement;
+    const header = document.querySelector(".site-header");
     const key = "hooosberg-theme";
+    const updateHeaderMetrics = () => {
+      if (!header) return;
+      root.style.setProperty("--measured-site-header-height", `${Math.ceil(header.getBoundingClientRect().height)}px`);
+    };
     const apply = (theme) => {
       root.dataset.theme = theme;
       document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
         button.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
       });
     };
+    updateHeaderMetrics();
+    window.addEventListener("resize", updateHeaderMetrics, { passive: true });
+    window.addEventListener("orientationchange", updateHeaderMetrics, { passive: true });
+    if (header && "ResizeObserver" in window) {
+      new ResizeObserver(updateHeaderMetrics).observe(header);
+    }
     apply(root.dataset.theme || "light");
     document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
       button.addEventListener("click", () => {
