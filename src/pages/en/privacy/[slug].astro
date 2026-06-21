@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ProductPrivacyPolicy from "../../../components/ProductPrivacyPolicy.astro";
+import { products, type Product } from "../../../data/products";
+import { getLocalizedProduct } from "../../../utils/i18n";
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { sourceProduct: product },
+  }));
+}
+
+type Props = {
+  sourceProduct: Product;
+};
+
+const { sourceProduct } = Astro.props;
+const product = getLocalizedProduct(sourceProduct, "en");
+---
+
+<BaseLayout
+  locale="en"
+  title={`${product.displayName} Privacy Policy | Hooosberg`}
+  description={`${product.displayName} privacy policy.`}
+  canonicalPath={`/en/privacy/${product.slug}`}
+  image={product.icon ?? "/brand/hooosberg-ai-icon.png"}
+>
+  <ProductPrivacyPolicy product={product} />
+</BaseLayout>

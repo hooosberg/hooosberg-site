@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProductPrivacyPolicy from "../../components/ProductPrivacyPolicy.astro";
+import { products, type Product } from "../../data/products";
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+type Props = {
+  product: Product;
+};
+
+const { product } = Astro.props;
+---
+
+<BaseLayout
+  title={`${product.displayName} Privacy Policy | 湖森堡AI_hooosberg`}
+  description={`${product.displayName} privacy policy.`}
+  canonicalPath={`/privacy/${product.slug}`}
+  image={product.icon ?? "/brand/hooosberg-ai-icon.png"}
+>
+  <ProductPrivacyPolicy product={product} />
+</BaseLayout>

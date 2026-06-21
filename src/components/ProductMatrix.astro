@@ -1,0 +1,19 @@
+---
+import { productsByLatest } from "../data/products";
+import ProductCard from "./ProductCard.astro";
+
+const featuredProducts = productsByLatest.slice(0, 6);
+---
+
+<section class="section section--products" id="products">
+  <div class="section-heading">
+    <div>
+      <h2>产品矩阵</h2>
+      <p>首页先让用户看到最近产品，再进入下载、隐私政策、支持页和开发日记。</p>
+    </div>
+    <a class="text-link" href="/apps">查看全部产品</a>
+  </div>
+  <div class="product-grid">
+    {featuredProducts.map((product) => <ProductCard product={product} />)}
+  </div>
+</section>

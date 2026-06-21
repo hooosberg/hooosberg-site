@@ -1,0 +1,84 @@
+---
+import { Moon, Sun } from "@lucide/astro";
+import {
+  brandNameByLocale,
+  getAlternatePaths,
+  localeMeta,
+  toLocalizedPath,
+  uiText,
+  type Locale,
+} from "../utils/i18n";
+
+type Props = {
+  locale?: Locale;
+  currentPath?: string;
+};
+
+const { locale = "zh-CN", currentPath = Astro.url.pathname } = Astro.props;
+const text = uiText[locale];
+const navItems = text.nav.map(([label, href]) => ({ label, href: toLocalizedPath(href, locale) }));
+const alternatePaths = getAlternatePaths(currentPath);
+const targetLocale: Locale = locale === "en" ? "zh-CN" : "en";
+const languageHref = alternatePaths[targetLocale];
+const homeHref = toLocalizedPath("/", locale);
+const brandTitle = brandNameByLocale[locale];
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href={homeHref} aria-label={text.brandAria}>
+      <img class="brand-mark" src="/brand/hooosberg-ai-icon.png" alt="" />
+      <span>
+        <strong>{brandTitle}</strong>
+      </span>
+    </a>
+    <div class="site-header__right">
+      <nav class="nav-links" aria-label="Primary navigation">
+        {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+      </nav>
+      <a
+        class="language-switch"
+        href={languageHref}
+        hreflang={localeMeta[targetLocale].hreflang}
+        data-language-switch
+        data-target-locale={targetLocale}
+        aria-label={text.languageSwitch}
+      >
+        {localeMeta[targetLocale].shortLabel}
+      </a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label={text.themeToggle}>
+        <Sun class="theme-icon theme-icon--sun" size={17} aria-hidden="true" />
+        <Moon class="theme-icon theme-icon--moon" size={17} aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    const key = "hooosberg-theme";
+    const apply = (theme) => {
+      root.dataset.theme = theme;
+      document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+        button.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+      });
+    };
+    apply(root.dataset.theme || "light");
+    document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const next = root.dataset.theme === "dark" ? "light" : "dark";
+        localStorage.setItem(key, next);
+        apply(next);
+      });
+    });
+    document.querySelectorAll("[data-language-switch]").forEach((link) => {
+      link.addEventListener("click", () => {
+        const targetLocale = link.getAttribute("data-target-locale");
+        if (targetLocale) {
+          localStorage.setItem("hooosberg-locale", targetLocale);
+        }
+      });
+    });
+  })();
+</script>

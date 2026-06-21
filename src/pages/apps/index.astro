@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProductCard from "../../components/ProductCard.astro";
+import ProductProgressTimeline from "../../components/ProductProgressTimeline.astro";
+import { productsByLatest } from "../../data/products";
+---
+
+<BaseLayout title="产品 | 湖森堡AI_hooosberg" description="湖森堡AI_hooosberg 的 App、AI 工具和开发者产品列表。">
+  <section class="page-hero page-hero--narrow">
+    <h1>产品</h1>
+    <p>按最近更新优先排列。每个产品页都像一个独立落地页：介绍产品、提供下载、承接隐私政策和支持入口，并连接对应开发日记。</p>
+  </section>
+
+  <section class="catalog-section">
+    <div class="product-grid product-grid--catalog">
+      {productsByLatest.map((product) => <ProductCard product={product} />)}
+    </div>
+  </section>
+
+  <ProductProgressTimeline />
+</BaseLayout>

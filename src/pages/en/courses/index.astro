@@ -1,0 +1,65 @@
+---
+import { ArrowRight, BookOpen } from "@lucide/astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { socialLinks } from "../../../data/products";
+
+const bilibiliLink = socialLinks.find((link) => link.label === "B站");
+
+const courseTopics = [
+  "AI office automation",
+  "Creative tool onboarding",
+  "Apple app development",
+  "Market analysis",
+  "Business research",
+  "Practical development",
+  "Prompt workflows",
+  "Product launch postmortems",
+];
+---
+
+<BaseLayout
+  locale="en"
+  title="Courses | Hooosberg"
+  description="Practical AI programming, office automation, app development, market analysis, and product launch course direction by Hooosberg."
+  canonicalPath="/en/courses"
+>
+  <section class="page-hero page-hero--narrow courses-hero courses-hero--focused">
+    <p class="commerce-kicker">Courses</p>
+    <h1>Courses</h1>
+    <p>
+      Course material is built from real products, not abstract tricks: AI programming, automation,
+      market research, app development, release material, review, and postmortems.
+    </p>
+  </section>
+
+  <section class="catalog-section commerce-section course-focus-section course-focus-section--compact">
+    <a
+      class="premium-course-card premium-course-card--portrait"
+      href={bilibiliLink?.url ?? "/en/links"}
+      target={bilibiliLink?.url ? "_blank" : undefined}
+      rel={bilibiliLink?.url ? "noreferrer" : undefined}
+    >
+      <span class="premium-course-card__ribbon">Coming Soon</span>
+      <span class="premium-course-card__eyebrow">Hooosberg AI Course</span>
+      <h2>Practical AI Programming</h2>
+      <div class="premium-course-card__price" aria-label="Course price">
+        <strong>$220</strong>
+        <span>limited course price</span>
+      </div>
+      <p>
+        From zero to real delivery: AI coding, office automation, product research, app development,
+        launch material, and public postmortems.
+      </p>
+
+      <div class="premium-course-topics" aria-label="Course topics">
+        {courseTopics.map((topic) => <span>{topic}</span>)}
+      </div>
+
+      <span class="premium-course-card__action">
+        <BookOpen size={18} aria-hidden="true" />
+        View course
+        <ArrowRight size={17} aria-hidden="true" />
+      </span>
+    </a>
+  </section>
+</BaseLayout>

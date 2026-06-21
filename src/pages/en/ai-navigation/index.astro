@@ -1,0 +1,953 @@
+---
+import { ArrowRight, ExternalLink, Mail, Search } from "@lucide/astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getLocalizedSocialLinks } from "../../../utils/i18n";
+
+type CountryCode = "us" | "cn" | "uk" | "au" | "ca" | "fr" | "global";
+
+type ToolItem = {
+  name: string;
+  description: string;
+  url: string;
+  country: CountryCode;
+  icon?: string;
+  tags: string[];
+  badge?: string;
+};
+
+type ToolGroup = {
+  id: string;
+  title: string;
+  shortLabel: string;
+  summary: string;
+  items: ToolItem[];
+  moreTarget?: string;
+  moreLabel?: string;
+};
+
+type AlternativePair = {
+  id: string;
+  category: string;
+  source: ToolItem;
+  alternatives: ToolItem[];
+  reason: string;
+  bestFor: string[];
+};
+
+const countryMeta: Record<CountryCode, { flag: string; name: string; access: string; tone: "limited" | "easy" | "neutral" }> = {
+  us: { flag: "US", name: "United States", access: "Global availability varies", tone: "limited" },
+  cn: { flag: "CN", name: "China", access: "Strong Chinese-language access", tone: "easy" },
+  uk: { flag: "UK", name: "United Kingdom", access: "Availability varies", tone: "neutral" },
+  au: { flag: "AU", name: "Australia", access: "Availability varies", tone: "neutral" },
+  ca: { flag: "CA", name: "Canada", access: "Availability varies", tone: "neutral" },
+  fr: { flag: "FR", name: "France", access: "Availability varies", tone: "neutral" },
+  global: { flag: "GLOBAL", name: "Global / open source", access: "Depends on deployment", tone: "neutral" },
+};
+
+const icon = {
+  openai: "/icons/ai-tools/openai-codex.svg",
+  claude: "/icons/ai-tools/claude-code.svg",
+  gemini: "/icons/ai-tools/gemini.svg",
+  antigravity: "/icons/ai-tools/antigravity.svg",
+  copilot: "/icons/ai-tools/copilot.svg",
+  cursor: "/icons/ai-tools/cursor.svg",
+  windsurf: "/icons/ai-tools/windsurf.svg",
+  trae: "/icons/ai-tools/trae.svg",
+  cline: "/icons/ai-tools/cline.svg",
+  roo: "/icons/ai-tools/roo-code.svg",
+  opencode: "/icons/ai-tools/opencode.svg",
+  kiro: "/icons/ai-tools/kiro.svg",
+};
+
+const tool = (item: ToolItem): ToolItem => item;
+
+const chatgpt = tool({
+  name: "ChatGPT",
+  description: "OpenAI's general AI assistant and the main entry for Projects, Canvas, voice, images, deep research, and agent workflows.",
+  url: "https://chatgpt.com/",
+  country: "us",
+  icon: icon.openai,
+  tags: ["assistant", "multimodal", "default"],
+  badge: "Essential",
+});
+
+const claude = tool({
+  name: "Claude",
+  description: "Anthropic's assistant for long context, writing, careful reasoning, code understanding, and complex multi-step tasks.",
+  url: "https://claude.ai/",
+  country: "us",
+  icon: icon.claude,
+  tags: ["writing", "long context", "reasoning"],
+  badge: "Essential",
+});
+
+const gemini = tool({
+  name: "Gemini",
+  description: "Google's AI assistant connected to multimodal work, search, Workspace, NotebookLM, and the broader Google AI ecosystem.",
+  url: "https://gemini.google.com/app",
+  country: "us",
+  icon: icon.gemini,
+  tags: ["Google", "multimodal", "search"],
+  badge: "Essential",
+});
+
+const codex = tool({
+  name: "OpenAI Codex",
+  description: "OpenAI's coding agent for repository-level code tasks, debugging, refactoring, builds, and code review.",
+  url: "https://chatgpt.com/codex/",
+  country: "us",
+  icon: icon.openai,
+  tags: ["coding", "agent", "OpenAI"],
+  badge: "Builder",
+});
+
+const openaiApiPlatform = tool({
+  name: "OpenAI API Platform",
+  description: "OpenAI's API, model, documentation, and app-building entry point for bringing ChatGPT, Codex, and agent capabilities into products.",
+  url: "https://platform.openai.com/",
+  country: "us",
+  icon: icon.openai,
+  tags: ["API", "models", "developer"],
+  badge: "Builder",
+});
+
+const claudeCode = tool({
+  name: "Claude Code",
+  description: "Anthropic's terminal coding agent for project understanding, edits, tests, Git workflows, and long-running repository tasks.",
+  url: "https://claude.ai/code",
+  country: "us",
+  icon: icon.claude,
+  tags: ["terminal", "coding", "agent"],
+  badge: "Builder",
+});
+
+const claudeCowork = tool({
+  name: "Claude Cowork",
+  description: "Anthropic's agentic workspace direction for knowledge work, files, apps, and multi-step deliverables.",
+  url: "https://www.anthropic.com/product/claude-cowork",
+  country: "us",
+  icon: icon.claude,
+  tags: ["team", "workflow", "knowledge work"],
+});
+
+const notebookLm = tool({
+  name: "NotebookLM",
+  description: "Google's source-grounded research and note tool for reading files, asking questions over materials, summaries, and audio overviews.",
+  url: "https://notebooklm.google/",
+  country: "us",
+  icon: icon.gemini,
+  tags: ["research", "notes", "sources"],
+});
+
+const googleAiStudio = tool({
+  name: "Google AI Studio",
+  description: "Gemini API, prompt testing, model experiments, and developer prototyping for Gemini-powered products.",
+  url: "https://aistudio.google.com/",
+  country: "us",
+  icon: icon.gemini,
+  tags: ["Gemini", "API", "developer"],
+  badge: "Builder",
+});
+
+const googleAntigravity = tool({
+  name: "Google Antigravity",
+  description: "Google's agent-first development platform for Gemini-driven planning, execution, and verification of software tasks.",
+  url: "https://antigravity.google/",
+  country: "us",
+  icon: icon.antigravity,
+  tags: ["IDE", "agent", "Google"],
+});
+
+const jules = tool({
+  name: "Jules",
+  description: "Google's asynchronous coding agent for handing code tasks to a cloud agent and reviewing the results later.",
+  url: "https://jules.google.com/",
+  country: "us",
+  icon: icon.gemini,
+  tags: ["coding", "async", "agent"],
+});
+
+const kimi = tool({
+  name: "Kimi",
+  description: "Moonshot AI's assistant for long documents, search, slides, spreadsheets, and agent-style workflows in Chinese contexts.",
+  url: "https://www.kimi.com/",
+  country: "cn",
+  tags: ["long documents", "search", "agent"],
+  badge: "China",
+});
+
+const doubao = tool({
+  name: "Doubao",
+  description: "ByteDance's mainstream AI assistant for chat, images, audio, video, mobile usage, and broad consumer workflows.",
+  url: "https://www.doubao.com/",
+  country: "cn",
+  tags: ["multimodal", "mobile", "ByteDance"],
+  badge: "China",
+});
+
+const qwen = tool({
+  name: "Qwen",
+  description: "Alibaba's Qwen assistant and model ecosystem for Chinese, office work, coding, and developer platform workflows.",
+  url: "https://chat.qwen.ai/",
+  country: "cn",
+  tags: ["Qwen", "models", "Chinese"],
+  badge: "China",
+});
+
+const deepseek = tool({
+  name: "DeepSeek",
+  description: "Highly watched Chinese model and assistant entry for reasoning, coding, Chinese Q&A, and cost-sensitive APIs.",
+  url: "https://chat.deepseek.com/",
+  country: "cn",
+  tags: ["reasoning", "code", "models"],
+  badge: "China",
+});
+
+const trae = tool({
+  name: "TRAE",
+  description: "ByteDance's AI coding tool for IDE, web, and mobile development workflows.",
+  url: "https://www.trae.ai/",
+  country: "cn",
+  icon: icon.trae,
+  tags: ["IDE", "agent", "ByteDance"],
+  badge: "China",
+});
+
+const groups: ToolGroup[] = [
+  {
+    id: "top",
+    title: "Top AI Products",
+    shortLabel: "Top",
+    summary: "The default global entry points: broad, mature, and useful across many workflows.",
+    items: [chatgpt, claude, gemini],
+  },
+  {
+    id: "openai-suite",
+    title: "OpenAI / ChatGPT Ecosystem",
+    shortLabel: "OpenAI",
+    summary: "ChatGPT first, then the developer products most relevant to builders: Codex, the API platform, Apps SDK, and Agent Builder.",
+    moreTarget: "openai-suite",
+    moreLabel: "View OpenAI ecosystem",
+    items: [
+      chatgpt,
+      codex,
+      openaiApiPlatform,
+      { name: "Apps SDK", description: "Framework for building ChatGPT Apps with external services, MCP tools, and custom UI inside ChatGPT.", url: "https://developers.openai.com/apps-sdk", country: "us", icon: icon.openai, tags: ["ChatGPT Apps", "SDK", "MCP"], badge: "Builder" },
+      { name: "Agent Builder", description: "Visual agent workflow builder for designing, debugging, and exporting agent flows from the OpenAI platform.", url: "https://platform.openai.com/agent-builder", country: "us", icon: icon.openai, tags: ["agent", "workflow", "console"], badge: "Builder" },
+    ],
+  },
+  {
+    id: "anthropic-suite",
+    title: "Anthropic / Claude Ecosystem",
+    shortLabel: "Claude",
+    summary: "Claude as the main app, Claude Code for software work, and Anthropic's newer knowledge-work and browser directions.",
+    moreTarget: "anthropic-suite",
+    moreLabel: "View Anthropic ecosystem",
+    items: [
+      claude,
+      claudeCode,
+      claudeCowork,
+      { name: "Claude Design", description: "Anthropic Labs design experiment for quickly exploring interface ideas, brand direction, and visual prototypes.", url: "https://claude.ai/design", country: "us", icon: icon.claude, tags: ["design", "prototype", "Labs"] },
+      { name: "Claude for Chrome", description: "Browser-side Claude entry for reading pages, operating in web context, and keeping assistance closer to the page.", url: "https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn", country: "us", icon: icon.claude, tags: ["browser", "extension", "web"] },
+    ],
+  },
+  {
+    id: "google-suite",
+    title: "Google / Gemini Ecosystem",
+    shortLabel: "Google",
+    summary: "Gemini, NotebookLM, AI Studio, Stitch, Antigravity, Jules, Search AI Mode, and Flow as the practical Google AI surface map.",
+    moreTarget: "google-suite",
+    moreLabel: "View Google AI ecosystem",
+    items: [
+      gemini,
+      notebookLm,
+      googleAiStudio,
+      { name: "Google Stitch", description: "Google Labs AI prototyping tool for generating high-fidelity mobile and web UI from natural language.", url: "https://stitch.withgoogle.com/", country: "us", icon: icon.gemini, tags: ["AI prototype", "UI", "Google"], badge: "Hot" },
+      googleAntigravity,
+      jules,
+      { name: "AI Mode / Search Agents", description: "Google Search's AI Mode entry for complex search, follow-up questions, and multimodal research.", url: "https://search.google/ways-to-search/ai-mode/", country: "us", icon: icon.gemini, tags: ["search", "AI Mode", "agent"], badge: "Search" },
+      { name: "Google Flow", description: "Google Labs creative video workspace connected to Gemini and Veo for story, scene, and camera exploration.", url: "https://labs.google/fx/tools/flow", country: "us", icon: icon.gemini, tags: ["video", "creative", "Labs"], badge: "Creative" },
+    ],
+  },
+  {
+    id: "product-research",
+    title: "Product Ideas / Research",
+    shortLabel: "Research",
+    summary: "Use search demand, communities, competitor traffic, and real user language before committing to a product direction.",
+    items: [
+      { name: "Google Trends", description: "Keyword trends and regional interest for checking whether demand exists beyond a single moment.", url: "https://trends.google.com/", country: "us", tags: ["trends", "keywords", "demand"] },
+      { name: "GummySearch", description: "Find Reddit pain points, user language, and niche audiences for product ideas and copy research.", url: "https://gummysearch.com/", country: "us", tags: ["Reddit", "pain points", "research"] },
+      { name: "Similarweb", description: "Website traffic and channel structure for quick competitor and market-interest checks.", url: "https://www.similarweb.com/", country: "us", tags: ["traffic", "competitors", "channels"] },
+      { name: "Hacker News", description: "Developer and startup community for product launches, technical feedback, and trend observation.", url: "https://news.ycombinator.com/newest", country: "us", tags: ["developers", "trends", "community"] },
+      { name: "Reddit Search", description: "Community discussions for validating real problems, especially SaaS, productivity, and self-hosted products.", url: "https://www.reddit.com/search/", country: "us", tags: ["community", "pain points", "global"] },
+    ],
+  },
+  {
+    id: "prototype-design",
+    title: "Product Prototype / Design",
+    shortLabel: "Prototype",
+    summary: "From idea to presentable prototype: interfaces, motion, screenshots, demos, and launch visuals before full development.",
+    items: [
+      { name: "Figma", description: "Mainstream UI design and collaboration tool for prototypes, component systems, and interaction specs.", url: "https://www.figma.com/", country: "us", tags: ["UI", "prototype", "collaboration"] },
+      { name: "Google Stitch", description: "AI product prototyping from natural language into mobile and web UI concepts.", url: "https://stitch.withgoogle.com/", country: "us", icon: icon.gemini, tags: ["AI prototype", "UI", "Google"] },
+      { name: "Rotato", description: "App screenshots, device mockups, and 3D motion assets for websites, stores, and launch materials.", url: "https://rotato.app/", country: "us", tags: ["mockups", "motion", "screenshots"] },
+      { name: "Excalidraw", description: "Lightweight whiteboard for product flows, system diagrams, architecture sketches, and rough prototypes.", url: "https://excalidraw.com/", country: "global", tags: ["whiteboard", "diagrams", "open source"] },
+      { name: "Uizard", description: "AI-assisted UI prototype tool for turning sketches, screenshots, or text into early product interfaces.", url: "https://uizard.io/", country: "us", tags: ["AI design", "prototype", "UI"] },
+    ],
+  },
+  {
+    id: "dev-hosting",
+    title: "Development / Hosting",
+    shortLabel: "Hosting",
+    summary: "The practical stack for small products: frontend hosting, databases, edge services, prototypes, and full-stack deployment.",
+    items: [
+      { name: "Vercel", description: "Frontend and full-stack hosting for Next.js, Astro, product sites, and modern web apps.", url: "https://vercel.com/", country: "us", tags: ["hosting", "frontend", "deploy"] },
+      { name: "Supabase", description: "Postgres, Auth, Storage, and Edge Functions for indie product backends.", url: "https://supabase.com/", country: "us", tags: ["database", "auth", "backend"] },
+      { name: "Cloudflare", description: "DNS, Pages, Workers, edge runtime, CDN, and low-cost global deployment.", url: "https://www.cloudflare.com/", country: "us", tags: ["DNS", "Workers", "edge"] },
+      { name: "Replit", description: "Online development and deployment for prototypes, scripts, and small web applications.", url: "https://replit.com/", country: "us", tags: ["online IDE", "prototype", "deploy"] },
+      { name: "Railway", description: "Lightweight full-stack deployment for servers, databases, and background jobs.", url: "https://railway.app/", country: "us", tags: ["full-stack", "deploy", "database"] },
+    ],
+  },
+  {
+    id: "api-gateway",
+    title: "Model APIs / Gateways",
+    shortLabel: "APIs",
+    summary: "Model access, cost control, provider switching, and unified API layers for product builders.",
+    items: [
+      { name: "OpenRouter", description: "Multi-model API gateway for switching model providers and managing model cost tradeoffs.", url: "https://openrouter.ai/", country: "us", tags: ["model gateway", "API", "multi-model"] },
+      { name: "AIBerm", description: "Discount AI API entry for comparing model costs and connecting small products quickly.", url: "https://aiberm.com/", country: "global", tags: ["API", "cost", "models"] },
+      { name: "New API", description: "Open-source model gateway for self-hosted unified API, quota management, and channel routing.", url: "https://github.com/Calcium-Ion/new-api", country: "global", tags: ["open source", "gateway", "routing"] },
+      { name: "Vercel AI Gateway", description: "Vercel's model gateway for web products that need unified model access, observation, and limits.", url: "https://vercel.com/ai-gateway", country: "us", tags: ["AI Gateway", "Vercel", "web"] },
+      { name: "LiteLLM", description: "Open-source LLM gateway and proxy for shared logging, budgets, and provider routing.", url: "https://www.litellm.ai/", country: "global", tags: ["open source", "proxy", "cost"] },
+    ],
+  },
+  {
+    id: "launch-growth",
+    title: "Launch / Distribution",
+    shortLabel: "Launch",
+    summary: "Distribution is the hard part after shipping: early users, developer feedback, directories, and credible launch communities.",
+    items: [
+      { name: "Product Hunt", description: "Global product launch and discovery platform for SaaS, developer tools, and indie products.", url: "https://www.producthunt.com/", country: "us", tags: ["launch", "global", "early users"] },
+      { name: "V2EX", description: "Chinese developer community for sharing indie products, collecting technical feedback, and observing user needs.", url: "https://www.v2ex.com/", country: "cn", tags: ["developers", "Chinese", "community"] },
+      { name: "Appinn", description: "Chinese software discovery community for utilities, productivity tools, and small polished products.", url: "https://www.appinn.com/", country: "cn", tags: ["software discovery", "tools", "Chinese"] },
+      { name: "Sspai", description: "High-quality Chinese productivity and digital-life media for long-form tutorials and product stories.", url: "https://sspai.com/", country: "cn", tags: ["productivity", "content", "media"] },
+      { name: "Indie Hackers", description: "Indie builder community for sharing growth, revenue, experiments, and product lessons.", url: "https://www.indiehackers.com/", country: "us", tags: ["indie", "growth", "postmortem"] },
+      { name: "Debut", description: "App discovery platform for polished apps, small tools, and design-driven products.", url: "https://debut.so/", country: "us", tags: ["apps", "discovery", "design"] },
+    ],
+  },
+  {
+    id: "payments-finance",
+    title: "Payments / Global Finance",
+    shortLabel: "Payments",
+    summary: "Payments, subscriptions, tax handling, settlement, and company setup are often the real blockers for indie products.",
+    items: [
+      { name: "Stripe", description: "Mainstream payment and subscription infrastructure for SaaS, subscriptions, and global card payments.", url: "https://stripe.com/", country: "us", tags: ["payments", "subscriptions", "SaaS"] },
+      { name: "Gumroad", description: "Digital product sales platform for courses, templates, ebooks, and small creator products.", url: "https://gumroad.com/", country: "us", tags: ["digital products", "courses", "sales"] },
+      { name: "Creem", description: "Payment and tax-handling platform for software products, indie SaaS, and digital goods.", url: "https://www.creem.io/", country: "global", tags: ["payments", "tax", "SaaS"] },
+      { name: "Payoneer", description: "Cross-border collection and settlement platform for overseas platform income and multi-currency money movement.", url: "https://www.payoneer.com/", country: "us", tags: ["cross-border", "settlement", "multi-currency"] },
+      { name: "1st Formations", description: "UK company formation service for overseas entities, banking structure, and compliance foundations.", url: "https://www.1stformations.co.uk/", country: "uk", tags: ["company setup", "UK", "global"] },
+    ],
+  },
+  {
+    id: "free-learning",
+    title: "Free Courses / Learning",
+    shortLabel: "Learning",
+    summary: "Long-term free courses and engineering references worth returning to for AI, coding, and product fundamentals.",
+    items: [
+      { name: "Neural Networks: Zero to Hero", description: "Andrej Karpathy's free neural-network course covering micrograd, makemore, GPT, tokenizers, and deep-learning foundations.", url: "https://github.com/karpathy/nn-zero-to-hero", country: "global", tags: ["free course", "deep learning", "Karpathy"] },
+      { name: "fast.ai", description: "Practical deep-learning courses that start from applied projects and move toward model understanding.", url: "https://course.fast.ai/", country: "global", tags: ["free course", "deep learning", "practice"] },
+      { name: "Hugging Face Course", description: "Official free course for Transformers, datasets, tokenizers, and model deployment workflows.", url: "https://huggingface.co/learn", country: "global", tags: ["Transformers", "models", "free course"] },
+      { name: "OpenAI Cookbook", description: "OpenAI examples and patterns for APIs, RAG, agents, evaluation, and production integration.", url: "https://cookbook.openai.com/", country: "us", icon: icon.openai, tags: ["OpenAI", "API", "examples"] },
+      { name: "The Missing Semester", description: "MIT course for Shell, Git, debugging, editors, and practical engineering foundations.", url: "https://missing.csail.mit.edu/", country: "us", tags: ["engineering basics", "tools", "free course"] },
+    ],
+  },
+  {
+    id: "chat-search",
+    title: "AI Chat / Search",
+    shortLabel: "Search",
+    summary: "Search, research assistants, and answer engines beyond the three default global assistants.",
+    items: [
+      { name: "Perplexity", description: "Source-aware answer engine for research, quick topic discovery, and reference checking.", url: "https://www.perplexity.ai/", country: "us", tags: ["AI search", "citations", "research"] },
+      { name: "Genspark", description: "AI search product focused on research, page generation, and task-oriented answer surfaces.", url: "https://www.genspark.ai/", country: "us", tags: ["search", "research", "pages"] },
+      { name: "Metaso", description: "Chinese AI search tool with a cleaner research experience for Chinese sources and summaries.", url: "https://metaso.cn/", country: "cn", tags: ["search", "Chinese", "research"] },
+      { name: "Tencent Yuanbao", description: "Tencent's AI assistant for Chinese Q&A, documents, search, and WeChat ecosystem observation.", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["Tencent", "search", "Chinese"] },
+      { name: "You.com", description: "Earlier AI search and assistant product useful for comparing search-style answers.", url: "https://you.com/", country: "us", tags: ["search", "assistant", "English"] },
+    ],
+  },
+  {
+    id: "coding-agent",
+    title: "AI Coding / Agents",
+    shortLabel: "Coding",
+    summary: "AI IDEs, terminal agents, code completion, and agentic engineering tools for real product work.",
+    items: [
+      codex,
+      claudeCode,
+      googleAntigravity,
+      jules,
+      { name: "Antigravity CLI", description: "Google's terminal direction for Gemini-driven agent workflows after the consumer Gemini CLI transition.", url: "https://antigravity.google/product/antigravity-cli", country: "us", icon: icon.antigravity, tags: ["terminal", "agent", "CLI"], badge: "CLI" },
+      { name: "Cursor", description: "AI-native code editor for daily software development, codebase questions, and local edits.", url: "https://cursor.com/", country: "us", icon: icon.cursor, tags: ["IDE", "code", "editor"] },
+      { name: "Windsurf", description: "AI coding environment focused on project navigation, generation, refactoring, and developer productivity.", url: "https://windsurf.com/", country: "us", icon: icon.windsurf, tags: ["IDE", "agent", "development"] },
+      trae,
+      { name: "GitHub Copilot", description: "GitHub's AI coding assistant for IDE completion, chat, tests, and code generation.", url: "https://github.com/features/copilot", country: "us", icon: icon.copilot, tags: ["GitHub", "completion", "IDE"] },
+      { name: "Cline", description: "Open-source VS Code agent for small tasks, command execution, and file edits.", url: "https://cline.bot/", country: "global", icon: icon.cline, tags: ["open source", "VS Code", "agent"] },
+      { name: "Roo Code", description: "Agentic coding tool inside VS Code for multi-mode development workflows.", url: "https://roocode.com/", country: "global", icon: icon.roo, tags: ["VS Code", "agent", "open source"] },
+      { name: "OpenCode", description: "Terminal AI coding tool for developers who prefer CLI-first workflows.", url: "https://opencode.ai/", country: "global", icon: icon.opencode, tags: ["terminal", "open source", "CLI"] },
+      { name: "Kiro", description: "AI IDE and agent environment oriented around specs, tasks, and engineering workflow structure.", url: "https://kiro.dev/", country: "us", icon: icon.kiro, tags: ["IDE", "specs", "agent"] },
+    ],
+  },
+  {
+    id: "image-design",
+    title: "AI Image / Design",
+    shortLabel: "Image",
+    summary: "Image generation, posters, product visuals, UI ideation, and controllable local workflows.",
+    items: [
+      { name: "Midjourney", description: "High-quality image and illustration generator for concepts, posters, and visual direction exploration.", url: "https://www.midjourney.com/", country: "us", tags: ["image", "illustration", "visual"] },
+      { name: "Adobe Firefly", description: "Adobe's generative image tool for commercial design, asset editing, and creative production.", url: "https://www.adobe.com/products/firefly.html", country: "us", tags: ["design", "Adobe", "commercial"] },
+      { name: "Canva AI", description: "Lightweight design platform with AI tools for posters, social graphics, and presentation assets.", url: "https://www.canva.com/ai/", country: "au", tags: ["design", "templates", "office"] },
+      { name: "Figma AI", description: "Figma's AI design capabilities for interface design, prototypes, and collaboration.", url: "https://www.figma.com/ai/", country: "us", tags: ["UI", "prototype", "collaboration"] },
+      { name: "ComfyUI", description: "Node-based AI image workflow tool for local generation, control, and batch pipelines.", url: "https://www.comfy.org/", country: "global", tags: ["open source", "nodes", "local"] },
+      { name: "Stable Diffusion", description: "Open image-generation ecosystem for local models and controllable generation.", url: "https://stability.ai/", country: "uk", tags: ["open source", "models", "image"] },
+      { name: "LiblibAI", description: "Chinese AI image model and workflow community for models, workflows, and creative references.", url: "https://www.liblib.art/", country: "cn", tags: ["models", "community", "Chinese"] },
+      { name: "Jimeng AI", description: "ByteDance/Jianying AI image and video creation tool with strong Chinese prompt support.", url: "https://jimeng.jianying.com/", country: "cn", tags: ["image", "video", "Chinese"] },
+    ],
+  },
+  {
+    id: "video",
+    title: "AI Video / Avatars",
+    shortLabel: "Video",
+    summary: "Text-to-video, image-to-video, avatar presenters, and creative video workflows.",
+    items: [
+      { name: "Google Veo", description: "Google's video generation model family for Gemini and Flow-connected creative workflows.", url: "https://deepmind.google/models/veo/", country: "us", icon: icon.gemini, tags: ["video", "Google", "generation"] },
+      { name: "Runway", description: "AI video generation and editing platform for short films, advertising, and creative video workflows.", url: "https://runwayml.com/", country: "us", tags: ["video", "editing", "creative"] },
+      { name: "Kling AI", description: "Kuaishou's international video-generation product for image-to-video and short creative clips.", url: "https://klingai.com/", country: "cn", tags: ["video", "image-to-video", "Kuaishou"] },
+      { name: "Luma Dream Machine", description: "Video-generation tool with strong cinematic camera feel and image-to-video workflows.", url: "https://lumalabs.ai/dream-machine", country: "us", tags: ["video", "camera", "generation"] },
+      { name: "Pika", description: "Lightweight video-generation product for social video and creative experiments.", url: "https://pika.art/", country: "us", tags: ["video", "social", "creative"] },
+      { name: "HeyGen", description: "Avatar presenter and video translation tool for marketing videos and multilingual content.", url: "https://www.heygen.com/", country: "us", tags: ["avatar", "translation", "marketing"] },
+      { name: "Hailuo AI", description: "MiniMax video-generation product often used as a Chinese-friendly creative video entry.", url: "https://hailuoai.video/", country: "cn", tags: ["video", "generation", "Chinese"] },
+    ],
+  },
+  {
+    id: "office-docs",
+    title: "AI Office / Documents",
+    shortLabel: "Office",
+    summary: "Slides, documents, meetings, notes, knowledge bases, and practical productivity workflows.",
+    items: [
+      { name: "Notion AI", description: "Writing, summarization, knowledge base, and project-management assistant inside Notion.", url: "https://www.notion.com/product/ai", country: "us", tags: ["docs", "knowledge base", "projects"] },
+      { name: "Gamma", description: "AI-generated presentations, webpages, and documents for reports, courses, and quick storytelling.", url: "https://gamma.app/", country: "us", tags: ["slides", "presentations", "docs"] },
+      { name: "Napkin AI", description: "Turns text into diagrams, flows, and visual explanations for tutorials and proposals.", url: "https://www.napkin.ai/", country: "us", tags: ["diagrams", "flows", "communication"] },
+      { name: "WPS AI", description: "AI capabilities inside a Chinese office suite for documents, spreadsheets, slides, and local office work.", url: "https://ai.wps.cn/", country: "cn", tags: ["Office", "slides", "Chinese"] },
+      { name: "Feishu Minutes", description: "Meeting transcription, notes, and collaborative documents for teams and content capture.", url: "https://www.feishu.cn/product/minutes", country: "cn", tags: ["meetings", "transcription", "collaboration"] },
+      { name: "Tome", description: "AI presentation and storytelling tool for product narratives, proposals, and draft talks.", url: "https://tome.app/", country: "us", tags: ["presentations", "story", "slides"] },
+      { name: "Grammarly", description: "English writing, correction, and tone adjustment for email, documents, and public content.", url: "https://www.grammarly.com/", country: "us", tags: ["English", "writing", "correction"] },
+    ],
+  },
+  {
+    id: "model-platform",
+    title: "AI Developer Platforms / Models",
+    shortLabel: "Models",
+    summary: "Developer platforms, model hubs, hosted inference, local models, and API consoles.",
+    items: [
+      openaiApiPlatform,
+      { name: "Anthropic Console", description: "Claude API and developer platform entry for building Claude-powered applications.", url: "https://console.anthropic.com/", country: "us", icon: icon.claude, tags: ["API", "Claude", "developer"] },
+      googleAiStudio,
+      { name: "Hugging Face", description: "Large global community for models, datasets, Spaces, and machine-learning workflows.", url: "https://huggingface.co/", country: "us", tags: ["models", "open source", "community"] },
+      { name: "Replicate", description: "Hosted model platform for calling open models across image, audio, and experimental model workflows.", url: "https://replicate.com/", country: "us", tags: ["models", "hosting", "API"] },
+      { name: "Ollama", description: "Common tool for running large language models locally on personal computers and private networks.", url: "https://ollama.com/", country: "global", tags: ["local", "open source", "models"] },
+      { name: "ModelScope", description: "Alibaba-backed Chinese model community for models, datasets, demos, and Chinese AI workflows.", url: "https://modelscope.cn/", country: "cn", tags: ["models", "community", "Chinese"] },
+    ],
+  },
+  {
+    id: "china",
+    title: "China AI Tools",
+    shortLabel: "China",
+    summary: "High-visibility Chinese AI products that are easier to access in Chinese contexts and useful for regional comparison.",
+    items: [
+      deepseek,
+      doubao,
+      kimi,
+      qwen,
+      { name: "Tencent Yuanbao", description: "Tencent's Chinese assistant for search, documents, Q&A, and WeChat ecosystem observation.", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["search", "Tencent", "Chinese"] },
+      { name: "Wenxin Yiyan", description: "Baidu's Wenxin assistant entry for Chinese Q&A and Baidu ecosystem capabilities.", url: "https://yiyan.baidu.com/", country: "cn", tags: ["Baidu", "Chinese", "assistant"] },
+      { name: "Zhipu Qingyan", description: "Zhipu's AI assistant for Chinese Q&A, documents, and model capability evaluation.", url: "https://chatglm.cn/", country: "cn", tags: ["Zhipu", "models", "Chinese"] },
+    ],
+  },
+];
+
+const alternativePairs: AlternativePair[] = [
+  {
+    id: "chatgpt",
+    category: "General assistant / writing",
+    source: chatgpt,
+    alternatives: [kimi, doubao, qwen],
+    reason: "ChatGPT is the global default. For Chinese-language daily work, compare long-document handling, mobile usage, multimodal features, and ecosystem fit.",
+    bestFor: ["daily Q&A", "writing", "multimodal basics"],
+  },
+  {
+    id: "claude",
+    category: "Long context / deep writing",
+    source: claude,
+    alternatives: [kimi, deepseek, qwen],
+    reason: "Claude is strong at long context and stable writing. Kimi covers long documents, DeepSeek covers reasoning, and Qwen covers Chinese plus model ecosystem needs.",
+    bestFor: ["long documents", "complex instructions", "Chinese writing"],
+  },
+  {
+    id: "gemini",
+    category: "Multimodal / search ecosystem",
+    source: gemini,
+    alternatives: [doubao, { name: "Tencent Yuanbao", description: "Tencent assistant for Chinese search, documents, and WeChat-adjacent workflows.", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["search", "Tencent", "Chinese"] }, qwen],
+    reason: "Gemini connects to Google Search and Workspace. Regional alternatives should be judged by Chinese search, document, and multimodal experience.",
+    bestFor: ["multimodal", "Chinese search", "ecosystem links"],
+  },
+  {
+    id: "codex",
+    category: "Coding agent / repository tasks",
+    source: codex,
+    alternatives: [
+      { name: "Kimi Code", description: "Kimi's code and agent direction can serve as a fast regional entry for code assistance.", url: "https://www.kimi.com/", country: "cn", tags: ["coding", "agent", "Kimi"], badge: "Recommended" },
+      trae,
+      { name: "DeepSeek API", description: "DeepSeek models connected to Cline, Roo Code, or other open agents for lower-cost code tasks.", url: "https://platform.deepseek.com/", country: "cn", tags: ["API", "code", "cost"] },
+    ],
+    reason: "Codex is repository-level. Regional alternatives are usually a mix of agent UI, IDE, and model backend rather than one exact clone.",
+    bestFor: ["repository edits", "automated fixes", "code review"],
+  },
+  {
+    id: "claude-code",
+    category: "Terminal coding / long tasks",
+    source: claudeCode,
+    alternatives: [
+      trae,
+      { name: "Kimi Code", description: "Useful for code Q&A, file understanding, and agent-style development assistance.", url: "https://www.kimi.com/", country: "cn", tags: ["coding", "agent", "Chinese"] },
+      { name: "Cline + DeepSeek", description: "Open-source VS Code agent paired with Chinese models for a more controllable local workflow.", url: "https://cline.bot/", country: "global", icon: icon.cline, tags: ["open source", "VS Code", "local models"] },
+    ],
+    reason: "Claude Code is about terminal workflows and project understanding. Regional paths often start with TRAE, Kimi, or an open-source agent plus a local/provider model.",
+    bestFor: ["terminal flow", "project understanding", "controllable setup"],
+  },
+  {
+    id: "notebooklm",
+    category: "Research library / notes",
+    source: notebookLm,
+    alternatives: [
+      { name: "Kimi Docs", description: "Kimi's long-document understanding covers many NotebookLM-style reading and Q&A needs.", url: "https://www.kimi.com/", country: "cn", tags: ["long documents", "materials", "Q&A"] },
+      doubao,
+      { name: "Tencent Yuanbao", description: "Good fit for Chinese search, document understanding, and material organization.", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["documents", "search", "Chinese"] },
+    ],
+    reason: "NotebookLM is strong at source-grounded learning. Chinese alternatives should prioritize long-document ability and Chinese source access.",
+    bestFor: ["PDF reading", "course materials", "research summaries"],
+  },
+  {
+    id: "perplexity",
+    category: "AI search / research",
+    source: { name: "Perplexity", description: "Source-aware answer engine for research and quick topic discovery.", url: "https://www.perplexity.ai/", country: "us", tags: ["search", "sources", "research"] },
+    alternatives: [
+      { name: "Metaso", description: "Chinese AI search tool for cleaner Chinese-source research and summaries.", url: "https://metaso.cn/", country: "cn", tags: ["search", "Chinese", "research"] },
+      { name: "Kimi Deep Research", description: "Kimi's search and research direction for Chinese summaries and long-form output.", url: "https://www.kimi.com/", country: "cn", tags: ["search", "research", "long-form"] },
+      { name: "Tencent Yuanbao", description: "Chinese Q&A, search, and document entry for domestic sources.", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["search", "Tencent", "Chinese"] },
+    ],
+    reason: "The value is answers with sources. In Chinese contexts, source coverage and summary quality matter more than feature parity.",
+    bestFor: ["research", "competitor checks", "source validation"],
+  },
+  {
+    id: "midjourney",
+    category: "Image generation / design assets",
+    source: { name: "Midjourney", description: "High-quality image and illustration generator for concepts, posters, and visual direction.", url: "https://www.midjourney.com/", country: "us", tags: ["image", "illustration", "visual"] },
+    alternatives: [
+      { name: "Jimeng AI", description: "AI image and video creation tool with strong Chinese prompts and short-video ecosystem fit.", url: "https://jimeng.jianying.com/", country: "cn", tags: ["image", "video", "Chinese"] },
+      { name: "LiblibAI", description: "Chinese AI image model and workflow community for models, workflows, and inspiration.", url: "https://www.liblib.art/", country: "cn", tags: ["models", "workflow", "community"] },
+      { name: "Tongyi Wanxiang", description: "Alibaba Tongyi image creation entry for Chinese posters and visual assets.", url: "https://tongyi.aliyun.com/wanxiang/", country: "cn", tags: ["image", "Alibaba", "Chinese"] },
+    ],
+    reason: "Midjourney remains a visual-quality benchmark. Regional alternatives should be judged by Chinese prompts, model community, templates, and video links.",
+    bestFor: ["posters", "visual inspiration", "commerce assets"],
+  },
+];
+
+const totalItems = groups.reduce((sum, group) => sum + group.items.length, 0);
+const emailLink = getLocalizedSocialLinks("en").find((link) => link.originalLabel === "Email");
+---
+
+<BaseLayout
+  locale="en"
+  title="AI Tool Guide | Hooosberg"
+  description="A practical, searchable AI tool guide for builders: global AI assistants, coding agents, model APIs, product research, design tools, hosting, launch channels, payments, learning resources, and regional alternatives."
+  canonicalPath="/en/ai-navigation"
+  mainClass="main--ai-directory"
+>
+  <section class="ai-directory-hero">
+    <div>
+      <p class="hero-kicker">AI TOOL GUIDE</p>
+      <h1>Choose tools by workflow, not hype.</h1>
+      <p>
+        This is not a generic link dump. It is a curated working map for builders:
+        global default products, coding agents, model APIs, design and prototype tools,
+        hosting, launch channels, payments, learning resources, and regional alternatives.
+      </p>
+      <label class="directory-search">
+        <Search size={18} aria-hidden="true" />
+        <input type="search" placeholder="Search tools, workflows, tags, or use cases" data-directory-search />
+      </label>
+      <div class="directory-stats" aria-label="Guide overview">
+        <span>{groups.length} categories</span>
+        <span>{totalItems} tools</span>
+        <span>{alternativePairs.length} alternative maps</span>
+        <span>Direct product links</span>
+        <span>Editorial ranking</span>
+      </div>
+    </div>
+
+    <div class="directory-method directory-contact-card" aria-label="Curation standard and submissions">
+      <span class="directory-contact-card__eyebrow">TOOL DIRECTORY</span>
+      <strong>Curation standard</strong>
+      <p>
+        Tools are included when they have a real product surface, practical workflow value,
+        durable visibility, or direct relevance to the builds documented on this site.
+        Announcement-only features are grouped under their parent product.
+      </p>
+      <a class="directory-contact-card__mail" href={emailLink?.url ?? "/en/links"}>
+        <Mail size={18} aria-hidden="true" />
+        <span>
+          <small>Submit or contact</small>
+          <b>{emailLink?.note ?? "zikedece@proton.me"}</b>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <div class="directory-mode-toggle" role="tablist" aria-label="AI guide mode">
+    <button class="is-active" type="button" role="tab" aria-selected="true" data-directory-mode="ranking">Workflow Rankings</button>
+    <button type="button" role="tab" aria-selected="false" data-directory-mode="alternatives">Regional Alternatives</button>
+  </div>
+
+  <section class="ai-directory-shell" data-directory-shell data-mode="ranking" data-directory-current={groups[0].id}>
+    <aside class="directory-sidebar" aria-label="AI guide categories">
+      <button type="button" data-directory-filter="all">All rankings</button>
+      {groups.map((group, index) => (
+        <button
+          class={index === 0 ? "is-active" : undefined}
+          type="button"
+          data-directory-filter={group.id}
+          aria-current={index === 0 ? "true" : undefined}
+        >
+          {group.title}
+        </button>
+      ))}
+    </aside>
+
+    <div class="directory-content">
+      <div data-directory-view="ranking">
+        {groups.map((group) => (
+          <section class="directory-group" id={group.id} data-directory-group={group.id}>
+            <div class="directory-group__heading">
+              <div>
+                <p>{group.id}</p>
+                <h2>{group.title}</h2>
+              </div>
+              <span>{group.summary}</span>
+            </div>
+
+            <div class="directory-card-grid">
+              {group.items.map((item, index) => {
+                const rank = String(index + 1).padStart(2, "0");
+                const country = countryMeta[item.country];
+
+                return (
+                  <a
+                    class="directory-card"
+                    href={item.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-directory-card
+                    data-category={group.id}
+                    data-search={`${group.title} ${group.shortLabel} ${country.name} ${country.access} ${item.name} ${item.description} ${item.tags.join(" ")}`}
+                  >
+                    <span class="directory-card__rank">TOP {rank}</span>
+                    <span class="directory-card__icon">
+                      {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
+                    </span>
+                    <span class="directory-card__body">
+                      <span class="directory-card__title-row">
+                        <strong>{item.name}</strong>
+                        {item.badge && <em>{item.badge}</em>}
+                      </span>
+                      <span class="directory-card__meta">
+                        <span>{country.flag} {country.name}</span>
+                        <span class={`directory-card__access directory-card__access--${country.tone}`}>{country.access}</span>
+                      </span>
+                      <p>{item.description}</p>
+                      <span class="directory-card__tags">
+                        {item.tags.map((tag) => <span>{tag}</span>)}
+                      </span>
+                    </span>
+                    <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
+                  </a>
+                );
+              })}
+            </div>
+
+            {group.moreTarget && (
+              <a class="directory-more-link" href={`#${group.moreTarget}`} data-directory-jump={group.moreTarget}>
+                {group.moreLabel ?? "View more"}
+                <ArrowRight size={14} aria-hidden="true" />
+              </a>
+            )}
+          </section>
+        ))}
+
+        <p class="directory-empty" data-directory-empty hidden>No matching tools. Try another keyword.</p>
+      </div>
+
+      <section id="alternatives" class="directory-alternatives" data-directory-view="alternatives" hidden>
+        <div class="directory-group__heading directory-group__heading--full">
+          <div>
+            <p>alternatives</p>
+            <h2>Regional alternatives</h2>
+          </div>
+          <span>
+            The left side is the global reference product. The right side shows practical alternatives
+            for Chinese-language or region-specific workflows. This is not one-to-one feature parity;
+            it is a scenario map for getting work done.
+          </span>
+        </div>
+
+        <div class="alternative-list">
+          {alternativePairs.map((pair, index) => {
+            const sourceCountry = countryMeta[pair.source.country];
+
+            return (
+              <article
+                class="alternative-pair"
+                data-alternative-card
+                data-search={`${pair.category} ${pair.reason} ${pair.bestFor.join(" ")} ${pair.source.name} ${pair.source.description} ${pair.alternatives.map((item) => `${item.name} ${item.description} ${item.tags.join(" ")}`).join(" ")}`}
+              >
+                <div class="alternative-pair__source">
+                  <span class="alternative-label">Global reference</span>
+                  <a class="alternative-tool alternative-tool--source" href={pair.source.url} target="_blank" rel="noreferrer">
+                    <span class="directory-card__rank">#{String(index + 1).padStart(2, "0")}</span>
+                    <span class="directory-card__icon">
+                      {pair.source.icon ? <img src={pair.source.icon} alt="" loading="lazy" decoding="async" /> : pair.source.name.slice(0, 1)}
+                    </span>
+                    <span>
+                      <strong>{pair.source.name}</strong>
+                      <small>{sourceCountry.flag} {sourceCountry.name} · {sourceCountry.access}</small>
+                    </span>
+                    <ExternalLink size={14} aria-hidden="true" />
+                  </a>
+                </div>
+
+                <div class="alternative-pair__logic">
+                  <span>{pair.category}</span>
+                  <p>{pair.reason}</p>
+                  <div>
+                    {pair.bestFor.map((item) => <em>{item}</em>)}
+                  </div>
+                </div>
+
+                <div class="alternative-pair__targets">
+                  <span class="alternative-label">Practical alternatives</span>
+                  <div>
+                    {pair.alternatives.map((item) => {
+                      const country = countryMeta[item.country];
+
+                      return (
+                        <a class="alternative-tool" href={item.url} target="_blank" rel="noreferrer">
+                          <span class="directory-card__icon">
+                            {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
+                          </span>
+                          <span>
+                            <strong>{item.name}</strong>
+                            <small>{country.flag} {country.name} · {country.access}</small>
+                          </span>
+                          <ExternalLink size={14} aria-hidden="true" />
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <p class="directory-empty" data-alternative-empty hidden>No matching alternative map. Try another keyword.</p>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const search = document.querySelector("[data-directory-search]");
+    const filters = Array.from(document.querySelectorAll("[data-directory-filter]"));
+    const cards = Array.from(document.querySelectorAll("[data-directory-card]"));
+    const groups = Array.from(document.querySelectorAll("[data-directory-group]"));
+    const empty = document.querySelector("[data-directory-empty]");
+    const modeButtons = Array.from(document.querySelectorAll("[data-directory-mode]"));
+    const views = Array.from(document.querySelectorAll("[data-directory-view]"));
+    const shell = document.querySelector("[data-directory-shell]");
+    const sidebar = document.querySelector(".directory-sidebar");
+    const alternativeCards = Array.from(document.querySelectorAll("[data-alternative-card]"));
+    const alternativeEmpty = document.querySelector("[data-alternative-empty]");
+    const localJumps = Array.from(document.querySelectorAll("[data-directory-jump]"));
+    const firstCategory = groups[0]?.dataset.directoryGroup || "top";
+    let activeCategory = "all";
+    let currentCategory = firstCategory;
+    let activeMode = "ranking";
+
+    const setCurrentCategory = (category, options = {}) => {
+      currentCategory = category || firstCategory;
+      if (shell) shell.dataset.directoryCurrent = currentCategory;
+
+      filters.forEach((item) => {
+        const isCurrent = item.dataset.directoryFilter === currentCategory;
+        item.classList.toggle("is-active", isCurrent);
+        if (isCurrent) {
+          item.setAttribute("aria-current", "true");
+        } else {
+          item.removeAttribute("aria-current");
+        }
+      });
+
+      const activeFilter = filters.find((item) => item.dataset.directoryFilter === currentCategory);
+      if (options.scrollSidebar !== false && sidebar && activeFilter) {
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const behavior = reducedMotion ? "auto" : "smooth";
+
+        if (sidebar.scrollWidth > sidebar.clientWidth) {
+          sidebar.scrollTo({
+            left: activeFilter.offsetLeft - (sidebar.clientWidth - activeFilter.clientWidth) / 2,
+            behavior,
+          });
+        }
+
+        if (sidebar.scrollHeight > sidebar.clientHeight) {
+          sidebar.scrollTo({
+            top: activeFilter.offsetTop - (sidebar.clientHeight - activeFilter.clientHeight) / 2,
+            behavior,
+          });
+        }
+      }
+    };
+
+    const updateRanking = () => {
+      const query = (search?.value || "").trim().toLowerCase();
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const category = card.dataset.category;
+        const text = (card.dataset.search || "").toLowerCase();
+        const visibleByCategory = activeCategory === "all" || category === activeCategory;
+        const visibleByQuery = !query || text.includes(query);
+        const visible = visibleByCategory && visibleByQuery;
+        card.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+
+      groups.forEach((group) => {
+        const hasVisibleCards = Array.from(group.querySelectorAll("[data-directory-card]")).some((card) => !card.hidden);
+        group.hidden = !hasVisibleCards;
+      });
+
+      if (empty) empty.hidden = visibleCount !== 0;
+    };
+
+    const updateAlternatives = () => {
+      const query = (search?.value || "").trim().toLowerCase();
+      let visibleCount = 0;
+
+      alternativeCards.forEach((card) => {
+        const text = (card.dataset.search || "").toLowerCase();
+        const visible = !query || text.includes(query);
+        card.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+
+      if (alternativeEmpty) alternativeEmpty.hidden = visibleCount !== 0;
+    };
+
+    const update = () => {
+      if (activeMode === "alternatives") {
+        updateAlternatives();
+        return;
+      }
+
+      updateRanking();
+    };
+
+    const scrollCategoryIntoView = (category) => {
+      const targetCategory = category === "all" ? firstCategory : category;
+      const target = groups.find((group) => group.dataset.directoryGroup === targetCategory) || groups[0];
+      if (!target) return;
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.requestAnimationFrame(() => {
+        target.scrollIntoView({
+          block: "start",
+          behavior: reducedMotion ? "auto" : "smooth",
+        });
+      });
+    };
+
+    const setCategory = (category, options = {}) => {
+      activeCategory = category || "all";
+      if (search) search.value = "";
+      updateRanking();
+      setCurrentCategory(activeCategory === "all" ? firstCategory : activeCategory);
+      if (options.scroll !== false) scrollCategoryIntoView(activeCategory);
+    };
+
+    const setMode = (mode) => {
+      activeMode = mode;
+      if (search) search.value = "";
+      modeButtons.forEach((button) => {
+        const active = button.dataset.directoryMode === mode;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      views.forEach((view) => {
+        view.hidden = view.dataset.directoryView !== mode;
+      });
+      if (shell) shell.dataset.mode = mode;
+      update();
+    };
+
+    filters.forEach((filter) => {
+      filter.addEventListener("click", () => {
+        setCategory(filter.dataset.directoryFilter || "all");
+      });
+    });
+
+    localJumps.forEach((jump) => {
+      jump.addEventListener("click", () => {
+        setMode("ranking");
+        setCategory(jump.dataset.directoryJump || "all");
+      });
+    });
+
+    modeButtons.forEach((button) => {
+      button.addEventListener("click", () => setMode(button.dataset.directoryMode || "ranking"));
+    });
+
+    search?.addEventListener("input", update);
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (activeMode !== "ranking" || activeCategory !== "all") return;
+
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setCurrentCategory(entry.target.dataset.directoryGroup || firstCategory);
+          }
+        });
+      }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
+
+      groups.forEach((group) => observer.observe(group));
+    }
+
+    const initialHash = window.location.hash.replace("#", "");
+    if (initialHash === "alternatives") {
+      setMode("alternatives");
+    } else if (initialHash && groups.some((group) => group.dataset.directoryGroup === initialHash)) {
+      setCategory(initialHash, { scroll: false });
+    } else {
+      setCurrentCategory(currentCategory, { scrollSidebar: false });
+    }
+  })();
+</script>

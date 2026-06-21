@@ -1,0 +1,944 @@
+---
+import { ArrowRight, ExternalLink, Mail, Search } from "@lucide/astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { socialLinks } from "../../data/products";
+
+type CountryCode = "us" | "cn" | "uk" | "au" | "ca" | "fr" | "global";
+
+type ToolItem = {
+  name: string;
+  description: string;
+  url: string;
+  country: CountryCode;
+  icon?: string;
+  tags: string[];
+  badge?: string;
+};
+
+type ToolGroup = {
+  id: string;
+  title: string;
+  shortLabel: string;
+  summary: string;
+  items: ToolItem[];
+  moreTarget?: string;
+  moreLabel?: string;
+};
+
+type AlternativePair = {
+  id: string;
+  category: string;
+  source: ToolItem;
+  alternatives: ToolItem[];
+  reason: string;
+  bestFor: string[];
+};
+
+const countryMeta: Record<CountryCode, { flag: string; name: string; access: string; tone: "limited" | "easy" | "neutral" }> = {
+  us: { flag: "🇺🇸", name: "美国", access: "国内可能受限", tone: "limited" },
+  cn: { flag: "🇨🇳", name: "中国", access: "国内可直接尝试", tone: "easy" },
+  uk: { flag: "🇬🇧", name: "英国", access: "访问视地区而定", tone: "neutral" },
+  au: { flag: "🇦🇺", name: "澳大利亚", access: "访问视地区而定", tone: "neutral" },
+  ca: { flag: "🇨🇦", name: "加拿大", access: "访问视地区而定", tone: "neutral" },
+  fr: { flag: "🇫🇷", name: "法国", access: "访问视地区而定", tone: "neutral" },
+  global: { flag: "🌐", name: "全球/开源", access: "按部署方式而定", tone: "neutral" },
+};
+
+const icon = {
+  openai: "/icons/ai-tools/openai-codex.svg",
+  claude: "/icons/ai-tools/claude-code.svg",
+  gemini: "/icons/ai-tools/gemini.svg",
+  antigravity: "/icons/ai-tools/antigravity.svg",
+  copilot: "/icons/ai-tools/copilot.svg",
+  cursor: "/icons/ai-tools/cursor.svg",
+  windsurf: "/icons/ai-tools/windsurf.svg",
+  trae: "/icons/ai-tools/trae.svg",
+  cline: "/icons/ai-tools/cline.svg",
+  roo: "/icons/ai-tools/roo-code.svg",
+  opencode: "/icons/ai-tools/opencode.svg",
+  kiro: "/icons/ai-tools/kiro.svg",
+};
+
+const tool = (item: ToolItem): ToolItem => item;
+
+const chatgpt = tool({
+  name: "ChatGPT",
+  description: "OpenAI 的通用 AI 助手，也是 Deep Research、Canvas、Projects、语音、图像和 agent 能力的主入口。",
+  url: "https://chatgpt.com/",
+  country: "us",
+  icon: icon.openai,
+  tags: ["通用", "多模态", "全球热门"],
+  badge: "必用",
+});
+
+const claude = tool({
+  name: "Claude",
+  description: "Anthropic 的通用助手，长文本、写作、代码理解和复杂任务表现稳定。",
+  url: "https://claude.ai/",
+  country: "us",
+  icon: icon.claude,
+  tags: ["写作", "长上下文", "代码"],
+  badge: "必用",
+});
+
+const gemini = tool({
+  name: "Gemini",
+  description: "Google 生态里的 AI 助手主应用，适合多模态、搜索联动和日常资料处理。",
+  url: "https://gemini.google.com/app",
+  country: "us",
+  icon: icon.gemini,
+  tags: ["Google", "多模态", "搜索"],
+  badge: "必用",
+});
+
+const codex = tool({
+  name: "OpenAI Codex",
+  description: "OpenAI 的编程 agent，适合仓库级代码任务、修复、构建和审查。",
+  url: "https://chatgpt.com/codex/",
+  country: "us",
+  icon: icon.openai,
+  tags: ["编程", "Agent", "OpenAI"],
+  badge: "开发者",
+});
+
+const openaiApiPlatform = tool({
+  name: "OpenAI API Platform",
+  description: "OpenAI API、模型、开发文档和应用构建入口，适合把 ChatGPT、Codex 和 agent 能力接进产品。",
+  url: "https://platform.openai.com/",
+  country: "us",
+  icon: icon.openai,
+  tags: ["API", "模型", "开发"],
+  badge: "开发者",
+});
+
+const claudeCode = tool({
+  name: "Claude Code",
+  description: "Anthropic 的终端编程 agent，适合项目理解、重构、测试和 Git 工作流。",
+  url: "https://claude.ai/code",
+  country: "us",
+  icon: icon.claude,
+  tags: ["编程", "终端", "Agent"],
+  badge: "开发者",
+});
+
+const claudeCowork = tool({
+  name: "Claude Cowork",
+  description: "Anthropic 面向知识工作的 agentic AI，可在桌面环境里处理文件、应用和多步骤交付任务。",
+  url: "https://www.anthropic.com/product/claude-cowork",
+  country: "us",
+  icon: icon.claude,
+  tags: ["团队", "协作", "工作流"],
+});
+
+const notebookLm = tool({
+  name: "NotebookLM",
+  description: "Google 的资料阅读和研究工具，适合基于材料问答、摘要、音频概览和学习资料整理。",
+  url: "https://notebooklm.google/",
+  country: "us",
+  icon: icon.gemini,
+  tags: ["资料", "笔记", "研究"],
+});
+
+const googleAiStudio = tool({
+  name: "Google AI Studio",
+  description: "Gemini API、模型实验和应用原型入口，适合快速试模型、写提示词和做开发者 demo。",
+  url: "https://aistudio.google.com/",
+  country: "us",
+  icon: icon.gemini,
+  tags: ["Gemini", "API", "开发"],
+  badge: "开发者",
+});
+
+const googleAntigravity = tool({
+  name: "Google Antigravity",
+  description: "Google 的 agent-first 开发平台，适合用 Gemini 驱动多 agent 规划、执行和验证代码任务。",
+  url: "https://antigravity.google/",
+  country: "us",
+  icon: icon.antigravity,
+  tags: ["IDE", "Agent", "Google"],
+});
+
+const jules = tool({
+  name: "Jules",
+  description: "Google 的异步编程 agent，适合把代码任务交给云端 agent 后再回来审查结果。",
+  url: "https://jules.google.com/",
+  country: "us",
+  icon: icon.gemini,
+  tags: ["编程", "异步", "Agent"],
+});
+
+const kimi = tool({
+  name: "Kimi",
+  description: "月之暗面推出的 AI 助手，长文档、搜索、PPT、表格和 agent 能力都值得关注。",
+  url: "https://www.kimi.com/",
+  country: "cn",
+  tags: ["长文档", "搜索", "Agent"],
+  badge: "国产",
+});
+
+const doubao = tool({
+  name: "豆包",
+  description: "字节跳动旗下大众化 AI 助手，覆盖聊天、图片、音视频和移动端场景。",
+  url: "https://www.doubao.com/",
+  country: "cn",
+  tags: ["多模态", "移动端", "字节"],
+  badge: "国产",
+});
+
+const qwen = tool({
+  name: "通义千问",
+  description: "阿里云通义体系的对话和模型入口，适合中文、办公、代码和开发平台联动。",
+  url: "https://chat.qwen.ai/",
+  country: "cn",
+  tags: ["Qwen", "模型", "中文"],
+  badge: "国产",
+});
+
+const deepseek = tool({
+  name: "DeepSeek",
+  description: "国产高关注度模型与对话入口，适合推理、代码、中文问答和低成本 API。",
+  url: "https://chat.deepseek.com/",
+  country: "cn",
+  tags: ["推理", "代码", "模型"],
+  badge: "国产",
+});
+
+const trae = tool({
+  name: "TRAE",
+  description: "字节跳动推出的 AI 编程工具，适合 IDE、Web 和移动端开发流程。",
+  url: "https://www.trae.ai/",
+  country: "cn",
+  icon: icon.trae,
+  tags: ["IDE", "Agent", "字节"],
+  badge: "国产",
+});
+
+const groups: ToolGroup[] = [
+  {
+    id: "top",
+    title: "顶级产品榜",
+    shortLabel: "顶级",
+    summary: "只放最通用、公开热度最高、最适合作为默认入口的 AI 产品；按 ChatGPT、Claude、Gemini 这三个全球默认入口排序。",
+    items: [
+      chatgpt,
+      claude,
+      gemini,
+    ],
+  },
+  {
+    id: "openai-suite",
+    title: "OpenAI / ChatGPT 生态",
+    shortLabel: "OpenAI",
+    summary: "先放 OpenAI 的拳头产品 ChatGPT，再放开发者热度最高的 Codex 和平台入口；Deep Research、Canvas、Projects 归入 ChatGPT 能力。",
+    moreTarget: "openai-suite",
+    moreLabel: "查看更多 OpenAI 生态",
+    items: [
+      chatgpt,
+      codex,
+      openaiApiPlatform,
+      { name: "Apps SDK", description: "用于构建 ChatGPT Apps 的开发框架，适合把外部服务、MCP 工具和自定义 UI 接入 ChatGPT。", url: "https://developers.openai.com/apps-sdk", country: "us", icon: icon.openai, tags: ["ChatGPT Apps", "SDK", "MCP"], badge: "开发者" },
+      { name: "Agent Builder", description: "OpenAI 的可视化 agent 工作流构建入口，适合在平台控制台里搭建、调试和导出 agent 流程。", url: "https://platform.openai.com/agent-builder", country: "us", icon: icon.openai, tags: ["Agent", "构建", "控制台"], badge: "开发者" },
+    ],
+  },
+  {
+    id: "anthropic-suite",
+    title: "Anthropic / Claude 生态",
+    shortLabel: "Claude",
+    summary: "先放 Claude 主入口，再放开发者最常用的 Claude Code，最后放面向知识工作的 Cowork 和少量扩展入口。",
+    moreTarget: "anthropic-suite",
+    moreLabel: "查看更多 Anthropic 生态",
+    items: [
+      claude,
+      claudeCode,
+      claudeCowork,
+      { name: "Claude Design", description: "Anthropic Labs 的设计实验入口，适合快速产出界面想法、品牌方向和视觉原型。", url: "https://claude.ai/design", country: "us", icon: icon.claude, tags: ["设计", "原型", "Labs"] },
+      { name: "Claude for Chrome", description: "浏览器内 Claude 入口，适合网页阅读、页面操作和上下文辅助。", url: "https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn", country: "us", icon: icon.claude, tags: ["浏览器", "网页", "扩展"] },
+    ],
+  },
+  {
+    id: "google-suite",
+    title: "Google / Gemini 生态",
+    shortLabel: "Google",
+    summary: "按真实使用热度排序：Gemini 主应用、NotebookLM、AI Studio、Stitch，再补少量开发、创作和搜索入口。",
+    moreTarget: "google-suite",
+    moreLabel: "查看更多 Google AI 生态",
+    items: [
+      gemini,
+      notebookLm,
+      googleAiStudio,
+      { name: "Google Stitch", description: "Google Labs 的 AI 产品原型工具，可用自然语言生成高保真移动端和网页 UI，适合从想法快速到可演示界面。", url: "https://stitch.withgoogle.com/", country: "us", icon: icon.gemini, tags: ["AI 原型", "UI", "Google"], badge: "热门" },
+      googleAntigravity,
+      jules,
+      { name: "AI Mode / Search Agents", description: "Google Search 的 AI Mode 入口，适合用搜索式 AI 做复杂问题、追问和多模态检索。", url: "https://search.google/ways-to-search/ai-mode/", country: "us", icon: icon.gemini, tags: ["Search", "AI Mode", "Agent"], badge: "Search" },
+      { name: "Google Flow", description: "Google Labs 的 AI 创意视频工作室，和 Gemini、Veo 等能力联动，适合故事和镜头创作。", url: "https://labs.google/fx/tools/flow", country: "us", icon: icon.gemini, tags: ["视频", "创作", "Labs"], badge: "创意" },
+    ],
+  },
+  {
+    id: "product-research",
+    title: "产品构想 / 调研",
+    shortLabel: "构想",
+    summary: "从真实社区、趋势和竞品流量里找需求，不只看 AI 生成的想法；适合立项前判断方向值不值得做。",
+    items: [
+      { name: "Google Trends", description: "观察关键词趋势和地区热度，适合判断需求是不是长期存在。", url: "https://trends.google.com/", country: "us", tags: ["趋势", "关键词", "需求"] },
+      { name: "GummySearch", description: "从 Reddit 社区里找痛点、用户表达和细分人群，适合做产品构想和文案提炼。", url: "https://gummysearch.com/", country: "us", tags: ["Reddit", "用户痛点", "调研"] },
+      { name: "Similarweb", description: "查看网站流量和来源结构，适合快速判断竞品热度和渠道分布。", url: "https://www.similarweb.com/", country: "us", tags: ["流量", "竞品", "渠道"] },
+      { name: "Hacker News", description: "开发者和创业者社区，适合观察新产品、技术趋势和早期反馈。", url: "https://news.ycombinator.com/newest", country: "us", tags: ["开发者", "趋势", "社区"] },
+      { name: "Reddit Search", description: "用社区讨论验证真实问题，尤其适合 SaaS、效率工具和自托管产品调研。", url: "https://www.reddit.com/search/", country: "us", tags: ["社区", "痛点", "海外"] },
+    ],
+  },
+  {
+    id: "prototype-design",
+    title: "产品原型 / 设计",
+    shortLabel: "原型设计",
+    summary: "从想法到可展示原型：先做界面、动效、截图和演示素材，再决定是否进入完整开发。",
+    items: [
+      { name: "Figma", description: "主流 UI 设计和协作工具，适合做产品原型、组件库和交互稿。", url: "https://www.figma.com/", country: "us", tags: ["UI", "原型", "协作"] },
+      { name: "Google Stitch", description: "Google 的 AI 产品原型工具，适合用自然语言快速生成移动端和网页 UI。", url: "https://stitch.withgoogle.com/", country: "us", icon: icon.gemini, tags: ["AI 原型", "UI", "Google"] },
+      { name: "Rotato", description: "App 截图、设备样机和 3D 动效生成工具，适合做官网、商店图和发布素材。", url: "https://rotato.app/", country: "us", tags: ["样机", "动效", "截图"] },
+      { name: "Excalidraw", description: "轻量白板和草图工具，适合画产品流程、架构图和粗原型。", url: "https://excalidraw.com/", country: "global", tags: ["白板", "流程图", "开源"] },
+      { name: "Uizard", description: "AI 辅助 UI 原型工具，适合从草图、截图或文字生成早期产品界面。", url: "https://uizard.io/", country: "us", tags: ["AI 设计", "原型", "UI"] },
+    ],
+  },
+  {
+    id: "dev-hosting",
+    title: "开发 / 托管",
+    shortLabel: "开发托管",
+    summary: "独立产品最常用的开发和上线底座：前端托管、数据库、边缘服务、快速原型和全栈部署。",
+    items: [
+      { name: "Vercel", description: "前端和全栈 Web 应用托管平台，适合 Next.js、Astro 和产品官网快速上线。", url: "https://vercel.com/", country: "us", tags: ["托管", "前端", "部署"] },
+      { name: "Supabase", description: "Postgres、Auth、Storage 和 Edge Functions 一体化平台，适合独立产品后端。", url: "https://supabase.com/", country: "us", tags: ["数据库", "Auth", "后端"] },
+      { name: "Cloudflare", description: "域名、DNS、Workers、Pages 和边缘网络平台，适合低成本部署和全球访问。", url: "https://www.cloudflare.com/", country: "us", tags: ["DNS", "Workers", "边缘"] },
+      { name: "Replit", description: "在线开发和快速部署平台，适合做原型、脚本和小型 Web 应用。", url: "https://replit.com/", country: "us", tags: ["在线 IDE", "原型", "部署"] },
+      { name: "Railway", description: "轻量全栈部署平台，适合服务端、数据库和后台任务快速上线。", url: "https://railway.app/", country: "us", tags: ["全栈", "部署", "数据库"] },
+    ],
+  },
+  {
+    id: "api-gateway",
+    title: "模型接口 / 聚合",
+    shortLabel: "模型接口",
+    summary: "给开发者统一调用模型、控制成本和切换供应商的入口；优先放真实可接入的 API 与网关。",
+    items: [
+      { name: "OpenRouter", description: "多模型 API 聚合平台，适合统一调用不同模型并快速切换供应商。", url: "https://openrouter.ai/", country: "us", tags: ["模型聚合", "API", "多模型"] },
+      { name: "AIBerm", description: "面向开发者的折扣 AI API 入口，适合对比模型成本和小产品接入。", url: "https://aiberm.com/", country: "global", tags: ["API", "成本", "模型"] },
+      { name: "New API", description: "开源模型网关项目，适合自建统一 API、额度管理和多渠道模型路由。", url: "https://github.com/Calcium-Ion/new-api", country: "global", tags: ["开源", "模型网关", "路由"] },
+      { name: "Vercel AI Gateway", description: "Vercel 的模型网关，适合 Web 产品统一接入模型、观测和限流。", url: "https://vercel.com/ai-gateway", country: "us", tags: ["AI Gateway", "Vercel", "Web"] },
+      { name: "LiteLLM", description: "开源 LLM 网关和代理层，适合团队统一模型调用、日志和预算控制。", url: "https://www.litellm.ai/", country: "global", tags: ["开源", "代理", "成本"] },
+    ],
+  },
+  {
+    id: "launch-growth",
+    title: "分发推广 / 社区",
+    shortLabel: "分发推广",
+    summary: "产品做完之后最关键的是分发：优先放能带来早期用户、开发者反馈和真实讨论的社区与收录平台。",
+    items: [
+      { name: "Product Hunt", description: "海外产品发布和发现平台，适合 SaaS、开发者工具和独立产品首发。", url: "https://www.producthunt.com/", country: "us", tags: ["发布", "海外", "早期用户"] },
+      { name: "V2EX", description: "中文开发者社区，适合分享独立产品、收集技术用户反馈和观察需求。", url: "https://www.v2ex.com/", country: "cn", tags: ["开发者", "中文", "社区"] },
+      { name: "小众软件", description: "中文软件发现社区，适合工具类、效率类和小而美产品曝光。", url: "https://www.appinn.com/", country: "cn", tags: ["软件发现", "工具", "中文"] },
+      { name: "少数派", description: "高质量效率与数字生活媒体，适合长期内容、教程和产品故事传播。", url: "https://sspai.com/", country: "cn", tags: ["效率", "内容", "媒体"] },
+      { name: "Indie Hackers", description: "独立开发者社区，适合分享增长、收入、产品复盘和海外同行经验。", url: "https://www.indiehackers.com/", country: "us", tags: ["独立开发", "增长", "复盘"] },
+      { name: "Debut", description: "优质应用发现平台，适合 App、小工具和设计感强的产品收录。", url: "https://debut.so/", country: "us", tags: ["应用收录", "发现", "设计"] },
+    ],
+  },
+  {
+    id: "payments-finance",
+    title: "收款 / 出海财务",
+    shortLabel: "收款财务",
+    summary: "独立开发者很容易卡在收款、订阅、结算和公司注册；这里放更常见的出海收款与销售基础设施。",
+    items: [
+      { name: "Stripe", description: "主流支付和订阅基础设施，适合 SaaS、订阅制产品和全球信用卡收款。", url: "https://stripe.com/", country: "us", tags: ["支付", "订阅", "SaaS"] },
+      { name: "Gumroad", description: "数字产品和知识付费销售平台，适合课程、模板、电子书和小产品售卖。", url: "https://gumroad.com/", country: "us", tags: ["数字产品", "知识付费", "销售"] },
+      { name: "Creem", description: "面向软件产品的支付和税务处理平台，适合独立 SaaS 和数字产品。", url: "https://www.creem.io/", country: "global", tags: ["支付", "税务", "SaaS"] },
+      { name: "Payoneer", description: "跨境收款和结算平台，适合接收海外平台款项和多币种资金管理。", url: "https://www.payoneer.com/", country: "us", tags: ["跨境", "结算", "多币种"] },
+      { name: "1st Formations", description: "英国公司注册服务，适合需要海外主体、银行账户和合规结构的独立开发者。", url: "https://www.1stformations.co.uk/", country: "uk", tags: ["公司注册", "英国", "出海"] },
+    ],
+  },
+  {
+    id: "free-learning",
+    title: "免费教程 / 学习",
+    shortLabel: "免费教程",
+    summary: "只放长期值得反复看的免费课程和一线工程资料，适合补 AI、深度学习和产品开发基本功。",
+    items: [
+      { name: "Neural Networks: Zero to Hero", description: "Andrej Karpathy 的神经网络免费课程，从 micrograd、makemore 到 GPT/tokenizer，适合打深度学习基本功。", url: "https://github.com/karpathy/nn-zero-to-hero", country: "global", tags: ["免费课程", "深度学习", "Karpathy"] },
+      { name: "fast.ai", description: "实战导向的深度学习免费课程，适合从应用项目进入模型训练。", url: "https://course.fast.ai/", country: "global", tags: ["免费课程", "深度学习", "实战"] },
+      { name: "Hugging Face Course", description: "Hugging Face 官方免费课程，适合学习 Transformers、数据集和模型部署。", url: "https://huggingface.co/learn", country: "global", tags: ["Transformers", "模型", "免费课程"] },
+      { name: "OpenAI Cookbook", description: "OpenAI 官方示例库，适合学习 API、RAG、agent、评测和实际工程接入。", url: "https://cookbook.openai.com/", country: "us", icon: icon.openai, tags: ["OpenAI", "API", "示例"] },
+      { name: "The Missing Semester", description: "MIT 的开发者工具课，适合补 Shell、Git、调试、编辑器和工程基础。", url: "https://missing.csail.mit.edu/", country: "us", tags: ["工程基础", "工具", "免费课程"] },
+    ],
+  },
+  {
+    id: "chat-search",
+    title: "AI 对话 / 搜索",
+    shortLabel: "对话搜索",
+    summary: "聚焦搜索、研究助手和多模型聚合；通用默认入口已放在顶级产品榜，避免同一产品重复出现。",
+    items: [
+      { name: "Perplexity", description: "更像可追溯来源的答案引擎，适合查资料和找方向。", url: "https://www.perplexity.ai/", country: "us", tags: ["AI 搜索", "引用", "研究"] },
+      { name: "Genspark", description: "面向研究、页面生成和任务型搜索的 AI 搜索产品。", url: "https://www.genspark.ai/", country: "us", tags: ["搜索", "研究", "页面"] },
+      { name: "秘塔AI搜索", description: "中文 AI 搜索工具，没有传统广告干扰，适合资料整理和研究。", url: "https://metaso.cn/", country: "cn", tags: ["搜索", "中文", "资料"] },
+      { name: "腾讯元宝", description: "腾讯推出的 AI 助手，适合中文问答、文档、搜索和微信生态观察。", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["腾讯", "搜索", "中文"] },
+      { name: "You.com", description: "较早的 AI 搜索与助手产品，适合对比不同搜索式回答。", url: "https://you.com/", country: "us", tags: ["搜索", "助手", "英文"] },
+    ],
+  },
+  {
+    id: "coding-agent",
+    title: "AI 编程 / Agent",
+    shortLabel: "编程",
+    summary: "面向开发者的 AI IDE、终端 agent、代码补全和自动化工程工具。",
+    items: [
+      codex,
+      claudeCode,
+      googleAntigravity,
+      jules,
+      { name: "Antigravity CLI", description: "Google 官方把 Gemini CLI 面向消费者的路线统一到 Antigravity CLI；终端开发和多 agent 调度以后优先看这里。", url: "https://antigravity.google/product/antigravity-cli", country: "us", icon: icon.antigravity, tags: ["终端", "Agent", "迁移"], badge: "CLI" },
+      { name: "Cursor", description: "AI IDE 代表产品，适合交互式写代码、问项目和局部编辑。", url: "https://cursor.com/", country: "us", icon: icon.cursor, tags: ["IDE", "代码", "编辑器"] },
+      { name: "Windsurf", description: "面向项目级开发的 AI IDE，适合代码导航、生成和重构。", url: "https://windsurf.com/", country: "us", icon: icon.windsurf, tags: ["IDE", "Agent", "开发"] },
+      trae,
+      { name: "GitHub Copilot", description: "编辑器内补全、问答、测试和代码生成的老牌入口。", url: "https://github.com/features/copilot", country: "us", icon: icon.copilot, tags: ["GitHub", "补全", "IDE"] },
+      { name: "Cline", description: "开源 VS Code agent，适合小型任务、命令执行和文件修改。", url: "https://cline.bot/", country: "global", icon: icon.cline, tags: ["开源", "VS Code", "Agent"] },
+      { name: "Roo Code", description: "VS Code 里的 agentic coding 工具，适合多模式开发工作流。", url: "https://roocode.com/", country: "global", icon: icon.roo, tags: ["VS Code", "Agent", "开源"] },
+      { name: "OpenCode", description: "终端 AI 编程工具，适合喜欢 CLI 工作流的开发者。", url: "https://opencode.ai/", country: "global", icon: icon.opencode, tags: ["终端", "开源", "CLI"] },
+      { name: "Kiro", description: "面向规格、任务和工程流程的 AI IDE / agent 开发环境。", url: "https://kiro.dev/", country: "us", icon: icon.kiro, tags: ["IDE", "规格", "Agent"] },
+    ],
+  },
+  {
+    id: "image-design",
+    title: "AI 图像 / 设计",
+    shortLabel: "图像设计",
+    summary: "从图像生成、海报设计、产品图到界面设计，适合视觉创作和素材生产。",
+    items: [
+      { name: "Midjourney", description: "高质量图像和插画生成工具，适合概念图、海报和视觉方向探索。", url: "https://www.midjourney.com/", country: "us", tags: ["图像", "插画", "视觉"] },
+      { name: "Adobe Firefly", description: "Adobe 生态里的生成式图像工具，适合商业设计和素材编辑。", url: "https://www.adobe.com/products/firefly.html", country: "us", tags: ["设计", "Adobe", "商用"] },
+      { name: "Canva AI", description: "轻量设计平台里的 AI 能力，适合海报、社媒图和演示素材。", url: "https://www.canva.com/ai/", country: "au", tags: ["设计", "模板", "办公"] },
+      { name: "Figma AI", description: "Figma 的 AI 设计能力，适合界面设计、原型和团队协作。", url: "https://www.figma.com/ai/", country: "us", tags: ["UI", "原型", "协作"] },
+      { name: "ComfyUI", description: "节点式 AI 图像工作流工具，适合本地生成、控制和批量流程。", url: "https://www.comfy.org/", country: "global", tags: ["开源", "节点", "本地"] },
+      { name: "Stable Diffusion", description: "开源图像生成生态基础设施，适合本地模型和可控生成。", url: "https://stability.ai/", country: "uk", tags: ["开源", "模型", "图像"] },
+      { name: "LiblibAI", description: "中文 AI 图像模型和创作社区，适合找模型、工作流和灵感。", url: "https://www.liblib.art/", country: "cn", tags: ["模型", "社区", "中文"] },
+      { name: "即梦 AI", description: "剪映团队推出的 AI 图像和视频创作工具，中文场景友好。", url: "https://jimeng.jianying.com/", country: "cn", tags: ["图像", "视频", "中文"] },
+    ],
+  },
+  {
+    id: "video",
+    title: "AI 视频 / 数字人",
+    shortLabel: "视频",
+    summary: "文生视频、图生视频、口播数字人和视频后期，是内容生产里变化最快的一类。",
+    items: [
+      { name: "Google Veo", description: "Google 的视频生成能力，适合和 Gemini、Flow 等创作工具联动观察。", url: "https://deepmind.google/models/veo/", country: "us", icon: icon.gemini, tags: ["视频", "Google", "生成"] },
+      { name: "Runway", description: "AI 视频生成和编辑平台，适合短片、广告和创意视频工作流。", url: "https://runwayml.com/", country: "us", tags: ["视频", "编辑", "创意"] },
+      { name: "Kling AI", description: "快手可灵国际版，视频生成能力强，适合图生视频和短片。", url: "https://klingai.com/", country: "cn", tags: ["视频", "图生视频", "快手"] },
+      { name: "Luma Dream Machine", description: "Luma 推出的视频生成工具，适合镜头感较强的图生视频。", url: "https://lumalabs.ai/dream-machine", country: "us", tags: ["视频", "镜头", "生成"] },
+      { name: "Pika", description: "轻量视频生成产品，适合社媒短视频和创意尝试。", url: "https://pika.art/", country: "us", tags: ["视频", "社媒", "创意"] },
+      { name: "HeyGen", description: "数字人口播和视频翻译工具，适合营销视频和多语言内容。", url: "https://www.heygen.com/", country: "us", tags: ["数字人", "翻译", "营销"] },
+      { name: "Hailuo AI", description: "MiniMax 海螺 AI 视频工具，中文用户常用的视频生成入口。", url: "https://hailuoai.video/", country: "cn", tags: ["视频", "生成", "中文"] },
+    ],
+  },
+  {
+    id: "office-docs",
+    title: "AI 办公 / 文档",
+    shortLabel: "办公",
+    summary: "面向 PPT、文档、会议、笔记、知识库和工作流提效的工具。",
+    items: [
+      { name: "Notion AI", description: "集成在 Notion 里的写作、总结、知识库和项目管理助手。", url: "https://www.notion.com/product/ai", country: "us", tags: ["文档", "知识库", "项目"] },
+      { name: "Gamma", description: "AI 生成演示文稿、网页和文档，适合快速做汇报和课程材料。", url: "https://gamma.app/", country: "us", tags: ["PPT", "演示", "文档"] },
+      { name: "Napkin AI", description: "把文字变成图示、流程图和视觉化解释，适合做教程和方案图。", url: "https://www.napkin.ai/", country: "us", tags: ["图示", "流程图", "表达"] },
+      { name: "WPS AI", description: "中文办公套件里的 AI 能力，适合文档、表格、PPT 和本地办公场景。", url: "https://ai.wps.cn/", country: "cn", tags: ["Office", "PPT", "中文"] },
+      { name: "飞书妙记", description: "会议转写、纪要和协作文档工具，适合团队会议和内容沉淀。", url: "https://www.feishu.cn/product/minutes", country: "cn", tags: ["会议", "转写", "协作"] },
+      { name: "Tome", description: "AI 演示和叙事工具，适合产品故事、提案和快速讲稿。", url: "https://tome.app/", country: "us", tags: ["演示", "叙事", "PPT"] },
+      { name: "Grammarly", description: "英文写作、纠错和语气调整工具，适合邮件、文档和英文内容。", url: "https://www.grammarly.com/", country: "us", tags: ["英文", "写作", "纠错"] },
+    ],
+  },
+  {
+    id: "model-platform",
+    title: "AI 开发平台 / 模型",
+    shortLabel: "模型平台",
+    summary: "适合开发者、研究者和折腾本地 AI 的平台、模型库和 API 入口。",
+    items: [
+      openaiApiPlatform,
+      { name: "Anthropic Console", description: "Claude API 和开发者平台入口，适合构建 Claude 应用。", url: "https://console.anthropic.com/", country: "us", icon: icon.claude, tags: ["API", "Claude", "开发"] },
+      googleAiStudio,
+      { name: "Hugging Face", description: "全球最大的模型、数据集和机器学习社区之一。", url: "https://huggingface.co/", country: "us", tags: ["模型", "开源", "社区"] },
+      { name: "Replicate", description: "托管和调用开源模型的平台，适合图像、音频和实验模型。", url: "https://replicate.com/", country: "us", tags: ["模型", "托管", "API"] },
+      { name: "Ollama", description: "本地运行大模型的常用工具，适合个人电脑和内网环境。", url: "https://ollama.com/", country: "global", tags: ["本地", "开源", "模型"] },
+      { name: "ModelScope 魔搭", description: "阿里系中文模型社区，适合找国产模型、数据集和示例。", url: "https://modelscope.cn/", country: "cn", tags: ["模型", "社区", "中文"] },
+    ],
+  },
+  {
+    id: "china",
+    title: "国产 AI 工具",
+    shortLabel: "国产",
+    summary: "优先收国内能直接使用、公开热度高、中文体验强的 AI 产品；不追求数量，只保留最容易推荐给普通用户的入口。",
+    items: [
+      deepseek,
+      doubao,
+      kimi,
+      qwen,
+      { name: "腾讯元宝", description: "腾讯系中文助手，搜索、文档和微信生态观察更顺手。", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["搜索", "腾讯", "中文"] },
+      { name: "文心一言", description: "百度文心大模型助手入口，适合中文问答和百度生态能力。", url: "https://yiyan.baidu.com/", country: "cn", tags: ["百度", "中文", "助手"] },
+      { name: "智谱清言", description: "智谱推出的 AI 助手，适合中文问答、文档和模型能力体验。", url: "https://chatglm.cn/", country: "cn", tags: ["智谱", "模型", "中文"] },
+    ],
+  },
+];
+
+const alternativePairs: AlternativePair[] = [
+  {
+    id: "chatgpt",
+    category: "通用问答 / 写作",
+    source: chatgpt,
+    alternatives: [kimi, doubao, qwen],
+    reason: "ChatGPT 是全球默认入口；国内日常替代优先看长文档、移动端、多模态和中文生态。",
+    bestFor: ["日常问答", "写作润色", "多模态入门"],
+  },
+  {
+    id: "claude",
+    category: "长文本 / 深度创作",
+    source: claude,
+    alternatives: [kimi, deepseek, qwen],
+    reason: "Claude 的优势是长上下文和稳定写作；国产侧可用 Kimi 处理长文档，DeepSeek 做推理，千问做中文和模型生态。",
+    bestFor: ["长文档", "复杂指令", "中文写作"],
+  },
+  {
+    id: "gemini",
+    category: "多模态 / 搜索生态",
+    source: gemini,
+    alternatives: [doubao, { name: "腾讯元宝", description: "腾讯系中文助手，搜索、文档和微信生态观察更顺手。", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["搜索", "腾讯", "中文"] }, qwen],
+    reason: "Gemini 背后是 Google 搜索和 Workspace；国内更现实的替代是豆包的多模态、元宝的搜索文档、千问的模型生态。",
+    bestFor: ["多模态", "中文搜索", "生态联动"],
+  },
+  {
+    id: "codex",
+    category: "编程 Agent / 仓库任务",
+    source: codex,
+    alternatives: [
+      { name: "Kimi Code", description: "Kimi 体系里的代码与 agent 能力，适合作为 Codex 的国内快速替代入口。", url: "https://www.kimi.com/", country: "cn", tags: ["编程", "Agent", "Kimi"], badge: "推荐" },
+      trae,
+      { name: "DeepSeek API", description: "用 DeepSeek 模型接入 Cline、Roo Code 等开源 agent，可做低成本代码任务。", url: "https://platform.deepseek.com/", country: "cn", tags: ["API", "代码", "低成本"] },
+    ],
+    reason: "Codex 更像仓库级开发 agent；国内平替可以拆成 Kimi 的 agent 能力、TRAE 的 IDE、DeepSeek 的模型后端。",
+    bestFor: ["仓库修改", "自动修复", "代码审查"],
+  },
+  {
+    id: "claude-code",
+    category: "终端编程 / 长任务",
+    source: claudeCode,
+    alternatives: [
+      trae,
+      { name: "Kimi Code", description: "适合国内用户先试代码问答、文件理解和 agent 型开发辅助。", url: "https://www.kimi.com/", country: "cn", tags: ["编程", "Agent", "中文"] },
+      { name: "Cline + DeepSeek", description: "开源 VS Code agent 搭配国产模型，适合本地可控的 Claude Code 替代流程。", url: "https://cline.bot/", country: "global", icon: icon.cline, tags: ["开源", "VS Code", "国产模型"] },
+    ],
+    reason: "Claude Code 的核心是终端长任务与仓库理解；国内用户更容易先从 TRAE、Kimi 或开源 agent 加国产模型组合开始。",
+    bestFor: ["终端流程", "项目理解", "本地可控"],
+  },
+  {
+    id: "notebooklm",
+    category: "资料库 / 笔记研究",
+    source: { name: "NotebookLM", description: "Google 的资料阅读和笔记研究工具，适合基于材料问答和生成摘要。", url: "https://notebooklm.google/", country: "us", icon: icon.gemini, tags: ["资料", "笔记", "研究"] },
+    alternatives: [
+      { name: "Kimi Docs", description: "Kimi 的长文档理解和资料问答适合替代 NotebookLM 的核心阅读场景。", url: "https://www.kimi.com/", country: "cn", tags: ["长文档", "资料", "问答"] },
+      doubao,
+      { name: "腾讯元宝", description: "适合中文搜索、文档理解和材料整理。", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["文档", "搜索", "中文"] },
+    ],
+    reason: "NotebookLM 强在基于资料的问答与学习；国内优先看长文档能力和中文资料搜索。",
+    bestFor: ["PDF 阅读", "课程资料", "研究摘要"],
+  },
+  {
+    id: "perplexity",
+    category: "AI 搜索 / 研究",
+    source: { name: "Perplexity", description: "带来源的 AI 搜索答案引擎，适合快速查资料和做研究入口。", url: "https://www.perplexity.ai/", country: "us", tags: ["搜索", "来源", "研究"] },
+    alternatives: [
+      { name: "秘塔AI搜索", description: "中文 AI 搜索工具，没有传统广告干扰，适合资料整理和研究。", url: "https://metaso.cn/", country: "cn", tags: ["搜索", "中文", "资料"] },
+      { name: "Kimi Deep Research", description: "Kimi 的搜索和研究能力适合中文资料汇总和长文输出。", url: "https://www.kimi.com/", country: "cn", tags: ["搜索", "研究", "长文"] },
+      { name: "腾讯元宝", description: "中文问答、搜索和文档入口，适合国内信息源。", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["搜索", "腾讯", "中文"] },
+    ],
+    reason: "Perplexity 的价值是答案加来源；国内替代要优先看中文信息源、搜索体验和资料汇总。",
+    bestFor: ["查资料", "竞品调研", "来源核对"],
+  },
+  {
+    id: "midjourney",
+    category: "图像生成 / 设计素材",
+    source: { name: "Midjourney", description: "高质量图像和插画生成工具，适合概念图、海报和视觉方向探索。", url: "https://www.midjourney.com/", country: "us", tags: ["图像", "插画", "视觉"] },
+    alternatives: [
+      { name: "即梦 AI", description: "剪映团队推出的 AI 图像和视频创作工具，中文提示更友好。", url: "https://jimeng.jianying.com/", country: "cn", tags: ["图像", "视频", "中文"] },
+      { name: "LiblibAI", description: "中文 AI 图像模型和工作流社区，适合找模型、工作流和灵感。", url: "https://www.liblib.art/", country: "cn", tags: ["模型", "工作流", "社区"] },
+      { name: "通义万相", description: "阿里通义系 AI 图像创作入口，适合中文海报和素材生成。", url: "https://tongyi.aliyun.com/wanxiang/", country: "cn", tags: ["图像", "阿里", "中文"] },
+    ],
+    reason: "Midjourney 仍是视觉质量标杆；国内替代更看重中文提示、模板、模型社区和视频联动。",
+    bestFor: ["海报", "视觉灵感", "电商素材"],
+  },
+];
+
+const totalItems = groups.reduce((sum, group) => sum + group.items.length, 0);
+const emailLink = socialLinks.find((link) => link.label === "Email");
+---
+
+<BaseLayout
+  title="AI 导航 | 湖森堡AI_hooosberg"
+  description="亲自试用后筛选的 AI 工具排行榜导航：不做工具大杂烩，只收录真正高频、成熟、值得国际用户选择的顶级 AI 产品，并提供国内平替和中美产品对照。"
+  mainClass="main--ai-directory"
+>
+  <section class="ai-directory-hero">
+    <div>
+      <p class="hero-kicker">AI NAVIGATION</p>
+      <h1>AI 工具排行榜导航</h1>
+      <p>
+        这不是工具网址大全，也不是把上百个低频产品堆在一起。这里优先收录我亲自用过、
+        长期关注、真正有热度和生产力价值的顶级 AI 产品：国际用户会选择的主流工具、
+        中国用户更容易上手的国内平替，以及同类产品的中美对照。目的很简单：帮你少花时间搜索，
+        直接判断哪个能用、哪个值得用、该用哪个替代。
+      </p>
+      <label class="directory-search">
+        <Search size={18} aria-hidden="true" />
+        <input type="search" placeholder="搜索工具、场景或关键词" data-directory-search />
+      </label>
+      <div class="directory-stats" aria-label="导航概览">
+        <span>{groups.length} 个分类</span>
+        <span>{totalItems} 个工具</span>
+        <span>{alternativePairs.length} 组平替</span>
+        <span>亲测精选榜</span>
+        <span>人工编辑热度榜</span>
+      </div>
+    </div>
+
+    <div class="directory-method directory-contact-card" aria-label="入库标准和产品提交">
+      <span class="directory-contact-card__eyebrow">TOOL DIRECTORY</span>
+      <strong>入库标准</strong>
+      <p>
+        只收录我实际用过，或完整调研后认为值得长期关注的工具。排序看热度、成熟度、
+        真实工作价值、国内可用性和生态位置；只有新闻稿、没有直接入口的功能暂不单独入库。
+      </p>
+      <a class="directory-contact-card__mail" href={emailLink?.url ?? "/links"}>
+        <Mail size={18} aria-hidden="true" />
+        <span>
+          <small>入库联系我们</small>
+          <b>{emailLink?.note ?? "联系我"}</b>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <div class="directory-mode-toggle" role="tablist" aria-label="AI 导航模式">
+    <button class="is-active" type="button" role="tab" aria-selected="true" data-directory-mode="ranking">分类排行</button>
+    <button type="button" role="tab" aria-selected="false" data-directory-mode="alternatives">国内平替</button>
+  </div>
+
+  <section class="ai-directory-shell" data-directory-shell data-mode="ranking" data-directory-current={groups[0].id}>
+    <aside class="directory-sidebar" aria-label="导航分类">
+      <button type="button" data-directory-filter="all">全部榜单</button>
+      {groups.map((group, index) => (
+        <button
+          class={index === 0 ? "is-active" : undefined}
+          type="button"
+          data-directory-filter={group.id}
+          aria-current={index === 0 ? "true" : undefined}
+        >
+          {group.title}
+        </button>
+      ))}
+    </aside>
+
+    <div class="directory-content">
+      <div data-directory-view="ranking">
+        {groups.map((group) => (
+          <section class="directory-group" id={group.id} data-directory-group={group.id}>
+            <div class="directory-group__heading">
+              <div>
+                <p>{group.id}</p>
+                <h2>{group.title}</h2>
+              </div>
+              <span>{group.summary}</span>
+            </div>
+
+            <div class="directory-card-grid">
+              {group.items.map((item, index) => {
+                const rank = String(index + 1).padStart(2, "0");
+                const country = countryMeta[item.country];
+
+                return (
+                  <a
+                    class="directory-card"
+                    href={item.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    data-directory-card
+                    data-category={group.id}
+                    data-search={`${group.title} ${country.name} ${country.access} ${item.name} ${item.description} ${item.tags.join(" ")}`}
+                  >
+                    <span class="directory-card__rank">TOP {rank}</span>
+                    <span class="directory-card__icon">
+                      {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
+                    </span>
+                    <span class="directory-card__body">
+                      <span class="directory-card__title-row">
+                        <strong>{item.name}</strong>
+                        {item.badge && <em>{item.badge}</em>}
+                      </span>
+                      <span class="directory-card__meta">
+                        <span>{country.flag} {country.name}</span>
+                        <span class={`directory-card__access directory-card__access--${country.tone}`}>{country.access}</span>
+                      </span>
+                      <p>{item.description}</p>
+                      <span class="directory-card__tags">
+                        {item.tags.map((tag) => <span>{tag}</span>)}
+                      </span>
+                    </span>
+                    <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
+                  </a>
+                );
+              })}
+            </div>
+
+            {group.moreTarget && (
+              <a class="directory-more-link" href={`#${group.moreTarget}`} data-directory-jump={group.moreTarget}>
+                {group.moreLabel ?? "查看更多"}
+                <ArrowRight size={14} aria-hidden="true" />
+              </a>
+            )}
+          </section>
+        ))}
+
+        <p class="directory-empty" data-directory-empty hidden>没有匹配的入口，换个关键词试试。</p>
+      </div>
+
+      <section class="directory-alternatives" data-directory-view="alternatives" hidden>
+        <div class="directory-group__heading directory-group__heading--full">
+          <div>
+            <p>alternatives</p>
+            <h2>国内平替对照</h2>
+          </div>
+          <span>左边是海外标杆产品，右边是中国用户更容易尝试的替代路径。这里不是一比一功能复刻，而是把中美同类产品放在同一张表里，按真实使用场景找最快可用的替代。</span>
+        </div>
+
+        <div class="alternative-list">
+          {alternativePairs.map((pair, index) => {
+            const sourceCountry = countryMeta[pair.source.country];
+
+            return (
+              <article
+                class="alternative-pair"
+                data-alternative-card
+                data-search={`${pair.category} ${pair.reason} ${pair.bestFor.join(" ")} ${pair.source.name} ${pair.source.description} ${pair.alternatives.map((item) => `${item.name} ${item.description} ${item.tags.join(" ")}`).join(" ")}`}
+              >
+                <div class="alternative-pair__source">
+                  <span class="alternative-label">海外原型</span>
+                  <a class="alternative-tool alternative-tool--source" href={pair.source.url} target="_blank" rel="noreferrer">
+                    <span class="directory-card__rank">#{String(index + 1).padStart(2, "0")}</span>
+                    <span class="directory-card__icon">
+                      {pair.source.icon ? <img src={pair.source.icon} alt="" loading="lazy" decoding="async" /> : pair.source.name.slice(0, 1)}
+                    </span>
+                    <span>
+                      <strong>{pair.source.name}</strong>
+                      <small>{sourceCountry.flag} {sourceCountry.name} · {sourceCountry.access}</small>
+                    </span>
+                    <ExternalLink size={14} aria-hidden="true" />
+                  </a>
+                </div>
+
+                <div class="alternative-pair__logic">
+                  <span>{pair.category}</span>
+                  <p>{pair.reason}</p>
+                  <div>
+                    {pair.bestFor.map((item) => <em>{item}</em>)}
+                  </div>
+                </div>
+
+                <div class="alternative-pair__targets">
+                  <span class="alternative-label">国内平替</span>
+                  <div>
+                    {pair.alternatives.map((item) => {
+                      const country = countryMeta[item.country];
+
+                      return (
+                        <a class="alternative-tool" href={item.url} target="_blank" rel="noreferrer">
+                          <span class="directory-card__icon">
+                            {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
+                          </span>
+                          <span>
+                            <strong>{item.name}</strong>
+                            <small>{country.flag} {country.name} · {country.access}</small>
+                          </span>
+                          <ExternalLink size={14} aria-hidden="true" />
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <p class="directory-empty" data-alternative-empty hidden>没有匹配的平替组合，换个关键词试试。</p>
+      </section>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const search = document.querySelector("[data-directory-search]");
+    const filters = Array.from(document.querySelectorAll("[data-directory-filter]"));
+    const cards = Array.from(document.querySelectorAll("[data-directory-card]"));
+    const groups = Array.from(document.querySelectorAll("[data-directory-group]"));
+    const empty = document.querySelector("[data-directory-empty]");
+    const modeButtons = Array.from(document.querySelectorAll("[data-directory-mode]"));
+    const views = Array.from(document.querySelectorAll("[data-directory-view]"));
+    const shell = document.querySelector("[data-directory-shell]");
+    const sidebar = document.querySelector(".directory-sidebar");
+    const alternativeCards = Array.from(document.querySelectorAll("[data-alternative-card]"));
+    const alternativeEmpty = document.querySelector("[data-alternative-empty]");
+    const localJumps = Array.from(document.querySelectorAll("[data-directory-jump]"));
+    const firstCategory = groups[0]?.dataset.directoryGroup || "top";
+    let activeCategory = "all";
+    let currentCategory = firstCategory;
+    let activeMode = "ranking";
+
+    const setCurrentCategory = (category, options = {}) => {
+      currentCategory = category || firstCategory;
+      if (shell) shell.dataset.directoryCurrent = currentCategory;
+
+      filters.forEach((item) => {
+        const isCurrent = item.dataset.directoryFilter === currentCategory;
+        item.classList.toggle("is-active", isCurrent);
+        if (isCurrent) {
+          item.setAttribute("aria-current", "true");
+        } else {
+          item.removeAttribute("aria-current");
+        }
+      });
+
+      const activeFilter = filters.find((item) => item.dataset.directoryFilter === currentCategory);
+      if (options.scrollSidebar !== false && sidebar && activeFilter) {
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const behavior = reducedMotion ? "auto" : "smooth";
+
+        if (sidebar.scrollWidth > sidebar.clientWidth) {
+          sidebar.scrollTo({
+            left: activeFilter.offsetLeft - (sidebar.clientWidth - activeFilter.clientWidth) / 2,
+            behavior,
+          });
+        }
+
+        if (sidebar.scrollHeight > sidebar.clientHeight) {
+          sidebar.scrollTo({
+            top: activeFilter.offsetTop - (sidebar.clientHeight - activeFilter.clientHeight) / 2,
+            behavior,
+          });
+        }
+      }
+    };
+
+    const updateRanking = () => {
+      const query = (search?.value || "").trim().toLowerCase();
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const category = card.dataset.category;
+        const text = (card.dataset.search || "").toLowerCase();
+        const visibleByCategory = activeCategory === "all" || category === activeCategory;
+        const visibleByQuery = !query || text.includes(query);
+        const visible = visibleByCategory && visibleByQuery;
+        card.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+
+      groups.forEach((group) => {
+        const hasVisibleCards = Array.from(group.querySelectorAll("[data-directory-card]")).some((card) => !card.hidden);
+        group.hidden = !hasVisibleCards;
+      });
+
+      if (empty) empty.hidden = visibleCount !== 0;
+    };
+
+    const updateAlternatives = () => {
+      const query = (search?.value || "").trim().toLowerCase();
+      let visibleCount = 0;
+
+      alternativeCards.forEach((card) => {
+        const text = (card.dataset.search || "").toLowerCase();
+        const visible = !query || text.includes(query);
+        card.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+
+      if (alternativeEmpty) alternativeEmpty.hidden = visibleCount !== 0;
+    };
+
+    const update = () => {
+      if (activeMode === "alternatives") {
+        updateAlternatives();
+        return;
+      }
+
+      updateRanking();
+    };
+
+    const scrollCategoryIntoView = (category) => {
+      const targetCategory = category === "all" ? firstCategory : category;
+      const target = groups.find((group) => group.dataset.directoryGroup === targetCategory) || groups[0];
+      if (!target) return;
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.requestAnimationFrame(() => {
+        target.scrollIntoView({
+          block: "start",
+          behavior: reducedMotion ? "auto" : "smooth",
+        });
+      });
+    };
+
+    const setCategory = (category, options = {}) => {
+      activeCategory = category || "all";
+      if (search) search.value = "";
+      updateRanking();
+      setCurrentCategory(activeCategory === "all" ? firstCategory : activeCategory);
+      if (options.scroll !== false) scrollCategoryIntoView(activeCategory);
+    };
+
+    const setMode = (mode) => {
+      activeMode = mode;
+      if (search) search.value = "";
+      modeButtons.forEach((button) => {
+        const active = button.dataset.directoryMode === mode;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      views.forEach((view) => {
+        view.hidden = view.dataset.directoryView !== mode;
+      });
+      if (shell) shell.dataset.mode = mode;
+      update();
+    };
+
+    filters.forEach((filter) => {
+      filter.addEventListener("click", () => {
+        setCategory(filter.dataset.directoryFilter || "all");
+      });
+    });
+
+    localJumps.forEach((jump) => {
+      jump.addEventListener("click", () => {
+        setMode("ranking");
+        setCategory(jump.dataset.directoryJump || "all");
+      });
+    });
+
+    modeButtons.forEach((button) => {
+      button.addEventListener("click", () => setMode(button.dataset.directoryMode || "ranking"));
+    });
+
+    search?.addEventListener("input", update);
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (activeMode !== "ranking" || activeCategory !== "all") return;
+
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setCurrentCategory(entry.target.dataset.directoryGroup || firstCategory);
+          }
+        });
+      }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
+
+      groups.forEach((group) => observer.observe(group));
+    }
+
+    setCurrentCategory(currentCategory, { scrollSidebar: false });
+  })();
+</script>

@@ -1,0 +1,20 @@
+---
+import type { Product } from "../data/products";
+
+type Props = {
+  product: Product;
+  size?: "sm" | "md" | "lg";
+};
+
+const { product, size = "md" } = Astro.props;
+const initials = product.name
+  .split(/\s|-/)
+  .map((part) => part[0])
+  .join("")
+  .slice(0, 2)
+  .toUpperCase();
+---
+
+<span class:list={["product-icon", `product-icon--${size}`]} style={`--accent:${product.accent}`}>
+  {product.icon ? <img src={product.icon} alt="" loading="eager" decoding="async" /> : <span>{initials}</span>}
+</span>

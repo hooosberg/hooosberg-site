@@ -1,0 +1,56 @@
+---
+import ProductIcon from "./ProductIcon.astro";
+import type { Product } from "../data/products";
+
+type Props = {
+  product: Product;
+};
+
+const { product } = Astro.props;
+---
+
+<article class="article-detail legal-document" style={`--accent:${product.accent}`}>
+  <header>
+    <ProductIcon product={product} size="lg" />
+    <p>{product.category} / Last updated 2026-06-19</p>
+    <h1>{product.displayName} Terms of Service</h1>
+    <div class="tag-row">
+      <span>{product.status.join(" / ")}</span>
+      <span>{product.platforms.join(" / ")}</span>
+    </div>
+  </header>
+
+  <div class="legal-body">
+    <section>
+      <h2>Product Scope</h2>
+      <p>{product.displayName} is provided as {product.tagline}</p>
+      <p>The product page, download link, source repository, and support contact define the current public product scope.</p>
+    </section>
+
+    <section>
+      <h2>Use of the Product</h2>
+      <p>You are responsible for how you use the product, the files or content you import, and any output you create with it. Do not use the product in ways that violate applicable law, platform rules, or third-party rights.</p>
+    </section>
+
+    <section>
+      <h2>User Content and Local Data</h2>
+      <p>{product.privacy.note}</p>
+      <p>When the product works with local files, local browser sessions, local app data, or local models, you remain responsible for maintaining your own backups and device security.</p>
+    </section>
+
+    <section>
+      <h2>Downloads, Purchases, and Updates</h2>
+      <p>Downloads, purchases, subscriptions, in-app purchases, refunds, updates, and account-level store records may be handled by the platform linked from the product page, such as Apple App Store, Chrome Web Store, GitHub Releases, or another distribution channel.</p>
+    </section>
+
+    <section>
+      <h2>Third-Party Services</h2>
+      <p>Some workflows may involve third-party systems selected by you, such as model APIs, app stores, browser accounts, GitHub, or cloud services. Their own terms and policies apply to those services.</p>
+    </section>
+
+    <section>
+      <h2>Support and Changes</h2>
+      <p>For support, contact <a href="mailto:zikedece@proton.me">zikedece@proton.me</a> or Telegram <a href="https://t.me/hooosberg" target="_blank" rel="noreferrer">@hooosberg</a>. These terms may be updated when product features, pricing, distribution, or legal requirements change.</p>
+    </section>
+  </div>
+</article>

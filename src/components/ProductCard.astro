@@ -1,0 +1,47 @@
+---
+import { ArrowRight } from "@lucide/astro";
+import ProductIcon from "./ProductIcon.astro";
+import ProductActionButton from "./ProductActionButton.astro";
+import type { Product } from "../data/products";
+import { getLocalizedProduct, toLocalizedPath, uiText, type Locale } from "../utils/i18n";
+
+type Props = {
+  product: Product;
+  compact?: boolean;
+  locale?: Locale;
+};
+
+const { product: sourceProduct, compact = false, locale = "zh-CN" } = Astro.props;
+const product = getLocalizedProduct(sourceProduct, locale);
+const isFailureCase = product.caseStudy?.kind === "failure";
+const text = uiText[locale];
+const productHref = toLocalizedPath(`/apps/${product.slug}`, locale);
+const diaryHref = toLocalizedPath(`/apps/${product.slug}/diary`, locale);
+---
+
+<article class:list={["product-card", compact && "product-card--compact", isFailureCase && "product-card--failure"]} style={`--accent:${product.accent}`}>
+  <a class="product-card__overlay" href={productHref} aria-label={`${text.viewProduct}: ${product.displayName}`}></a>
+  <div class="product-card__top">
+    <ProductIcon product={product} />
+    <div>
+      <div class="product-card__name-row">
+        <h3>{product.displayName}</h3>
+        {isFailureCase && <span class="product-card__case-badge">{product.caseStudy?.label}</span>}
+      </div>
+      <p>{product.category}</p>
+    </div>
+  </div>
+  <p class="product-card__summary">{product.summary}</p>
+  <div class="product-card__meta">
+    <span>{product.platforms.slice(0, 2).join(" / ")}</span>
+    <span>{product.status[0]}</span>
+  </div>
+  <div class="product-card__actions">
+    <ProductActionButton action={product.primaryAction} text />
+    <a class="text-action product-card__button" href={diaryHref}>
+      <img class="action-icon" src="/icons/platform/article.svg" alt="" loading="lazy" decoding="async" />
+      {text.productDiary}
+      <ArrowRight size={15} aria-hidden="true" />
+    </a>
+  </div>
+</article>

@@ -1,0 +1,81 @@
+---
+import { ExternalLink } from "@lucide/astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { socialLinks } from "../../data/products";
+
+const platformHandles: Record<string, string> = {
+  GitHub: "搜索：hooosberg",
+  X: "搜索：@hooosberg",
+  YouTube: "搜索：@hooosberg",
+  TikTok: "搜索：@hooosberg",
+  Telegram: "搜索：@hooosberg",
+  抖音: "同名账号：湖森堡AI_hooosberg",
+  快手: "同名账号：湖森堡AI_hooosberg",
+  小红书: "同名账号：湖森堡AI_hooosberg",
+  B站: "同名账号：湖森堡AI_hooosberg",
+  Email: "邮箱直达",
+};
+
+const linkCards = socialLinks.map((link) => ({
+  ...link,
+  note: "note" in link ? link.note : "邮件直达",
+  handle: platformHandles[link.label] ?? link.url.replace("mailto:", ""),
+}));
+
+const videoLabels = ["YouTube", "B站", "抖音", "快手", "TikTok"];
+const socialLabels = ["GitHub", "X", "小红书"];
+const directLabels = ["Email", "Telegram"];
+
+const getCards = (labels: string[]) =>
+  labels.map((label) => linkCards.find((link) => link.label === label)).filter(Boolean);
+
+const contactSections = [
+  {
+    title: "视频账号",
+    kicker: "教程、产品演示、AI 工作流和真实开发过程。",
+    cards: getCards(videoLabels),
+    className: "platform-card-grid--video",
+  },
+  {
+    title: "社交媒体",
+    kicker: "日常想法、项目更新、源码和图文记录。",
+    cards: getCards(socialLabels),
+    className: "platform-card-grid--social",
+  },
+  {
+    title: "邮箱和电报",
+    kicker: "课程、产品、合作和技术交流，可以从这里直接联系我。",
+    cards: getCards(directLabels),
+    className: "platform-card-grid--direct",
+  },
+];
+---
+
+<BaseLayout title="联系 | 湖森堡AI_hooosberg" description="湖森堡AI_hooosberg 视频账号、社交媒体账号、邮箱和电报联系方式。">
+  <section class="page-hero page-hero--narrow">
+    <h1>联系</h1>
+    <p>这里是我们的视频账号和社交媒体账号，最后是邮箱和电报。想看过程、跟进产品、交流合作，都可以从这里找到我。</p>
+  </section>
+
+  <section class="link-hub">
+    {contactSections.map((section) => (
+      <div class="contact-platform-section">
+        <div class="contact-platform-section__heading">
+          <span>{section.title}</span>
+          <p>{section.kicker}</p>
+        </div>
+        <div class={`platform-card-grid ${section.className}`}>
+          {section.cards.map((link) => (
+            <a class="platform-card" href={link.url} target={link.url.startsWith("http") ? "_blank" : undefined} rel="noreferrer">
+              <img class="platform-card__icon" src={link.icon} alt="" loading="lazy" decoding="async" />
+              <span>{link.note}</span>
+              <strong>{link.label}</strong>
+              <small>{link.handle}</small>
+              {link.url.startsWith("http") && <ExternalLink class="platform-card__external" size={16} aria-hidden="true" />}
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+</BaseLayout>

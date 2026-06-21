@@ -1,0 +1,103 @@
+---
+import {
+  getProductBySlug,
+  productProgressItems,
+  productProgressSyncedAt,
+} from "../data/products";
+
+type Props = {
+  compact?: boolean;
+};
+
+const { compact = false } = Astro.props;
+const timelineStart = new Date("2026-03-01T00:00:00Z");
+const timelineEnd = new Date("2026-06-21T00:00:00Z");
+const dayMs = 24 * 60 * 60 * 1000;
+const totalDays = Math.max(1, Math.round((timelineEnd.getTime() - timelineStart.getTime()) / dayMs));
+const visibleItems = compact ? productProgressItems.slice(0, 6) : productProgressItems;
+const ticks = [
+  "2026-03",
+  "2026-04",
+  "2026-05",
+  "2026-06",
+];
+
+const getPosition = (date: string) => {
+  const current = new Date(`${date}T00:00:00Z`);
+  return Math.max(0, Math.min(100, ((current.getTime() - timelineStart.getTime()) / dayMs / totalDays) * 100));
+};
+
+const rows = visibleItems.map((item) => {
+  const product = getProductBySlug(item.productSlug);
+  const segments = item.segments.map((segment) => {
+    const start = getPosition(segment.start);
+    const end = getPosition(segment.end);
+
+    return {
+      ...segment,
+      start: Math.round(start),
+      width: Math.max(1.2, Math.min(100 - start, end - start)),
+    };
+  });
+
+  return {
+    ...item,
+    product,
+    label: item.label ?? product?.displayName ?? item.productSlug,
+    href: product ? `/apps/${product.slug}` : undefined,
+    segments,
+  };
+});
+---
+
+<section class:list={["progress-timeline", compact && "progress-timeline--compact"]} aria-labelledby={compact ? "home-progress-title" : "apps-progress-title"}>
+  <div class="progress-timeline__heading">
+    <div>
+      <p>秘书总后台同步</p>
+      <h2 id={compact ? "home-progress-title" : "apps-progress-title"}>苹果商店上架流程甘特图</h2>
+      <span>最近核对：{productProgressSyncedAt}。这里记录的是从立项、开发、提审到 App Store 上架推广的全过程；多数产品已完成开发，当前主要处于审核、推广和经营观察。</span>
+    </div>
+    {compact && <a class="inline-link" href="/apps">查看完整进度</a>}
+  </div>
+
+  <div class="progress-timeline__board">
+    <div class="progress-timeline__table-head" aria-hidden="true">
+      <div>项目</div>
+      <div class="progress-timeline__months">
+        {ticks.map((tick) => <span>{tick}</span>)}
+      </div>
+      <div>当前状态</div>
+    </div>
+    <div class="progress-timeline__rows">
+      {rows.map((row) => (
+        <article class:list={["progress-row", `progress-row--${row.tone}`]}>
+          <div class="progress-row__name">
+            {row.href ? <a href={row.href}>{row.label}</a> : <strong>{row.label}</strong>}
+            <span>{row.phase}</span>
+          </div>
+          <div class="progress-row__track" aria-label={`${row.label} ${row.status}`}>
+            {row.segments.map((segment) => (
+              <span
+                class:list={["progress-row__bar", `progress-row__bar--${segment.kind}`]}
+                style={`left:${segment.start}%; width:${segment.width}%`}
+                title={segment.label}
+              />
+            ))}
+          </div>
+          <div class="progress-row__status">
+            <strong>{row.status}</strong>
+            <span>{row.next}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+    {!compact && (
+      <div class="progress-timeline__legend" aria-label="甘特图图例">
+        <span><i class="progress-row__bar--research"></i>立项</span>
+        <span><i class="progress-row__bar--build"></i>开发/上架准备</span>
+        <span><i class="progress-row__bar--review"></i>审核/复审</span>
+        <span><i class="progress-row__bar--promo"></i>推广</span>
+      </div>
+    )}
+  </div>
+</section>

@@ -1,0 +1,100 @@
+---
+import { ExternalLink } from "@lucide/astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { articles, type Article } from "../../data/articles";
+import { products } from "../../data/products";
+import { absoluteUrl } from "../../utils/i18n";
+
+export function getStaticPaths() {
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+type Props = { article: Article };
+
+const { article } = Astro.props;
+const visibleBody = article.resourceUrl
+  ? article.body.filter((paragraph) => !paragraph.trim().startsWith("资源链接："))
+  : article.body;
+const relatedProducts = article.productSlugs
+  .map((slug) => products.find((product) => product.slug === slug))
+  .filter(Boolean);
+const diaryReturnHref = `/blog?kind=${article.diaryKind}`;
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: article.title,
+  description: article.excerpt,
+  datePublished: article.date,
+  dateModified: article.date,
+  url: absoluteUrl(`/blog/${article.slug}`),
+  inLanguage: "zh-CN",
+  keywords: article.tags.join(", "),
+  author: {
+    "@type": "Person",
+    name: "Hooosberg",
+    url: absoluteUrl("/"),
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "湖森堡AI_hooosberg",
+    url: absoluteUrl("/"),
+    logo: {
+      "@type": "ImageObject",
+      url: absoluteUrl("/brand/hooosberg-ai-icon.png"),
+    },
+  },
+  mainEntityOfPage: absoluteUrl(`/blog/${article.slug}`),
+};
+---
+
+<BaseLayout
+  title={`${article.title} | 湖森堡AI_hooosberg`}
+  description={article.excerpt}
+  canonicalPath={`/blog/${article.slug}`}
+  type="article"
+  publishedTime={article.date}
+  modifiedTime={article.date}
+  jsonLd={articleJsonLd}
+>
+  <article class="article-detail" data-diary-kind={article.diaryKind}>
+    <header>
+      <a class="article-back-link" href={diaryReturnHref}>返回日记</a>
+      <p>{article.category} / {article.date}</p>
+      <h1>{article.title}</h1>
+      <div class="tag-row">
+        {article.tags.map((tag) => <span>{tag}</span>)}
+      </div>
+    </header>
+
+    <div class="article-body">
+      {visibleBody.map((paragraph) => <p>{paragraph}</p>)}
+      {article.sections?.map((section) => (
+        <section class="article-section">
+          <h2>{section.heading}</h2>
+          {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </section>
+      ))}
+    </div>
+
+    {article.resourceUrl && (
+      <div class="article-resource-actions">
+        <a class="button article-resource-link" href={article.resourceUrl} target="_blank" rel="noreferrer">
+          打开资源
+          <ExternalLink size={16} aria-hidden="true" />
+        </a>
+      </div>
+    )}
+
+    {relatedProducts.length > 0 && (
+      <footer class="article-related">
+        <h2>关联产品</h2>
+        <div class="mini-link-row">
+          {relatedProducts.map((product) => product && <a href={`/apps/${product.slug}`}>{product.displayName}</a>)}
+        </div>
+      </footer>
+    )}
+  </article>
+</BaseLayout>

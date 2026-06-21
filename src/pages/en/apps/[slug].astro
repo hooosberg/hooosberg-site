@@ -1,0 +1,243 @@
+---
+import { LifeBuoy, ShieldCheck } from "@lucide/astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ProductActionButton from "../../../components/ProductActionButton.astro";
+import ProductIcon from "../../../components/ProductIcon.astro";
+import { getArticlesForProduct } from "../../../data/articles";
+import { products, type Product, type ProductAction } from "../../../data/products";
+import { absoluteUrl, getLocalizedProduct, getLocalizedArticle, toLocalizedPath } from "../../../utils/i18n";
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { sourceProduct: product },
+  }));
+}
+
+type Props = { sourceProduct: Product };
+
+const { sourceProduct } = Astro.props;
+const product = getLocalizedProduct(sourceProduct, "en");
+const relatedArticles = getArticlesForProduct(product.slug).map((article) => getLocalizedArticle(article, "en"));
+const detail = product.detail ?? {};
+const isFailureCase = product.caseStudy?.kind === "failure";
+const overviewTitle = isFailureCase ? "Postmortem" : "Product Overview";
+const valueSectionTitle = isFailureCase ? "What Failed" : "Why It Matters";
+const featureSectionTitle = isFailureCase ? "Failure Reasons" : "Core Experience";
+const principleSectionTitle = isFailureCase ? "Lessons" : "Design Principles";
+const diarySectionTitle = isFailureCase ? "Postmortem Diary" : "Build Diary";
+const diaryPreviewArticles = relatedArticles.slice(0, 8);
+
+const normalizeActionUrl = (url?: string) => (url ? url.replace(/\/$/, "") : "");
+const actionUrls = new Set<string>();
+const linkActions: ProductAction[] = [];
+
+const addAction = (action?: ProductAction) => {
+  if (!action) return;
+  const normalizedUrl = normalizeActionUrl(action.url);
+  if (normalizedUrl && actionUrls.has(normalizedUrl)) return;
+  if (normalizedUrl) actionUrls.add(normalizedUrl);
+  linkActions.push(action);
+};
+
+addAction(product.primaryAction);
+addAction({ label: "GitHub", url: product.repo, icon: "/icons/social/github.svg" });
+if (relatedArticles.length > 0) {
+  addAction({ label: "Build diary", url: toLocalizedPath(`/apps/${product.slug}/diary`, "en"), icon: "/icons/platform/article.svg" });
+}
+if (product.website) {
+  addAction({ label: "Legacy page", url: product.website, icon: "/icons/platform/web.svg" });
+}
+addAction(product.secondaryAction);
+
+const productJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: product.displayName,
+  description: product.summary,
+  url: absoluteUrl(`/en/apps/${product.slug}`),
+  applicationCategory: product.category,
+  operatingSystem: product.platforms.join(", "),
+  image: absoluteUrl(product.icon ?? "/brand/hooosberg-ai-icon.png"),
+  inLanguage: "en",
+  author: {
+    "@type": "Person",
+    name: "Hooosberg",
+    url: absoluteUrl("/en"),
+  },
+  offers: product.primaryAction.url
+    ? {
+        "@type": "Offer",
+        url: product.primaryAction.url,
+        availability: product.primaryAction.disabled ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
+      }
+    : undefined,
+};
+---
+
+<BaseLayout
+  locale="en"
+  title={`${product.displayName} | Hooosberg`}
+  description={product.summary}
+  canonicalPath={`/en/apps/${product.slug}`}
+  image={product.icon ?? "/brand/hooosberg-ai-icon.png"}
+  type="product"
+  jsonLd={productJsonLd}
+>
+  <section class="product-landing" style={`--accent:${product.accent}`}>
+    <div class="product-landing__hero">
+      <div class="product-landing__intro">
+        <ProductIcon product={product} size="lg" />
+        <div class="product-landing__label-row">
+          <p class="product-landing__category">{product.category}</p>
+          {isFailureCase && <span class="product-landing__case-badge">{product.caseStudy?.label}</span>}
+        </div>
+        <h1>{product.displayName}</h1>
+        <p>{product.summary}</p>
+      </div>
+
+      <div class="product-landing__aside" aria-label={`${product.displayName} links`}>
+        <div class="landing-actions landing-actions--stack">
+          {linkActions.map((action, index) => <ProductActionButton action={action} primary={index === 0} />)}
+        </div>
+
+        <dl class="product-facts">
+          <div>
+            <dt>Platform</dt>
+            <dd>{product.platforms.join(" / ")}</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd>{product.status.join(" / ")}</dd>
+          </div>
+          <div>
+            <dt>Audience</dt>
+            <dd>{product.audience}</dd>
+          </div>
+          <div>
+            <dt>Support</dt>
+            <dd>
+              <a href={`mailto:zikedece@proton.me?subject=${encodeURIComponent(product.displayName + " support")}`}>
+                Email support
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt>Legal</dt>
+            <dd>
+              <a href={`/en/privacy/${product.slug}`}>Privacy Policy</a>
+              <span>/</span>
+              <a href={`/en/terms/${product.slug}`}>Terms of Service</a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <section class="product-overview">
+      <div class="product-overview__copy">
+        <h2>{overviewTitle}</h2>
+        {(detail.overview ?? []).map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+      <dl class="product-proof-list">
+        {(detail.proofPoints ?? []).map((point) => (
+          <div>
+            <dt>{point.label}</dt>
+            <dd>
+              <strong>{point.value}</strong>
+              <span>{point.note}</span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section class="product-section">
+      <div class="product-section-heading">
+        <h2>{valueSectionTitle}</h2>
+        <p>Each product page is written for users, reviewers, and builders: what it solves, what it does not solve, and what can be reused.</p>
+      </div>
+      <div class="product-value-grid">
+        {(detail.valueProps ?? []).map((item) => (
+          <article class="product-value-card">
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <div class="product-detail-columns">
+      <section class="product-panel">
+        <h2>{featureSectionTitle}</h2>
+        <div class="feature-detail-list">
+          {(detail.featureDetails ?? []).map((feature) => (
+            <article class="feature-detail">
+              <h3>{feature.title}</h3>
+              <p>{feature.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="product-panel">
+        <h2>{principleSectionTitle}</h2>
+        <div class="principle-list">
+          {(detail.principles ?? []).map((principle) => (
+            <article class="principle-item">
+              <h3>{principle.title}</h3>
+              <p>{principle.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+
+    <section class="product-diary-preview">
+      <div class="product-diary-preview__copy">
+        <h2>{diarySectionTitle}</h2>
+        <p>{detail.diaryIntro}</p>
+        <div class="course-hook-list" aria-label={`${product.displayName} course hooks`}>
+          {product.courseHooks.map((hook) => <span>{hook}</span>)}
+        </div>
+        <a class="inline-link" href={`/en/apps/${product.slug}/diary`}>View all build notes</a>
+      </div>
+      {diaryPreviewArticles.length > 0 ? (
+        <div class="diary-list diary-list--compact">
+          {diaryPreviewArticles.map((item) => (
+            <a class="diary-row" href={`/en/blog/${item.slug}`}>
+              <span>{item.date}</span>
+              <strong>{item.title}</strong>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="empty-panel">
+          <h2>Build diary coming soon</h2>
+          <p>This product has a reserved build diary path for decisions, tradeoffs, and launch notes.</p>
+        </div>
+      )}
+    </section>
+
+    <section class="product-support-section">
+      <div>
+        <h2>Privacy and Support</h2>
+        <p>{product.privacy.note}</p>
+      </div>
+      <div class="mini-link-row">
+        <a href={`/en/privacy/${product.slug}`}>
+          <ShieldCheck size={16} aria-hidden="true" />
+          Privacy Policy
+        </a>
+        <a href={`/en/terms/${product.slug}`}>
+          <ShieldCheck size={16} aria-hidden="true" />
+          Terms of Service
+        </a>
+        <a href={`mailto:zikedece@proton.me?subject=${encodeURIComponent(product.displayName + " support")}`}>
+          <LifeBuoy size={16} aria-hidden="true" />
+          Email support
+        </a>
+      </div>
+    </section>
+  </section>
+</BaseLayout>

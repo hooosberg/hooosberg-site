@@ -1,0 +1,105 @@
+---
+import {
+  ArrowRight,
+  BarChart3,
+  BriefcaseBusiness,
+  Building2,
+  Palette,
+  Search,
+  Wrench,
+} from "@lucide/astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const services = [
+  {
+    title: "企业 AI 战略与落地规划",
+    description: "面向管理层和业务负责人，梳理业务目标、组织现状、可落地场景和阶段路线图，输出企业 AI 转型优先级。",
+    price: "10w 起",
+    note: "适合战略评估、年度 AI 规划和试点项目启动",
+    icon: Building2,
+  },
+  {
+    title: "企业 AI 工作流重构咨询",
+    description: "围绕销售、运营、内容、客服、研发和管理流程，拆解岗位动作、数据流和审批节点，设计可执行的 AI 工作流。",
+    price: "15w 起",
+    note: "按部门数量、访谈范围和流程复杂度报价",
+    icon: BriefcaseBusiness,
+  },
+  {
+    title: "AI 产品战略与商业化顾问",
+    description: "从产品定位、目标客户、定价模型、交付边界和增长路径出发，帮助 AI 产品建立可验证的商业闭环。",
+    price: "12w 起",
+    note: "适合新产品立项、融资前梳理或上线前复盘",
+    icon: BarChart3,
+  },
+  {
+    title: "产品体验与增长诊断",
+    description: "针对网页、App、SaaS 或内部工具，输出体验路径、功能优先级、转化表达和改版建议清单。",
+    price: "10w 起",
+    note: "含诊断报告、关键页面建议和一次复盘沟通",
+    icon: Search,
+  },
+  {
+    title: "品牌美学与产品叙事顾问",
+    description: "把艺术、建筑和产品表达结合起来，统一品牌气质、视觉系统、交互风格和内容叙事。",
+    price: "10w 起",
+    note: "适合品牌升级、官网改版和高端产品表达",
+    icon: Palette,
+  },
+  {
+    title: "企业级 AI Agent 与自动化系统定制",
+    description: "为企业重复任务定制 AI Agent、浏览器自动化、内部工具、数据处理模板和可交付的使用流程。",
+    price: "30w 起",
+    note: "按集成范围、数据权限、交付周期和维护要求报价",
+    icon: Wrench,
+  },
+];
+---
+
+<BaseLayout title="服务 | 湖森堡AI_hooosberg" description="湖森堡AI_hooosberg 的 AI 企业落地、产品开发和艺术顾问服务。">
+  <section class="page-hero page-hero--narrow courses-hero commerce-hero">
+    <p class="commerce-kicker">Services</p>
+    <h1>服务</h1>
+    <p>
+      提供面向企业团队和高价值项目的 AI 战略咨询、工作流重构、产品商业化、品牌美学和 AI Agent 系统定制。
+      服务以项目制交付为主，默认按企业级预算和落地复杂度评估。
+    </p>
+    <div class="course-hero-tags" aria-label="服务范围">
+      {services.map((service) => <span>{service.title}</span>)}
+    </div>
+  </section>
+
+  <section class="catalog-section commerce-section service-section">
+    <div class="section-line-heading course-section-heading commerce-section-heading">
+      <h2>服务项目</h2>
+      <span>10w - 30w+</span>
+    </div>
+
+    <div class="service-grid commerce-card-grid">
+      {services.map((service) => {
+        const Icon = service.icon;
+
+        return (
+          <article class="service-card commerce-card">
+            <div class="commerce-card__top">
+              <div class="course-icon"><Icon size={20} aria-hidden="true" /></div>
+              <span>企业项目</span>
+            </div>
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+            <div class="service-card__footer commerce-card__footer">
+              <div>
+                <strong>{service.price}</strong>
+                <small>{service.note}</small>
+              </div>
+              <a class="commerce-action" href="/links">
+                咨询服务
+                <ArrowRight size={15} aria-hidden="true" />
+              </a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>

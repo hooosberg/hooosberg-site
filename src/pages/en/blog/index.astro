@@ -1,0 +1,119 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { articlesByDate } from "../../../data/articles";
+import { diarySectionsLocalized, getLocalizedArticle } from "../../../utils/i18n";
+
+const localizedArticles = articlesByDate.map((article) => getLocalizedArticle(article, "en"));
+const diaryGroups = diarySectionsLocalized.en.map((section) => ({
+  ...section,
+  articles: localizedArticles.filter((article) => article.diaryKind === section.kind),
+}));
+
+const articleHref = (slug: string, kind: string) => `/en/blog/${slug}?kind=${kind}`;
+---
+
+<BaseLayout
+  locale="en"
+  title="Journal | Hooosberg"
+  description="Product diaries, reading notes, resource notes, and essays about AI, indie apps, product launches, and real build decisions."
+  canonicalPath="/en/blog"
+>
+  <section class="page-hero page-hero--narrow">
+    <h1>Journal</h1>
+    <p>
+      Product diaries, reading notes, resource notes, and essays. The product diary is the main asset:
+      each article turns a real build step into a reusable case study.
+    </p>
+  </section>
+
+  <section class="article-index">
+    <div class="diary-switch" role="tablist" aria-label="Journal sections">
+      {diaryGroups.map((section, index) => (
+        <button
+          class="diary-tab"
+          type="button"
+          role="tab"
+          aria-selected={index === 0 ? "true" : "false"}
+          aria-controls={`diary-panel-${section.kind}`}
+          data-diary-tab={section.kind}
+          data-active={index === 0 ? "true" : "false"}
+        >
+          <span>{section.label}</span>
+          <small>{section.articles.length} posts</small>
+        </button>
+      ))}
+    </div>
+
+    <div class="diary-summary-grid" aria-live="polite">
+      {diaryGroups.map((section, index) => (
+        <p
+          id={`diary-panel-${section.kind}`}
+          role="tabpanel"
+          data-diary-summary={section.kind}
+          hidden={index !== 0}
+        >
+          {section.summary}
+        </p>
+      ))}
+    </div>
+
+    <div class="article-list">
+      {diaryGroups.map((section, index) => (
+        section.articles.map((article) => (
+          <a
+            class="article-row"
+            href={articleHref(article.slug, section.kind)}
+            data-diary-row
+            data-diary-kind={section.kind}
+            hidden={index !== 0}
+          >
+            <span class="article-row__category">{section.kind === "product" ? article.productLabel ?? article.category : article.category}</span>
+            <span class="article-row__title">{article.title}</span>
+            <span class="article-row__excerpt">{article.excerpt}</span>
+            <span class="article-row__date">{article.date}</span>
+          </a>
+        ))
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const tabs = Array.from(document.querySelectorAll("[data-diary-tab]"));
+    const rows = Array.from(document.querySelectorAll("[data-diary-row]"));
+    const summaries = Array.from(document.querySelectorAll("[data-diary-summary]"));
+    const validKinds = new Set(tabs.map((tab) => tab.dataset.diaryTab));
+
+    const syncUrl = (kind) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set("kind", kind);
+      window.history.replaceState({ diaryKind: kind }, "", `${url.pathname}${url.search}${url.hash}`);
+    };
+
+    const activate = (kind, options = {}) => {
+      if (!kind || !validKinds.has(kind)) return;
+
+      tabs.forEach((tab) => {
+        const active = tab.dataset.diaryTab === kind;
+        tab.dataset.active = active ? "true" : "false";
+        tab.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      rows.forEach((row) => {
+        row.hidden = row.dataset.diaryKind !== kind;
+      });
+      summaries.forEach((summary) => {
+        summary.hidden = summary.dataset.diarySummary !== kind;
+      });
+
+      if (options.syncUrl) syncUrl(kind);
+    };
+
+    const initialKind = new URLSearchParams(window.location.search).get("kind");
+    activate(initialKind || tabs[0]?.dataset.diaryTab);
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => activate(tab.dataset.diaryTab, { syncUrl: true }));
+    });
+  })();
+</script>

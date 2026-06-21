@@ -1,0 +1,114 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { articlesByDate, diarySections } from "../../data/articles";
+
+const diaryGroups = diarySections.map((section) => ({
+  ...section,
+  articles: articlesByDate.filter((article) => article.diaryKind === section.kind),
+}));
+
+const articleHref = (slug: string, kind: string) => `/blog/${slug}?kind=${kind}`;
+---
+
+<BaseLayout title="日记 | 湖森堡AI_hooosberg" description="产品日记、读书日记、资源分享和随想日记。">
+  <section class="page-hero page-hero--narrow">
+    <h1>日记</h1>
+    <p>
+      产品日记记录真实开发过程，读书日记记录大脑的磨刀石，资源分享日记沉淀有用入口，随想日记保存路上的判断。
+      AI 时代他们在训练模型，图书就是我们的大脑的磨刀石，最高级的资产就是我们的大脑。
+    </p>
+  </section>
+
+  <section class="article-index">
+    <div class="diary-switch" role="tablist" aria-label="日记分区">
+      {diaryGroups.map((section, index) => (
+        <button
+          class="diary-tab"
+          type="button"
+          role="tab"
+          aria-selected={index === 0 ? "true" : "false"}
+          aria-controls={`diary-panel-${section.kind}`}
+          data-diary-tab={section.kind}
+          data-active={index === 0 ? "true" : "false"}
+        >
+          <span>{section.label}</span>
+          <small>{section.articles.length} 篇</small>
+        </button>
+      ))}
+    </div>
+
+    <div class="diary-summary-grid" aria-live="polite">
+      {diaryGroups.map((section, index) => (
+        <p
+          id={`diary-panel-${section.kind}`}
+          role="tabpanel"
+          data-diary-summary={section.kind}
+          hidden={index !== 0}
+        >
+          {section.summary}
+        </p>
+      ))}
+    </div>
+
+    <div class="article-list">
+      {diaryGroups.map((section, index) => (
+        section.articles.map((article) => (
+          <a
+            class="article-row"
+            href={articleHref(article.slug, section.kind)}
+            data-diary-row
+            data-diary-kind={section.kind}
+            hidden={index !== 0}
+          >
+            <span class="article-row__category">{section.kind === "product" ? article.productLabel ?? article.category : article.category}</span>
+            <span class="article-row__title">{article.title}</span>
+            <span class="article-row__excerpt">{article.excerpt}</span>
+            <span class="article-row__date">{article.date}</span>
+          </a>
+        ))
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const tabs = Array.from(document.querySelectorAll("[data-diary-tab]"));
+    const rows = Array.from(document.querySelectorAll("[data-diary-row]"));
+    const summaries = Array.from(document.querySelectorAll("[data-diary-summary]"));
+    const validKinds = new Set(tabs.map((tab) => tab.dataset.diaryTab));
+
+    const syncUrl = (kind) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set("kind", kind);
+      window.history.replaceState({ diaryKind: kind }, "", `${url.pathname}${url.search}${url.hash}`);
+    };
+
+    const activate = (kind, options = {}) => {
+      if (!kind || !validKinds.has(kind)) return;
+
+      tabs.forEach((tab) => {
+        const active = tab.dataset.diaryTab === kind;
+        tab.dataset.active = active ? "true" : "false";
+        tab.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      rows.forEach((row) => {
+        row.hidden = row.dataset.diaryKind !== kind;
+      });
+      summaries.forEach((summary) => {
+        summary.hidden = summary.dataset.diarySummary !== kind;
+      });
+
+      if (options.syncUrl) {
+        syncUrl(kind);
+      }
+    };
+
+    const initialKind = new URLSearchParams(window.location.search).get("kind");
+    activate(initialKind || tabs[0]?.dataset.diaryTab);
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => activate(tab.dataset.diaryTab, { syncUrl: true }));
+    });
+  })();
+</script>

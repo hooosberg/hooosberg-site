@@ -1,0 +1,243 @@
+---
+import { ArrowRight, BookOpen, Code2, ExternalLink, Layers3, Mail, Search, ShieldCheck } from "@lucide/astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProductCard from "../../components/ProductCard.astro";
+import { productDiaryArticles } from "../../data/articles";
+import { productsByLatest, socialLinks } from "../../data/products";
+import { getLocalizedArticle, getLocalizedSocialLinks } from "../../utils/i18n";
+
+const featuredProducts = productsByLatest.slice(0, 6);
+const featuredArticles = productDiaryArticles.slice(0, 4).map((article) => getLocalizedArticle(article, "en"));
+const bilibiliLink = socialLinks.find((link) => link.label === "B站");
+const localizedSocialLinks = getLocalizedSocialLinks("en");
+
+const courseTopics = [
+  "AI office automation",
+  "Creative tool onboarding",
+  "Apple app development",
+  "Market analysis",
+  "Business research",
+  "Practical development",
+  "Prompt workflows",
+  "Launch postmortems",
+];
+
+const tools = [
+  { name: "OpenAI Codex", icon: "/icons/ai-tools/openai-codex.svg" },
+  { name: "Claude Code", icon: "/icons/ai-tools/claude-code.svg" },
+  { name: "Cursor", icon: "/icons/ai-tools/cursor.svg" },
+  { name: "GitHub Copilot", icon: "/icons/ai-tools/copilot.svg" },
+  { name: "Gemini", icon: "/icons/ai-tools/gemini.svg" },
+  { name: "Cline", icon: "/icons/ai-tools/cline.svg" },
+  { name: "Windsurf", icon: "/icons/ai-tools/windsurf.svg" },
+  { name: "Trae", icon: "/icons/ai-tools/trae.svg" },
+  { name: "Roo Code", icon: "/icons/ai-tools/roo-code.svg" },
+  { name: "Kiro", icon: "/icons/ai-tools/kiro.svg" },
+  { name: "Goose", icon: "/icons/ai-tools/goose.svg" },
+  { name: "OpenCode", icon: "/icons/ai-tools/opencode.svg" },
+];
+
+const socialCards = localizedSocialLinks
+  .filter((link) => link.originalLabel !== "Email")
+  .map((link) => ({ label: link.label, value: link.note, url: link.url, icon: link.icon }));
+---
+
+<BaseLayout
+  locale="en"
+  title="Hooosberg | Philosophy, Art, AI"
+  description="Real product builds, AI-assisted development, indie app diaries, postmortems, and global-facing product pages by Hooosberg."
+  canonicalPath="/en"
+>
+  <section class="landing-hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-content">
+      <p class="hero-kicker">Real builds / failure notes / AI collaboration logs</p>
+      <h1>Philosophy Art AI</h1>
+      <p class="hero-subtitle">
+        This is a public notebook for real products: the wins, failures, wrong turns, product decisions,
+        prompts, launches, and postmortems behind independent apps and AI tools.
+      </p>
+      <div class="hero-actions">
+        <a class="button button--primary button--xl" href="/en/blog">
+          <BookOpen size={18} aria-hidden="true" />
+          Product Diaries
+        </a>
+        <a class="button button--secondary button--xl" href="#about">
+          <Mail size={18} aria-hidden="true" />
+          Contact
+        </a>
+      </div>
+      <div class="hero-proof" aria-label="Site focus">
+        <span>Apps</span>
+        <span>Postmortems</span>
+        <span>Human judgment</span>
+        <span>AI workflows</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="tools-band" aria-label="AI coding tools">
+    <p class="tools-label">AI coding tools used in the builds</p>
+    <div class="tools-track-wrapper">
+      <div class="tools-track">
+        {[...tools, ...tools].map((tool) => (
+          <a class="tool-item" href="/en/blog" aria-label={tool.name}>
+            <img src={tool.icon} alt="" />
+            <span>{tool.name}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-section home-directory-section" id="ai-navigation">
+    <div class="section-heading section-heading--center">
+      <p>AI Guide</p>
+      <h2>Choose the right tool first.</h2>
+      <span>AI products, coding agents, model APIs, design tools, hosting, launch channels, and learning resources are organized by workflow.</span>
+    </div>
+
+    <div class="home-directory-panel">
+      <div class="home-directory-intro">
+        <div>
+          <p class="home-directory-kicker">Quick route</p>
+          <h3>Rankings, alternatives, and builder resources.</h3>
+          <p>
+            The guide is a practical map for choosing tools while building real products: coding agents,
+            model platforms, design, hosting, launch communities, payments, and long-term learning.
+          </p>
+        </div>
+        <div class="home-directory-actions">
+          <a class="button button--primary" href="/en/ai-navigation">
+            Open AI Guide
+            <ArrowRight size={17} aria-hidden="true" />
+          </a>
+          <a class="button button--secondary" href="/en/ai-navigation#top">Top products</a>
+        </div>
+      </div>
+
+      <div class="home-directory-card-grid" aria-label="AI guide quick entries">
+        <a class="home-directory-card" href="/en/ai-navigation">
+          <span class="home-directory-icon"><Search size={20} aria-hidden="true" /></span>
+          <strong>AI product ranking</strong>
+          <p>Start with ChatGPT, Claude, Gemini, and the tools that are useful across many workflows.</p>
+        </a>
+        <a class="home-directory-card" href="/en/ai-navigation#dev-hosting">
+          <span class="home-directory-icon"><Code2 size={20} aria-hidden="true" /></span>
+          <strong>Developer stack</strong>
+          <p>Model APIs, hosting, product prototyping, distribution, and launch infrastructure.</p>
+        </a>
+        <a class="home-directory-card" href="/en/ai-navigation#alternatives">
+          <span class="home-directory-icon"><Layers3 size={20} aria-hidden="true" /></span>
+          <strong>Alternatives</strong>
+          <p>Compare global tools with practical regional or open-source substitutes when needed.</p>
+        </a>
+        <a class="home-directory-card" href="/en/ai-navigation#learning">
+          <span class="home-directory-icon"><ShieldCheck size={20} aria-hidden="true" /></span>
+          <strong>Learning resources</strong>
+          <p>Long-term references for AI, coding, product work, and practical execution.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-section">
+    <div class="section-heading">
+      <p>Products and postmortems</p>
+      <h2>Real products, real tradeoffs.</h2>
+      <span>Successful products are shown here, and failed products are kept as public postmortems because failure teaches product judgment.</span>
+      <a href="/en/apps">All products <ArrowRight size={15} aria-hidden="true" /></a>
+    </div>
+    <div class="product-grid product-grid--catalog">
+      {featuredProducts.map((product) => <ProductCard product={product} locale="en" />)}
+    </div>
+  </section>
+
+  <section class="landing-section landing-section--split" id="articles">
+    <div class="section-heading">
+      <p>Build diary</p>
+      <h2>Product work, opened up.</h2>
+      <a href="/en/blog">Journal <ArrowRight size={15} aria-hidden="true" /></a>
+    </div>
+    <div class="article-list article-list--compact">
+      {featuredArticles.map((article) => (
+        <a class="article-row" href={`/en/blog/${article.slug}`}>
+          <span class="article-row__category">{article.category}</span>
+          <span class="article-row__title">{article.title}</span>
+          <span class="article-row__excerpt">{article.excerpt}</span>
+          <span class="article-row__date">{article.date}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="author-section" id="about">
+    <div class="author-card">
+      <div class="author-mark">
+        <img src="/brand/hooosberg-ai-icon.png" alt="" />
+      </div>
+      <div>
+        <p class="hero-kicker">About Hooosberg</p>
+        <h2>An indie builder working between art, architecture, products, and AI.</h2>
+        <div class="author-card__copy">
+          <p>
+            I studied architecture in an art academy, have worked with 3D printing and outdoor video,
+            and now build AI tools, iOS/macOS apps, and product experiments as a long-term independent system.
+          </p>
+          <p>
+            The site records product pages, launch assets, development diaries, AI conversations, and postmortems.
+            The goal is to make the process useful to other builders, not only to show polished results.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="social-card-grid">
+      {socialCards.map((link) => (
+        <a class="social-card" href={link.url} target={link.url.startsWith("http") ? "_blank" : undefined} rel="noreferrer">
+          <img class="social-card__icon" src={link.icon} alt="" loading="lazy" decoding="async" />
+          <span>{link.label}</span>
+          <strong>{link.value}</strong>
+          {link.url.startsWith("http") && <ExternalLink class="social-card__external" size={14} aria-hidden="true" />}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="landing-section home-course-section" id="courses">
+    <div class="section-heading section-heading--center">
+      <p>Course</p>
+      <h2>A course is an entry point, not the destination.</h2>
+      <span>The course direction is built around real products: requirements, prompts, code, launch material, review, and postmortem practice.</span>
+    </div>
+
+    <a
+      class="premium-course-card premium-course-card--portrait home-premium-course-card"
+      href={bilibiliLink?.url ?? "/en/courses"}
+      target={bilibiliLink?.url ? "_blank" : undefined}
+      rel={bilibiliLink?.url ? "noreferrer" : undefined}
+    >
+      <span class="premium-course-card__ribbon">Coming Soon</span>
+      <span class="premium-course-card__eyebrow">Hooosberg AI Course</span>
+      <h2>Practical AI Programming</h2>
+      <div class="premium-course-card__price" aria-label="Course price">
+        <strong>$220</strong>
+        <span>limited course price</span>
+      </div>
+      <p>
+        A practical course for AI programming, office automation, product research, app development,
+        and launch postmortems.
+      </p>
+
+      <div class="premium-course-topics" aria-label="Course topics">
+        {courseTopics.map((topic) => <span>{topic}</span>)}
+      </div>
+
+      <span class="premium-course-card__action">
+        <BookOpen size={18} aria-hidden="true" />
+        View course
+        <ArrowRight size={17} aria-hidden="true" />
+      </span>
+    </a>
+  </section>
+</BaseLayout>

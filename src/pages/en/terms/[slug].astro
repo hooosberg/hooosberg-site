@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ProductTermsOfService from "../../../components/ProductTermsOfService.astro";
+import { products, type Product } from "../../../data/products";
+import { getLocalizedProduct } from "../../../utils/i18n";
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { sourceProduct: product },
+  }));
+}
+
+type Props = {
+  sourceProduct: Product;
+};
+
+const { sourceProduct } = Astro.props;
+const product = getLocalizedProduct(sourceProduct, "en");
+---
+
+<BaseLayout
+  locale="en"
+  title={`${product.displayName} Terms of Service | Hooosberg`}
+  description={`${product.displayName} terms of service.`}
+  canonicalPath={`/en/terms/${product.slug}`}
+  image={product.icon ?? "/brand/hooosberg-ai-icon.png"}
+>
+  <ProductTermsOfService product={product} />
+</BaseLayout>

@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ProductIcon from "../../../components/ProductIcon.astro";
+import { getArticlesForProduct } from "../../../data/articles";
+import { products, type Product } from "../../../data/products";
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+type Props = { product: Product };
+
+const { product } = Astro.props;
+const diaryArticles = getArticlesForProduct(product.slug);
+---
+
+<BaseLayout
+  title={`${product.displayName} 开发日记 | 湖森堡AI_hooosberg`}
+  description={`${product.displayName} 的开发日记、产品复盘和设计过程。`}
+  canonicalPath={`/apps/${product.slug}/diary`}
+  image={product.icon ?? "/brand/hooosberg-ai-icon.png"}
+>
+  <section class="page-hero page-hero--narrow product-diary-hero" style={`--accent:${product.accent}`}>
+    <ProductIcon product={product} size="md" />
+    <h1>{product.displayName} 开发日记</h1>
+    <p>这里不只放产品介绍，而是持续记录这个产品从需求、设计、实现、上架、运营到复盘的过程。每篇文章都会尽量还原真实决策和可复用经验。</p>
+    <div class="mini-link-row">
+      <a href={`/apps/${product.slug}`}>返回产品页</a>
+      <a href={product.repo} target="_blank" rel="noreferrer">GitHub</a>
+    </div>
+  </section>
+
+  <section class="article-index product-diary-index">
+    <div class="article-list">
+      {diaryArticles.length > 0 ? (
+        diaryArticles.map((article) => (
+          <a class="article-row article-row--link" href={`/blog/${article.slug}`}>
+            <span class="article-row__category">{article.category}</span>
+            <span class="article-row__title">{article.title}</span>
+            <span class="article-row__excerpt">{article.excerpt}</span>
+            <span class="article-row__date">{article.date}</span>
+          </a>
+        ))
+      ) : (
+        <div class="empty-panel">
+          <h2>开发日记正在整理</h2>
+          <p>这个产品已经预留开发日记入口，后续会补充完整的产品思路、设计取舍和开发过程。</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

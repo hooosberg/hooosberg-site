@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ProductCard from "../../../components/ProductCard.astro";
+import { productsByLatest } from "../../../data/products";
+---
+
+<BaseLayout
+  locale="en"
+  title="Products | Hooosberg"
+  description="Apps, AI tools, postmortems, and developer products built by Hooosberg."
+  canonicalPath="/en/apps"
+>
+  <section class="page-hero page-hero--narrow">
+    <h1>Products</h1>
+    <p>
+      A product matrix of apps, AI tools, browser utilities, quiet games, and honest postmortems.
+      Each product page connects downloads, source code, privacy, support, and build diaries under one domain.
+    </p>
+  </section>
+
+  <section class="catalog-section">
+    <div class="product-grid product-grid--catalog">
+      {productsByLatest.map((product) => <ProductCard product={product} locale="en" />)}
+    </div>
+  </section>
+</BaseLayout>

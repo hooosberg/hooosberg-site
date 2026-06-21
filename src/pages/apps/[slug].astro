@@ -1,0 +1,282 @@
+---
+import { LifeBuoy, ShieldCheck } from "@lucide/astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProductActionButton from "../../components/ProductActionButton.astro";
+import ProductIcon from "../../components/ProductIcon.astro";
+import { getArticlesForProduct } from "../../data/articles";
+import { getProductTimelineNote, products, type Product, type ProductAction } from "../../data/products";
+import { absoluteUrl } from "../../utils/i18n";
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+type Props = { product: Product };
+
+const { product } = Astro.props;
+const relatedArticles = getArticlesForProduct(product.slug);
+const timelineNote = getProductTimelineNote(product.slug);
+const detail = product.detail ?? {};
+const isFailureCase = product.caseStudy?.kind === "failure";
+const overviewTitle = isFailureCase ? "失败经验说明" : "产品说明";
+const valueSectionTitle = isFailureCase ? "失败在哪里" : "为什么值得看";
+const valueSectionCopy = isFailureCase
+  ? "这些案例的价值不在于证明产品成功，而在于说明 AI 能力变化怎样吞掉辅助工具，以及下一次如何判断边界。"
+  : "每个产品页都先回答用户真正关心的问题：它解决什么、有什么边界、为什么可信。";
+const featureSectionTitle = isFailureCase ? "失败原因" : "核心体验";
+const principleSectionTitle = isFailureCase ? "经验教训" : "设计取舍";
+const diarySectionTitle = isFailureCase ? "复盘日记" : "开发日记";
+const overviewParagraphs = detail.overview ?? [
+  `${product.displayName} 的定位是：${product.tagline} 主要面向${product.audience}`,
+  `它当前运行在 ${product.platforms.join(" / ")}，产品状态为 ${product.status.join(" / ")}。页面会把下载入口、源码、隐私政策、支持方式和开发日记放在同一个主域名下，方便用户和审核员同时理解产品边界。`,
+  `隐私边界也会在产品页直接说清楚：${product.privacy.note}`,
+];
+const proofPoints = detail.proofPoints ?? [
+  { label: "平台", value: product.platforms.join(" / "), note: `当前状态：${product.status.join(" / ")}` },
+  { label: "入口", value: product.primaryAction.label, note: product.secondaryAction ? `辅助入口：${product.secondaryAction.label}` : "主入口已在侧栏提供。" },
+  { label: "时间线", value: timelineNote, note: "按最近产品状态维护，便于用户判断项目活跃度。" },
+  { label: "隐私", value: product.privacy.collectsData ? "按功能说明" : "不收集个人数据", note: product.privacy.note },
+];
+const valueProps = detail.valueProps ?? [
+  { title: "清晰定位", body: product.tagline },
+  { title: "明确人群", body: product.audience },
+  { title: "统一入口", body: `下载、源码、隐私政策、支持和开发日记都集中在这个产品页承接。` },
+];
+const featureDetails = detail.featureDetails ?? product.features.map((feature) => ({
+  title: feature,
+  body: `这项能力是 ${product.displayName} 的基础功能之一，会和平台状态、隐私边界、支持入口一起帮助用户判断是否适合自己。`,
+}));
+const principles = detail.principles ?? product.buildNotes.map((note, index) => ({
+  title: `取舍 ${index + 1}`,
+  body: note,
+}));
+const diaryIntro = detail.diaryIntro ?? "开发日记会把产品从需求、设计、实现、上架到复盘的过程持续沉淀下来，既服务用户理解，也服务后续课程拆解。";
+const diaryPreviewArticles = relatedArticles.slice(0, 8);
+
+const normalizeActionUrl = (url?: string) => (url ? url.replace(/\/$/, "") : "");
+const actionUrls = new Set<string>();
+const linkActions: ProductAction[] = [];
+
+const addAction = (action?: ProductAction) => {
+  if (!action) return;
+
+  const normalizedUrl = normalizeActionUrl(action.url);
+
+  if (normalizedUrl && actionUrls.has(normalizedUrl)) return;
+  if (normalizedUrl) actionUrls.add(normalizedUrl);
+
+  linkActions.push(action);
+};
+
+addAction(product.primaryAction);
+addAction({ label: "GitHub", url: product.repo, icon: "/icons/social/github.svg" });
+
+if (relatedArticles.length > 0) {
+  addAction({ label: "开发日记", url: `/apps/${product.slug}/diary`, icon: "/icons/platform/article.svg" });
+}
+
+if (product.website) {
+  addAction({ label: "旧产品页", url: product.website, icon: "/icons/platform/web.svg" });
+}
+
+addAction(product.secondaryAction);
+
+const productJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: product.displayName,
+  description: product.summary,
+  url: absoluteUrl(`/apps/${product.slug}`),
+  applicationCategory: product.category,
+  operatingSystem: product.platforms.join(", "),
+  image: absoluteUrl(product.icon ?? "/brand/hooosberg-ai-icon.png"),
+  author: {
+    "@type": "Person",
+    name: "Hooosberg",
+    url: absoluteUrl("/"),
+  },
+  offers: product.primaryAction.url
+    ? {
+        "@type": "Offer",
+        url: product.primaryAction.url,
+        availability: product.primaryAction.disabled ? "https://schema.org/PreOrder" : "https://schema.org/InStock",
+      }
+    : undefined,
+};
+---
+
+<BaseLayout
+  title={`${product.displayName} | 湖森堡AI_hooosberg`}
+  description={product.summary}
+  canonicalPath={`/apps/${product.slug}`}
+  image={product.icon ?? "/brand/hooosberg-ai-icon.png"}
+  type="product"
+  jsonLd={productJsonLd}
+>
+  <section class="product-landing" style={`--accent:${product.accent}`}>
+    <div class="product-landing__hero">
+      <div class="product-landing__intro">
+        <ProductIcon product={product} size="lg" />
+        <div class="product-landing__label-row">
+          <p class="product-landing__category">{product.category}</p>
+          {isFailureCase && <span class="product-landing__case-badge">{product.caseStudy?.label}</span>}
+        </div>
+        <h1>{product.displayName}</h1>
+        <p>{product.summary}</p>
+      </div>
+
+      <div class="product-landing__aside" aria-label={`${product.displayName} links`}>
+        <div class="landing-actions landing-actions--stack">
+          {linkActions.map((action, index) => <ProductActionButton action={action} primary={index === 0} />)}
+        </div>
+
+        <dl class="product-facts">
+          <div>
+            <dt>平台</dt>
+            <dd>{product.platforms.join(" / ")}</dd>
+          </div>
+          <div>
+            <dt>状态</dt>
+            <dd>{product.status.join(" / ")}</dd>
+          </div>
+          <div>
+            <dt>时间线</dt>
+            <dd>{timelineNote}</dd>
+          </div>
+          <div>
+            <dt>支持</dt>
+            <dd>
+              <a href={`mailto:zikedece@proton.me?subject=${encodeURIComponent(product.displayName + " support")}`}>
+                邮件支持
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt>法律</dt>
+            <dd>
+              <a href={`/privacy/${product.slug}`}>Privacy Policy</a>
+              <span>/</span>
+              <a href={`/terms/${product.slug}`}>Terms of Service</a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <section class="product-overview">
+      <div class="product-overview__copy">
+        <h2>{overviewTitle}</h2>
+        {overviewParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+      <dl class="product-proof-list">
+        {proofPoints.map((point) => (
+          <div>
+            <dt>{point.label}</dt>
+            <dd>
+              <strong>{point.value}</strong>
+              <span>{point.note}</span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section class="product-section">
+      <div class="product-section-heading">
+        <h2>{valueSectionTitle}</h2>
+        <p>{valueSectionCopy}</p>
+      </div>
+      <div class="product-value-grid">
+        {valueProps.map((item) => (
+          <article class="product-value-card">
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <div class="product-detail-columns">
+      <section class="product-panel">
+        <h2>{featureSectionTitle}</h2>
+        <div class="feature-detail-list">
+          {featureDetails.map((feature) => (
+            <article class="feature-detail">
+              <h3>{feature.title}</h3>
+              <p>{feature.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="product-panel">
+        <h2>{principleSectionTitle}</h2>
+        <div class="principle-list">
+          {principles.map((principle) => (
+            <article class="principle-item">
+              <h3>{principle.title}</h3>
+              <p>{principle.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+
+    <section class="product-diary-preview">
+      <div class="product-diary-preview__copy">
+        <h2>{diarySectionTitle}</h2>
+        <p>{diaryIntro}</p>
+        <div class="course-hook-list" aria-label={`${product.displayName} course hooks`}>
+          {product.courseHooks.map((hook) => <span>{hook}</span>)}
+        </div>
+        <a class="inline-link" href={`/apps/${product.slug}/diary`}>查看全部开发日记</a>
+      </div>
+      {diaryPreviewArticles.length > 0 ? (
+        <div class="diary-list diary-list--compact">
+          {diaryPreviewArticles.map((item) => (
+            <a class="diary-row" href={`/blog/${item.slug}`}>
+              <span>{item.date}</span>
+              <strong>{item.title}</strong>
+            </a>
+          ))}
+          {relatedArticles.length > diaryPreviewArticles.length && (
+            <a class="diary-row diary-row--more" href={`/apps/${product.slug}/diary`}>
+              <span>更多</span>
+              <strong>还有 {relatedArticles.length - diaryPreviewArticles.length} 篇开发日记</strong>
+            </a>
+          )}
+        </div>
+      ) : (
+        <div class="empty-panel">
+          <h2>开发日记正在整理</h2>
+          <p>这个产品已经预留开发日记入口，后续会补充完整的产品思路、设计取舍和开发过程。</p>
+        </div>
+      )}
+    </section>
+
+    <section class="product-support-section">
+      <div>
+        <h2>隐私与支持</h2>
+        <p>{product.privacy.note}</p>
+      </div>
+      <div class="mini-link-row">
+        <a href={`/privacy/${product.slug}`}>
+          <ShieldCheck size={16} aria-hidden="true" />
+          Privacy Policy
+        </a>
+        <a href={`/terms/${product.slug}`}>
+          <ShieldCheck size={16} aria-hidden="true" />
+          Terms of Service
+        </a>
+        <a href={`mailto:zikedece@proton.me?subject=${encodeURIComponent(product.displayName + " support")}`}>
+          <LifeBuoy size={16} aria-hidden="true" />
+          邮件支持
+        </a>
+      </div>
+    </section>
+
+  </section>
+</BaseLayout>

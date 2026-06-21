@@ -1,0 +1,103 @@
+---
+import { ExternalLink } from "@lucide/astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { articles, type Article } from "../../../data/articles";
+import { products } from "../../../data/products";
+import { absoluteUrl, getLocalizedArticle, getLocalizedProduct } from "../../../utils/i18n";
+
+export function getStaticPaths() {
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { sourceArticle: article },
+  }));
+}
+
+type Props = { sourceArticle: Article };
+
+const { sourceArticle } = Astro.props;
+const article = getLocalizedArticle(sourceArticle, "en");
+const relatedProducts = article.productSlugs
+  .map((slug) => products.find((product) => product.slug === slug))
+  .filter(Boolean)
+  .map((product) => product && getLocalizedProduct(product, "en"));
+const diaryReturnHref = `/en/blog?kind=${article.diaryKind}`;
+const visibleBody = article.resourceUrl
+  ? article.body.filter((paragraph) => !paragraph.trim().toLowerCase().startsWith("resource url:"))
+  : article.body;
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: article.title,
+  description: article.excerpt,
+  datePublished: article.date,
+  dateModified: article.date,
+  url: absoluteUrl(`/en/blog/${article.slug}`),
+  inLanguage: "en",
+  keywords: article.tags.join(", "),
+  author: {
+    "@type": "Person",
+    name: "Hooosberg",
+    url: absoluteUrl("/en"),
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Hooosberg",
+    url: absoluteUrl("/en"),
+    logo: {
+      "@type": "ImageObject",
+      url: absoluteUrl("/brand/hooosberg-ai-icon.png"),
+    },
+  },
+  mainEntityOfPage: absoluteUrl(`/en/blog/${article.slug}`),
+};
+---
+
+<BaseLayout
+  locale="en"
+  title={`${article.title} | Hooosberg`}
+  description={article.excerpt}
+  canonicalPath={`/en/blog/${article.slug}`}
+  type="article"
+  publishedTime={article.date}
+  modifiedTime={article.date}
+  jsonLd={articleJsonLd}
+>
+  <article class="article-detail" data-diary-kind={article.diaryKind}>
+    <header>
+      <a class="article-back-link" href={diaryReturnHref}>Back to Journal</a>
+      <p>{article.category} / {article.date}</p>
+      <h1>{article.title}</h1>
+      <div class="tag-row">
+        {article.tags.map((tag) => <span>{tag}</span>)}
+      </div>
+    </header>
+
+    <div class="article-body">
+      {visibleBody.map((paragraph) => <p>{paragraph}</p>)}
+      {article.sections?.map((section) => (
+        <section class="article-section">
+          <h2>{section.heading}</h2>
+          {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </section>
+      ))}
+    </div>
+
+    {article.resourceUrl && (
+      <div class="article-resource-actions">
+        <a class="button article-resource-link" href={article.resourceUrl} target="_blank" rel="noreferrer">
+          Open resource
+          <ExternalLink size={16} aria-hidden="true" />
+        </a>
+      </div>
+    )}
+
+    {relatedProducts.length > 0 && (
+      <footer class="article-related">
+        <h2>Related Products</h2>
+        <div class="mini-link-row">
+          {relatedProducts.map((product) => product && <a href={`/en/apps/${product.slug}`}>{product.displayName}</a>)}
+        </div>
+      </footer>
+    )}
+  </article>
+</BaseLayout>

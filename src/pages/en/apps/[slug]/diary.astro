@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import ProductIcon from "../../../../components/ProductIcon.astro";
+import { getArticlesForProduct } from "../../../../data/articles";
+import { products, type Product } from "../../../../data/products";
+import { getLocalizedArticle, getLocalizedProduct } from "../../../../utils/i18n";
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { sourceProduct: product },
+  }));
+}
+
+type Props = { sourceProduct: Product };
+
+const { sourceProduct } = Astro.props;
+const product = getLocalizedProduct(sourceProduct, "en");
+const diaryArticles = getArticlesForProduct(product.slug).map((article) => getLocalizedArticle(article, "en"));
+---
+
+<BaseLayout
+  locale="en"
+  title={`${product.displayName} Build Diary | Hooosberg`}
+  description={`Build diary, product postmortems, launch notes, and design decisions for ${product.displayName}.`}
+  canonicalPath={`/en/apps/${product.slug}/diary`}
+  image={product.icon ?? "/brand/hooosberg-ai-icon.png"}
+>
+  <section class="page-hero page-hero--narrow product-diary-hero" style={`--accent:${product.accent}`}>
+    <ProductIcon product={product} size="md" />
+    <h1>{product.displayName} Build Diary</h1>
+    <p>
+      This page records the product from idea, design, implementation, App Store or distribution work,
+      operations, and postmortem learning. The goal is to preserve reusable decisions, not just release notes.
+    </p>
+    <div class="mini-link-row">
+      <a href={`/en/apps/${product.slug}`}>Back to product</a>
+      <a href={product.repo} target="_blank" rel="noreferrer">GitHub</a>
+    </div>
+  </section>
+
+  <section class="article-index product-diary-index">
+    <div class="article-list">
+      {diaryArticles.length > 0 ? (
+        diaryArticles.map((article) => (
+          <a class="article-row article-row--link" href={`/en/blog/${article.slug}`}>
+            <span class="article-row__category">{article.category}</span>
+            <span class="article-row__title">{article.title}</span>
+            <span class="article-row__excerpt">{article.excerpt}</span>
+            <span class="article-row__date">{article.date}</span>
+          </a>
+        ))
+      ) : (
+        <div class="empty-panel">
+          <h2>Build diary coming soon</h2>
+          <p>This product has a reserved diary path for product thinking, design tradeoffs, and implementation notes.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

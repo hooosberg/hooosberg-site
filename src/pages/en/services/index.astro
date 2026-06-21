@@ -1,0 +1,102 @@
+---
+import { ArrowRight, BarChart3, BriefcaseBusiness, Building2, Palette, Search, Wrench } from "@lucide/astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const services = [
+  {
+    title: "Enterprise AI Strategy and Roadmap",
+    description: "Executive-level AI opportunity assessment, workflow prioritization, phased roadmap, and pilot planning.",
+    price: "from $14,800",
+    note: "For strategy reviews, annual AI planning, and pilot starts",
+    icon: Building2,
+  },
+  {
+    title: "AI Workflow Redesign Consulting",
+    description: "Break down sales, operations, content, support, R&D, and management workflows into AI-ready process maps.",
+    price: "from $22,200",
+    note: "Quoted by departments, interviews, and process complexity",
+    icon: BriefcaseBusiness,
+  },
+  {
+    title: "AI Product Strategy and Commercialization",
+    description: "Positioning, target customers, pricing, delivery boundaries, and growth paths for AI products.",
+    price: "from $17,700",
+    note: "For product validation, launch preparation, or pre-fundraising clarity",
+    icon: BarChart3,
+  },
+  {
+    title: "Product Experience and Growth Diagnosis",
+    description: "Audit websites, apps, SaaS products, or internal tools for user paths, priority, conversion, and redesign direction.",
+    price: "from $14,800",
+    note: "Includes diagnosis report, key page recommendations, and review call",
+    icon: Search,
+  },
+  {
+    title: "Brand Aesthetics and Product Narrative",
+    description: "Unify product tone, visual system, interaction style, and content narrative through an art-and-architecture lens.",
+    price: "from $14,800",
+    note: "For brand upgrades, product websites, and high-end product expression",
+    icon: Palette,
+  },
+  {
+    title: "Enterprise AI Agent and Automation Systems",
+    description: "Custom AI agents, browser automation, internal tools, data-processing templates, and operational workflows.",
+    price: "from $44,300",
+    note: "Quoted by integration scope, data access, delivery cycle, and support needs",
+    icon: Wrench,
+  },
+];
+---
+
+<BaseLayout
+  locale="en"
+  title="Services | Hooosberg"
+  description="Enterprise AI strategy, AI workflow consulting, product commercialization, brand aesthetics, and AI agent automation services."
+  canonicalPath="/en/services"
+>
+  <section class="page-hero page-hero--narrow courses-hero commerce-hero">
+    <p class="commerce-kicker">Services</p>
+    <h1>Services</h1>
+    <p>
+      Enterprise-grade consulting for AI strategy, workflow redesign, product commercialization,
+      brand narrative, and custom AI agent systems.
+    </p>
+    <div class="course-hero-tags" aria-label="Service scope">
+      {services.map((service) => <span>{service.title}</span>)}
+    </div>
+  </section>
+
+  <section class="catalog-section commerce-section service-section">
+    <div class="section-line-heading course-section-heading commerce-section-heading">
+      <h2>Service Items</h2>
+      <span>$14,800 - $44,300+</span>
+    </div>
+
+    <div class="service-grid commerce-card-grid">
+      {services.map((service) => {
+        const Icon = service.icon;
+
+        return (
+          <article class="service-card commerce-card">
+            <div class="commerce-card__top">
+              <div class="course-icon"><Icon size={20} aria-hidden="true" /></div>
+              <span>Enterprise project</span>
+            </div>
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+            <div class="service-card__footer commerce-card__footer">
+              <div>
+                <strong>{service.price}</strong>
+                <small>{service.note}</small>
+              </div>
+              <a class="commerce-action" href="/en/links">
+                Contact
+                <ArrowRight size={15} aria-hidden="true" />
+              </a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,60 @@
+---
+import { ArrowRight, BookOpen } from "@lucide/astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { socialLinks } from "../../data/products";
+
+const bilibiliLink = socialLinks.find((link) => link.label === "B站");
+
+const courseTopics = [
+  "AI办公自动化",
+  "作图软件入门",
+  "苹果 App 开发",
+  "市场分析",
+  "商业调查",
+  "开发实战",
+  "提示词工作流",
+  "产品发布复盘",
+];
+---
+
+<BaseLayout title="课程 | 湖森堡AI_hooosberg" description="入门Ai编程实践课程：湖森堡AI_hooosberg 在 B 站更新的 AI 编程、办公自动化、App 开发、市场分析和开发实战教程。">
+  <section class="page-hero page-hero--narrow courses-hero courses-hero--focused">
+    <p class="commerce-kicker">Courses</p>
+    <h1>课程</h1>
+    <p>
+      教程会集中发在 B 站。这里先保留一个清楚入口：围绕真实产品、真实办公流程和真实发布过程，
+      把 AI 编程从工具使用带到可以反复实践的工作方式。
+    </p>
+  </section>
+
+  <section class="catalog-section commerce-section course-focus-section course-focus-section--compact">
+    <a
+      class="premium-course-card premium-course-card--portrait"
+      href={bilibiliLink?.url ?? "/links"}
+      target={bilibiliLink?.url ? "_blank" : undefined}
+      rel={bilibiliLink?.url ? "noreferrer" : undefined}
+    >
+      <span class="premium-course-card__ribbon">Coming Soon</span>
+      <span class="premium-course-card__eyebrow">Hooosberg AI Course</span>
+      <h2>入门Ai编程实践课程</h2>
+      <div class="premium-course-card__price" aria-label="课程定价">
+        <strong>1499元</strong>
+        <span>限时课程定价</span>
+      </div>
+      <p>
+        从零到一完成 AI 编程、自动化办公、产品调研、App 开发和上线复盘。
+        不做碎片技巧堆砌，只围绕能真正交付的项目练习。
+      </p>
+
+      <div class="premium-course-topics" aria-label="课程内容方向">
+        {courseTopics.map((topic) => <span>{topic}</span>)}
+      </div>
+
+      <span class="premium-course-card__action">
+        <BookOpen size={18} aria-hidden="true" />
+        立即购买
+        <ArrowRight size={17} aria-hidden="true" />
+      </span>
+    </a>
+  </section>
+</BaseLayout>

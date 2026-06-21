@@ -1,0 +1,134 @@
+---
+import "../styles/global.css";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import {
+  absoluteUrl,
+  getAlternatePaths,
+  localeMeta,
+  normalizePath,
+  siteName,
+  type Locale,
+} from "../utils/i18n";
+
+type Props = {
+  title?: string;
+  description?: string;
+  mainClass?: string;
+  locale?: Locale;
+  canonicalPath?: string;
+  alternatePaths?: Partial<Record<Locale, string>>;
+  image?: string;
+  type?: "website" | "article" | "product";
+  publishedTime?: string;
+  modifiedTime?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
+};
+
+const {
+  title = siteName,
+  description = "本地优先的 App、AI 工具和真实项目教程。",
+  mainClass,
+  locale: explicitLocale,
+  canonicalPath: explicitCanonicalPath,
+  alternatePaths: explicitAlternatePaths,
+  image = "/brand/hooosberg-ai-icon.png",
+  type = "website",
+  publishedTime,
+  modifiedTime,
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const currentPath = normalizePath(Astro.url.pathname);
+const locale: Locale = explicitLocale ?? (currentPath === "/en" || currentPath.startsWith("/en/") ? "en" : "zh-CN");
+const canonicalPath = normalizePath(explicitCanonicalPath ?? currentPath);
+const alternatePaths = { ...getAlternatePaths(canonicalPath), ...explicitAlternatePaths };
+const canonicalUrl = absoluteUrl(canonicalPath);
+const imageUrl = absoluteUrl(image);
+const jsonLdItems = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
+const oppositeLocale: Locale = locale === "en" ? "zh-CN" : "en";
+const oppositeHref = alternatePaths[oppositeLocale] ?? getAlternatePaths(canonicalPath)[oppositeLocale];
+const htmlLang = localeMeta[locale].htmlLang;
+---
+
+<!doctype html>
+<html
+  lang={htmlLang}
+  data-locale={locale}
+  data-en-path={alternatePaths.en}
+  data-zh-path={alternatePaths["zh-CN"]}
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/brand/hooosberg-ai-icon.png" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="zh-CN" href={absoluteUrl(alternatePaths["zh-CN"] ?? canonicalPath)} />
+    <link rel="alternate" hreflang="en" href={absoluteUrl(alternatePaths.en ?? canonicalPath)} />
+    <link rel="alternate" hreflang="x-default" href={absoluteUrl(alternatePaths.en ?? canonicalPath)} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:type" content={type === "article" ? "article" : "website"} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:locale" content={locale === "en" ? "en_US" : "zh_CN"} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    <script is:inline>
+      (() => {
+        try {
+          const saved = localStorage.getItem("hooosberg-theme");
+          const hour = new Date().getHours();
+          const timed = hour >= 18 || hour < 7 ? "dark" : "light";
+          document.documentElement.dataset.theme = saved || timed;
+        } catch {
+          document.documentElement.dataset.theme = "light";
+        }
+      })();
+    </script>
+    <script is:inline define:vars={{ locale, oppositeHref }}>
+      (() => {
+        try {
+          const key = "hooosberg-locale";
+          const currentLocale = locale;
+          const target = oppositeHref;
+          const saved = localStorage.getItem(key);
+          const languages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
+          const usesChinese = languages.some((language) => /^zh\b/i.test(language));
+
+          if (currentLocale === "zh-CN" && target && !saved && !usesChinese) {
+            window.location.replace(`${target}${window.location.search}${window.location.hash}`);
+          }
+
+          if (currentLocale === "zh-CN" && target && saved === "en") {
+            window.location.replace(`${target}${window.location.search}${window.location.hash}`);
+          }
+        } catch {
+          // Keep the static page usable when storage or language APIs are unavailable.
+        }
+      })();
+    </script>
+    <title>{title}</title>
+    {jsonLdItems.map((item) => (
+      <script type="application/ld+json" set:html={JSON.stringify(item)}></script>
+    ))}
+  </head>
+  <body>
+    <SiteHeader locale={locale} currentPath={canonicalPath} />
+    <main class={mainClass}>
+      <slot />
+    </main>
+    <SiteFooter locale={locale} />
+  </body>
+</html>

@@ -1,0 +1,56 @@
+---
+import ProductIcon from "./ProductIcon.astro";
+import type { Product } from "../data/products";
+
+type Props = {
+  product: Product;
+};
+
+const { product } = Astro.props;
+---
+
+<article class="article-detail legal-document" style={`--accent:${product.accent}`}>
+  <header>
+    <ProductIcon product={product} size="lg" />
+    <p>{product.category} / Last updated 2026-06-19</p>
+    <h1>{product.displayName} Privacy Policy</h1>
+    <div class="tag-row">
+      <span>{product.privacy.localFirst ? "Local-first" : "Online service"}</span>
+      <span>{product.privacy.analytics ? "Analytics disclosed" : "No ads or tracking listed"}</span>
+      <span>{product.platforms.join(" / ")}</span>
+    </div>
+  </header>
+
+  <div class="legal-body">
+    <section>
+      <h2>Overview</h2>
+      <p>{product.summary}</p>
+      <p>This privacy policy applies to {product.displayName}. Product delivery may happen through App Store, Chrome Web Store, GitHub Releases, or the linked product website depending on the product page.</p>
+    </section>
+
+    <section>
+      <h2>Data Handling</h2>
+      <p>{product.privacy.note}</p>
+      <div class="privacy-list">
+        <div class="privacy-row"><strong>Personal data collected by this product</strong><span>{product.privacy.collectsData ? "See product-specific disclosure" : "Not collected by the product itself"}</span></div>
+        <div class="privacy-row"><strong>Local-first storage</strong><span>{product.privacy.localFirst ? "Yes" : "No"}</span></div>
+        <div class="privacy-row"><strong>Advertising or third-party analytics</strong><span>{product.privacy.analytics ? "Disclosed when used" : "Not listed for this product"}</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Platform Services</h2>
+      <p>When you download, purchase, update, or review this product through Apple, Google, GitHub, Chrome Web Store, or another platform, that platform may process account, payment, device, crash, or store activity data under its own privacy policy.</p>
+    </section>
+
+    <section>
+      <h2>Support</h2>
+      <p>For privacy questions or product support, contact <a href="mailto:zikedece@proton.me">zikedece@proton.me</a> or Telegram <a href="https://t.me/hooosberg" target="_blank" rel="noreferrer">@hooosberg</a>.</p>
+    </section>
+
+    <section>
+      <h2>Changes</h2>
+      <p>This page will be updated when the product changes its data handling, store distribution, account model, analytics, payment flow, or support process.</p>
+    </section>
+  </div>
+</article>
