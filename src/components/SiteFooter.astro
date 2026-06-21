@@ -18,12 +18,16 @@ const legalLinks = [
 
 <footer class="site-footer">
   <div class="site-footer__inner">
-    <div>
-      <strong>{brandTitle}</strong>
-      <p>{text.footerCopy}</p>
+    <div class="site-footer__primary">
+      <div>
+        <strong>{brandTitle}</strong>
+        <p>{text.footerCopy}</p>
+      </div>
+      <nav aria-label="Footer links">
+        {links.map((link) => <a href={link.url} target={link.url.startsWith("http") ? "_blank" : undefined} rel="noreferrer">{link.label}</a>)}
+      </nav>
     </div>
-    <nav aria-label="Footer links">
-      {links.map((link) => <a href={link.url} target={link.url.startsWith("http") ? "_blank" : undefined} rel="noreferrer">{link.label}</a>)}
+    <nav class="site-footer__legal" aria-label={locale === "en" ? "Legal links" : "法律链接"}>
       {legalLinks.map((link) => <a href={link.url}>{link.label}</a>)}
     </nav>
   </div>
