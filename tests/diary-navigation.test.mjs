@@ -101,6 +101,21 @@ test("blog index paginates product diary rows after 15 items", async () => {
   );
 });
 
+test("product diary rows use a varied public publishing schedule", async () => {
+  const html = await readFile(blogIndexPage, "utf8");
+  const productRows = html.match(/<a class="article-row" href="\/blog\/[^"]+\?kind=product"[\s\S]*?<\/a>/g) ?? [];
+  const dates = productRows
+    .map((row) => row.match(/<span class="article-row__date">([^<]+)<\/span>/)?.[1])
+    .filter(Boolean);
+  const dateCounts = dates.reduce((counts, date) => {
+    counts.set(date, (counts.get(date) ?? 0) + 1);
+    return counts;
+  }, new Map());
+
+  assert.ok(dateCounts.size >= 20, "product diary dates should be distributed across many visible publishing dates");
+  assert.ok(Math.max(...dateCounts.values()) <= 8, "no single date should dominate the product diary archive");
+});
+
 test("product diary article bodies provide at least 1500 characters of development detail", async () => {
   const entries = await readdir(distBlogRoot, { withFileTypes: true });
   const shortArticles = [];

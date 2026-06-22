@@ -36,6 +36,12 @@ test("homepage links to AI navigation without rendering it as a homepage section
   assert.match(html, /<h1>我的开发日记<\/h1>/, "Chinese homepage should use a personal diary hero title");
   assert.match(enHtml, /<title>Hooosberg \| Philosophy, Art, AI<\/title>/, "English homepage document title should keep the site-level title");
   assert.match(enHtml, /<h1>My Build Diary<\/h1>/, "English homepage should translate the personal diary hero title");
+  for (const label of ["Codex App 开发", "AI 入门", "Claude Code", "Gemini", "AI 导航", "开发日记"]) {
+    assert.match(html, new RegExp(label), `Chinese hero tag should include ${label}`);
+  }
+  for (const label of ["Codex App Development", "AI Basics", "Claude Code", "Gemini", "AI Navigation", "Build Diary"]) {
+    assert.match(enHtml, new RegExp(label), `English hero tag should include ${label}`);
+  }
   assert.doesNotMatch(html, /aria-label="AI 导航"/, "AI navigation should not render as a homepage section");
   assert.match(html, /<strong>hooosberg<\/strong>/, "homepage social cards should show handles instead of full URLs");
   assert.match(html, /<strong>湖森堡AI_hooosberg<\/strong>/, "domestic social cards should show the account id directly");

@@ -5,10 +5,19 @@ type DiaryDraft = Omit<ArticleSeed, "date" | "productSlugs" | "seriesOrder"> & {
   date?: string;
 };
 
+const defaultDiaryStartUtc = Date.UTC(2026, 5, 20);
+let defaultDiaryOffset = 0;
+
+const nextDefaultDiaryDate = () => {
+  const date = new Date(defaultDiaryStartUtc - defaultDiaryOffset * 24 * 60 * 60 * 1000);
+  defaultDiaryOffset += 1;
+  return date.toISOString().slice(0, 10);
+};
+
 const productSeries = (productSlug: string, items: DiaryDraft[]): ArticleSeed[] =>
   items.map(({ order, date, ...item }) => ({
     ...item,
-    date: date ?? "2026-06-19",
+    date: date ?? nextDefaultDiaryDate(),
     productSlugs: [productSlug],
     seriesOrder: order,
   }));
