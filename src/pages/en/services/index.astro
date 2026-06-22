@@ -51,7 +51,7 @@ const pageDescription = "Enterprise AI strategy, AI workflow consulting, product
 const jsonLd = buildSectionWebPageJsonLd({
   locale: "en",
   path: "/en/services",
-  name: "Hooosberg AI Consulting and Automation Services",
+  name: "Hooosberg Enterprise AI Services",
   description: pageDescription,
   topics: ["AI automation services", "AI workflow consulting", "AI product prototype service", "business automation with AI"],
 });
@@ -59,21 +59,17 @@ const jsonLd = buildSectionWebPageJsonLd({
 
 <BaseLayout
   locale="en"
-  title="Services | Hooosberg"
+  title="Enterprise Services | Hooosberg"
   description={pageDescription}
   canonicalPath="/en/services"
   jsonLd={jsonLd}
 >
   <section class="page-hero page-hero--narrow courses-hero commerce-hero">
-    <p class="commerce-kicker">Services</p>
-    <h1>Services</h1>
+    <h1>Enterprise Services</h1>
     <p>
       Enterprise-grade consulting for AI strategy, workflow redesign, product commercialization,
       brand narrative, and custom AI agent systems.
     </p>
-    <div class="course-hero-tags" aria-label="Service scope">
-      {services.map((service) => <span>{service.title}</span>)}
-    </div>
   </section>
 
   <section class="catalog-section commerce-section service-section">

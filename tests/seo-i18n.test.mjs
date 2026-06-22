@@ -34,6 +34,12 @@ function findJsonLdById(html, id) {
   return jsonLdItems(html).find((item) => item["@id"] === id);
 }
 
+function groupSection(html, id) {
+  const match = html.match(new RegExp(`<section class="directory-group" id="${id}"[\\s\\S]*?(?=<section class="directory-group"|<p class="directory-empty")`));
+
+  return match?.[0] ?? "";
+}
+
 test("core pages expose canonical, hreflang, social metadata, and JSON-LD", async () => {
   const [productHtml, enProductHtml, articleHtml, enArticleHtml] = await Promise.all([
     readFile(productPage, "utf8"),
@@ -135,7 +141,7 @@ test("English AI guide has search, full workflow categories, and regional altern
     "Model APIs / Gateways",
     "Launch / Distribution",
     "Payments / Global Finance",
-    "Free Courses / Learning",
+    "GitHub Free Resources",
     "AI Chat / Search",
     "AI Coding / Agents",
     "AI Image / Design",
@@ -146,6 +152,13 @@ test("English AI guide has search, full workflow categories, and regional altern
   ]) {
     assert.match(html, new RegExp(label), `${label} should be present in the English AI guide`);
   }
+
+  const githubResourcesSection = groupSection(html, "github-free-resources");
+  assert.match(githubResourcesSection, /Free courses/, "English free learning resources should live inside GitHub Free Resources");
+  assert.match(githubResourcesSection, /fast\.ai/, "fast.ai should remain visible after merging free learning into GitHub resources");
+  assert.match(githubResourcesSection, /Hugging Face Course/, "Hugging Face Course should remain visible after merging free learning into GitHub resources");
+  assert.doesNotMatch(html, /id="free-learning"/, "English free learning resources should not render as a separate category");
+  assert.doesNotMatch(html, /data-directory-filter="free-learning"/, "English sidebar should not keep a separate free-learning filter");
 
   assert.match(html, /Curation standard/, "English AI guide should explain the directory standard");
   assert.match(html, /Regional alternatives/, "English AI guide should translate the alternatives section");

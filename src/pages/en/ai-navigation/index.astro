@@ -16,12 +16,19 @@ type ToolItem = {
   badge?: string;
 };
 
+type ToolSection = {
+  title: string;
+  summary: string;
+  items: ToolItem[];
+};
+
 type ToolGroup = {
   id: string;
   title: string;
   shortLabel: string;
   summary: string;
-  items: ToolItem[];
+  items?: ToolItem[];
+  sections?: ToolSection[];
 };
 
 type AlternativePair = {
@@ -342,12 +349,87 @@ const groups: ToolGroup[] = [
     ],
   },
   {
+    id: "github-free-resources",
+    title: "GitHub Free Resources",
+    shortLabel: "GitHub Free",
+    summary: "One compact GitHub entry for free resources useful to AI builders, labeled by design, free courses, AI coding, local LLM/macOS, product marketing, and audio assets.",
+    sections: [
+      {
+        title: "Design resources",
+        summary: "Interface resources, design systems, DESIGN.md files, and visual rules that help AI coding stay visually consistent.",
+        items: [
+          { name: "awesome-design-md", description: "A collection of DESIGN.md files for popular brand design systems, useful for giving coding agents a concrete visual and component brief.", url: "https://github.com/VoltAgent/awesome-design-md", country: "global", tags: ["design resources", "DESIGN.md", "AI coding"], badge: "Design" },
+          { name: "Design Resources for Developers", description: "Developer-friendly design resources covering colors, fonts, images, templates, CSS frameworks, UI libraries, and practical visual assets.", url: "https://github.com/bradtraversy/design-resources-for-developers", country: "global", tags: ["design resources", "frontend", "assets"], badge: "Design" },
+          { name: "awesome-design-systems", description: "A curated collection of mature design systems and pattern libraries for studying components, content guidance, accessibility, and brand consistency.", url: "https://github.com/alexpate/awesome-design-systems", country: "global", tags: ["design resources", "design systems", "components"], badge: "Design" },
+          { name: "Game-Assets-And-Resources", description: "A game asset and resource index covering 2D, 3D, mobile games, Unity, Steam, and other game-development contexts for fast prototyping.", url: "https://github.com/HotpotDesign/Game-Assets-And-Resources", country: "global", tags: ["game assets", "2D", "3D"], badge: "Game assets" },
+          { name: "game-icons/icons", description: "The SVG icon repository for Game-icons.net, useful for RPG, card, strategy, inventory, skill, status, and game UI icons.", url: "https://github.com/game-icons/icons", country: "global", tags: ["game assets", "SVG icons", "UI"], badge: "Game assets" },
+          { name: "GDQuest game-sprites", description: "CC0 game sprites from GDQuest for prototypes, useful when you want to focus on gameplay, collisions, movement, and level logic first.", url: "https://github.com/GDQuest/game-sprites", country: "global", tags: ["game assets", "sprites", "CC0"], badge: "Game assets" },
+          { name: "Intersect Assets", description: "A complete 2D fantasy MMORPG asset collection with sprites, tilesets, animations, interface elements, sounds, music, and tools.", url: "https://github.com/AscensionGameDev/Intersect-Assets", country: "global", tags: ["game assets", "2D RPG", "tilesets"], badge: "Game assets" },
+          { name: "Game Icon Pack", description: "A CC0 rounded game icon pack with SVG and multiple PNG sizes, useful for inventory, skills, items, buttons, and prototype UI.", url: "https://github.com/Nieobie/Game-Icon-Pack", country: "global", tags: ["game assets", "icon pack", "CC0"], badge: "Game assets" },
+          { name: "awesome-cc0", description: "A CC0 public-domain resource index that includes Kenney, Quaternius, itch.io CC0, OpenGameArt, and other game-asset sources.", url: "https://github.com/madjin/awesome-cc0", country: "global", tags: ["game assets", "CC0", "asset index"], badge: "Game assets" },
+        ],
+      },
+      {
+        title: "Free courses",
+        summary: "GitHub-hosted course paths and learning repos worth returning to for AI and LLM fundamentals.",
+        items: [
+          { name: "Neural Networks: Zero to Hero", description: "Andrej Karpathy's free neural-network course covering micrograd, makemore, GPT, tokenizers, and deep-learning foundations.", url: "https://github.com/karpathy/nn-zero-to-hero", country: "global", tags: ["free course", "deep learning", "Karpathy"], badge: "Course" },
+          { name: "LLM Course", description: "Free LLM course path covering fundamentals, training, fine-tuning, deployment, and LLM application engineering.", url: "https://github.com/mlabonne/llm-course", country: "global", tags: ["free course", "LLM", "engineering"], badge: "Course" },
+        ],
+      },
+      {
+        title: "AI coding resources",
+        summary: "Codex, Claude Code, MCP, code LLM, agent, and engineering-workflow resources.",
+        items: [
+          { name: "Hooosberg Starred", description: "My public GitHub starred list, used as a living candidate pool for AI coding, design, macOS, local models, and product-growth resources.", url: "https://github.com/hooosberg?tab=stars", country: "global", tags: ["AI coding", "watchlist", "curation"], badge: "Watchlist" },
+          { name: "awesome-mcp-servers", description: "A large MCP server directory for finding data sources, tools, and automations that can connect to Codex, Claude Desktop, Cursor, Cline, and other agents.", url: "https://github.com/punkpeye/awesome-mcp-servers", country: "global", tags: ["AI coding", "MCP", "agents"], badge: "AI Coding" },
+          { name: "Awesome-Code-LLM", description: "Papers, datasets, and benchmarks for code LLMs and software-engineering tasks, useful for understanding where AI coding actually works.", url: "https://github.com/codefuse-ai/awesome-code-llm", country: "global", tags: ["AI coding", "code LLM", "benchmarks"], badge: "AI Coding" },
+          { name: "awesome-agents", description: "A directory of AI agent projects and frameworks, useful for comparing coding agents, execution tools, and orchestration approaches.", url: "https://github.com/kyrolabs/awesome-agents", country: "global", tags: ["AI coding", "agents", "open source"], badge: "AI Coding" },
+          { name: "awesome-claude-code", description: "Claude Code skills, hooks, slash commands, orchestrators, applications, and plugins for building a richer terminal-agent workflow.", url: "https://github.com/hesreallyhim/awesome-claude-code", country: "global", tags: ["AI coding", "Claude Code", "workflow"], badge: "AI Coding" },
+          { name: "agent-skills", description: "Production-grade engineering skills from Addy Osmani for turning clarification, testing, refactoring, review, and delivery into agent-readable workflows.", url: "https://github.com/addyosmani/agent-skills", country: "global", tags: ["AI coding", "skills", "quality gates"], badge: "AI Coding" },
+        ],
+      },
+      {
+        title: "Local LLM / macOS",
+        summary: "Mac, SwiftUI, local-model, open-model, and offline AI product references.",
+        items: [
+          { name: "awesome-swift-macos-apps", description: "A curated list of open-source Swift macOS apps; the Local LLM section is a practical reference for native desktop AI products.", url: "https://github.com/jaywcjlove/awesome-swift-macos-apps#local-llm", country: "global", tags: ["local LLM", "macOS", "SwiftUI"], badge: "Local LLM" },
+          { name: "awesome-local-ai", description: "Jan's entry point to local AI tools across chat, inference, vector search, RAG, offline AI, and local-first workflows.", url: "https://github.com/janhq/awesome-local-ai", country: "global", tags: ["local LLM", "offline", "tool stack"], badge: "Local LLM" },
+          { name: "awesome-local-llms", description: "A metric-aware list of local LLM and generative-AI projects for comparing inference, serving, apps, agents, and production components.", url: "https://github.com/vince-lam/awesome-local-llms", country: "global", tags: ["local LLM", "metrics", "open models"], badge: "Local LLM" },
+          { name: "open-llms", description: "Eugene Yan's list of commercially usable open LLMs, useful for checking model licenses and product integration risk.", url: "https://github.com/eugeneyan/open-llms", country: "global", tags: ["local LLM", "open models", "commercial use"], badge: "Local LLM" },
+          { name: "awesome-langchain", description: "A curated list of LangChain tools and projects for learning RAG, agents, tool calling, and LLM application engineering.", url: "https://github.com/kyrolabs/awesome-langchain", country: "global", tags: ["local LLM", "RAG", "LLM apps"], badge: "Local LLM" },
+        ],
+      },
+      {
+        title: "Product marketing",
+        summary: "Resources for finding first users, distribution, positioning, launch paths, and growth after the product is built.",
+        items: [
+          { name: "Marketing for Founders", description: "Practical marketing resources for getting the first 10, 100, and 1000 users for a SaaS, app, or startup.", url: "https://github.com/EdoStra/Marketing-for-Founders", country: "global", tags: ["product marketing", "SaaS", "early users"], badge: "Marketing" },
+          { name: "awesome-indie", description: "Resources about making money as an independent developer, including bootstrapping, SaaS, growth, marketing, and product stories.", url: "https://github.com/mezod/awesome-indie", country: "global", tags: ["product marketing", "indie", "SaaS"], badge: "Marketing" },
+          { name: "awesome-indiehackers", description: "Blogs, cases, communities, and tools from the Indie Hackers world for learning from real solo-builder and bootstrapped-product stories.", url: "https://github.com/johackim/awesome-indiehackers", country: "global", tags: ["product marketing", "case studies", "community"], badge: "Marketing" },
+          { name: "Marketing for Engineers", description: "A hand-picked marketing collection for engineers, especially beta users, low-budget promotion, first users, and technical-product communication.", url: "https://github.com/goabstract/Marketing-for-Engineers", country: "global", tags: ["product marketing", "engineers", "promotion"], badge: "Marketing" },
+          { name: "awesome-oss-alternatives", description: "Open-source alternatives to established SaaS products, useful for competitor research, pricing references, positioning, and product differentiation.", url: "https://github.com/RunaCapital/awesome-oss-alternatives", country: "global", tags: ["product marketing", "competitors", "SaaS"], badge: "Marketing" },
+        ],
+      },
+      {
+        title: "Free audio resources",
+        summary: "Free commercially usable music, sound effects, UI audio, and retro game music for games, apps, websites, and demos; still check each repository license before shipping.",
+        items: [
+          { name: "CC0-1.0 Music", description: "A public-domain / CC0 music collection for background music, experimental music, and procedural-music research. The repo is large, so browse by source folder.", url: "https://github.com/SoundSafari/CC0-1.0-Music", country: "global", tags: ["free audio", "music", "CC0"], badge: "Audio" },
+          { name: "Homebrew VGM", description: "CC0 retro game jingles, fanfares, and short melodies for Game Boy, pixel-art, arcade-style games, and achievement feedback.", url: "https://github.com/Beatscribe/homebrew_vgm", country: "global", tags: ["free audio", "game music", "CC0"], badge: "Audio" },
+          { name: "Kenney UI Audio", description: "Kenney's CC0 UI sound pack with buttons, switches, and generic clicks for game menus, mobile apps, web interactions, and prototypes.", url: "https://github.com/Calinou/kenney-ui-audio", country: "global", tags: ["free audio", "UI sounds", "CC0"], badge: "Audio" },
+          { name: "Chip Sounds", description: "CC0 low-fi retro sound effects ready for Defold, web games, pixel projects, and lightweight interaction feedback.", url: "https://github.com/subsoap/chip-sounds", country: "global", tags: ["free audio", "sound effects", "CC0"], badge: "Audio" },
+          { name: "Free original music for games and film", description: "Tanner Helland's original game and film music in mp3, MIDI, ogg, and FLAC. It uses CC BY 4.0, so commercial projects should keep attribution.", url: "https://github.com/tannerhelland/free-music", country: "global", tags: ["free audio", "game music", "CC BY"], badge: "Audio" },
+        ],
+      },
+    ],
+  },
+  {
     id: "free-learning",
     title: "Free Courses / Learning",
     shortLabel: "Learning",
     summary: "Long-term free courses and engineering references worth returning to for AI, coding, and product fundamentals.",
     items: [
-      { name: "Neural Networks: Zero to Hero", description: "Andrej Karpathy's free neural-network course covering micrograd, makemore, GPT, tokenizers, and deep-learning foundations.", url: "https://github.com/karpathy/nn-zero-to-hero", country: "global", tags: ["free course", "deep learning", "Karpathy"] },
       { name: "fast.ai", description: "Practical deep-learning courses that start from applied projects and move toward model understanding.", url: "https://course.fast.ai/", country: "global", tags: ["free course", "deep learning", "practice"] },
       { name: "Hugging Face Course", description: "Official free course for Transformers, datasets, tokenizers, and model deployment workflows.", url: "https://huggingface.co/learn", country: "global", tags: ["Transformers", "models", "free course"] },
       { name: "OpenAI Cookbook", description: "OpenAI examples and patterns for APIs, RAG, agents, evaluation, and production integration.", url: "https://cookbook.openai.com/", country: "us", icon: icon.openai, tags: ["OpenAI", "API", "examples"] },
@@ -553,11 +635,32 @@ const alternativePairs: AlternativePair[] = [
   },
 ];
 
-const totalItems = groups.reduce((sum, group) => sum + group.items.length, 0);
+const getGroupItems = (group: ToolGroup) => group.items ?? group.sections?.flatMap((section) => section.items) ?? [];
+const freeLearningItems = groups.find((group) => group.id === "free-learning")?.items ?? [];
+const mergeFreeLearningIntoGitHubResources = (group: ToolGroup): ToolGroup => {
+  if (group.id !== "github-free-resources") {
+    return group;
+  }
+
+  return {
+    ...group,
+    sections: group.sections?.map((section) =>
+      section.title === "Free courses"
+        ? { ...section, items: [...section.items, ...freeLearningItems] }
+        : section
+    ),
+  };
+};
+const githubResourcesGroup = groups.find((group) => group.id === "github-free-resources");
+const directoryGroups = [
+  ...(githubResourcesGroup ? [mergeFreeLearningIntoGitHubResources(githubResourcesGroup)] : []),
+  ...groups.filter((group) => group.id !== "github-free-resources" && group.id !== "free-learning"),
+];
+const totalItems = directoryGroups.reduce((sum, group) => sum + getGroupItems(group).length, 0);
 const emailLink = getLocalizedSocialLinks("en").find((link) => link.originalLabel === "Email");
 const pageDescription = "A practical, searchable AI tool guide for builders: global AI assistants, coding agents, model APIs, product research, design tools, hosting, launch channels, payments, learning resources, and regional alternatives.";
-const toolItems = groups.flatMap((group) =>
-  group.items.map((item) => ({
+const toolItems = directoryGroups.flatMap((group) =>
+  getGroupItems(group).map((item) => ({
     name: item.name,
     url: item.url,
     description: `${group.title}: ${item.description}`,
@@ -628,10 +731,10 @@ const jsonLd = [
     <button type="button" role="tab" aria-selected="false" data-directory-mode="alternatives">Regional Alternatives</button>
   </div>
 
-  <section class="ai-directory-shell" data-directory-shell data-mode="ranking" data-directory-current={groups[0].id}>
+  <section class="ai-directory-shell" data-directory-shell data-mode="ranking" data-directory-current={directoryGroups[0].id} data-directory-filtered="false">
     <aside class="directory-sidebar" aria-label="AI guide categories">
       <button type="button" data-directory-filter="all">All rankings</button>
-      {groups.map((group, index) => (
+      {directoryGroups.map((group, index) => (
         <button
           class={index === 0 ? "is-active" : undefined}
           type="button"
@@ -645,7 +748,7 @@ const jsonLd = [
 
     <div class="directory-content">
       <div data-directory-view="ranking">
-        {groups.map((group) => (
+        {directoryGroups.map((group) => (
           <section class="directory-group" id={group.id} data-directory-group={group.id}>
             <div class="directory-group__heading">
               <div>
@@ -655,44 +758,95 @@ const jsonLd = [
               <span>{group.summary}</span>
             </div>
 
-            <div class="directory-card-grid">
-              {group.items.map((item, index) => {
-                const rank = String(index + 1).padStart(2, "0");
-                const country = countryMeta[item.country];
+            {group.sections ? (
+              <div class="directory-subgroup-list">
+                {group.sections.map((section) => (
+                  <section class="directory-subgroup" aria-label={section.title}>
+                    <div class="directory-subgroup__heading">
+                      <h3>{section.title}</h3>
+                      <p>{section.summary}</p>
+                    </div>
+                    <div class="directory-card-grid">
+                      {section.items.map((item, index) => {
+                        const rank = String(index + 1).padStart(2, "0");
+                        const country = countryMeta[item.country];
 
-                return (
-                  <a
-                    class="directory-card"
-                    href={item.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    data-directory-card
-                    data-category={group.id}
-                    data-search={`${group.title} ${group.shortLabel} ${country.name} ${country.access} ${item.name} ${item.description} ${item.tags.join(" ")}`}
-                  >
-                    <span class="directory-card__rank">TOP {rank}</span>
-                    <span class="directory-card__icon">
-                      {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
-                    </span>
-                    <span class="directory-card__body">
-                      <span class="directory-card__title-row">
-                        <strong>{item.name}</strong>
-                        {item.badge && <em>{item.badge}</em>}
+                        return (
+                          <a
+                            class="directory-card"
+                            href={item.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            data-directory-card
+                            data-category={group.id}
+                            data-search={`${group.title} ${group.shortLabel} ${section.title} ${country.name} ${country.access} ${item.name} ${item.description} ${item.tags.join(" ")}`}
+                          >
+                            <span class="directory-card__rank">TOP {rank}</span>
+                            <span class="directory-card__icon">
+                              {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
+                            </span>
+                            <span class="directory-card__body">
+                              <span class="directory-card__title-row">
+                                <strong>{item.name}</strong>
+                                {item.badge && <em>{item.badge}</em>}
+                              </span>
+                              <span class="directory-card__meta">
+                                <span>{country.flag} {country.name}</span>
+                                <span class={`directory-card__access directory-card__access--${country.tone}`}>{country.access}</span>
+                              </span>
+                              <p>{item.description}</p>
+                              <span class="directory-card__tags">
+                                {item.tags.map((tag) => <span>{tag}</span>)}
+                              </span>
+                            </span>
+                            <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
+                          </a>
+                        );
+                      })}
+                    </div>
+                  </section>
+                ))}
+              </div>
+            ) : (
+              <div class="directory-card-grid">
+                {getGroupItems(group).map((item, index) => {
+                  const rank = String(index + 1).padStart(2, "0");
+                  const country = countryMeta[item.country];
+
+                  return (
+                    <a
+                      class="directory-card"
+                      href={item.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      data-directory-card
+                      data-category={group.id}
+                      data-search={`${group.title} ${group.shortLabel} ${country.name} ${country.access} ${item.name} ${item.description} ${item.tags.join(" ")}`}
+                    >
+                      <span class="directory-card__rank">TOP {rank}</span>
+                      <span class="directory-card__icon">
+                        {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
                       </span>
-                      <span class="directory-card__meta">
-                        <span>{country.flag} {country.name}</span>
-                        <span class={`directory-card__access directory-card__access--${country.tone}`}>{country.access}</span>
+                      <span class="directory-card__body">
+                        <span class="directory-card__title-row">
+                          <strong>{item.name}</strong>
+                          {item.badge && <em>{item.badge}</em>}
+                        </span>
+                        <span class="directory-card__meta">
+                          <span>{country.flag} {country.name}</span>
+                          <span class={`directory-card__access directory-card__access--${country.tone}`}>{country.access}</span>
+                        </span>
+                        <p>{item.description}</p>
+                        <span class="directory-card__tags">
+                          {item.tags.map((tag) => <span>{tag}</span>)}
+                        </span>
                       </span>
-                      <p>{item.description}</p>
-                      <span class="directory-card__tags">
-                        {item.tags.map((tag) => <span>{tag}</span>)}
-                      </span>
-                    </span>
-                    <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
-                  </a>
-                );
-              })}
-            </div>
+                      <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
+                    </a>
+                  );
+                })}
+              </div>
+            )}
 
           </section>
         ))}
@@ -831,6 +985,11 @@ const jsonLd = [
       }
     };
 
+    const syncShellFilteredState = () => {
+      if (!shell) return;
+      shell.dataset.directoryFiltered = activeMode === "ranking" && activeCategory !== "all" ? "true" : "false";
+    };
+
     const updateRanking = () => {
       const query = (search?.value || "").trim().toLowerCase();
       let visibleCount = 0;
@@ -892,6 +1051,7 @@ const jsonLd = [
 
     const setCategory = (category, options = {}) => {
       activeCategory = category || "all";
+      syncShellFilteredState();
       if (search) search.value = "";
       updateRanking();
       setCurrentCategory(activeCategory === "all" ? firstCategory : activeCategory);
@@ -900,6 +1060,7 @@ const jsonLd = [
 
     const setMode = (mode) => {
       activeMode = mode;
+      syncShellFilteredState();
       if (search) search.value = "";
       modeButtons.forEach((button) => {
         const active = button.dataset.directoryMode === mode;
@@ -945,6 +1106,7 @@ const jsonLd = [
     } else if (initialHash && groups.some((group) => group.dataset.directoryGroup === initialHash)) {
       setCategory(initialHash, { scroll: false });
     } else {
+      syncShellFilteredState();
       setCurrentCategory(currentCategory, { scrollSidebar: false });
     }
   })();

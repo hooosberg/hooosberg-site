@@ -16,6 +16,14 @@ function cardNames(sectionHtml) {
   return [...sectionHtml.matchAll(/<span class="directory-card__title-row">[\s\S]*?<strong>([^<]+)<\/strong>/g)].map((match) => match[1]);
 }
 
+function directoryGroupIds(html) {
+  return [...html.matchAll(/<section class="directory-group" id="([^"]+)"/g)].map((match) => match[1]);
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 test("homepage links to AI navigation without rendering it as a homepage section", async () => {
   const html = await readFile(homepage, "utf8");
 
@@ -33,12 +41,13 @@ test("AI navigation renders as a standalone directory page", async () => {
   assert.match(html, /AI 导航/, "standalone page should render the AI navigation title");
   assert.match(html, /<main class="main--ai-directory">/, "AI navigation main should allow sticky sidebar anchoring");
   assert.match(html, /placeholder="搜索工具、场景或关键词"/, "page should include a directory-style search box");
-  assert.match(html, /顶级产品榜/, "page should lead with a top products ranking");
+  assert.match(html, /夯级产品榜/, "page should lead with a compact tier-one product ranking");
+  assert.doesNotMatch(html, /顶级产品榜/, "top-three product ranking should use the local '夯级产品' naming");
   assert.match(html, /TOP 01/, "cards should expose leaderboard rank labels");
   assert.match(html, /人工编辑热度榜/, "page should explain that ranking is editorial");
   assert.match(html, /入库标准/, "page should explain the curation standard before users trust the list");
 
-  for (const label of ["顶级产品榜", "AI 对话 / 搜索", "AI 编程 / Agent", "AI 图像 / 设计", "国产 AI 工具"]) {
+  for (const label of ["夯级产品榜", "AI 对话 / 搜索", "AI 编程 / Agent", "AI 图像 / 设计", "国产 AI 工具"]) {
     assert.match(html, new RegExp(label), `${label} should be present`);
   }
 
@@ -49,9 +58,29 @@ test("AI navigation renders as a standalone directory page", async () => {
     "模型接口 / 聚合",
     "分发推广 / 社区",
     "收款 / 出海财务",
-    "免费教程 / 学习",
+    "GitHub 免费资源",
   ]) {
     assert.match(html, new RegExp(label), `${label} should be present for the indie product workflow`);
+  }
+
+  assert.equal(directoryGroupIds(html)[0], "github-free-resources", "GitHub free resources should be the first ranking category in the sidebar/content order");
+  assert.doesNotMatch(html, /id="free-learning"/, "free courses should be merged into GitHub resources instead of rendering as a separate category");
+  assert.doesNotMatch(html, /data-directory-filter="free-learning"/, "free courses should not appear as a separate sidebar filter");
+  assert.doesNotMatch(html, /<h2>免费教程 \/ 学习<\/h2>/, "free courses should not render as a separate group heading");
+
+  const githubResourcesSection = groupSection(html, "github-free-resources");
+  assert.ok(githubResourcesSection, "GitHub free resources should render as one compact directory group");
+  assert.doesNotMatch(html, /GitHub 免费 · 设计资源/, "GitHub resources should not be split into multiple sidebar categories");
+  assert.doesNotMatch(html, /GitHub 免费 · AI 编程资源/, "GitHub resources should not be split into multiple sidebar categories");
+  assert.doesNotMatch(html, /GitHub 免费 · 本地 LLM \/ macOS/, "GitHub resources should not be split into multiple sidebar categories");
+  assert.doesNotMatch(html, /GitHub 免费 · 产品营销/, "GitHub resources should not be split into multiple sidebar categories");
+
+  for (const label of ["设计资源", "免费教程", "AI 编程资源", "本地 LLM / macOS", "产品营销", "免费音频资源"]) {
+    assert.match(githubResourcesSection, new RegExp(label), `GitHub free resources should include ${label} as an internal subsection`);
+  }
+
+  for (const label of ["Neural Networks: Zero to Hero", "LLM Course", "fast.ai", "Hugging Face Course", "OpenAI Cookbook", "The Missing Semester"]) {
+    assert.match(githubResourcesSection, new RegExp(label), `${label} should live inside GitHub free resources after the merge`);
   }
 
   for (const label of [
@@ -100,9 +129,31 @@ test("AI navigation renders as a standalone directory page", async () => {
     "Creem",
     "Payoneer",
     "Neural Networks: Zero to Hero",
+    "LLM Course",
     "fast.ai",
     "Hugging Face Course",
     "OpenAI Cookbook",
+    "awesome-design-md",
+    "Design Resources for Developers",
+    "awesome-design-systems",
+    "Game-Assets-And-Resources",
+    "game-icons/icons",
+    "GDQuest game-sprites",
+    "Game Icon Pack",
+    "awesome-cc0",
+    "Hooosberg Starred",
+    "awesome-mcp-servers",
+    "Awesome-Code-LLM",
+    "awesome-swift-macos-apps",
+    "awesome-local-ai",
+    "Marketing for Founders",
+    "Marketing for Engineers",
+    "awesome-oss-alternatives",
+    "CC0-1.0 Music",
+    "Homebrew VGM",
+    "Kenney UI Audio",
+    "Chip Sounds",
+    "Free original music for games and film",
   ]) {
     assert.match(html, new RegExp(label), `${label} should be present`);
   }
@@ -118,8 +169,21 @@ test("AI navigation renders as a standalone directory page", async () => {
     "https://vercel.com/",
     "https://stripe.com/",
     "https://www.producthunt.com/",
+    "https://github.com/VoltAgent/awesome-design-md",
+    "https://github.com/HotpotDesign/Game-Assets-And-Resources",
+    "https://github.com/game-icons/icons",
+    "https://github.com/GDQuest/game-sprites",
+    "https://github.com/Nieobie/Game-Icon-Pack",
+    "https://github.com/jaywcjlove/awesome-swift-macos-apps#local-llm",
+    "https://github.com/hooosberg?tab=stars",
+    "https://github.com/EdoStra/Marketing-for-Founders",
+    "https://github.com/SoundSafari/CC0-1.0-Music",
+    "https://github.com/Beatscribe/homebrew_vgm",
+    "https://github.com/Calinou/kenney-ui-audio",
+    "https://github.com/subsoap/chip-sounds",
+    "https://github.com/tannerhelland/free-music",
   ]) {
-    assert.match(html, new RegExp(`href="${href}"`), `${href} should be linked directly`);
+    assert.match(html, new RegExp(`href="${escapeRegExp(href)}"`), `${href} should be linked directly`);
   }
 
   assert.match(html, /分类排行/, "page should expose a ranking mode");
@@ -209,10 +273,12 @@ test("AI navigation renders as a standalone directory page", async () => {
 test("AI navigation sidebar tracks the current ranking section", async () => {
   const html = await readFile(navigationPage, "utf8");
 
-  assert.match(html, /data-directory-current="top"/, "ranking sidebar should expose the current visible category for scroll sync");
-  assert.match(html, /aria-current="true"[^>]*data-directory-filter="top"|data-directory-filter="top"[^>]*aria-current="true"/, "the first visible ranking category should have an initial current state");
+  assert.match(html, /data-directory-current="github-free-resources"/, "ranking sidebar should expose the first visible category for scroll sync");
+  assert.match(html, /aria-current="true"[^>]*data-directory-filter="github-free-resources"|data-directory-filter="github-free-resources"[^>]*aria-current="true"/, "the first visible ranking category should have an initial current state");
   assert.match(html, /IntersectionObserver/, "ranking page should observe visible sections while browsing all rankings");
   assert.match(html, /setCurrentCategory\([^)]*entry\.target\.dataset\.directoryGroup/, "scrolling into a ranking group should promote that group in the sidebar");
+  assert.match(html, /shell\.dataset\.directoryFiltered/, "filtered category mode should be exposed for sticky sidebar layout");
+  assert.match(html, /activeCategory !== "all"/, "category filtering should distinguish the compact single-category view from all rankings");
   assert.doesNotMatch(html, /activeFilter\?\.scrollIntoView/, "sidebar sync should not scroll the whole page back to the sidebar on small screens");
 });
 
@@ -222,4 +288,5 @@ test("AI navigation sidebar active state stays compact", async () => {
   assert.doesNotMatch(css, /transform:\s*scale/, "active sidebar state should not enlarge the whole menu row");
   assert.match(css, /\.directory-sidebar button\.is-active::before/, "active sidebar state should use a compact leading indicator");
   assert.match(css, /linear-gradient\(90deg,[\s\S]*transparent/, "active sidebar state should fade out instead of using a hard full-row block");
+  assert.match(css, /\.ai-directory-shell\[data-directory-filtered="true"\][\s\S]*min-height:\s*calc\(100vh \+ 320px\)/, "filtered category views should keep enough shell height for the sticky sidebar to pin like the all-products view");
 });

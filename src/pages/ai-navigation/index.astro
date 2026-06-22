@@ -16,12 +16,19 @@ type ToolItem = {
   badge?: string;
 };
 
+type ToolSection = {
+  title: string;
+  summary: string;
+  items: ToolItem[];
+};
+
 type ToolGroup = {
   id: string;
   title: string;
   shortLabel: string;
   summary: string;
-  items: ToolItem[];
+  items?: ToolItem[];
+  sections?: ToolSection[];
 };
 
 type AlternativePair = {
@@ -215,9 +222,9 @@ const trae = tool({
 const groups: ToolGroup[] = [
   {
     id: "top",
-    title: "顶级产品榜",
-    shortLabel: "顶级",
-    summary: "只放最通用、公开热度最高、最适合作为默认入口的 AI 产品；按 ChatGPT、Claude、Gemini 这三个全球默认入口排序。",
+    title: "夯级产品榜",
+    shortLabel: "夯级",
+    summary: "只放网络用户语境里从夯到拉的夯级 AI 产品；按 ChatGPT、Claude、Gemini 这三个全球默认入口排序。",
     items: [
       chatgpt,
       claude,
@@ -346,12 +353,87 @@ const groups: ToolGroup[] = [
     ],
   },
   {
+    id: "github-free-resources",
+    title: "GitHub 免费资源",
+    shortLabel: "GitHub 免费",
+    summary: "一个入口收拢 GitHub 上适合 AI 编程者长期收藏的免费资源；卡片按设计、教程、AI 编程、本地 LLM/macOS、产品营销和音频素材标注类型。",
+    sections: [
+      {
+        title: "设计资源",
+        summary: "给 AI 编程和前端落地补设计判断：界面资源、设计系统、DESIGN.md 和视觉规范。",
+        items: [
+          { name: "awesome-design-md", description: "收集热门品牌和设计系统的 DESIGN.md，适合放进项目，让 Codex、Cursor、Claude Code 更稳定地理解界面气质和组件规则。", url: "https://github.com/VoltAgent/awesome-design-md", country: "global", tags: ["设计资源", "DESIGN.md", "AI 编程"], badge: "设计资源" },
+          { name: "Design Resources for Developers", description: "面向开发者的设计资源清单，覆盖配色、字体、图库、模板、CSS 框架和 UI 库，适合不会设计但要交付页面的人。", url: "https://github.com/bradtraversy/design-resources-for-developers", country: "global", tags: ["设计资源", "前端", "视觉素材"], badge: "设计资源" },
+          { name: "awesome-design-systems", description: "收集成熟设计系统和模式库，适合观察大厂组件、内容规范、可访问性和品牌一致性怎么落地。", url: "https://github.com/alexpate/awesome-design-systems", country: "global", tags: ["设计资源", "设计系统", "组件库"], badge: "设计资源" },
+          { name: "Game-Assets-And-Resources", description: "游戏素材和资源索引，覆盖 2D、3D、移动游戏、Unity、Steam 等方向，适合 AI 编程做游戏原型时快速找素材源。", url: "https://github.com/HotpotDesign/Game-Assets-And-Resources", country: "global", tags: ["游戏素材", "2D", "3D"], badge: "游戏素材" },
+          { name: "game-icons/icons", description: "Game-icons.net 的 SVG 图标仓库，适合做 RPG、卡牌、策略、背包、技能、状态等游戏 UI 图标。", url: "https://github.com/game-icons/icons", country: "global", tags: ["游戏素材", "SVG 图标", "UI"], badge: "游戏素材" },
+          { name: "GDQuest game-sprites", description: "GDQuest 提供的 CC0 游戏原型 sprites，适合先把玩法、碰撞、角色移动和关卡逻辑跑起来。", url: "https://github.com/GDQuest/game-sprites", country: "global", tags: ["游戏素材", "Sprites", "CC0"], badge: "游戏素材" },
+          { name: "Intersect Assets", description: "完整 2D 奇幻 MMORPG 素材集合，包含 sprites、tilesets、动画、界面元素、声音和音乐。", url: "https://github.com/AscensionGameDev/Intersect-Assets", country: "global", tags: ["游戏素材", "2D RPG", "Tileset"], badge: "游戏素材" },
+          { name: "Game Icon Pack", description: "CC0 圆角风格游戏图标包，提供 SVG 和多尺寸 PNG，适合快速做背包、技能、道具和按钮图标。", url: "https://github.com/Nieobie/Game-Icon-Pack", country: "global", tags: ["游戏素材", "图标包", "CC0"], badge: "游戏素材" },
+          { name: "awesome-cc0", description: "CC0 公共领域资源索引，包含 Kenney、Quaternius、itch.io CC0、OpenGameArt 等游戏素材入口。", url: "https://github.com/madjin/awesome-cc0", country: "global", tags: ["游戏素材", "CC0", "素材索引"], badge: "游戏素材" },
+        ],
+      },
+      {
+        title: "免费教程",
+        summary: "真正适合作为长期学习路径的 GitHub 免费课程和开源学习仓库。",
+        items: [
+          { name: "Neural Networks: Zero to Hero", description: "Andrej Karpathy 的神经网络免费课程，从 micrograd、makemore 到 GPT/tokenizer，适合打深度学习基本功。", url: "https://github.com/karpathy/nn-zero-to-hero", country: "global", tags: ["免费教程", "深度学习", "Karpathy"], badge: "免费教程" },
+          { name: "LLM Course", description: "面向 LLM 入门、训练、微调、部署和应用工程的免费课程路线，适合从学习转向真实 AI 产品开发。", url: "https://github.com/mlabonne/llm-course", country: "global", tags: ["免费教程", "LLM", "应用工程"], badge: "免费教程" },
+        ],
+      },
+      {
+        title: "AI 编程资源",
+        summary: "围绕 Codex、Claude Code、MCP、代码大模型和 agent 工程化的开源资源。",
+        items: [
+          { name: "Hooosberg Starred", description: "我的 GitHub 星标收藏入口，会持续沉淀 AI 编程、设计、macOS、本地模型和产品增长相关项目，适合作为后续更新候选池。", url: "https://github.com/hooosberg?tab=stars", country: "global", tags: ["AI 编程", "个人收藏", "候选池"], badge: "收藏池" },
+          { name: "awesome-mcp-servers", description: "MCP 服务器清单，适合给 Codex、Claude Desktop、Cursor、Cline 等 agent 找可接入的数据源、工具和自动化能力。", url: "https://github.com/punkpeye/awesome-mcp-servers", country: "global", tags: ["AI 编程", "MCP", "Agent"], badge: "AI 编程" },
+          { name: "Awesome-Code-LLM", description: "代码大模型和软件工程任务的论文、数据集和 benchmark 清单，适合想理解 AI 编程底层能力边界的人。", url: "https://github.com/codefuse-ai/awesome-code-llm", country: "global", tags: ["AI 编程", "Code LLM", "Benchmark"], badge: "AI 编程" },
+          { name: "awesome-agents", description: "AI agent 项目清单，覆盖编程 agent、框架和执行工具，适合横向比较 Cline、OpenCode、AutoGPT、MetaGPT 等生态。", url: "https://github.com/kyrolabs/awesome-agents", country: "global", tags: ["AI 编程", "Agent", "开源"], badge: "AI 编程" },
+          { name: "awesome-claude-code", description: "Claude Code 的技能、hooks、斜杠命令、编排工具和插件清单，适合把终端 agent 工作流搭得更完整。", url: "https://github.com/hesreallyhim/awesome-claude-code", country: "global", tags: ["AI 编程", "Claude Code", "工作流"], badge: "AI 编程" },
+          { name: "agent-skills", description: "Addy Osmani 收集的生产级工程 skills，适合学习怎样把需求澄清、测试、重构、审查和交付流程写成 agent 可执行规范。", url: "https://github.com/addyosmani/agent-skills", country: "global", tags: ["AI 编程", "Skills", "质量门"], badge: "AI 编程" },
+        ],
+      },
+      {
+        title: "本地 LLM / macOS",
+        summary: "Mac、SwiftUI、本地模型、开源模型和离线 AI 产品的参考项目。",
+        items: [
+          { name: "awesome-swift-macos-apps", description: "开源 Swift macOS 应用清单，Local LLM 分类里能看到本地模型、菜单栏、SwiftUI 和原生桌面产品的真实样本。", url: "https://github.com/jaywcjlove/awesome-swift-macos-apps#local-llm", country: "global", tags: ["本地 LLM", "macOS", "SwiftUI"], badge: "本地 LLM" },
+          { name: "awesome-local-ai", description: "Jan 团队整理的本地 AI 工具入口，适合快速认识本地聊天、推理、向量库、RAG 和离线 AI 生态。", url: "https://github.com/janhq/awesome-local-ai", country: "global", tags: ["本地 LLM", "离线", "工具栈"], badge: "本地 LLM" },
+          { name: "awesome-local-llms", description: "按 GitHub 指标追踪本地 LLM 和生成式 AI 项目，适合比较推理、服务、应用、agent 和生产化组件。", url: "https://github.com/vince-lam/awesome-local-llms", country: "global", tags: ["本地 LLM", "指标", "开源模型"], badge: "本地 LLM" },
+          { name: "open-llms", description: "Eugene Yan 整理的可商用开源 LLM 清单，适合判断模型许可、商用边界和产品接入风险。", url: "https://github.com/eugeneyan/open-llms", country: "global", tags: ["本地 LLM", "开源模型", "商用许可"], badge: "本地 LLM" },
+          { name: "awesome-langchain", description: "LangChain 工具和项目清单，适合学习 RAG、agent、工具调用和 LLM 应用工程生态。", url: "https://github.com/kyrolabs/awesome-langchain", country: "global", tags: ["本地 LLM", "RAG", "LLM 应用"], badge: "本地 LLM" },
+        ],
+      },
+      {
+        title: "产品营销",
+        summary: "产品做完之后怎么拿到第一批用户、做分发、做定位和做增长。",
+        items: [
+          { name: "Marketing for Founders", description: "面向 SaaS、App 和 Startup 的实战营销资源，重点是拿到前 10、100、1000 个用户，适合技术创始人补市场动作。", url: "https://github.com/EdoStra/Marketing-for-Founders", country: "global", tags: ["产品营销", "SaaS", "早期用户"], badge: "产品营销" },
+          { name: "awesome-indie", description: "独立开发者赚钱、启动、增长、SaaS 和产品故事资源清单，适合做长期产品经营参考。", url: "https://github.com/mezod/awesome-indie", country: "global", tags: ["产品营销", "独立开发", "SaaS"], badge: "产品营销" },
+          { name: "awesome-indiehackers", description: "Indie Hackers 相关博客、案例、社区和工具清单，适合找到海外独立开发者真实复盘和增长经验。", url: "https://github.com/johackim/awesome-indiehackers", country: "global", tags: ["产品营销", "案例", "社区"], badge: "产品营销" },
+          { name: "Marketing for Engineers", description: "给工程师看的营销资料，偏向找 beta 用户、低预算推广、第一批用户和技术产品传播。", url: "https://github.com/goabstract/Marketing-for-Engineers", country: "global", tags: ["产品营销", "工程师营销", "推广"], badge: "产品营销" },
+          { name: "awesome-oss-alternatives", description: "开源 SaaS 替代品清单，适合做竞品调研、定价参考、开源定位和产品差异化。", url: "https://github.com/RunaCapital/awesome-oss-alternatives", country: "global", tags: ["产品营销", "竞品", "SaaS"], badge: "产品营销" },
+        ],
+      },
+      {
+        title: "免费音频资源",
+        summary: "给游戏、App、网页和演示项目准备的可免费商用音乐、音效、UI 声音和复古游戏音乐；使用前仍建议按单个仓库核对许可。",
+        items: [
+          { name: "CC0-1.0 Music", description: "公共领域 / CC0 音乐集合，适合找可商用背景音乐、实验音乐和程序化音乐研究素材；仓库体积较大，适合按来源目录挑选。", url: "https://github.com/SoundSafari/CC0-1.0-Music", country: "global", tags: ["免费音频资源", "音乐", "CC0"], badge: "音频资源" },
+          { name: "Homebrew VGM", description: "CC0 复古游戏短旋律、胜利音和 fanfare，适合 Game Boy、像素风、街机风小游戏和 App 成就反馈。", url: "https://github.com/Beatscribe/homebrew_vgm", country: "global", tags: ["免费音频资源", "游戏音乐", "CC0"], badge: "音频资源" },
+          { name: "Kenney UI Audio", description: "Kenney 的 CC0 UI 音效包，包含按钮、开关和通用点击声，适合游戏菜单、移动 App、网页交互和原型反馈。", url: "https://github.com/Calinou/kenney-ui-audio", country: "global", tags: ["免费音频资源", "UI 音效", "CC0"], badge: "音频资源" },
+          { name: "Chip Sounds", description: "CC0 低保真复古音效集合，适合 Defold、Web 小游戏、像素风项目和轻量交互反馈。", url: "https://github.com/subsoap/chip-sounds", country: "global", tags: ["免费音频资源", "音效", "CC0"], badge: "音频资源" },
+          { name: "Free original music for games and film", description: "Tanner Helland 的原创游戏和影片音乐，提供 mp3、MIDI、ogg、FLAC；采用 CC BY 4.0，商用时需要保留署名。", url: "https://github.com/tannerhelland/free-music", country: "global", tags: ["免费音频资源", "游戏音乐", "CC BY"], badge: "音频资源" },
+        ],
+      },
+    ],
+  },
+  {
     id: "free-learning",
     title: "免费教程 / 学习",
     shortLabel: "免费教程",
     summary: "只放长期值得反复看的免费课程和一线工程资料，适合补 AI、深度学习和产品开发基本功。",
     items: [
-      { name: "Neural Networks: Zero to Hero", description: "Andrej Karpathy 的神经网络免费课程，从 micrograd、makemore 到 GPT/tokenizer，适合打深度学习基本功。", url: "https://github.com/karpathy/nn-zero-to-hero", country: "global", tags: ["免费课程", "深度学习", "Karpathy"] },
       { name: "fast.ai", description: "实战导向的深度学习免费课程，适合从应用项目进入模型训练。", url: "https://course.fast.ai/", country: "global", tags: ["免费课程", "深度学习", "实战"] },
       { name: "Hugging Face Course", description: "Hugging Face 官方免费课程，适合学习 Transformers、数据集和模型部署。", url: "https://huggingface.co/learn", country: "global", tags: ["Transformers", "模型", "免费课程"] },
       { name: "OpenAI Cookbook", description: "OpenAI 官方示例库，适合学习 API、RAG、agent、评测和实际工程接入。", url: "https://cookbook.openai.com/", country: "us", icon: icon.openai, tags: ["OpenAI", "API", "示例"] },
@@ -362,7 +444,7 @@ const groups: ToolGroup[] = [
     id: "chat-search",
     title: "AI 对话 / 搜索",
     shortLabel: "对话搜索",
-    summary: "聚焦搜索、研究助手和多模型聚合；通用默认入口已放在顶级产品榜，避免同一产品重复出现。",
+    summary: "聚焦搜索、研究助手和多模型聚合；通用默认入口已放在夯级产品榜，避免同一产品重复出现。",
     items: [
       { name: "Perplexity", description: "更像可追溯来源的答案引擎，适合查资料和找方向。", url: "https://www.perplexity.ai/", country: "us", tags: ["AI 搜索", "引用", "研究"] },
       { name: "Genspark", description: "面向研究、页面生成和任务型搜索的 AI 搜索产品。", url: "https://www.genspark.ai/", country: "us", tags: ["搜索", "研究", "页面"] },
@@ -557,11 +639,32 @@ const alternativePairs: AlternativePair[] = [
   },
 ];
 
-const totalItems = groups.reduce((sum, group) => sum + group.items.length, 0);
+const getGroupItems = (group: ToolGroup) => group.items ?? group.sections?.flatMap((section) => section.items) ?? [];
+const freeLearningItems = groups.find((group) => group.id === "free-learning")?.items ?? [];
+const mergeFreeLearningIntoGitHubResources = (group: ToolGroup): ToolGroup => {
+  if (group.id !== "github-free-resources") {
+    return group;
+  }
+
+  return {
+    ...group,
+    sections: group.sections?.map((section) =>
+      section.title === "免费教程"
+        ? { ...section, items: [...section.items, ...freeLearningItems] }
+        : section
+    ),
+  };
+};
+const githubResourcesGroup = groups.find((group) => group.id === "github-free-resources");
+const directoryGroups = [
+  ...(githubResourcesGroup ? [mergeFreeLearningIntoGitHubResources(githubResourcesGroup)] : []),
+  ...groups.filter((group) => group.id !== "github-free-resources" && group.id !== "free-learning"),
+];
+const totalItems = directoryGroups.reduce((sum, group) => sum + getGroupItems(group).length, 0);
 const emailLink = socialLinks.find((link) => link.label === "Email");
 const pageDescription = "亲自试用后筛选的 AI 工具排行榜导航：不做工具大杂烩，只收录真正高频、成熟、值得国际用户选择的顶级 AI 产品，并提供国内平替和中美产品对照。";
-const toolItems = groups.flatMap((group) =>
-  group.items.map((item) => ({
+const toolItems = directoryGroups.flatMap((group) =>
+  getGroupItems(group).map((item) => ({
     name: item.name,
     url: item.url,
     description: `${group.title}: ${item.description}`,
@@ -630,10 +733,10 @@ const jsonLd = [
     <button type="button" role="tab" aria-selected="false" data-directory-mode="alternatives">国内平替</button>
   </div>
 
-  <section class="ai-directory-shell" data-directory-shell data-mode="ranking" data-directory-current={groups[0].id}>
+  <section class="ai-directory-shell" data-directory-shell data-mode="ranking" data-directory-current={directoryGroups[0].id} data-directory-filtered="false">
     <aside class="directory-sidebar" aria-label="导航分类">
       <button type="button" data-directory-filter="all">全部榜单</button>
-      {groups.map((group, index) => (
+      {directoryGroups.map((group, index) => (
         <button
           class={index === 0 ? "is-active" : undefined}
           type="button"
@@ -647,7 +750,7 @@ const jsonLd = [
 
     <div class="directory-content">
       <div data-directory-view="ranking">
-        {groups.map((group) => (
+        {directoryGroups.map((group) => (
           <section class="directory-group" id={group.id} data-directory-group={group.id}>
             <div class="directory-group__heading">
               <div>
@@ -657,44 +760,95 @@ const jsonLd = [
               <span>{group.summary}</span>
             </div>
 
-            <div class="directory-card-grid">
-              {group.items.map((item, index) => {
-                const rank = String(index + 1).padStart(2, "0");
-                const country = countryMeta[item.country];
+            {group.sections ? (
+              <div class="directory-subgroup-list">
+                {group.sections.map((section) => (
+                  <section class="directory-subgroup" aria-label={section.title}>
+                    <div class="directory-subgroup__heading">
+                      <h3>{section.title}</h3>
+                      <p>{section.summary}</p>
+                    </div>
+                    <div class="directory-card-grid">
+                      {section.items.map((item, index) => {
+                        const rank = String(index + 1).padStart(2, "0");
+                        const country = countryMeta[item.country];
 
-                return (
-                  <a
-                    class="directory-card"
-                    href={item.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    data-directory-card
-                    data-category={group.id}
-                    data-search={`${group.title} ${country.name} ${country.access} ${item.name} ${item.description} ${item.tags.join(" ")}`}
-                  >
-                    <span class="directory-card__rank">TOP {rank}</span>
-                    <span class="directory-card__icon">
-                      {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
-                    </span>
-                    <span class="directory-card__body">
-                      <span class="directory-card__title-row">
-                        <strong>{item.name}</strong>
-                        {item.badge && <em>{item.badge}</em>}
+                        return (
+                          <a
+                            class="directory-card"
+                            href={item.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            data-directory-card
+                            data-category={group.id}
+                            data-search={`${group.title} ${section.title} ${country.name} ${country.access} ${item.name} ${item.description} ${item.tags.join(" ")}`}
+                          >
+                            <span class="directory-card__rank">TOP {rank}</span>
+                            <span class="directory-card__icon">
+                              {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
+                            </span>
+                            <span class="directory-card__body">
+                              <span class="directory-card__title-row">
+                                <strong>{item.name}</strong>
+                                {item.badge && <em>{item.badge}</em>}
+                              </span>
+                              <span class="directory-card__meta">
+                                <span>{country.flag} {country.name}</span>
+                                <span class={`directory-card__access directory-card__access--${country.tone}`}>{country.access}</span>
+                              </span>
+                              <p>{item.description}</p>
+                              <span class="directory-card__tags">
+                                {item.tags.map((tag) => <span>{tag}</span>)}
+                              </span>
+                            </span>
+                            <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
+                          </a>
+                        );
+                      })}
+                    </div>
+                  </section>
+                ))}
+              </div>
+            ) : (
+              <div class="directory-card-grid">
+                {getGroupItems(group).map((item, index) => {
+                  const rank = String(index + 1).padStart(2, "0");
+                  const country = countryMeta[item.country];
+
+                  return (
+                    <a
+                      class="directory-card"
+                      href={item.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      data-directory-card
+                      data-category={group.id}
+                      data-search={`${group.title} ${country.name} ${country.access} ${item.name} ${item.description} ${item.tags.join(" ")}`}
+                    >
+                      <span class="directory-card__rank">TOP {rank}</span>
+                      <span class="directory-card__icon">
+                        {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
                       </span>
-                      <span class="directory-card__meta">
-                        <span>{country.flag} {country.name}</span>
-                        <span class={`directory-card__access directory-card__access--${country.tone}`}>{country.access}</span>
+                      <span class="directory-card__body">
+                        <span class="directory-card__title-row">
+                          <strong>{item.name}</strong>
+                          {item.badge && <em>{item.badge}</em>}
+                        </span>
+                        <span class="directory-card__meta">
+                          <span>{country.flag} {country.name}</span>
+                          <span class={`directory-card__access directory-card__access--${country.tone}`}>{country.access}</span>
+                        </span>
+                        <p>{item.description}</p>
+                        <span class="directory-card__tags">
+                          {item.tags.map((tag) => <span>{tag}</span>)}
+                        </span>
                       </span>
-                      <p>{item.description}</p>
-                      <span class="directory-card__tags">
-                        {item.tags.map((tag) => <span>{tag}</span>)}
-                      </span>
-                    </span>
-                    <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
-                  </a>
-                );
-              })}
-            </div>
+                      <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
+                    </a>
+                  );
+                })}
+              </div>
+            )}
 
           </section>
         ))}
@@ -829,6 +983,11 @@ const jsonLd = [
       }
     };
 
+    const syncShellFilteredState = () => {
+      if (!shell) return;
+      shell.dataset.directoryFiltered = activeMode === "ranking" && activeCategory !== "all" ? "true" : "false";
+    };
+
     const updateRanking = () => {
       const query = (search?.value || "").trim().toLowerCase();
       let visibleCount = 0;
@@ -890,6 +1049,7 @@ const jsonLd = [
 
     const setCategory = (category, options = {}) => {
       activeCategory = category || "all";
+      syncShellFilteredState();
       if (search) search.value = "";
       updateRanking();
       setCurrentCategory(activeCategory === "all" ? firstCategory : activeCategory);
@@ -898,6 +1058,7 @@ const jsonLd = [
 
     const setMode = (mode) => {
       activeMode = mode;
+      syncShellFilteredState();
       if (search) search.value = "";
       modeButtons.forEach((button) => {
         const active = button.dataset.directoryMode === mode;
@@ -937,6 +1098,7 @@ const jsonLd = [
       groups.forEach((group) => observer.observe(group));
     }
 
+    syncShellFilteredState();
     setCurrentCategory(currentCategory, { scrollSidebar: false });
   })();
 </script>

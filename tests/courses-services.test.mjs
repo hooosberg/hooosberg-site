@@ -30,7 +30,9 @@ test("courses and services render as separate commerce pages", async () => {
   assert.doesNotMatch(coursesHtml, /预购买断价 1499 元/, "courses page should not show the old pre-order pricing label");
   assert.doesNotMatch(coursesHtml, /AI 企业落地顾问/, "courses page should not render service cards");
 
-  assert.match(servicesHtml, /服务/, "services page should render a service heading");
+  assert.match(servicesHtml, /企业服务/, "services page should render the enterprise service heading");
+  assert.doesNotMatch(servicesHtml, /class="commerce-kicker">Services/, "Chinese services page should not show the old English hero kicker");
+  assert.doesNotMatch(servicesHtml, /class="course-hero-tags"/, "services page should not render hero scope tags");
   assert.match(servicesHtml, /企业 AI 战略与落地规划/, "services page should use professional enterprise service naming");
   assert.match(servicesHtml, /企业级 AI Agent 与自动化系统定制/, "services page should name custom agent work as an enterprise system service");
   assert.match(servicesHtml, /10w 起/, "services page should show enterprise pricing from 10w");
@@ -44,5 +46,6 @@ test("header links service navigation to the standalone services page", async ()
   const coursesHtml = await readFile(coursesPage, "utf8");
 
   assert.match(coursesHtml, /href="\/services"/, "header service link should point to /services");
+  assert.match(coursesHtml, /企业服务/, "header service link should use the enterprise service label");
   assert.doesNotMatch(coursesHtml, /href="\/courses#services"/, "service link should not point to an in-page anchor");
 });

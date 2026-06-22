@@ -80,6 +80,25 @@ test("product diary titles include the product name for search context", async (
   );
 });
 
+test("blog index paginates product diary rows after 15 items", async () => {
+  const html = await readFile(blogIndexPage, "utf8");
+  const productRows = html.match(/<a class="article-row" href="\/blog\/[^"]+\?kind=product"[\s\S]*?<\/a>/g) ?? [];
+  const visibleProductRows = productRows.filter((row) => !/\shidden(?:\s|>|=)/.test(row));
+
+  assert.ok(productRows.length > 15, "fixture should include enough product diaries to exercise pagination");
+  assert.equal(visibleProductRows.length, 15, "product diary index should show 15 product rows on the first page");
+  assert.match(
+    productRows[15],
+    /data-diary-page="2"[\s\S]*?\shidden(?:\s|>|=)/,
+    "the 16th product diary should be assigned to hidden page 2",
+  );
+  assert.match(
+    html,
+    /<nav class="diary-pagination"[^>]*data-diary-pagination="product"[\s\S]*data-diary-page-button[\s\S]*data-diary-page="2"/,
+    "product diary pagination should expose a second page button",
+  );
+});
+
 test("product diary article bodies provide at least 1500 characters of development detail", async () => {
   const entries = await readdir(distBlogRoot, { withFileTypes: true });
   const shortArticles = [];

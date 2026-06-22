@@ -4,6 +4,7 @@ import { articlesByDate } from "../../../data/articles";
 import { diarySectionsLocalized, getLocalizedArticle } from "../../../utils/i18n";
 import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../../utils/structuredData";
 
+const articlesPerPage = 15;
 const localizedArticles = articlesByDate.map((article) => getLocalizedArticle(article, "en"));
 const diaryGroups = diarySectionsLocalized.en.map((section) => ({
   ...section,
@@ -39,6 +40,7 @@ const jsonLd = [
   jsonLd={jsonLd}
 >
   <section class="page-hero page-hero--narrow">
+    <p class="commerce-kicker">Journal</p>
     <h1>Journal</h1>
     <p>
       Product diaries, reading notes, resource notes, and essays. The product diary is the main asset:
@@ -79,13 +81,14 @@ const jsonLd = [
 
     <div class="article-list">
       {diaryGroups.map((section, index) => (
-        section.articles.map((article) => (
+        section.articles.map((article, articleIndex) => (
           <a
             class="article-row"
             href={articleHref(article.slug, section.kind)}
             data-diary-row
             data-diary-kind={section.kind}
-            hidden={index !== 0}
+            data-diary-page={Math.floor(articleIndex / articlesPerPage) + 1}
+            hidden={index !== 0 || articleIndex >= articlesPerPage}
           >
             <span class="article-row__category">{section.kind === "product" ? article.productLabel ?? article.category : article.category}</span>
             <span class="article-row__title">{article.title}</span>
@@ -95,6 +98,34 @@ const jsonLd = [
         ))
       ))}
     </div>
+
+    {diaryGroups.map((section, index) => {
+      const pageCount = Math.ceil(section.articles.length / articlesPerPage);
+      return (
+        <nav
+          class="diary-pagination"
+          aria-label={`${section.label} pagination`}
+          data-diary-pagination={section.kind}
+          hidden={index !== 0 || pageCount <= 1}
+        >
+          {Array.from({ length: pageCount }, (_, pageIndex) => {
+            const page = pageIndex + 1;
+            return (
+              <button
+                class="diary-page-button"
+                type="button"
+                data-diary-page-button
+                data-diary-kind={section.kind}
+                data-diary-page={page}
+                aria-current={page === 1 ? "page" : undefined}
+              >
+                {page}
+              </button>
+            );
+          })}
+        </nav>
+      );
+    })}
   </section>
 </BaseLayout>
 
@@ -103,16 +134,33 @@ const jsonLd = [
     const tabs = Array.from(document.querySelectorAll("[data-diary-tab]"));
     const rows = Array.from(document.querySelectorAll("[data-diary-row]"));
     const summaries = Array.from(document.querySelectorAll("[data-diary-summary]"));
+    const paginations = Array.from(document.querySelectorAll("[data-diary-pagination]"));
+    const pageButtons = Array.from(document.querySelectorAll("[data-diary-page-button]"));
     const validKinds = new Set(tabs.map((tab) => tab.dataset.diaryTab));
 
-    const syncUrl = (kind) => {
+    const syncUrl = (kind, page) => {
       const url = new URL(window.location.href);
       url.searchParams.set("kind", kind);
+      if (page > 1) {
+        url.searchParams.set("page", String(page));
+      } else {
+        url.searchParams.delete("page");
+      }
       window.history.replaceState({ diaryKind: kind }, "", `${url.pathname}${url.search}${url.hash}`);
+    };
+
+    const getPageCount = (kind) => {
+      const pages = pageButtons
+        .filter((button) => button.dataset.diaryKind === kind)
+        .map((button) => Number(button.dataset.diaryPage || "1"));
+      return Math.max(1, ...pages);
     };
 
     const activate = (kind, options = {}) => {
       if (!kind || !validKinds.has(kind)) return;
+      const pageCount = getPageCount(kind);
+      const requestedPage = Number(options.page || "1");
+      const activePage = Math.min(Math.max(1, requestedPage || 1), pageCount);
 
       tabs.forEach((tab) => {
         const active = tab.dataset.diaryTab === kind;
@@ -120,20 +168,37 @@ const jsonLd = [
         tab.setAttribute("aria-selected", active ? "true" : "false");
       });
       rows.forEach((row) => {
-        row.hidden = row.dataset.diaryKind !== kind;
+        row.hidden = row.dataset.diaryKind !== kind || Number(row.dataset.diaryPage || "1") !== activePage;
       });
       summaries.forEach((summary) => {
         summary.hidden = summary.dataset.diarySummary !== kind;
       });
+      paginations.forEach((pagination) => {
+        pagination.hidden = pagination.dataset.diaryPagination !== kind || pageCount <= 1;
+      });
+      pageButtons.forEach((button) => {
+        const active = button.dataset.diaryKind === kind && Number(button.dataset.diaryPage || "1") === activePage;
+        button.setAttribute("aria-current", active ? "page" : "false");
+      });
 
-      if (options.syncUrl) syncUrl(kind);
+      if (options.syncUrl) syncUrl(kind, activePage);
     };
 
-    const initialKind = new URLSearchParams(window.location.search).get("kind");
-    activate(initialKind || tabs[0]?.dataset.diaryTab);
+    const searchParams = new URLSearchParams(window.location.search);
+    const initialKind = searchParams.get("kind");
+    const initialPage = Number(searchParams.get("page") || "1");
+    activate(initialKind || tabs[0]?.dataset.diaryTab, { page: initialPage });
 
     tabs.forEach((tab) => {
-      tab.addEventListener("click", () => activate(tab.dataset.diaryTab, { syncUrl: true }));
+      tab.addEventListener("click", () => activate(tab.dataset.diaryTab, { page: 1, syncUrl: true }));
+    });
+    pageButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activate(button.dataset.diaryKind, {
+          page: Number(button.dataset.diaryPage || "1"),
+          syncUrl: true,
+        });
+      });
     });
   })();
 </script>
