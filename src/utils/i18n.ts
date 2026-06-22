@@ -19,13 +19,15 @@ export const uiText = {
   "zh-CN": {
     brandAria: "湖森堡AI_hooosberg home",
     nav: [
-      ["首页", "/"],
-      ["产品", "/apps"],
       ["日记", "/blog"],
-      ["课程", "/courses"],
+      ["产品", "/apps"],
       ["AI导航", "/ai-navigation"],
-      ["企业服务", "/services"],
       ["联系", "/links"],
+    ],
+    moreNavLabel: "其他",
+    moreNav: [
+      ["课程", "/courses"],
+      ["企业服务", "/services"],
     ],
     themeToggle: "切换黑白主题",
     languageSwitch: "Switch to English",
@@ -36,13 +38,15 @@ export const uiText = {
   en: {
     brandAria: "Hooosberg home",
     nav: [
-      ["Home", "/"],
-      ["Products", "/apps"],
       ["Journal", "/blog"],
-      ["Courses", "/courses"],
+      ["Products", "/apps"],
       ["AI Guide", "/ai-navigation"],
-      ["Enterprise Services", "/services"],
       ["Contact", "/links"],
+    ],
+    moreNavLabel: "More",
+    moreNav: [
+      ["Courses", "/courses"],
+      ["Enterprise Services", "/services"],
     ],
     themeToggle: "Toggle light and dark theme",
     languageSwitch: "切换到中文",

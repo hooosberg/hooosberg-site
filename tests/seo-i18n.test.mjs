@@ -70,15 +70,20 @@ test("core pages expose canonical, hreflang, social metadata, and JSON-LD", asyn
   assert.match(enArticleHtml, /This English page is generated from the same public product facts/, "English article should render an indexable English body");
 });
 
-test("homepages expose organization website entities without automatic locale redirects", async () => {
+test("homepages expose organization website entities and automatic locale routing", async () => {
   const [homeHtml, enHomeHtml] = await Promise.all([
     readFile(homePage, "utf8"),
     readFile(enHomePage, "utf8"),
   ]);
 
   assert.match(homeHtml, /data-language-switch[^>]*data-target-locale="en"/, "Chinese pages should offer an English switch");
-  assert.doesNotMatch(homeHtml, /navigator\.languages/, "Chinese pages should not auto-route crawlers or visitors by browser language");
-  assert.doesNotMatch(homeHtml, /window\.location\.replace/, "Chinese pages should not redirect automatically by locale");
+  assert.match(homeHtml, /crawlerPattern\.test\(navigator\.userAgent\)/, "search crawlers should be allowed to index each localized URL without language redirects");
+  assert.match(homeHtml, /google\|bing\|baidu/, "major search crawlers should be covered by the locale redirect guard");
+  assert.match(homeHtml, /navigator\.languages/, "pages should detect the visitor browser language");
+  assert.match(homeHtml, /localStorage\.getItem\("hooosberg-locale"\)/, "manual language choices should override browser detection");
+  assert.match(homeHtml, /startsWith\("zh"\)\) \? "zh-CN" : "en"/, "Chinese browser languages should resolve to Chinese and all other languages should resolve to English");
+  assert.match(homeHtml, /root\.dataset\.zhPath : root\.dataset\.enPath/, "locale routing should use the page-specific alternate URLs");
+  assert.match(homeHtml, /window\.location\.replace\(targetUrl\.toString\(\)\)/, "mismatched locales should be routed with a replace navigation");
   assert.match(enHomeHtml, /data-language-switch[^>]*data-target-locale="zh-CN"/, "English pages should offer a Chinese switch");
   assert.match(enHomeHtml, /href="\/"/, "English nav should link back to the Chinese home route through the switch/header alternates");
 

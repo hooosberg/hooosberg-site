@@ -66,17 +66,16 @@ test("Mood Button page reflects current App Review state without duplicate GitHu
   assert.equal(githubActionLinks.length, 1, "Mood Button detail actions should show GitHub only once");
 });
 
-test("product progress timeline is rendered on homepage and catalog", async () => {
+test("product progress timeline stays on catalog while homepage stays compact", async () => {
   const [homeHtml, appsHtml] = await Promise.all([
     readFile(homepage, "utf8"),
     readFile(appsPage, "utf8"),
   ]);
 
-  for (const html of [homeHtml, appsHtml]) {
-    assert.match(html, /苹果商店上架流程甘特图/, "progress timeline heading should render");
-    assert.match(html, /产品进度同步/, "progress timeline should identify the public progress source");
-    assert.match(html, /6\/17 被拒/, "progress timeline should include the Mood Button rejection milestone");
-  }
+  assert.doesNotMatch(homeHtml, /苹果商店上架流程甘特图/, "homepage should not render the heavy progress timeline");
+  assert.match(appsHtml, /苹果商店上架流程甘特图/, "product catalog should keep the progress timeline heading");
+  assert.match(appsHtml, /产品进度同步/, "product catalog timeline should identify the public progress source");
+  assert.match(appsHtml, /6\/17 被拒/, "product catalog timeline should include the Mood Button rejection milestone");
 });
 
 test("Mood Button App Review diary uses the real rejection categories", async () => {

@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const homepage = new URL("../dist/index.html", import.meta.url);
+const enHomepage = new URL("../dist/en/index.html", import.meta.url);
 const navigationPage = new URL("../dist/ai-navigation/index.html", import.meta.url);
 const globalStyles = new URL("../src/styles/global.css", import.meta.url);
 
@@ -33,6 +34,43 @@ test("homepage links to AI navigation without rendering it as a homepage section
   assert.match(html, /<strong>湖森堡AI_hooosberg<\/strong>/, "domestic social cards should show the account id directly");
   assert.doesNotMatch(html, /<strong>github\.com\/hooosberg<\/strong>/, "GitHub card should not show the full URL as visible card text");
   assert.doesNotMatch(html, /<strong>搜索：湖森堡AI_hooosberg<\/strong>/, "domestic social cards should not show search helper text as the main value");
+});
+
+test("homepage and header focus on diaries, products, AI navigation, and contact", async () => {
+  const [html, enHtml] = await Promise.all([
+    readFile(homepage, "utf8"),
+    readFile(enHomepage, "utf8"),
+  ]);
+
+  for (const [pageHtml, labels] of [
+    [html, ["日记", "产品", "AI导航", "联系", "其他"]],
+    [enHtml, ["Journal", "Products", "AI Guide", "Contact", "More"]],
+  ]) {
+    const navMatch = pageHtml.match(/<nav class="nav-links"[\s\S]*?<\/nav>/);
+    assert.ok(navMatch, "primary navigation should render");
+    const navHtml = navMatch[0];
+    const positions = labels.map((label) => navHtml.indexOf(`>${label}<`));
+
+    assert.ok(positions.every((position) => position >= 0), `primary navigation should include ${labels.join(", ")}`);
+    assert.deepEqual([...positions].sort((a, b) => a - b), positions, "primary navigation should keep the simplified order");
+  }
+
+  assert.match(html, /class="nav-more"/, "Chinese header should group lower-priority routes in a More menu");
+  assert.match(html, /href="\/courses"[\s\S]*课程/, "Chinese More menu should include courses");
+  assert.match(html, /href="\/services"[\s\S]*企业服务/, "Chinese More menu should include enterprise services");
+  const flatNavHtml = (html.match(/<nav class="nav-links"[\s\S]*?<details class="nav-more">/)?.[0] ?? "");
+  assert.doesNotMatch(flatNavHtml, /href="\/courses"|href="\/services"/, "courses and services should not remain as flat primary nav links");
+
+  assert.ok(html.indexOf('id="articles"') < html.indexOf('class="landing-section home-products-section"'), "Chinese homepage should lead from diaries into products");
+  assert.ok(html.indexOf('class="landing-section home-products-section"') < html.indexOf('id="ai-navigation"'), "Chinese homepage should place AI navigation after products");
+  assert.ok(html.indexOf('id="ai-navigation"') < html.indexOf('id="about"'), "Chinese homepage should end the core flow with contact");
+  assert.doesNotMatch(html, /home-course-section/, "Chinese homepage should not render the course card section");
+  assert.doesNotMatch(html, /premium-course-card/, "Chinese homepage should not render the premium course card");
+  assert.doesNotMatch(html, /faq-section/, "Chinese homepage should not render the old FAQ block");
+
+  assert.ok(enHtml.indexOf('id="articles"') < enHtml.indexOf('class="landing-section home-products-section"'), "English homepage should lead from journal into products");
+  assert.ok(enHtml.indexOf('class="landing-section home-products-section"') < enHtml.indexOf('id="ai-navigation"'), "English homepage should place AI guide after products");
+  assert.doesNotMatch(enHtml, /home-course-section|premium-course-card|faq-section/, "English homepage should remove course card and FAQ sections");
 });
 
 test("AI navigation renders as a standalone directory page", async () => {
