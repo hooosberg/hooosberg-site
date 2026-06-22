@@ -24,12 +24,14 @@ function textFromHtml(html) {
     .trim();
 }
 
-test("primary navigation starts with a home link", async () => {
+test("brand links home and primary navigation starts with diaries", async () => {
   const html = await readFile(homePage, "utf8");
   const navHtml = html.match(/<nav class="nav-links"[\s\S]*?<\/nav>/)?.[0] ?? "";
   const firstLink = navHtml.match(/<a href="([^"]+)">([^<]+)<\/a>/);
 
-  assert.deepEqual(firstLink?.slice(1), ["/", "首页"], "home should be the first primary navigation item");
+  assert.match(html, /<a class="brand" href="\/"/, "brand should remain the home link");
+  assert.deepEqual(firstLink?.slice(1), ["/blog", "日记"], "diaries should be the first primary navigation item");
+  assert.doesNotMatch(navHtml.match(/^[\s\S]*?<details class="nav-more">/)?.[0] ?? "", /href="\/"/, "home should not be duplicated as a primary nav item");
 });
 
 test("diary article links preserve the selected diary section for return navigation", async () => {

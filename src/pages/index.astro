@@ -5,46 +5,17 @@ import {
   Code2,
   ExternalLink,
   Layers3,
-  Mail,
   Search,
   ShieldCheck,
 } from "@lucide/astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProductCard from "../components/ProductCard.astro";
-import ProductProgressTimeline from "../components/ProductProgressTimeline.astro";
 import { productDiaryArticles } from "../data/articles";
 import { productsByLatest, socialLinks } from "../data/products";
 import { buildHomeJsonLd } from "../utils/structuredData";
 
-const featuredProducts = productsByLatest.slice(0, 6);
-const featuredArticles = productDiaryArticles.slice(0, 4);
-const bilibiliLink = socialLinks.find((link) => link.label === "B站");
-
-const courseTopics = [
-  "AI办公自动化",
-  "作图软件入门",
-  "苹果 App 开发",
-  "市场分析",
-  "商业调查",
-  "开发实战",
-  "提示词工作流",
-  "产品发布复盘",
-];
-
-const tools = [
-  { name: "OpenAI Codex", icon: "/icons/ai-tools/openai-codex.svg" },
-  { name: "Claude Code", icon: "/icons/ai-tools/claude-code.svg" },
-  { name: "Cursor", icon: "/icons/ai-tools/cursor.svg" },
-  { name: "GitHub Copilot", icon: "/icons/ai-tools/copilot.svg" },
-  { name: "Gemini", icon: "/icons/ai-tools/gemini.svg" },
-  { name: "Cline", icon: "/icons/ai-tools/cline.svg" },
-  { name: "Windsurf", icon: "/icons/ai-tools/windsurf.svg" },
-  { name: "Trae", icon: "/icons/ai-tools/trae.svg" },
-  { name: "Roo Code", icon: "/icons/ai-tools/roo-code.svg" },
-  { name: "Kiro", icon: "/icons/ai-tools/kiro.svg" },
-  { name: "Goose", icon: "/icons/ai-tools/goose.svg" },
-  { name: "OpenCode", icon: "/icons/ai-tools/opencode.svg" },
-];
+const featuredProducts = productsByLatest.slice(0, 3);
+const featuredArticles = productDiaryArticles.slice(0, 6);
 
 const socialCards = socialLinks
   .filter((link) => link.label !== "Email")
@@ -59,43 +30,59 @@ const socialCards = socialLinks
   <section class="landing-hero">
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-content">
-      <p class="hero-kicker">真实开发过程 / 失败经验 / AI 对话源文件</p>
-      <h1>哲学 艺术 AI</h1>
+      <p class="hero-kicker">开发日记 / AI 导航 / 真实产品复盘</p>
+      <h1>AI 开发日记与工具导航</h1>
       <p class="hero-subtitle">
-        AI 时代不需要一个固定教程，也不需要把所有答案包装成标准流程。
-        这里记录真实产品：成功、失败、判断失误和改方向的过程。
-        我会尽量留下需求、提示词、代码、发布和复盘，让你看到人如何和 AI 一起思考。
+        这里主要记录我用 AI 做真实产品的过程，也整理实际用过和调研过的 AI 工具。
+        如果你想看产品怎么从想法到发布，或者想快速判断该用哪个 AI 工具，可以从这里开始。
       </p>
       <div class="hero-actions">
         <a class="button button--primary button--xl" href="/blog">
           <BookOpen size={18} aria-hidden="true" />
-          产品日记
+          看开发日记
         </a>
-        <a class="button button--secondary button--xl" href="#about">
-          <Mail size={18} aria-hidden="true" />
-          联系我们
+        <a class="button button--secondary button--xl" href="/ai-navigation">
+          <Search size={18} aria-hidden="true" />
+          打开 AI 导航
         </a>
       </div>
       <div class="hero-proof" aria-label="Site focus">
-        <span>成功产品</span>
-        <span>失败复盘</span>
-        <span>人的判断</span>
-        <span>真实 AI 对话</span>
+        <span>开发记录</span>
+        <span>产品复盘</span>
+        <span>工具选择</span>
+        <span>AI 工作流</span>
       </div>
     </div>
   </section>
 
-  <section class="tools-band" aria-label="AI coding tools">
-    <p class="tools-label">我们用到的 AI 编程工具</p>
-    <div class="tools-track-wrapper">
-      <div class="tools-track">
-        {[...tools, ...tools].map((tool) => (
-          <a class="tool-item" href="/blog" aria-label={tool.name}>
-            <img src={tool.icon} alt="" />
-            <span>{tool.name}</span>
-          </a>
-        ))}
-      </div>
+  <section class="landing-section landing-section--split" id="articles">
+    <div class="section-heading">
+      <p>开发日记</p>
+      <h2>先看真实产品怎么被做出来。</h2>
+      <span>这里不是概念教程，而是需求、提示词、代码修改、上架、失败和复盘的连续记录。</span>
+      <a href="/blog">全部日记 <ArrowRight size={15} aria-hidden="true" /></a>
+    </div>
+    <div class="article-list article-list--compact">
+      {featuredArticles.map((article) => (
+        <a class="article-row" href={`/blog/${article.slug}`}>
+          <span class="article-row__category">{article.category}</span>
+          <span class="article-row__title">{article.title}</span>
+          <span class="article-row__excerpt">{article.excerpt}</span>
+          <span class="article-row__date">{article.date}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="landing-section home-products-section">
+    <div class="section-heading">
+      <p>产品</p>
+      <h2>产品是日记的事实来源。</h2>
+      <span>保留少量代表项目入口，更多产品和隐私政策放在产品页里统一查看。</span>
+      <a href="/apps">全部产品 <ArrowRight size={15} aria-hidden="true" /></a>
+    </div>
+    <div class="product-grid product-grid--catalog product-grid--home">
+      {featuredProducts.map((product) => <ProductCard product={product} />)}
     </div>
   </section>
 
@@ -150,37 +137,6 @@ const socialCards = socialLinks
     </div>
   </section>
 
-  <section class="landing-section">
-    <div class="section-heading">
-      <p>产品与复盘</p>
-      <h2>真实产品，真实输赢。</h2>
-      <span>成功产品会展示，失败产品也会展示，重点写清为什么失败。单看教程不够，实战才会真正提高。</span>
-      <a href="/apps">全部产品 <ArrowRight size={15} aria-hidden="true" /></a>
-    </div>
-    <div class="product-grid product-grid--catalog">
-      {featuredProducts.map((product) => <ProductCard product={product} />)}
-    </div>
-    <ProductProgressTimeline compact />
-  </section>
-
-  <section class="landing-section landing-section--split" id="articles">
-    <div class="section-heading">
-      <p>开发日记</p>
-      <h2>把产品从想法到发布拆开写。</h2>
-      <a href="/blog">日记列表 <ArrowRight size={15} aria-hidden="true" /></a>
-    </div>
-    <div class="article-list article-list--compact">
-      {featuredArticles.map((article) => (
-        <a class="article-row" href={`/blog/${article.slug}`}>
-          <span class="article-row__category">{article.category}</span>
-          <span class="article-row__title">{article.title}</span>
-          <span class="article-row__excerpt">{article.excerpt}</span>
-          <span class="article-row__date">{article.date}</span>
-        </a>
-      ))}
-    </div>
-  </section>
-
   <section class="author-section" id="about">
     <div class="author-card">
       <div class="author-mark">
@@ -212,71 +168,5 @@ const socialCards = socialLinks
         </a>
       ))}
     </div>
-  </section>
-
-  <section class="faq-section" id="faq">
-    <div class="section-heading section-heading--center">
-      <p>常见问题</p>
-      <h2>如果你是从视频或产品介绍过来的，可以先看这里。</h2>
-    </div>
-    <div class="faq-list">
-      <details open>
-        <summary>我在短视频里看到某个 AI 产品，在哪里下载或了解？</summary>
-        <p>可以先看首页的产品区，里面会放我已经发布或正在迭代的工具。每个产品会尽量补上介绍、下载入口、隐私政策和支持方式；如果某个视频里的产品还没放出来，通常说明它还在测试或整理上架材料。</p>
-      </details>
-      <details>
-        <summary>这里主要是卖课，还是分享工具和真实案例？</summary>
-        <p>两件事都会做，但重点不是空讲概念。我会围绕真实产品、真实办公流程和真实发布过程，拆解 AI 编程、Codex 自动化、文件处理、浏览器操作和批量生产这些场景，让你看到一个工具从想法到上线的路径。</p>
-      </details>
-      <details>
-        <summary>零基础能跟着学吗？需要先会编程吗？</summary>
-        <p>可以从零基础开始，但最好愿意动手。公开视频会先解决工具入门和案例理解；更系统的课程会把需求拆解、提示词、代码修改、调试、发布和复盘连起来，不要求你一开始就像程序员一样写代码。</p>
-      </details>
-      <details>
-        <summary>课程、资料和更新会放在哪里？</summary>
-        <p>公开视频会优先放在 B 站、抖音、小红书等平台；系统课程、资料包或项目文档会根据当时最合适的方式交付。这个网站会作为统一入口，把视频、产品、课程资料和后续支持连接起来。</p>
-      </details>
-      <details>
-        <summary>我想把 AI 用到工作、内容生产或自己的产品里，应该先看什么？</summary>
-        <p>可以先从你最接近的入口开始：想做工具就看产品案例，想提升效率就看办公自动化，想学 AI 编程就看课程和教程。后面我会把常用流程、提示词、案例复盘和可下载工具逐步整理到这里。</p>
-      </details>
-    </div>
-  </section>
-
-  <section class="landing-section home-course-section" id="courses">
-    <div class="section-heading section-heading--center">
-      <p>课程</p>
-      <h2>课程不是终点，是入口。</h2>
-      <span>可以购买，可以交付，也会持续更新。真实项目里的需求、提示词、代码、素材、发布和复盘都会留下路径。</span>
-    </div>
-
-    <a
-      class="premium-course-card premium-course-card--portrait home-premium-course-card"
-      href={bilibiliLink?.url ?? "/courses"}
-      target={bilibiliLink?.url ? "_blank" : undefined}
-      rel={bilibiliLink?.url ? "noreferrer" : undefined}
-    >
-      <span class="premium-course-card__ribbon">Coming Soon</span>
-      <span class="premium-course-card__eyebrow">Hooosberg AI Course</span>
-      <h2>入门Ai编程实践课程</h2>
-      <div class="premium-course-card__price" aria-label="课程定价">
-        <strong>1499元</strong>
-        <span>限时课程定价</span>
-      </div>
-      <p>
-        从零到一完成 AI 编程、自动化办公、产品调研、App 开发和上线复盘。
-        不做碎片技巧堆砌，只围绕能真正交付的项目练习。
-      </p>
-
-      <div class="premium-course-topics" aria-label="课程内容方向">
-        {courseTopics.map((topic) => <span>{topic}</span>)}
-      </div>
-
-      <span class="premium-course-card__action">
-        <BookOpen size={18} aria-hidden="true" />
-        立即购买
-        <ArrowRight size={17} aria-hidden="true" />
-      </span>
-    </a>
   </section>
 </BaseLayout>

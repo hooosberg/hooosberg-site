@@ -96,6 +96,41 @@ const htmlLang = localeMeta[locale].htmlLang;
         }
       })();
     </script>
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const currentLocale = root.dataset.locale;
+        const crawlerPattern = /bot|crawler|spider|crawling|google|bing|baidu|yandex|duckduckbot|slurp|facebookexternalhit|twitterbot|linkedinbot|whatsapp/i;
+        if (crawlerPattern.test(navigator.userAgent)) return;
+
+        const getSavedLocale = () => {
+          try {
+            const saved = localStorage.getItem("hooosberg-locale");
+            return saved === "zh-CN" || saved === "en" ? saved : "";
+          } catch {
+            return "";
+          }
+        };
+        const detectBrowserLocale = () => {
+          const languages = Array.isArray(navigator.languages) && navigator.languages.length
+            ? navigator.languages
+            : [navigator.language || ""];
+          return languages.some((language) => language.toLowerCase().startsWith("zh")) ? "zh-CN" : "en";
+        };
+        const preferredLocale = getSavedLocale() || detectBrowserLocale();
+        if (preferredLocale === currentLocale) return;
+
+        const targetPath = preferredLocale === "zh-CN" ? root.dataset.zhPath : root.dataset.enPath;
+        if (!targetPath) return;
+
+        const targetUrl = new URL(targetPath, window.location.origin);
+        targetUrl.search = window.location.search;
+        targetUrl.hash = window.location.hash;
+        if (targetUrl.pathname !== window.location.pathname) {
+          window.location.replace(targetUrl.toString());
+        }
+      })();
+    </script>
     <title>{title}</title>
     {jsonLdItems.map((item) => (
       <script type="application/ld+json" set:html={JSON.stringify(item)}></script>

@@ -17,6 +17,7 @@ type Props = {
 const { locale = "zh-CN", currentPath = Astro.url.pathname } = Astro.props;
 const text = uiText[locale];
 const navItems = text.nav.map(([label, href]) => ({ label, href: toLocalizedPath(href, locale) }));
+const moreNavItems = text.moreNav.map(([label, href]) => ({ label, href: toLocalizedPath(href, locale) }));
 const alternatePaths = getAlternatePaths(currentPath);
 const targetLocale: Locale = locale === "en" ? "zh-CN" : "en";
 const languageHref = alternatePaths[targetLocale];
@@ -35,6 +36,12 @@ const brandTitle = brandNameByLocale[locale];
     <div class="site-header__right">
       <nav class="nav-links" aria-label="Primary navigation">
         {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+        <details class="nav-more">
+          <summary>{text.moreNavLabel}</summary>
+          <div class="nav-more__menu">
+            {moreNavItems.map((item) => <a href={item.href}>{item.label}</a>)}
+          </div>
+        </details>
       </nav>
       <div class="site-header__actions">
         <a
