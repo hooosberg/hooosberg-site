@@ -29,7 +29,7 @@ test("homepage links to AI navigation without rendering it as a homepage section
   const html = await readFile(homepage, "utf8");
 
   assert.match(html, /href="\/ai-navigation"/, "homepage header should link to the AI navigation page");
-  assert.match(html, /<title>我的开发日记 \| 湖森堡AI_hooosberg<\/title>/, "Chinese homepage document title should focus on the personal diary");
+  assert.match(html, /<title>湖森堡AI_hooosberg \| 哲学 艺术 AI<\/title>/, "Chinese homepage document title should keep the site-level title");
   assert.match(html, /<h1>我的开发日记<\/h1>/, "Chinese homepage should use a personal diary hero title");
   assert.doesNotMatch(html, /aria-label="AI 导航"/, "AI navigation should not render as a homepage section");
   assert.match(html, /<strong>hooosberg<\/strong>/, "homepage social cards should show handles instead of full URLs");
