@@ -7,12 +7,21 @@ type Props = {
 };
 
 const { product } = Astro.props;
+const isMoodButton = product.slug === "mood-button";
+const isSumiMahjong = product.slug === "sumi-mahjong";
+const updatedDate = product.slug === "sumi-mahjong" ? "2026-06-26" : "2026-06-19";
+const distributionText = product.hideSourceLinks
+  ? `This privacy policy applies to ${product.displayName}. Product delivery for this app happens through the App Store and the linked Hooosberg product website.`
+  : `This privacy policy applies to ${product.displayName}. Product delivery may happen through App Store, Chrome Web Store, GitHub Releases, or the linked product website depending on the product page.`;
+const platformServicesText = product.hideSourceLinks
+  ? "When you download, purchase, update, or review this product through Apple App Store, Apple may process account, payment, device, crash, or store activity data under its own privacy policy."
+  : "When you download, purchase, update, or review this product through Apple, Google, GitHub, Chrome Web Store, or another platform, that platform may process account, payment, device, crash, or store activity data under its own privacy policy.";
 ---
 
 <article class="article-detail legal-document" style={`--accent:${product.accent}`}>
   <header>
     <ProductIcon product={product} size="lg" />
-    <p>{product.category} / Last updated 2026-06-19</p>
+    <p>{product.category} / Last updated {updatedDate}</p>
     <h1>{product.displayName} Privacy Policy</h1>
     <div class="tag-row">
       <span>{product.privacy.localFirst ? "Local-first" : "Online service"}</span>
@@ -25,7 +34,7 @@ const { product } = Astro.props;
     <section>
       <h2>Overview</h2>
       <p>{product.summary}</p>
-      <p>This privacy policy applies to {product.displayName}. Product delivery may happen through App Store, Chrome Web Store, GitHub Releases, or the linked product website depending on the product page.</p>
+      <p>{distributionText}</p>
     </section>
 
     <section>
@@ -38,9 +47,69 @@ const { product } = Astro.props;
       </div>
     </section>
 
+    {isMoodButton && (
+      <>
+        <section>
+          <h2>Mood Button Data Flow</h2>
+          <p>Mood Button is a private voice mood diary. It has no account system, no advertising SDK, no third-party analytics SDK, no social feed, and no developer cloud diary service.</p>
+          <div class="privacy-list">
+            <div class="privacy-row"><strong>Voice recordings</strong><span>Stored in the app sandbox for diary review. They are not uploaded to a Hooosberg server.</span></div>
+            <div class="privacy-row"><strong>Transcripts and diary text</strong><span>Stored locally with SwiftData and used for journal, calendar, timeline, search, export, and review.</span></div>
+            <div class="privacy-row"><strong>Mood labels, keywords, and search terms</strong><span>Used locally to organize and find entries. They are not sent to third-party AI services.</span></div>
+            <div class="privacy-row"><strong>Skin and language preferences</strong><span>Stored locally to remember app settings and optional Home Skin unlock state.</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Local AI and Third-Party AI</h2>
+          <p>The app bundles Qwen3 MLX model files and uses Apple MLX on supported physical iPhone devices for local diary shaping. It does not call OpenAI, Anthropic, Gemini, ChatGPT, or any other hosted third-party AI API. Recordings, transcripts, diary text, mood labels, keywords, search terms, and location/weather context are not sent to third-party AI services.</p>
+        </section>
+
+        <section>
+          <h2>Apple Speech and Optional Weather</h2>
+          <p>Speech recognition uses Apple Speech. Depending on the device, language, iOS version, and system settings, recognition may happen on device or through Apple's speech service under Apple's privacy terms. Optional weather uses Location permission only when the user allows it; the app requests weather from Open-Meteo with rounded coordinates and stores the returned weather snapshot locally with the diary context.</p>
+        </section>
+
+        <section>
+          <h2>In-App Purchases</h2>
+          <p>The optional non-consumable purchase Unlock Home Skins is handled by Apple App Store and StoreKit. Mood Button stores a local unlock state for Home Skins. Hooosberg does not receive the user's Apple ID, payment method, billing address, or App Store account credentials.</p>
+        </section>
+
+        <section>
+          <h2>Export and Deletion</h2>
+          <p>Users can export local diary text through app export flows when available and can delete local records in the app. Deleted records are removed from the app's local review, search, and export surfaces. Uninstalling the app removes its sandbox data according to iOS behavior.</p>
+        </section>
+      </>
+    )}
+
+    {isSumiMahjong && (
+      <>
+        <section>
+          <h2>Sumi Mahjong Data Flow</h2>
+          <p>Sumi Mahjong has no account system, no advertising SDK, no third-party analytics SDK, no social feed, and no Hooosberg game server. Normal gameplay works offline.</p>
+          <div class="privacy-list">
+            <div class="privacy-row"><strong>Gameplay progress</strong><span>Stored locally on the device for continuing a game. It is not uploaded to Hooosberg.</span></div>
+            <div class="privacy-row"><strong>Best times and settings</strong><span>Stored locally to remember board settings, language, theme, sound, and play preferences.</span></div>
+            <div class="privacy-row"><strong>Theme unlock state</strong><span>Stored locally after Apple StoreKit confirms an optional purchase or restore.</span></div>
+            <div class="privacy-row"><strong>Personal identifiers</strong><span>Sumi Mahjong does not ask for name, email, phone number, location, contacts, photos, microphone, camera, or social account access.</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>In-App Purchases</h2>
+          <p>The optional non-consumable purchase Unlock All Themes is handled by Apple App Store and StoreKit. Hooosberg does not receive the user's Apple ID, payment method, billing address, App Store account credentials, or full purchase history. Restore Purchases uses Apple's StoreKit flow.</p>
+        </section>
+
+        <section>
+          <h2>Deletion and Retention</h2>
+          <p>Because Sumi Mahjong does not create a Hooosberg account or server profile, there is no server-side player account for Hooosberg to delete. Local game progress, settings, and best-time records can be removed by deleting the app from the device. Apple may retain purchase, refund, crash, or store activity records under Apple's own policies and user settings.</p>
+        </section>
+      </>
+    )}
+
     <section>
       <h2>Platform Services</h2>
-      <p>When you download, purchase, update, or review this product through Apple, Google, GitHub, Chrome Web Store, or another platform, that platform may process account, payment, device, crash, or store activity data under its own privacy policy.</p>
+      <p>{platformServicesText}</p>
     </section>
 
     <section>
