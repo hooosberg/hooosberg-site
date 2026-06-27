@@ -29,7 +29,7 @@ const diaryArticles = getArticlesForProduct(product.slug);
     <p>这里不只放产品介绍，而是持续记录这个产品从需求、设计、实现、上架、运营到复盘的过程。每篇文章都会尽量还原真实决策和可复用经验。</p>
     <div class="mini-link-row">
       <a href={`/apps/${product.slug}`}>返回产品页</a>
-      <a href={product.repo} target="_blank" rel="noreferrer">GitHub</a>
+      {!product.hideSourceLinks && <a href={product.repo} target="_blank" rel="noreferrer">GitHub</a>}
     </div>
   </section>
 

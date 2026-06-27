@@ -8,7 +8,7 @@ type Props = {
 
 const { product } = Astro.props;
 const isSumiMahjong = product.slug === "sumi-mahjong";
-const updatedDate = product.slug === "sumi-mahjong" ? "2026-06-26" : "2026-06-19";
+const updatedDate = product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const scopeText = product.hideSourceLinks
   ? "The product page, App Store download link, privacy policy, terms, and support contact define the current public product scope."
   : "The product page, download link, source repository, and support contact define the current public product scope.";

@@ -11,7 +11,7 @@ type Props = {
 
 const { compact = false } = Astro.props;
 const timelineStart = new Date("2026-03-01T00:00:00Z");
-const timelineEnd = new Date("2026-06-21T00:00:00Z");
+const timelineEnd = new Date("2026-06-26T00:00:00Z");
 const dayMs = 24 * 60 * 60 * 1000;
 const totalDays = Math.max(1, Math.round((timelineEnd.getTime() - timelineStart.getTime()) / dayMs));
 const visibleItems = compact ? productProgressItems.slice(0, 6) : productProgressItems;

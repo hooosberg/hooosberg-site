@@ -35,7 +35,7 @@ const diaryArticles = getArticlesForProduct(product.slug).map((article) => getLo
     </p>
     <div class="mini-link-row">
       <a href={`/en/apps/${product.slug}`}>Back to product</a>
-      <a href={product.repo} target="_blank" rel="noreferrer">GitHub</a>
+      {!product.hideSourceLinks && <a href={product.repo} target="_blank" rel="noreferrer">GitHub</a>}
     </div>
   </section>
 

@@ -63,10 +63,10 @@ export function buildProductJsonLd(product: Product, locale: Locale) {
   const pageUrl = absoluteUrl(canonicalPath);
   const primaryUrl = product.primaryAction.url;
   const sameAs = [
-    product.repo,
-    product.website,
+    product.hideSourceLinks ? undefined : product.repo,
+    product.hideSourceLinks ? undefined : product.website,
     primaryUrl,
-    product.secondaryAction?.url,
+    product.hideSourceLinks ? undefined : product.secondaryAction?.url,
     pageUrl,
   ].filter((url, index, urls): url is string => Boolean(url) && urls.indexOf(url) === index);
 

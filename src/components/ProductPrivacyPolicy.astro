@@ -9,7 +9,7 @@ type Props = {
 const { product } = Astro.props;
 const isMoodButton = product.slug === "mood-button";
 const isSumiMahjong = product.slug === "sumi-mahjong";
-const updatedDate = product.slug === "sumi-mahjong" ? "2026-06-26" : "2026-06-19";
+const updatedDate = product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const distributionText = product.hideSourceLinks
   ? `This privacy policy applies to ${product.displayName}. Product delivery for this app happens through the App Store and the linked Hooosberg product website.`
   : `This privacy policy applies to ${product.displayName}. Product delivery may happen through App Store, Chrome Web Store, GitHub Releases, or the linked product website depending on the product page.`;

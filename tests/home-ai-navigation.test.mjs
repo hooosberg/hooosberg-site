@@ -140,6 +140,7 @@ test("AI navigation renders as a standalone directory page", async () => {
     "Gemini",
     "OpenAI Codex",
     "Claude Code",
+    "WorkBuddy（CodeBuddy）",
     "Kimi",
     "豆包",
     "OpenAI / ChatGPT 生态",
@@ -220,6 +221,7 @@ test("AI navigation renders as a standalone directory page", async () => {
     "https://vercel.com/",
     "https://stripe.com/",
     "https://www.producthunt.com/",
+    "https://www.codebuddy.cn/work/",
     "https://github.com/VoltAgent/awesome-design-md",
     "https://github.com/HotpotDesign/Game-Assets-And-Resources",
     "https://github.com/game-icons/icons",
@@ -257,7 +259,7 @@ test("AI navigation renders as a standalone directory page", async () => {
   assert.match(html, /🇨🇳 中国/, "cards should show China country flag labels");
   assert.match(html, /国内可能受限/, "cards should call out likely access limits for US products");
   assert.match(html, /国内可直接尝试/, "cards should call out easier domestic access");
-  assert.match(html, /Codex[\s\S]*Kimi Code/, "alternatives should map Codex to a domestic coding-agent option");
+  assert.match(html, /Codex[\s\S]*WorkBuddy（CodeBuddy）[\s\S]*Kimi Code/, "alternatives should map Codex to CodeBuddy first, then other domestic coding-agent options");
   assert.match(html, /Claude Code[\s\S]*TRAE/, "alternatives should map Claude Code to domestic coding-agent options");
   assert.match(html, /Google \/ Gemini 生态[\s\S]*Google AI Studio[\s\S]*Google Antigravity/, "Google ecosystem should prioritize widely useful app, builder, and coding products");
   assert.match(groupSection(html, "google-suite"), /href="https:\/\/stitch\.withgoogle\.com\/"[\s\S]*<strong>Google Stitch<\/strong>/, "Google ecosystem should include Stitch because it has a direct product entry and current product heat");

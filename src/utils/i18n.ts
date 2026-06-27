@@ -249,13 +249,13 @@ const productEnglish: Record<string, EnglishProductOverride> = {
     displayName: "Sumi Mahjong",
     category: "Quiet puzzle game",
     tagline: "A no-ads, no-account, no-tracking ink-style Mahjong matching game.",
-    summary: "A quiet iPhone tile-matching game with hand-tuned ink tiles, offline play, and optional one-time theme unlocks.",
+    summary: "A quiet iPhone and iPad tile-matching game with hand-tuned ink tiles, offline play, and optional one-time theme unlocks.",
     audience: "Players who like lightweight puzzle games without ads, stamina systems, or leaderboard pressure.",
-    platforms: ["iPhone", "iOS", "Game"],
-    status: ["App Store", "No ads", "No tracking"],
+    platforms: ["iPhone", "iPad", "iOS", "Game"],
+    status: ["App Store", "v1.1 iPad update", "No ads", "No tracking"],
     privacyNote: "Normal play does not require network access. Optional purchases are handled by Apple StoreKit.",
     features: ["144 hand-tuned ink Mahjong tiles", "Classic two-turn matching rule", "Undo, hint, and shuffle", "No ad SDKs, accounts, or third-party tracking"],
-    courseHooks: ["iOS small game", "StoreKit 2", "No-ads product design", "Multilingual launch"],
+    courseHooks: ["iOS and iPadOS small game", "StoreKit 2", "No-ads product design", "Multilingual launch"],
   },
   trekreel: {
     category: "3D trail-story tool",
@@ -273,9 +273,9 @@ const productEnglish: Record<string, EnglishProductOverride> = {
     tagline: "Apple MLX and Qwen3 local AI voice mood journaling.",
     summary: "An iPhone local-AI voice mood journal built with Apple MLX and Qwen3.",
     audience: "Users who want private voice journaling, mood notes, and lightweight self-review.",
-    platforms: ["iPhone", "MLX", "Qwen3"],
-    status: ["App Review", "Resubmitted after rejection", "Local AI"],
-    privacyNote: "The product direction centers on local voice and local model processing; privacy labels must match the release build.",
+    platforms: ["iPhone", "iPad", "MLX", "Qwen3"],
+    status: ["App Store", "v1.0 live", "Local AI"],
+    privacyNote: "Recordings, transcripts, diary text, mood labels, search terms, and skin preferences stay on device. The bundled Qwen3 MLX model runs locally and user content is not sent to OpenAI, Anthropic, Gemini, ChatGPT, or other hosted third-party AI services. Apple Speech may process speech recognition under iOS system behavior, and optional weather uses Open-Meteo with rounded coordinates after Location permission.",
     features: ["Voice mood capture", "Apple MLX local inference", "Qwen3 lightweight interaction", "Low-friction journaling"],
     courseHooks: ["Local AI", "Voice journaling", "Mood-product boundaries"],
   },
@@ -352,11 +352,14 @@ function buildEnglishDetail(product: Product, override: EnglishProductOverride) 
   const statusText = (override.status ?? product.status).join(" / ");
   const platformText = (override.platforms ?? product.platforms).join(" / ");
   const hooks = override.courseHooks;
+  const publicLinksText = product.hideSourceLinks
+    ? "This page keeps the download path, privacy boundary, support contact, and build diary under one domain."
+    : "This page keeps the download path, repository, privacy boundary, support contact, and build diary under one domain.";
 
   return {
     overview: [
       `${override.displayName ?? product.name} is positioned as ${override.tagline}`,
-      `It currently lives across ${platformText}, with public status marked as ${statusText}. This page keeps the download path, repository, privacy boundary, support contact, and build diary under one domain.`,
+      `It currently lives across ${platformText}, with public status marked as ${statusText}. ${publicLinksText}`,
       override.privacyNote,
     ],
     proofPoints: [
@@ -844,7 +847,7 @@ function makeEnglishArticleSections(article: Article, localizedProducts: Product
     {
       heading: "What another builder can reuse",
       paragraphs: [
-        "Another builder can reuse the pattern: start with a narrow product promise, make the privacy boundary inspectable, connect every public page to a real download or repository, and turn the launch process into a searchable article.",
+        "Another builder can reuse the pattern: start with a narrow product promise, make the privacy boundary inspectable, connect every public page to a real download, support path, or source repository when appropriate, and turn the launch process into a searchable article.",
         "That is why the diary sits next to the product page. The product builds trust, and the diary teaches the path that made the product possible.",
       ],
     },

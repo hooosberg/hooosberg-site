@@ -5,6 +5,7 @@ import test from "node:test";
 const homepage = new URL("../dist/index.html", import.meta.url);
 const appsPage = new URL("../dist/apps/index.html", import.meta.url);
 const moodButtonPage = new URL("../dist/apps/mood-button/index.html", import.meta.url);
+const moodButtonPrivacyPage = new URL("../dist/privacy/mood-button/index.html", import.meta.url);
 const moodButtonReviewArticle = new URL("../dist/blog/mood-button-app-review-lessons/index.html", import.meta.url);
 const failureProductPages = [
   new URL("../dist/apps/packpour/index.html", import.meta.url),
@@ -57,13 +58,31 @@ test("homepage and product catalog use Chinese product card copy", async () => {
   }
 });
 
-test("Mood Button page reflects current App Review state without duplicate GitHub actions", async () => {
+test("Mood Button page reflects live App Store state without duplicate GitHub actions", async () => {
   const html = await readFile(moodButtonPage, "utf8");
   const githubActionLinks = [...html.matchAll(/class="button button--secondary" href="https:\/\/github\.com\/hooosberg\/mood-button"/g)];
 
-  assert.match(html, /App Store 即将上架/, "Mood Button should not pretend the App Store listing is live");
-  assert.match(html, /被拒后处理中/, "Mood Button should expose the rejected App Review state");
+  assert.match(html, /href="https:\/\/apps\.apple\.com\/us\/app\/mood-button\/id6780051060"/, "Mood Button should link to the live App Store listing");
+  assert.match(html, /v1\.0 已上架|已上架/, "Mood Button should expose the live App Store state");
+  assert.doesNotMatch(html, /App Store 即将上架/, "Mood Button should no longer show the old review-pending CTA");
+  assert.doesNotMatch(html, />旧产品页</, "Mood Button should not route users back to the old GitHub Pages landing page");
   assert.equal(githubActionLinks.length, 1, "Mood Button detail actions should show GitHub only once");
+});
+
+test("Mood Button privacy policy discloses AI and platform data flow", async () => {
+  const html = await readFile(moodButtonPrivacyPage, "utf8");
+
+  for (const phrase of [
+    "Mood Button Data Flow",
+    "Local AI and Third-Party AI",
+    "does not call OpenAI, Anthropic, Gemini, ChatGPT, or any other hosted third-party AI API",
+    "Apple Speech",
+    "Open-Meteo",
+    "Unlock Home Skins",
+    "Export and Deletion",
+  ]) {
+    assert.ok(html.includes(phrase), `privacy policy should mention ${phrase}`);
+  }
 });
 
 test("product progress timeline stays on catalog while homepage stays compact", async () => {
@@ -75,7 +94,7 @@ test("product progress timeline stays on catalog while homepage stays compact", 
   assert.doesNotMatch(homeHtml, /苹果商店上架流程甘特图/, "homepage should not render the heavy progress timeline");
   assert.match(appsHtml, /苹果商店上架流程甘特图/, "product catalog should keep the progress timeline heading");
   assert.match(appsHtml, /产品进度同步/, "product catalog timeline should identify the public progress source");
-  assert.match(appsHtml, /6\/17 被拒/, "product catalog timeline should include the Mood Button rejection milestone");
+  assert.match(appsHtml, /已上架/, "product catalog timeline should include the latest Mood Button App Store milestone");
 });
 
 test("Mood Button App Review diary uses the real rejection categories", async () => {

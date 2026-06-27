@@ -219,6 +219,15 @@ const trae = tool({
   badge: "国产",
 });
 
+const codebuddy = tool({
+  name: "WorkBuddy（CodeBuddy）",
+  description: "腾讯云 CodeBuddy 推出的 AI Agent 工作台，主打自主规划并交付多模态复杂任务，支持多 Agents 并行，适合作为国内 Codex 平替第一观察入口。",
+  url: "https://www.codebuddy.cn/work/",
+  country: "cn",
+  tags: ["编程", "Agent", "腾讯"],
+  badge: "推荐",
+});
+
 const groups: ToolGroup[] = [
   {
     id: "top",
@@ -460,6 +469,7 @@ const groups: ToolGroup[] = [
     summary: "面向开发者的 AI IDE、终端 agent、代码补全和自动化工程工具。",
     items: [
       codex,
+      codebuddy,
       claudeCode,
       googleAntigravity,
       jules,
@@ -541,6 +551,7 @@ const groups: ToolGroup[] = [
     shortLabel: "国产",
     summary: "优先收国内能直接使用、公开热度高、中文体验强的 AI 产品；不追求数量，只保留最容易推荐给普通用户的入口。",
     items: [
+      codebuddy,
       deepseek,
       doubao,
       kimi,
@@ -582,11 +593,11 @@ const alternativePairs: AlternativePair[] = [
     category: "编程 Agent / 仓库任务",
     source: codex,
     alternatives: [
-      { name: "Kimi Code", description: "Kimi 体系里的代码与 agent 能力，适合作为 Codex 的国内快速替代入口。", url: "https://www.kimi.com/", country: "cn", tags: ["编程", "Agent", "Kimi"], badge: "推荐" },
+      codebuddy,
+      { name: "Kimi Code", description: "Kimi 体系里的代码与 agent 能力，适合作为 Codex 的国内快速替代入口。", url: "https://www.kimi.com/", country: "cn", tags: ["编程", "Agent", "Kimi"] },
       trae,
-      { name: "DeepSeek API", description: "用 DeepSeek 模型接入 Cline、Roo Code 等开源 agent，可做低成本代码任务。", url: "https://platform.deepseek.com/", country: "cn", tags: ["API", "代码", "低成本"] },
     ],
-    reason: "Codex 更像仓库级开发 agent；国内平替可以拆成 Kimi 的 agent 能力、TRAE 的 IDE、DeepSeek 的模型后端。",
+    reason: "Codex 更像仓库级开发 agent；国内平替优先看腾讯 CodeBuddy / WorkBuddy 这类 agent 工作台，再看 Kimi 的 agent 能力和 TRAE 的 IDE 路线。",
     bestFor: ["仓库修改", "自动修复", "代码审查"],
   },
   {

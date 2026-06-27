@@ -42,11 +42,16 @@ const addAction = (action?: ProductAction) => {
 };
 
 addAction(product.primaryAction);
-addAction({ label: "GitHub", url: product.repo, icon: "/icons/social/github.svg" });
+
+if (!product.hideSourceLinks) {
+  addAction({ label: "GitHub", url: product.repo, icon: "/icons/social/github.svg" });
+}
+
 if (relatedArticles.length > 0) {
   addAction({ label: "Build diary", url: toLocalizedPath(`/apps/${product.slug}/diary`, "en"), icon: "/icons/platform/article.svg" });
 }
-if (product.website) {
+
+if (!product.hideSourceLinks && product.website) {
   addAction({ label: "Legacy page", url: product.website, icon: "/icons/platform/web.svg" });
 }
 addAction(product.secondaryAction);

@@ -114,7 +114,7 @@ export const productDiarySourceNotes: Record<string, ProductDiarySourceNote> = {
     sourceAreas: ["Mood Button 开发计划", "模型验证记录", "上架收尾盘点", "App Review 修复记录"],
     records: [
       "Mood Button 的 docs 覆盖语音到多语日记、AI 线索生成、本地 AI 显性验证、MLX 真实模型测试和 iPad 原生适配。",
-      "上架记录包含上传前状态复核、TestFlight 收费墙、产品名称和 GitHub 重命名、App Review 拒回后的修复路径。",
+      "上架记录包含上传前状态复核、TestFlight 收费墙、产品名称和 GitHub 重命名、App Review 拒回后的修复路径，以及 2026-06-26 正式上架节点。",
       "模型验证文档说明本地 AI 不是口号，需要验证模型边界、调度方式、设备能力和用户可见说明。",
       "公开文章要谨慎处理情绪、语音和隐私，不渲染心理疗效，而是讲清低门槛记录、本地处理和审核沟通。",
     ],

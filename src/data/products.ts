@@ -12,6 +12,7 @@ export type Product = {
   secondaryAction?: ProductAction;
   repo: string;
   website?: string;
+  hideSourceLinks?: boolean;
   icon?: string;
   accent: string;
   priority: "P0" | "P1" | "P2";
@@ -279,25 +280,25 @@ export const products: Product[] = [
     displayName: "Sumi Mahjong 禅艺麻将",
     category: "安静解谜游戏",
     tagline: "无广告、无账号、无追踪的水墨麻将连连看。",
-    summary: "安静的 iPhone 麻将连连看，使用手调水墨牌面，支持离线配对，可选一次买断解锁主题。",
-    platforms: ["iPhone", "iOS", "游戏"],
-    status: ["App Store", "无广告", "无追踪"],
+    summary: "安静的 iPhone 与 iPad 麻将连连看，使用手调水墨牌面，支持离线配对，可选一次买断解锁主题。",
+    platforms: ["iPhone", "iPad", "iOS", "游戏"],
+    status: ["App Store", "v1.1 iPad 更新", "无广告", "无追踪"],
     audience: "喜欢轻量解谜游戏，但不想被广告、体力和排行榜打扰的用户。",
     primaryAction: { label: "App Store", url: "https://apps.apple.com/us/app/sumi-mahjong-solitaire/id6770823912" },
-    secondaryAction: { label: "GitHub", url: "https://github.com/hooosberg/Sumi-Mahjong" },
     repo: "https://github.com/hooosberg/Sumi-Mahjong",
-    website: "https://hooosberg.github.io/Sumi-Mahjong/",
+    website: undefined,
+    hideSourceLinks: true,
     icon: "/product-icons/sumi-mahjong.png",
     accent: "#78716c",
     priority: "P0",
     learnSlug: "sumi-mahjong-ios-game",
     privacy: privacyLocal("正常游玩不需要网络；付费解锁通过 Apple StoreKit 完成。"),
     features: ["144 张手调水墨麻将牌", "经典两折线连接规则", "撤销、提示、洗牌", "无广告 SDK、无账号、无第三方追踪"],
-    buildNotes: ["轻量游戏的上架、IAP 和隐私边界。", "产品页如何表达安静体验。"],
+    buildNotes: ["轻量游戏的上架、IAP 和隐私边界。", "产品页如何表达安静体验。", "1.1 更新加入 iPad 原生适配，上架链接统一到 Hooosberg 产品页。"],
     courseHooks: ["iOS 小游戏", "StoreKit 2", "无广告产品", "多语言上架"],
     detail: {
       overview: [
-        "Sumi Mahjong 是一款 iPhone 离线牌面配对游戏。用户选择两张相同牌面，只要它们可以用不超过两次转弯的路径连接，就能消除；目标不是制造关卡压力，而是给用户一局干净、可暂停、没有干扰的小游戏。",
+        "Sumi Mahjong 是一款 iPhone 与 iPad 离线牌面配对游戏。用户选择两张相同牌面，只要它们可以用不超过两次转弯的路径连接，就能消除；目标不是制造关卡压力，而是给用户一局干净、可暂停、没有干扰的小游戏。",
         "产品定位来自一组明确的反向边界：不接广告 SDK，不做账号系统，不做每日体力、排行榜和看广告续命，也不把撤销、提示、洗牌拆成付费压力。水墨主题完整免费，进阶视觉主题通过一次买断解锁。",
         "这个页面同时服务普通玩家、App Store 审核和后续课程案例。玩家能快速理解玩法和隐私承诺；审核员能看到付费和数据边界；学习者能从开发日记里看到从立项、痛点翻译、UI 取舍到上架材料的完整链路。"
       ],
@@ -358,37 +359,38 @@ export const products: Product[] = [
     category: "本地 AI 情绪日记",
     tagline: "Apple MLX + Qwen3 本地 AI 语音情绪日记。",
     summary: "基于 Apple MLX 和 Qwen3 的 iPhone 本地 AI 语音情绪日记。",
-    platforms: ["iPhone", "MLX", "Qwen3"],
-    status: ["App Review", "被拒后重提", "本地 AI"],
+    platforms: ["iPhone", "iPad", "MLX", "Qwen3"],
+    status: ["App Store", "v1.0 已上架", "本地 AI"],
     audience: "希望用本地 AI 做语音日记、情绪记录和轻量自我复盘的用户。",
-    primaryAction: { label: "App Store 即将上架", disabled: true, icon: "/icons/platform/app-store.svg" },
+    primaryAction: { label: "App Store", url: "https://apps.apple.com/us/app/mood-button/id6780051060" },
     secondaryAction: { label: "GitHub", url: "https://github.com/hooosberg/mood-button" },
     repo: "https://github.com/hooosberg/mood-button",
-    website: "https://hooosberg.github.io/mood-button/",
+    website: undefined,
     icon: "/product-icons/mood-button.png",
     accent: "#db2777",
     priority: "P1",
     learnSlug: "mood-button-local-voice",
-    privacy: privacyLocal("设计方向以本地语音和本地模型为核心，正式上架前需要逐项核对隐私标签。"),
+    privacy: privacyLocal("录音、转写、日记、心情标签、搜索词和皮肤偏好保存在设备端；Qwen3 MLX 模型随 App 内置，不向 OpenAI、Anthropic、Gemini、ChatGPT 或其他托管第三方 AI 服务发送用户内容。Apple Speech 可能按系统能力处理语音识别；可选天气只在位置授权后向 Open-Meteo 请求四舍五入后的坐标。"),
     features: ["语音情绪记录", "Apple MLX 本地推理", "Qwen3 轻量交互", "低干扰日记体验"],
-    buildNotes: ["本地语音 AI 和情绪产品边界。", "2026-06-17 被 App Review 拒回，后续修复、审核回复和重提材料已进入发布记录。"],
+    buildNotes: ["本地语音 AI 和情绪产品边界。", "2026-06-17 被 App Review 拒回后补 iPad / Universal 支持、隐私披露和 IAP 路径说明；2026-06-23 再次提交审核，2026-06-26 已上架。"],
     courseHooks: ["本地 AI", "语音日记", "情绪产品设计"],
     detail: {
       overview: [
-        "Mood Button 是 iPhone 上的本地 AI 语音情绪日记。它的真实发布状态不是已上架：2026-06-17 App Review 拒回了 build 1.0 (2)，原因集中在 iPad UI、AI 数据流隐私说明，以及 IAP 入口可见性。",
-        "发布记录保留了后续修复线索：App Review Notes 和隐私政策补充了“无第三方托管 AI 服务接收用户内容”的说明，iPad 截图和 IAP 路径也完成了验证和读回检查。",
-        "所以这里不把旧 GitHub Pages 硬写成主下载入口。主按钮只显示 App Store 即将上架，等审核通过后再切换到真实 App Store 链接。"
+        "Mood Button 是 iPhone 和 iPad 上的本地 AI 语音情绪日记，v1.0 已于 2026-06-26 在 App Store 上架，主入口现在直接跳转到真实商店页面。",
+        "这次发布保留了完整审核过程：2026-06-17 App Review 拒回了 build 1.0 (2)，问题集中在 iPad UI、AI 数据流隐私说明，以及 IAP 入口可见性。",
+        "后续版本补齐了 App Review Notes、“无第三方托管 AI 服务接收用户内容”的隐私披露、iPad / Universal 支持、iPad 截图和 IAP 操作路径，2026-06-23 再次提交审核，2026-06-26 上架。",
+        "所以这里不再把旧 GitHub Pages 或审核中状态放成主入口。产品页负责解释隐私边界和产品价值，主按钮负责把用户带到 App Store。"
       ],
       proofPoints: [
-        { label: "审核状态", value: "被拒后处理中", note: "2026-06-17 被拒；后续修复、回复和重提材料已进入发布记录。" },
+        { label: "商店状态", value: "已上架", note: "2026-06-26 可在 App Store 下载 v1.0，App Store ID 为 6780051060。" },
         { label: "拒审问题", value: "4.0 / 5.1 / 2.1(b)", note: "iPad UI、AI 隐私披露、IAP Unlock Home Skins 可见性。" },
-        { label: "事实源", value: "公开发布进度", note: "来自已公开的产品状态、审核节点和发布准备记录。" },
-        { label: "公开材料", value: "GitHub Pages", note: "旧产品页保留为审核材料、隐私政策和支持页面，不冒充已上架下载入口。" }
+        { label: "事实源", value: "App Store + 发布记录", note: "来自 Apple 公开商店条目、审核节点和发布准备记录。" },
+        { label: "公开材料", value: "Hooosberg.com", note: "新官网承载产品页、隐私政策、支持入口和审核可读的数据流说明；旧 GitHub Pages 仅保留为归档。" }
       ],
       valueProps: [
-        { title: "真实进度比漂亮按钮更重要", body: "产品还在 App Review 流程里，页面应该告诉用户它即将上架，而不是用 GitHub 或旧产品页填充一个假的主入口。" },
-        { title: "审核经验会沉淀成课程", body: "这次拒审能讲清楚 AI 产品怎样向 Apple 解释数据流、怎样给审核员展示 IAP 路径，以及为什么 iPad 兼容不能靠侥幸。" },
-        { title: "本地 AI 是产品承诺", body: "核心日记生成跑在设备侧的 Apple MLX + Qwen3 流程上；公开隐私文案和审核说明必须和真实实现一致。" }
+        { title: "上架入口要直达商店", body: "产品已经通过审核后，页面应该把用户带到真实 App Store，而不是继续保留“即将上架”或旧产品页作为主入口。" },
+        { title: "审核经验会沉淀成课程", body: "这次从拒审、修复、再次提审到上架，能讲清楚 AI 产品怎样向 Apple 解释数据流、怎样给审核员展示 IAP 路径，以及为什么 iPad 兼容不能靠侥幸。" },
+        { title: "本地 AI 是产品承诺", body: "核心日记生成跑在设备侧的 Apple MLX + Qwen3 流程上；公开隐私文案、App 内说明和 App Review Notes 必须和真实实现一致。" }
       ],
       featureDetails: [
         { title: "语音记录到日记", body: "用户用短语音记录当天状态，App 把录音整理成可回看的情绪日记草稿。" },
@@ -397,12 +399,12 @@ export const products: Product[] = [
         { title: "审核后补强", body: "拒审后补齐 iPad 兼容、隐私披露和 Review Notes 中的 IAP 操作路径，减少审核员找不到入口的风险。" }
       ],
       principles: [
-        { title: "不上架就不伪装成上架", body: "用户看到的第一个按钮必须反映真实渠道状态。未通过审核时显示即将上架，审核通过后再换成 App Store。" },
+        { title: "渠道状态要实时更新", body: "用户看到的第一个按钮必须反映真实渠道状态。未通过审核时显示即将上架，审核通过后就切成 App Store。" },
         { title: "AI 产品先讲数据流", body: "涉及语音和情绪时，要主动解释用户内容是否离开设备、是否给第三方 AI、是否用于训练。" },
         { title: "审核可见性也是功能", body: "IAP、隐私页、支持页、iPad 布局和截图都要能被审核员按说明复现，不能只在开发者机器上成立。" }
       ],
       diaryIntro:
-        "Mood Button 的开发日记会继续记录从本地 AI 原型、语音入口、隐私边界到 App Review 拒审修复的真实过程。"
+        "Mood Button 的开发日记会继续记录从本地 AI 原型、语音入口、隐私边界、iPad 适配、App Review 修复到正式上架的真实过程。"
     },
   },
   {
@@ -587,12 +589,12 @@ export const products: Product[] = [
 export const featuredProducts = products.filter((product) => product.priority === "P0");
 
 const latestProductSlugs = [
+  "mood-button",
   "sumi-mahjong",
   "drowsebook",
   "glotshot",
   "trekreel",
   "witnote",
-  "mood-button",
   "packpour",
   "beraw",
   "domprompter",
@@ -609,7 +611,7 @@ const productTimelineNotes: Record<string, string> = {
   glotshot: "失败复盘",
   trekreel: "近期发布",
   witnote: "核心产品",
-  "mood-button": "被拒后重提",
+  "mood-button": "刚上架",
   packpour: "失败复盘",
   beraw: "浏览器工具",
   domprompter: "失败复盘",
@@ -620,21 +622,21 @@ const productTimelineNotes: Record<string, string> = {
   rushi: "内容产品",
 };
 
-export const productProgressSyncedAt = "2026-06-21";
+export const productProgressSyncedAt = "2026-06-26";
 
 export const productProgressItems: ProductProgressItem[] = [
   {
     productSlug: "mood-button",
-    phase: "App Review",
-    status: "6/17 被拒，复审中",
-    next: "等 Apple 复审；通过后切 App Store 链接",
-    source: "公开发布进度 2026-06-21",
-    progress: 94,
-    tone: "review",
+    phase: "App Store",
+    status: "已上架",
+    next: "开始首轮推广、观察用户反馈",
+    source: "Apple 公开商店条目 2026-06-26",
+    progress: 100,
+    tone: "live",
     segments: [
       { kind: "research", start: "2026-06-04", end: "2026-06-06" },
       { kind: "build", start: "2026-06-06", end: "2026-06-17" },
-      { kind: "review", start: "2026-06-17", end: "2026-06-21" },
+      { kind: "review", start: "2026-06-17", end: "2026-06-26" },
     ],
   },
   {
@@ -753,13 +755,13 @@ export const productProgressItems: ProductProgressItem[] = [
     label: "LocalCarePet",
     phase: "候选",
     status: "暂缓",
-    next: "等 Mood Button 复审结果再排期",
+    next: "等 Mood Button 首轮反馈再排期",
     source: "公开发布进度 2026-05-24",
     progress: 12,
     tone: "observe",
     segments: [
       { kind: "research", start: "2026-06-17", end: "2026-06-20" },
-      { kind: "hold", start: "2026-06-20", end: "2026-06-21" },
+      { kind: "hold", start: "2026-06-20", end: "2026-06-26" },
     ],
   },
 ];
