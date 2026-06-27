@@ -33,9 +33,11 @@ test("homepage links to AI navigation without rendering it as a homepage section
 
   assert.match(html, /href="\/ai-navigation"/, "homepage header should link to the AI navigation page");
   assert.match(html, /<title>湖森堡AI_hooosberg \| 哲学 艺术 AI<\/title>/, "Chinese homepage document title should keep the site-level title");
-  assert.match(html, /<h1>我的开发日记<\/h1>/, "Chinese homepage should use a personal diary hero title");
+  assert.match(html, /<h1>哲学 艺术 AI<\/h1>/, "Chinese homepage should use the site philosophy hero title");
+  assert.match(html, /我的开发日记 \/ AI 工具导航/, "Chinese homepage should keep build diary as the small hero subtitle");
   assert.match(enHtml, /<title>Hooosberg \| Philosophy, Art, AI<\/title>/, "English homepage document title should keep the site-level title");
-  assert.match(enHtml, /<h1>My Build Diary<\/h1>/, "English homepage should translate the personal diary hero title");
+  assert.match(enHtml, /<h1>Philosophy, Art, AI<\/h1>/, "English homepage should use the site philosophy hero title");
+  assert.match(enHtml, /My build diary \/ AI tool guide/, "English homepage should keep build diary as the small hero subtitle");
   for (const label of ["Codex App 开发", "苹果商店上架流程", "Mac/iOS App 开发", "AI 入门", "Claude Code", "Gemini", "AI 导航", "开发日记"]) {
     assert.match(html, new RegExp(label), `Chinese hero tag should include ${label}`);
   }
