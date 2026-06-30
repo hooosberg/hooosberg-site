@@ -7,6 +7,12 @@ const appsPage = new URL("../dist/apps/index.html", import.meta.url);
 const moodButtonPage = new URL("../dist/apps/mood-button/index.html", import.meta.url);
 const moodButtonPrivacyPage = new URL("../dist/privacy/mood-button/index.html", import.meta.url);
 const moodButtonReviewArticle = new URL("../dist/blog/mood-button-app-review-lessons/index.html", import.meta.url);
+const rushiPage = new URL("../dist/apps/rushi/index.html", import.meta.url);
+const rushiPrivacyPage = new URL("../dist/privacy/rushi/index.html", import.meta.url);
+const rushiTermsPage = new URL("../dist/terms/rushi/index.html", import.meta.url);
+const rushiEnglishPage = new URL("../dist/en/apps/rushi/index.html", import.meta.url);
+const rushiEnglishPrivacyPage = new URL("../dist/en/privacy/rushi/index.html", import.meta.url);
+const rushiEnglishTermsPage = new URL("../dist/en/terms/rushi/index.html", import.meta.url);
 const failureProductPages = [
   new URL("../dist/apps/packpour/index.html", import.meta.url),
   new URL("../dist/apps/domprompter/index.html", import.meta.url),
@@ -82,6 +88,40 @@ test("Mood Button privacy policy discloses AI and platform data flow", async () 
     "Export and Deletion",
   ]) {
     assert.ok(html.includes(phrase), `privacy policy should mention ${phrase}`);
+  }
+});
+
+test("Rushi public pages use main-site URLs and StoreKit copy-practice terms", async () => {
+  const htmlPages = await Promise.all([
+    readFile(rushiPage, "utf8"),
+    readFile(rushiPrivacyPage, "utf8"),
+    readFile(rushiTermsPage, "utf8"),
+    readFile(rushiEnglishPage, "utf8"),
+    readFile(rushiEnglishPrivacyPage, "utf8"),
+    readFile(rushiEnglishTermsPage, "utf8"),
+  ]);
+  const combined = htmlPages.join("\n");
+
+  for (const phrase of [
+    "https://apps.apple.com/us/app/rushi-sutra-mala-meditation/id6766074713",
+    "Copy Practice Unlock",
+    "Apple StoreKit",
+    "source-backed calligraphy copybooks",
+    "does not offer auto-renewable subscriptions",
+    "no Hooosberg account system",
+    "iPad",
+  ]) {
+    assert.ok(combined.includes(phrase), `Rushi public pages should mention ${phrase}`);
+  }
+
+  for (const stalePhrase of [
+    "https://hooosberg.github.io/Rushi/",
+    "正式 App 隐私政策以后以实际功能为准",
+    "unless a future feature explicitly states otherwise",
+    "Landing page",
+    "旧产品页",
+  ]) {
+    assert.doesNotMatch(combined, new RegExp(stalePhrase), `Rushi public pages should not expose stale copy: ${stalePhrase}`);
   }
 });
 

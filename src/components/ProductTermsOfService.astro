@@ -8,7 +8,8 @@ type Props = {
 
 const { product } = Astro.props;
 const isSumiMahjong = product.slug === "sumi-mahjong";
-const updatedDate = product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const isRushi = product.slug === "rushi";
+const updatedDate = isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const scopeText = product.hideSourceLinks
   ? "The product page, App Store download link, privacy policy, terms, and support contact define the current public product scope."
   : "The product page, download link, source repository, and support contact define the current public product scope.";
@@ -42,6 +43,8 @@ const thirdPartyText = product.hideSourceLinks
       <h2>Use of the Product</h2>
       {isSumiMahjong ? (
         <p>Sumi Mahjong is a casual tile matching game. Do not misuse the app, reverse engineer it, extract or redistribute its artwork, audio, icons, screenshots, code, or other bundled assets, or use it in ways that violate applicable law, platform rules, or third-party rights.</p>
+      ) : isRushi ? (
+        <p>Rushi is a personal scripture reading, mala counting, and copy-practice utility. It is not a religious service, publication service, donation service, medical or mental-health service, or promise of blessing, merit, salvation, or any spiritual outcome. Do not misuse the app, reverse engineer it, extract or redistribute bundled scripture, sound, calligraphy, copybook images, icons, screenshots, code, or other bundled assets outside their own source licenses, or use it in ways that violate applicable law, platform rules, or third-party rights.</p>
       ) : (
         <p>You are responsible for how you use the product, the files or content you import, and any output you create with it. Do not use the product in ways that violate applicable law, platform rules, or third-party rights.</p>
       )}
@@ -52,6 +55,8 @@ const thirdPartyText = product.hideSourceLinks
       <p>{product.privacy.note}</p>
       {isSumiMahjong ? (
         <p>Game progress, best times, settings, and local theme unlock state are stored on the device. You are responsible for your device security, backups, and iOS settings. Deleting the app may remove local app data according to iOS behavior.</p>
+      ) : isRushi ? (
+        <p>Reading state, mala counts, copy-practice works, settings, and local copy-practice unlock state are stored on the device. You are responsible for your device security, backups, iCloud/device settings, and any exports you create. Deleting the app may remove local app data according to iOS behavior.</p>
       ) : (
         <p>When the product works with local files, local browser sessions, local app data, or local models, you remain responsible for maintaining your own backups and device security.</p>
       )}
@@ -63,6 +68,9 @@ const thirdPartyText = product.hideSourceLinks
       {isSumiMahjong && (
         <p>The core game is playable for free. The optional non-consumable in-app purchase Unlock All Themes unlocks premium visual themes through Apple StoreKit. Sumi Mahjong does not offer auto-renewable subscriptions. Refunds, billing issues, and purchase records are handled by Apple under App Store rules.</p>
       )}
+      {isRushi && (
+        <p>Core scripture reading, mala counting, and basic quiet practice features are free. The optional non-consumable in-app purchase Copy Practice Unlock unlocks copy-practice features, brush tracing, PDF export, and source-backed calligraphy copybooks through Apple StoreKit. Rushi does not offer auto-renewable subscriptions. Refunds, billing issues, and purchase records are handled by Apple under App Store rules.</p>
+      )}
     </section>
 
     <section>
@@ -70,6 +78,9 @@ const thirdPartyText = product.hideSourceLinks
       <p>{thirdPartyText}</p>
       {isSumiMahjong && (
         <p>Sumi Mahjong does not include advertising networks, third-party analytics SDKs, social feeds, cloud saves, or third-party AI services. Some bundled art or audio may include licensed or credited materials; those materials remain subject to their respective rights and may not be extracted or reused outside the app.</p>
+      )}
+      {isRushi && (
+        <p>Rushi does not include advertising networks, third-party analytics SDKs, social feeds, cloud accounts, hosted scripture sync, or third-party AI services. Bundled public-domain or open-license scripture, sound, and copybook source materials remain subject to their source notices and may not be extracted or reused outside the app except as allowed by those source terms.</p>
       )}
     </section>
 

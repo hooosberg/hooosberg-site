@@ -9,7 +9,8 @@ type Props = {
 const { product } = Astro.props;
 const isMoodButton = product.slug === "mood-button";
 const isSumiMahjong = product.slug === "sumi-mahjong";
-const updatedDate = product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const isRushi = product.slug === "rushi";
+const updatedDate = isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const distributionText = product.hideSourceLinks
   ? `This privacy policy applies to ${product.displayName}. Product delivery for this app happens through the App Store and the linked Hooosberg product website.`
   : `This privacy policy applies to ${product.displayName}. Product delivery may happen through App Store, Chrome Web Store, GitHub Releases, or the linked product website depending on the product page.`;
@@ -103,6 +104,36 @@ const platformServicesText = product.hideSourceLinks
         <section>
           <h2>Deletion and Retention</h2>
           <p>Because Sumi Mahjong does not create a Hooosberg account or server profile, there is no server-side player account for Hooosberg to delete. Local game progress, settings, and best-time records can be removed by deleting the app from the device. Apple may retain purchase, refund, crash, or store activity records under Apple's own policies and user settings.</p>
+        </section>
+      </>
+    )}
+
+    {isRushi && (
+      <>
+        <section>
+          <h2>Rushi Data Flow</h2>
+          <p>Rushi is a quiet scripture reading, mala counting, and copy-practice app for iPhone and iPad. It has no Hooosberg account system, no advertising SDK, no third-party analytics SDK, no social feed, and no developer cloud scripture or copy-practice service.</p>
+          <div class="privacy-list">
+            <div class="privacy-row"><strong>Scripture reading and bookmarks</strong><span>Stored locally on the device when the app needs to remember reading state or preferences.</span></div>
+            <div class="privacy-row"><strong>Mala counts and settings</strong><span>Stored locally to keep practice state, language, display, sound, and app preferences.</span></div>
+            <div class="privacy-row"><strong>Copy-practice works</strong><span>Stored in the app's local sandbox. They are not uploaded to a Hooosberg server.</span></div>
+            <div class="privacy-row"><strong>Copy Practice Unlock state</strong><span>Stored locally after Apple StoreKit confirms an optional purchase or restore.</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>In-App Purchases</h2>
+          <p>The optional non-consumable purchase Copy Practice Unlock is handled by Apple App Store and StoreKit. Rushi stores a local unlock state for copy-practice features. Hooosberg does not receive the user's Apple ID, payment method, billing address, App Store account credentials, or full purchase history. Restore Purchases uses Apple's StoreKit flow.</p>
+        </section>
+
+        <section>
+          <h2>Copybook and Source Images</h2>
+          <p>Rushi includes bundled public-domain or open-license scripture, sound, and copybook source materials for reading and visual copy-practice. Viewing an original copybook image, switching pages, zooming, or tracing in the app does not upload the image or the user's practice work to Hooosberg.</p>
+        </section>
+
+        <section>
+          <h2>Deletion and Retention</h2>
+          <p>Because Rushi does not create a Hooosberg account or server profile, there is no server-side user account for Hooosberg to delete. Local reading state, mala counts, settings, copy-practice works, and local unlock state can be removed by deleting the app from the device. Apple may retain purchase, refund, crash, or store activity records under Apple's own policies and user settings.</p>
         </section>
       </>
     )}
