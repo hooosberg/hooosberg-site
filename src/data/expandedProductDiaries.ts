@@ -1728,14 +1728,14 @@ export const expandedProductDiaries: ArticleSeed[] = [
         {
           heading: "隐私简单也要写得具体",
           paragraphs: [
-            "Rushi 的审核备注写清楚：无网络请求、无分析 SDK、无崩溃上报、无追踪；书签、计数和抄写内容只保存在本地。iOS 隐私清单也只声明必要的 UserDefaults 原因。",
+            "Rushi 的审核备注写清楚：除 Apple StoreKit 等系统购买与恢复流程外，没有自有账号、广告、分析 SDK、第三方追踪或开发者云端抄经服务；书签、计数、设置和抄写内容只保存在本地。",
             "这类内容产品最怕一句笼统的“不收集数据”。越简单，越要把简单具体化，让隐私政策、App Privacy 问卷和代码行为互相对得上。"
           ],
         },
         {
           heading: "不要把通过当成判例",
           paragraphs: [
-            "Rushi 的通过经验可以复用的是方法：Lifestyle 类目、工具定位、来源透明、无 IAP / 订阅 / 广告、无账号、iPhone-only 和审核备注解释。不能复用的是侥幸感。",
+            "Rushi 的通过经验可以复用的是方法：Lifestyle 类目、工具定位、来源透明、基础功能免费、抄经书法练习一次买断、无订阅 / 广告 / 账号 / 第三方追踪、iPhone 与 iPad 真实适配，以及审核备注解释。不能复用的是侥幸感。",
             "同样是内容型产品，DrowseBook 因 Books 类、内置样书和 China mainland 可售性被 Guideline 2.1 卡住。两个案例放在一起，才是之后立项和上架时真正有用的判断框架。"
           ],
         },

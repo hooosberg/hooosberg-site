@@ -283,13 +283,13 @@ const productEnglish: Record<string, EnglishProductOverride> = {
     displayName: "Rushi",
     category: "Scripture reading and copy-practice app",
     tagline: "A quiet iOS app for sutra reading, mala counting, and copy-practice.",
-    summary: "Rushi brings together the Diamond Sutra, Heart Sutra, multilingual scripture text, mala counting, quiet sound, and source-backed copybook practice. Reading and mala features are free; Copy Practice Unlock is an optional one-time in-app purchase handled by Apple StoreKit.",
-    audience: "Readers who want clean scripture text, mala counting, multilingual material, and quiet copy-practice on iPhone and iPad.",
+    summary: "Rushi brings together the Diamond Sutra, Heart Sutra, multilingual scripture text, mala counting, quiet sound, and source-backed copybook practice based on open or public-domain source images. Reading and mala features are free; Copy Practice Unlock is an optional one-time in-app purchase handled by Apple StoreKit.",
+    audience: "Readers who want clean scripture text, mala counting, multilingual material, and quiet calligraphy copy-practice on iPhone and iPad.",
     platforms: ["iPhone", "iPad", "iOS", "Public-domain sources"],
     status: ["App Store", "v1.1 in preparation", "One-time IAP"],
     privacyNote: "Scripture reading, mala counts, copy-practice works, settings, and copybook practice state stay on device. Rushi has no account system, no ads, and no third-party tracking. The optional one-time Copy Practice Unlock is handled by Apple StoreKit, and Hooosberg does not receive Apple IDs, payment methods, or billing details.",
-    features: ["Diamond Sutra and Heart Sutra", "Mala counter", "Source-backed copybook practice", "iPad support"],
-    courseHooks: ["Content products", "Localization", "StoreKit 2", "Calm app design"],
+    features: ["Diamond Sutra and Heart Sutra", "Mala counter", "Liu Gongquan and Ouyang Xun copybook sources", "Original copybook image preview", "iPad support"],
+    courseHooks: ["Content products", "Localization", "StoreKit 2", "Public-domain source materials", "Calm app design"],
   },
   dailyzikr: {
     category: "Dhikr and prayer utility",
@@ -355,6 +355,41 @@ function buildEnglishDetail(product: Product, override: EnglishProductOverride) 
   const publicLinksText = product.hideSourceLinks
     ? "This page keeps the download path, privacy boundary, support contact, and build diary under one domain."
     : "This page keeps the download path, repository, privacy boundary, support contact, and build diary under one domain.";
+
+  if (product.slug === "rushi") {
+    return {
+      overview: [
+        "Rushi is organized around quiet sutra reading, mala counting, and copy-practice with source-backed calligraphy images.",
+        "Version 1.1 adds iPad support and calligraphy copybooks. Scripture reading, mala counting, and quiet sound remain free; Copy Practice Unlock is an optional one-time Apple StoreKit purchase, not a subscription.",
+        "The copybook materials are disclosed as public-domain, open-license, or otherwise openly usable sources. In copy practice, users can view original copybook images, switch Diamond Sutra pages, drag between pages, and zoom for closer inspection.",
+      ],
+      proofPoints: [
+        { label: "Platform", value: "iPhone / iPad", note: "The page, screenshots, and copy now describe the Universal iOS experience." },
+        { label: "Purchase", value: "One-time unlock", note: "Reading and mala features are free. Copy Practice Unlock only unlocks calligraphy copy-practice and does not offer auto-renewable subscriptions." },
+        { label: "Copybooks", value: "Liu Gongquan Diamond Sutra / Ouyang Xun Heart Sutra", note: "The app uses open or public-domain source materials and keeps original copybook images available for viewing." },
+        { label: "Privacy", value: "Local storage", note: override.privacyNote },
+      ],
+      valueProps: [
+        { title: "A quiet reading utility first", body: "Rushi does not promise religious outcomes, run a social feed, or add leaderboard pressure. It keeps scripture reading, mala counting, and practice lightweight." },
+        { title: "Copybooks are real source images", body: "The calligraphy practice feature is based on source-backed copybooks rather than decorative stickers, including Liu Gongquan and Ouyang Xun materials where available." },
+        { title: "The paid boundary is simple", body: "The core app stays free, while calligraphy copy-practice is a one-time optional unlock handled by Apple StoreKit." },
+      ],
+      featureDetails: [
+        { title: "Diamond Sutra and Heart Sutra", body: "Clean scripture text and multilingual material provide the everyday reading base of the app." },
+        { title: "Mala counter", body: "Mala counting stays local and quiet, without accounts, leaderboards, advertising, or social sync." },
+        { title: "Source-backed calligraphy copybooks", body: "Copy practice uses source images such as Liu Gongquan Diamond Sutra stone-rubbing copybook material and Ouyang Xun Heart Sutra copybook material, subject to their public-domain or open-use source notices." },
+        { title: "Original copybook image preview", body: "Original copybook images can be opened from copy practice with full-screen viewing, page switching, horizontal dragging, and zoom." },
+        { title: "iPad support", body: "The iPad version gives reading, copy-practice, and image preview more room while keeping the App Store presentation aligned with real devices." },
+      ],
+      principles: [
+        { title: "Explain source rights clearly", body: "Scripture and calligraphy materials should identify versions, source status, and use boundaries before they become product claims." },
+        { title: "Do not interrupt free reading", body: "The optional unlock should explain premium copy-practice without confusing users who only want reading and mala features." },
+        { title: "Respect cross-language use", body: "Chinese users may use system text alongside calligraphy; other-language users can still treat the copybook as a visual practice image." },
+      ],
+      diaryIntro:
+        "The Rushi diary tracks public-domain scriptures, calligraphy source materials, iPad support, StoreKit one-time unlocks, and App Store compliance for a quiet content app.",
+    };
+  }
 
   return {
     overview: [
