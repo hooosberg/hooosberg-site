@@ -3401,6 +3401,23 @@ main.main--ai-directory {
   line-height: 1.92;
 }
 
+.article-code-block {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface-solid) 84%, transparent);
+  margin: 18px 0 0;
+  padding: 18px;
+  white-space: pre-wrap;
+}
+
+.article-code-block code {
+  color: var(--text);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
 .legal-document header .product-icon {
   margin-bottom: 24px;
 }

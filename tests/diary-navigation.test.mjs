@@ -71,6 +71,8 @@ test("blog index leads with video tutorial notes and opens the Bilibili course l
     /https:\/\/space\.bilibili\.com\/3546822886820332\/lists\/8625038\?type=season/,
     "video note detail should link to the Bilibili season",
   );
+  assert.match(articleHtml, /Word 课件转写/, "video notes should include courseware-derived note content");
+  assert.match(articleHtml, /class="article-code-block"/, "video note prompts should render as copyable code blocks");
 });
 
 test("contact page exposes WeChat alongside email and Telegram", async () => {
@@ -78,7 +80,7 @@ test("contact page exposes WeChat alongside email and Telegram", async () => {
 
   assert.match(html, /邮箱、电报和微信/, "direct contact section should mention WeChat");
   assert.match(html, /id="wechat"/, "WeChat card should expose a stable anchor");
-  assert.match(html, />hooosberg<\/strong>/, "WeChat card should show the searchable account id without repeating the platform name");
+  assert.match(html, />微信号：hooosberg<\/strong>/, "WeChat card should show the searchable account id with a clear WeChat prefix");
 });
 
 test("product diary index shows product names as the row label", async () => {

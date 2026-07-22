@@ -5,6 +5,8 @@ import { getLocalizedSocialLinks } from "../../../utils/i18n";
 import { buildSectionWebPageJsonLd } from "../../../utils/structuredData";
 
 const linkCards = getLocalizedSocialLinks("en");
+const displayNote = (link: (typeof linkCards)[number]) =>
+  link.originalLabel === "微信" ? `WeChat ID: ${link.note}` : link.note;
 
 const videoLabels = ["YouTube", "B站", "抖音", "快手", "TikTok"];
 const socialLabels = ["GitHub", "X", "小红书"];
@@ -71,10 +73,10 @@ const jsonLd = buildSectionWebPageJsonLd({
               href={link.url}
               target={link.url.startsWith("http") ? "_blank" : undefined}
               rel="noreferrer"
-              aria-label={`${link.label}: ${link.note}`}
+              aria-label={`${link.label}: ${displayNote(link)}`}
             >
               <img class="platform-card__icon" src={link.icon} alt="" loading="lazy" decoding="async" />
-              <strong>{link.note}</strong>
+              <strong>{displayNote(link)}</strong>
               {link.url.startsWith("http") && <ExternalLink class="platform-card__external" size={16} aria-hidden="true" />}
             </a>
           ))}

@@ -93,6 +93,9 @@ const articleJsonLd = {
         <section class="article-section">
           <h2>{section.heading}</h2>
           {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          {section.codeBlocks?.map((code) => (
+            <pre class="article-code-block"><code>{code}</code></pre>
+          ))}
         </section>
       ))}
     </div>
