@@ -70,17 +70,21 @@ const articleJsonLd = {
       </div>
     </header>
 
-    {article.videoUrl && (
+    {(article.videoUrl || article.videoMeta) && (
       <aside class="article-video-card" aria-label="视频入口">
         <div>
           <span>视频入口</span>
           <strong>{article.videoMeta ?? "视频教程"}</strong>
           <p>每篇视频教程笔记都会先放视频链接，再整理课件、提示词和操作流程。</p>
         </div>
-        <a class="button article-resource-link" href={article.videoUrl} target="_blank" rel="noreferrer">
-          打开视频
-          <ExternalLink size={16} aria-hidden="true" />
-        </a>
+        {article.videoUrl ? (
+          <a class="button article-resource-link" href={article.videoUrl} target="_blank" rel="noreferrer">
+            打开视频
+            <ExternalLink size={16} aria-hidden="true" />
+          </a>
+        ) : (
+          <span class="button button--disabled article-resource-link" aria-disabled="true">待上传</span>
+        )}
       </aside>
     )}
 

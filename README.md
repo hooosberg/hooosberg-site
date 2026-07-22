@@ -45,6 +45,10 @@ npm test
 
 `npm test` runs the production build and the Node test suite under `tests/`.
 
+## Content Workflows
+
+- Video tutorial notes: [`VIDEO_NOTE_WORKFLOW.md`](VIDEO_NOTE_WORKFLOW.md)
+
 ## Deployment
 
 Production is hosted on Cloudflare Pages:

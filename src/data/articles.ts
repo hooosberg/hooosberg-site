@@ -76,7 +76,14 @@ export const diarySections: Array<{
   },
 ];
 
-const workBuddySeasonUrl = "https://space.bilibili.com/3546822886820332/lists/8625038?type=season";
+const workBuddyVideoUrls = {
+  lesson1: "https://www.bilibili.com/video/BV1qaMN6NEYa",
+  lesson2: "https://www.bilibili.com/video/BV14tMs6zEHm",
+  lesson3: "https://www.bilibili.com/video/BV1bYMb6QE8t",
+  lesson4: "https://www.bilibili.com/video/BV1isMY6CE8G",
+  lesson5: "https://www.bilibili.com/video/BV1AZM56uE1V",
+  lesson6: "https://www.bilibili.com/video/BV12bKH6sETZ",
+} as const;
 
 const videoTutorialNoteSeeds: ArticleSeed[] = [
   {
@@ -88,10 +95,9 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     excerpt: "把历史资料、评估规则、当前项目和 README 固定成一个可反复运行的 AI 报价工作区。",
     tags: ["视频教程", "WorkBuddy", "课件", "提示词", "AI 办公", "Excel"],
     productSlugs: [],
-    videoUrl: workBuddySeasonUrl,
-    videoMeta: "B 站合集：WorkBuddy 第 7 课",
+    videoMeta: "第 7 集视频待上传",
     body: [
-      `视频入口：${workBuddySeasonUrl}`,
+      "视频入口：第 7 集待上传，发布后会替换为单集链接。",
       "这一课不是让 AI 临时做一张表，而是把招投标报价工作整理成一个长期可复用的工作区。核心结构是：历史资料 + 规则资料 + 当前任务 + README 工作说明。",
       "文件夹负责放资料：历史项目、评估办法和当前新项目各归各位。README 负责写清楚处理顺序、异常标记、输出位置和归档规则。以后只需要把新项目丢进 03_新项目，再用一句话启动 WorkBuddy。"
     ],
@@ -136,10 +142,10 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     excerpt: "用 WorkBuddy 检查残留目录、注册表和异常条目，同时演示正规软件安装流程。",
     tags: ["视频教程", "WorkBuddy", "课件", "提示词", "Windows", "AI 办公"],
     productSlugs: [],
-    videoUrl: workBuddySeasonUrl,
-    videoMeta: "B 站合集：WorkBuddy 第 6 课",
+    videoUrl: workBuddyVideoUrls.lesson6,
+    videoMeta: "B 站：WorkBuddy 第 6 课",
     body: [
-      `视频入口：${workBuddySeasonUrl}`,
+      `视频入口：${workBuddyVideoUrls.lesson6}`,
       "这一课的核心是让观众理解：干净安装和清理残留是一体两面。如果软件来源不规范，后面就容易出现残留目录、异常启动项、注册表垃圾和反复复活的问题。",
       "课程先演示问题来源，再让 WorkBuddy 逐步清理残留、检查是否会死灰复燃，最后用正规安装 WPS 的流程对比什么叫干净的软件安装。"
     ],
@@ -185,10 +191,10 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     excerpt: "用 1 文案、2 图片、3 组合排版、4 修改找茬的方式，把海报制作变成可复用流程。",
     tags: ["视频教程", "WorkBuddy", "课件", "提示词", "AI 图像", "设计流程"],
     productSlugs: [],
-    videoUrl: workBuddySeasonUrl,
-    videoMeta: "B 站合集：WorkBuddy 第 5 课",
+    videoUrl: workBuddyVideoUrls.lesson5,
+    videoMeta: "B 站：WorkBuddy 第 5 课",
     body: [
-      `视频入口：${workBuddySeasonUrl}`,
+      `视频入口：${workBuddyVideoUrls.lesson5}`,
       "这一课把企业宣传海报拆成四步：先整理文案，再准备图片，再组合排版，最后进入修改找茬。第一次比较慢，但流程保存下来后，第二次做类似海报就会变成一套技能。",
       "案例使用“西安未来智造数字科技有限公司”的 A4 宣传海报。课件里先提炼公司简介、核心业务、应用场景、资质和联系方式，再围绕科技感、磨砂玻璃、苹果网站气质和严谨边距不断迭代。"
     ],
@@ -227,10 +233,10 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     excerpt: "把图片修改任务拆成目标、素材、局部问题、版本导出和截图复查，让 AI 视觉编辑有检查点。",
     tags: ["视频教程", "WorkBuddy", "课件", "提示词", "图片编辑", "AI 图像"],
     productSlugs: [],
-    videoUrl: workBuddySeasonUrl,
-    videoMeta: "B 站合集：WorkBuddy 第 4 课",
+    videoUrl: workBuddyVideoUrls.lesson4,
+    videoMeta: "B 站：WorkBuddy 第 4 课",
     body: [
-      `视频入口：${workBuddySeasonUrl}`,
+      `视频入口：${workBuddyVideoUrls.lesson4}`,
       "这一课的重点不是“让 AI 随便修图”，而是把图片修改任务拆成可检查的步骤：先说明最终目标，再指出局部问题，再让 WorkBuddy 生成或修改素材，最后导出版本并截图复查。",
       "案例目录里保留了原图、修改过程图、裁切图和最终结果图，说明图片编辑最好用版本管理的方式推进。不要覆盖原始图，每次重要修改都输出一个新版本。"
     ],
@@ -265,10 +271,10 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     excerpt: "用绩效评估通知案例整理 Word 公文排版流程，让 AI 按格式要求生成可交付文档。",
     tags: ["视频教程", "WorkBuddy", "课件", "提示词", "Word", "AI 办公"],
     productSlugs: [],
-    videoUrl: workBuddySeasonUrl,
-    videoMeta: "B 站合集：WorkBuddy 第 3 课",
+    videoUrl: workBuddyVideoUrls.lesson3,
+    videoMeta: "B 站：WorkBuddy 第 3 课",
     body: [
-      `视频入口：${workBuddySeasonUrl}`,
+      `视频入口：${workBuddyVideoUrls.lesson3}`,
       "这一课围绕 Word 公文排版展开，案例文件是“关于开展2026年度工作绩效评估与排名工作的通知.docx”，同时有格式要求 PDF 和印章素材。",
       "公文自动化不是只让 AI 写一段文字，而是把正文结构、标题层级、字体字号、落款、日期、印章和最终检查流程固定下来。"
     ],
@@ -303,10 +309,10 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     excerpt: "从汇报目标、图片材料、逐页大纲到设计指导，整理一套可编辑 PPT 生成流程。",
     tags: ["视频教程", "WorkBuddy", "课件", "提示词", "PPT", "AI 办公"],
     productSlugs: [],
-    videoUrl: workBuddySeasonUrl,
-    videoMeta: "B 站合集：WorkBuddy 第 2 课",
+    videoUrl: workBuddyVideoUrls.lesson2,
+    videoMeta: "B 站：WorkBuddy 第 2 课",
     body: [
-      `视频入口：${workBuddySeasonUrl}`,
+      `视频入口：${workBuddyVideoUrls.lesson2}`,
       "这一课的案例是“唐代壁画研究与保护工作汇报”。课件已经把每页 PPT 拆成显示文字、配图说明和设计指导三部分，适合转换成可检索的文字笔记。",
       "做 PPT 的关键不是立刻生成幻灯片，而是先把汇报目标、受众、图片材料、章节结构和每页版式说清楚。WorkBuddy 的价值在于把这些要求落到逐页内容。"
     ],
@@ -342,10 +348,10 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     excerpt: "用公司排班 Excel 案例入门 WorkBuddy，让 AI 先理解表格，再输出可核对的办公结果。",
     tags: ["视频教程", "WorkBuddy", "课件", "提示词", "Excel", "AI 办公"],
     productSlugs: [],
-    videoUrl: workBuddySeasonUrl,
-    videoMeta: "B 站合集：WorkBuddy 第 1 课",
+    videoUrl: workBuddyVideoUrls.lesson1,
+    videoMeta: "B 站：WorkBuddy 第 1 课",
     body: [
-      `视频入口：${workBuddySeasonUrl}`,
+      `视频入口：${workBuddyVideoUrls.lesson1}`,
       "这一课适合作为 WorkBuddy 入门：不要一上来追求复杂自动化，而是用一个公司排班 Excel 案例，让 AI 先读懂文件、识别表结构、说明规则，再逐步生成结果。",
       "课件 PPT 本身主要是图片页，公开笔记按视频和案例文件整理：案例文件为“公司排班管理系统.xlsx”，目标是训练观众把 Excel 任务说清楚，让 WorkBuddy 在可检查的步骤里完成办公自动化。"
     ],

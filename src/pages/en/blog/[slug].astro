@@ -73,17 +73,21 @@ const articleJsonLd = {
       </div>
     </header>
 
-    {article.videoUrl && (
+    {(article.videoUrl || article.videoMeta) && (
       <aside class="article-video-card" aria-label="Video link">
         <div>
           <span>Video link</span>
           <strong>{article.videoMeta ?? "Video tutorial"}</strong>
           <p>Each video note starts with the lesson link, then organizes slides, prompts, and workflow steps.</p>
         </div>
-        <a class="button article-resource-link" href={article.videoUrl} target="_blank" rel="noreferrer">
-          Open video
-          <ExternalLink size={16} aria-hidden="true" />
-        </a>
+        {article.videoUrl ? (
+          <a class="button article-resource-link" href={article.videoUrl} target="_blank" rel="noreferrer">
+            Open video
+            <ExternalLink size={16} aria-hidden="true" />
+          </a>
+        ) : (
+          <span class="button button--disabled article-resource-link" aria-disabled="true">Pending upload</span>
+        )}
       </aside>
     )}
 

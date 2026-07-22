@@ -9,6 +9,17 @@ const blogIndexPage = new URL("../dist/blog/index.html", import.meta.url);
 const drowsebookArticlePage = new URL("../dist/blog/drowsebook-market-research/index.html", import.meta.url);
 const readingArticlePage = new URL("../dist/blog/reading-shannon-biography/index.html", import.meta.url);
 const videoArticlePage = new URL("../dist/blog/video-workbuddy-lesson7-bidding-workspace/index.html", import.meta.url);
+const publishedVideoArticlePages = [
+  ["video-workbuddy-lesson1-excel-automation", "BV1qaMN6NEYa"],
+  ["video-workbuddy-lesson2-ppt-murals", "BV14tMs6zEHm"],
+  ["video-workbuddy-lesson3-word-formatting", "BV1bYMb6QE8t"],
+  ["video-workbuddy-lesson4-image-editing", "BV1isMY6CE8G"],
+  ["video-workbuddy-lesson5-ai-poster", "BV1AZM56uE1V"],
+  ["video-workbuddy-lesson6-windows-cleanup", "BV12bKH6sETZ"],
+].map(([slug, bvid]) => ({
+  bvid,
+  page: new URL(`../dist/blog/${slug}/index.html`, import.meta.url),
+}));
 const linksPage = new URL("../dist/links/index.html", import.meta.url);
 
 function textFromHtml(html) {
@@ -54,10 +65,11 @@ test("note article links preserve the selected section for return navigation", a
   );
 });
 
-test("blog index leads with video tutorial notes and opens the Bilibili course link", async () => {
-  const [indexHtml, articleHtml] = await Promise.all([
+test("blog index leads with video tutorial notes and maps published lessons to Bilibili episodes", async () => {
+  const [indexHtml, articleHtml, ...publishedLessonHtml] = await Promise.all([
     readFile(blogIndexPage, "utf8"),
     readFile(videoArticlePage, "utf8"),
+    ...publishedVideoArticlePages.map(({ page }) => readFile(page, "utf8")),
   ]);
   const firstTab = indexHtml.match(/<button[\s\S]*?class="diary-tab"[\s\S]*?<\/button>/)?.[0] ?? "";
 
@@ -65,12 +77,14 @@ test("blog index leads with video tutorial notes and opens the Bilibili course l
   assert.match(indexHtml, /href="\/blog\/video-workbuddy-lesson7-bidding-workspace\?kind=video"/, "video notes should preserve their section in links");
   assert.match(articleHtml, /data-diary-kind="video"/, "video note detail should expose the video note kind");
   assert.match(articleHtml, /返回笔记/, "article detail should use the notes return label");
-  assert.match(articleHtml, /打开视频/, "video note detail should render a video action");
-  assert.match(
-    articleHtml,
-    /https:\/\/space\.bilibili\.com\/3546822886820332\/lists\/8625038\?type=season/,
-    "video note detail should link to the Bilibili season",
-  );
+  assert.match(articleHtml, /第 7 集视频待上传/, "unpublished video notes should show a placeholder state");
+  assert.match(articleHtml, /待上传/, "unpublished video notes should render a disabled upload placeholder");
+  assert.doesNotMatch(articleHtml, /href="https:\/\/www\.bilibili\.com\/video\//, "unpublished video notes should not invent an episode link");
+  for (const [index, lessonHtml] of publishedLessonHtml.entries()) {
+    const { bvid } = publishedVideoArticlePages[index];
+    assert.match(lessonHtml, new RegExp(`href="https://www\\.bilibili\\.com/video/${bvid}"`), `published video note should link to ${bvid}`);
+    assert.match(lessonHtml, /打开视频/, "published video notes should render a video action");
+  }
   assert.match(articleHtml, /Word 课件转写/, "video notes should include courseware-derived note content");
   assert.match(articleHtml, /class="article-code-block"/, "video note prompts should render as copyable code blocks");
 });
