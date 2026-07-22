@@ -3548,25 +3548,24 @@ main.main--ai-directory {
 .platform-card {
   position: relative;
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
-  min-height: 132px;
-  align-content: start;
-  gap: 6px 14px;
+  min-height: 116px;
+  place-items: center;
+  gap: 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
-  padding: 18px;
+  padding: 20px 14px;
+  text-align: center;
   backdrop-filter: blur(18px);
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
 
 .platform-card-grid--direct .platform-card {
-  min-height: 148px;
-  padding: 22px;
+  min-height: 124px;
 }
 
 .platform-card-grid--direct .platform-card strong {
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .platform-card:hover {
@@ -3576,10 +3575,9 @@ main.main--ai-directory {
 }
 
 .platform-card__icon {
-  grid-row: 1 / span 3;
-  width: 42px;
-  height: 42px;
-  border-radius: 13px;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
   object-fit: cover;
   box-shadow: 0 0 0 1px var(--line);
 }
@@ -3592,11 +3590,11 @@ main.main--ai-directory {
 }
 
 .platform-card strong {
-  grid-column: 2;
-  margin-top: 8px;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   color: var(--text);
-  font-size: 20px;
-  line-height: 1.2;
+  font-size: 16px;
+  line-height: 1.25;
 }
 
 .platform-card small {

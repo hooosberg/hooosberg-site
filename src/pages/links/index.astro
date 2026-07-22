@@ -4,24 +4,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { socialLinks } from "../../data/products";
 import { buildSectionWebPageJsonLd } from "../../utils/structuredData";
 
-const platformHandles: Record<string, string> = {
-  GitHub: "搜索：hooosberg",
-  X: "搜索：@hooosberg",
-  YouTube: "搜索：@hooosberg",
-  TikTok: "搜索：@hooosberg",
-  Telegram: "搜索：@hooosberg",
-  微信: "微信号：hooosberg",
-  抖音: "同名账号：湖森堡AI_hooosberg",
-  快手: "同名账号：湖森堡AI_hooosberg",
-  小红书: "同名账号：湖森堡AI_hooosberg",
-  B站: "同名账号：湖森堡AI_hooosberg",
-  Email: "邮箱直达",
-};
-
 const linkCards = socialLinks.map((link) => ({
   ...link,
   note: "note" in link ? link.note : "邮件直达",
-  handle: platformHandles[link.label] ?? link.url.replace("mailto:", ""),
 }));
 
 const videoLabels = ["YouTube", "B站", "抖音", "快手", "TikTok"];
@@ -33,6 +18,12 @@ const getCards = (labels: string[]) =>
 
 const contactSections = [
   {
+    title: "邮箱、电报和微信",
+    kicker: "课程、产品、合作和技术交流，可以从这里直接联系我。",
+    cards: getCards(directLabels),
+    className: "platform-card-grid--direct",
+  },
+  {
     title: "视频账号",
     kicker: "教程、产品演示、AI 工作流和真实开发过程。",
     cards: getCards(videoLabels),
@@ -43,12 +34,6 @@ const contactSections = [
     kicker: "日常想法、项目更新、源码和图文记录。",
     cards: getCards(socialLabels),
     className: "platform-card-grid--social",
-  },
-  {
-    title: "邮箱、电报和微信",
-    kicker: "课程、产品、合作和技术交流，可以从这里直接联系我。",
-    cards: getCards(directLabels),
-    className: "platform-card-grid--direct",
   },
 ];
 const pageDescription = "湖森堡AI_hooosberg 视频账号、社交媒体、邮箱、电报、微信及产品测评合作联系方式。";
@@ -83,11 +68,10 @@ const jsonLd = buildSectionWebPageJsonLd({
               href={link.url}
               target={link.url.startsWith("http") ? "_blank" : undefined}
               rel="noreferrer"
+              aria-label={`${link.label}：${link.note}`}
             >
               <img class="platform-card__icon" src={link.icon} alt="" loading="lazy" decoding="async" />
-              <span>{link.note}</span>
-              <strong>{link.label}</strong>
-              <small>{link.handle}</small>
+              <strong>{link.note}</strong>
               {link.url.startsWith("http") && <ExternalLink class="platform-card__external" size={16} aria-hidden="true" />}
             </a>
           ))}

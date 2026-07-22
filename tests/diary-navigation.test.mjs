@@ -8,7 +8,7 @@ const homePage = new URL("../dist/index.html", import.meta.url);
 const blogIndexPage = new URL("../dist/blog/index.html", import.meta.url);
 const drowsebookArticlePage = new URL("../dist/blog/drowsebook-market-research/index.html", import.meta.url);
 const readingArticlePage = new URL("../dist/blog/reading-shannon-biography/index.html", import.meta.url);
-const videoArticlePage = new URL("../dist/blog/video-workbuddy-course-notes-workflow/index.html", import.meta.url);
+const videoArticlePage = new URL("../dist/blog/video-workbuddy-lesson7-bidding-workspace/index.html", import.meta.url);
 const linksPage = new URL("../dist/links/index.html", import.meta.url);
 
 function textFromHtml(html) {
@@ -61,8 +61,8 @@ test("blog index leads with video tutorial notes and opens the Bilibili course l
   ]);
   const firstTab = indexHtml.match(/<button[\s\S]*?class="diary-tab"[\s\S]*?<\/button>/)?.[0] ?? "";
 
-  assert.match(firstTab, /视频教程笔记/, "video tutorial notes should be the first note section");
-  assert.match(indexHtml, /href="\/blog\/video-workbuddy-course-notes-workflow\?kind=video"/, "video notes should preserve their section in links");
+  assert.match(firstTab, /视频教程笔记[\s\S]*7 篇/, "video tutorial notes should be the first note section with one note per lesson");
+  assert.match(indexHtml, /href="\/blog\/video-workbuddy-lesson7-bidding-workspace\?kind=video"/, "video notes should preserve their section in links");
   assert.match(articleHtml, /data-diary-kind="video"/, "video note detail should expose the video note kind");
   assert.match(articleHtml, /返回笔记/, "article detail should use the notes return label");
   assert.match(articleHtml, /打开视频/, "video note detail should render a video action");
@@ -78,7 +78,7 @@ test("contact page exposes WeChat alongside email and Telegram", async () => {
 
   assert.match(html, /邮箱、电报和微信/, "direct contact section should mention WeChat");
   assert.match(html, /id="wechat"/, "WeChat card should expose a stable anchor");
-  assert.match(html, /微信号：hooosberg/, "WeChat card should show the searchable account id");
+  assert.match(html, />hooosberg<\/strong>/, "WeChat card should show the searchable account id without repeating the platform name");
 });
 
 test("product diary index shows product names as the row label", async () => {

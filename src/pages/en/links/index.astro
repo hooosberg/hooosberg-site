@@ -15,6 +15,12 @@ const getCards = (labels: string[]) =>
 
 const contactSections = [
   {
+    title: "Email, Telegram, and WeChat",
+    kicker: "Courses, products, collaboration, and technical conversation.",
+    cards: getCards(directLabels),
+    className: "platform-card-grid--direct",
+  },
+  {
     title: "Video channels",
     kicker: "Tutorials, product demos, AI workflows, and real build process.",
     cards: getCards(videoLabels),
@@ -25,12 +31,6 @@ const contactSections = [
     kicker: "Daily thoughts, product updates, source code, and public notes.",
     cards: getCards(socialLabels),
     className: "platform-card-grid--social",
-  },
-  {
-    title: "Email, Telegram, and WeChat",
-    kicker: "Courses, products, collaboration, and technical conversation.",
-    cards: getCards(directLabels),
-    className: "platform-card-grid--direct",
   },
 ];
 const pageDescription = "Hooosberg video channels, social profiles, email, Telegram, and WeChat contact links.";
@@ -71,11 +71,10 @@ const jsonLd = buildSectionWebPageJsonLd({
               href={link.url}
               target={link.url.startsWith("http") ? "_blank" : undefined}
               rel="noreferrer"
+              aria-label={`${link.label}: ${link.note}`}
             >
               <img class="platform-card__icon" src={link.icon} alt="" loading="lazy" decoding="async" />
-              <span>{link.note}</span>
-              <strong>{link.label}</strong>
-              <small>{link.handle}</small>
+              <strong>{link.note}</strong>
               {link.url.startsWith("http") && <ExternalLink class="platform-card__external" size={16} aria-hidden="true" />}
             </a>
           ))}
