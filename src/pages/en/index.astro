@@ -19,14 +19,14 @@ const socialCards = localizedSocialLinks
 <BaseLayout
   locale="en"
   title="Hooosberg | Philosophy, Art, AI"
-  description="A public build diary for making real products with AI, plus a practical guide to AI tools I use and research."
+  description="Public build notes for making real products with AI, plus a practical guide to AI tools I use and research."
   canonicalPath="/en"
   jsonLd={buildHomeJsonLd("en")}
 >
   <section class="landing-hero">
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-content">
-      <p class="hero-kicker">My build diary / AI tool guide</p>
+      <p class="hero-kicker">My build notes / AI tool guide</p>
       <h1>Philosophy, Art, AI</h1>
       <p class="hero-subtitle">
         Hooosberg records my process of building real products with AI and organizes the AI tools
@@ -36,7 +36,7 @@ const socialCards = localizedSocialLinks
       <div class="hero-actions">
         <a class="button button--primary button--xl" href="/en/blog">
           <BookOpen size={18} aria-hidden="true" />
-          Read Diaries
+          Read Notes
         </a>
         <a class="button button--secondary button--xl" href="/en/ai-navigation">
           <Search size={18} aria-hidden="true" />
@@ -51,17 +51,17 @@ const socialCards = localizedSocialLinks
         <span>Claude Code</span>
         <span>Gemini</span>
         <span>AI Navigation</span>
-        <span>Build Diary</span>
+        <span>Build Notes</span>
       </div>
     </div>
   </section>
 
   <section class="landing-section landing-section--split" id="articles">
     <div class="section-heading">
-      <p>Build diary</p>
+      <p>Build notes</p>
       <h2>Start with the real product work.</h2>
       <span>Requirements, prompts, code changes, launch work, failures, and postmortems are kept as public build notes.</span>
-      <a href="/en/blog">All journals <ArrowRight size={15} aria-hidden="true" /></a>
+      <a href="/en/blog">All notes <ArrowRight size={15} aria-hidden="true" /></a>
     </div>
     <div class="article-list article-list--compact">
       {featuredArticles.map((article) => (

@@ -10,14 +10,14 @@ const diaryGroups = diarySections.map((section) => ({
 }));
 
 const articleHref = (slug: string, kind: string) => `/blog/${slug}?kind=${kind}`;
-const pageDescription = "产品日记、读书日记、资源分享和随想日记。";
+const pageDescription = "视频教程笔记、产品笔记、读书笔记、资源分享笔记和随想笔记。";
 const jsonLd = [
   buildSectionCollectionJsonLd({
     locale: "zh-CN",
     path: "/blog",
-    name: "Hooosberg Build Diaries",
+    name: "Hooosberg Notes",
     description: pageDescription,
-    topics: ["AI product build diaries", "indie app development", "AI coding case studies", "App Store review lessons"],
+    topics: ["AI course notes", "AI product build notes", "indie app development", "AI coding case studies"],
   }),
   buildItemListJsonLd(
     "https://hooosberg.com/blog#article-list",
@@ -30,18 +30,18 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout title="日记 | 湖森堡AI_hooosberg" description={pageDescription} jsonLd={jsonLd}>
+<BaseLayout title="笔记 | 湖森堡AI_hooosberg" description={pageDescription} jsonLd={jsonLd}>
   <section class="page-hero page-hero--narrow">
-    <p class="commerce-kicker">Diaries</p>
-    <h1>日记</h1>
+    <p class="commerce-kicker">Notes</p>
+    <h1>笔记</h1>
     <p>
-      产品日记记录真实开发过程，读书日记记录大脑的磨刀石，资源分享日记沉淀有用入口，随想日记保存路上的判断。
+      视频教程笔记承接 B 站课程和课件整理，产品笔记记录真实开发过程，读书笔记记录大脑的磨刀石，资源分享笔记沉淀有用入口，随想笔记保存路上的判断。
       AI 时代他们在训练模型，图书就是我们的大脑的磨刀石，最高级的资产就是我们的大脑。
     </p>
   </section>
 
   <section class="article-index">
-    <div class="diary-switch" role="tablist" aria-label="日记分区">
+    <div class="diary-switch" role="tablist" aria-label="笔记分区">
       {diaryGroups.map((section, index) => (
         <button
           class="diary-tab"

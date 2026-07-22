@@ -34,14 +34,14 @@ test("homepage links to AI navigation without rendering it as a homepage section
   assert.match(html, /href="\/ai-navigation"/, "homepage header should link to the AI navigation page");
   assert.match(html, /<title>湖森堡AI_hooosberg \| 哲学 艺术 AI<\/title>/, "Chinese homepage document title should keep the site-level title");
   assert.match(html, /<h1>哲学 艺术 AI<\/h1>/, "Chinese homepage should use the site philosophy hero title");
-  assert.match(html, /我的开发日记 \/ AI 工具导航/, "Chinese homepage should keep build diary as the small hero subtitle");
+  assert.match(html, /我的开发笔记 \/ AI 工具导航/, "Chinese homepage should keep build notes as the small hero subtitle");
   assert.match(enHtml, /<title>Hooosberg \| Philosophy, Art, AI<\/title>/, "English homepage document title should keep the site-level title");
   assert.match(enHtml, /<h1>Philosophy, Art, AI<\/h1>/, "English homepage should use the site philosophy hero title");
-  assert.match(enHtml, /My build diary \/ AI tool guide/, "English homepage should keep build diary as the small hero subtitle");
-  for (const label of ["Codex App 开发", "苹果商店上架流程", "Mac/iOS App 开发", "AI 入门", "Claude Code", "Gemini", "AI 导航", "开发日记"]) {
+  assert.match(enHtml, /My build notes \/ AI tool guide/, "English homepage should keep build notes as the small hero subtitle");
+  for (const label of ["Codex App 开发", "苹果商店上架流程", "Mac/iOS App 开发", "AI 入门", "Claude Code", "Gemini", "AI 导航", "开发笔记"]) {
     assert.match(html, new RegExp(label), `Chinese hero tag should include ${label}`);
   }
-  for (const label of ["Codex App Development", "App Store Launch Process", "Mac/iOS App Development", "AI Basics", "Claude Code", "Gemini", "AI Navigation", "Build Diary"]) {
+  for (const label of ["Codex App Development", "App Store Launch Process", "Mac/iOS App Development", "AI Basics", "Claude Code", "Gemini", "AI Navigation", "Build Notes"]) {
     assert.match(enHtml, new RegExp(label), `English hero tag should include ${label}`);
   }
   assert.doesNotMatch(html, /aria-label="AI 导航"/, "AI navigation should not render as a homepage section");
@@ -58,8 +58,8 @@ test("homepage and header focus on diaries, products, AI navigation, and contact
   ]);
 
   for (const [pageHtml, labels] of [
-    [html, ["日记", "产品", "AI导航", "联系", "其他"]],
-    [enHtml, ["Journal", "Products", "AI Guide", "Contact", "More"]],
+    [html, ["笔记", "产品", "AI导航", "联系", "其他"]],
+    [enHtml, ["Notes", "Products", "AI Guide", "Contact", "More"]],
   ]) {
     const navMatch = pageHtml.match(/<nav class="nav-links"[\s\S]*?<\/nav>/);
     assert.ok(navMatch, "primary navigation should render");

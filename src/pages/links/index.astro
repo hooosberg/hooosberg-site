@@ -10,6 +10,7 @@ const platformHandles: Record<string, string> = {
   YouTube: "搜索：@hooosberg",
   TikTok: "搜索：@hooosberg",
   Telegram: "搜索：@hooosberg",
+  微信: "微信号：hooosberg",
   抖音: "同名账号：湖森堡AI_hooosberg",
   快手: "同名账号：湖森堡AI_hooosberg",
   小红书: "同名账号：湖森堡AI_hooosberg",
@@ -25,7 +26,7 @@ const linkCards = socialLinks.map((link) => ({
 
 const videoLabels = ["YouTube", "B站", "抖音", "快手", "TikTok"];
 const socialLabels = ["GitHub", "X", "小红书"];
-const directLabels = ["Email", "Telegram"];
+const directLabels = ["Email", "Telegram", "微信"];
 
 const getCards = (labels: string[]) =>
   labels.map((label) => linkCards.find((link) => link.label === label)).filter(Boolean);
@@ -44,13 +45,13 @@ const contactSections = [
     className: "platform-card-grid--social",
   },
   {
-    title: "邮箱和电报",
+    title: "邮箱、电报和微信",
     kicker: "课程、产品、合作和技术交流，可以从这里直接联系我。",
     cards: getCards(directLabels),
     className: "platform-card-grid--direct",
   },
 ];
-const pageDescription = "湖森堡AI_hooosberg 视频账号、社交媒体、邮箱、电报及产品测评合作联系方式。";
+const pageDescription = "湖森堡AI_hooosberg 视频账号、社交媒体、邮箱、电报、微信及产品测评合作联系方式。";
 const jsonLd = buildSectionWebPageJsonLd({
   locale: "zh-CN",
   path: "/links",
@@ -64,7 +65,7 @@ const jsonLd = buildSectionWebPageJsonLd({
   <section class="page-hero page-hero--narrow">
     <p class="commerce-kicker">Contact</p>
     <h1>联系</h1>
-    <p>这里整理了我们的视频账号、社交媒体、邮箱和电报。想看过程、跟进产品、交流合作，或有产品想做视频测评和推广，都可以把链接和简介发到邮箱；内容适合的话，我会再联系沟通。</p>
+    <p>这里整理了我们的视频账号、社交媒体、邮箱、电报和微信。想看过程、跟进产品、交流合作，或有产品想做视频测评和推广，都可以把链接和简介发到邮箱；内容适合的话，我会再联系沟通。</p>
   </section>
 
   <section class="link-hub">
@@ -76,7 +77,13 @@ const jsonLd = buildSectionWebPageJsonLd({
         </div>
         <div class={`platform-card-grid ${section.className}`}>
           {section.cards.map((link) => (
-            <a class="platform-card" href={link.url} target={link.url.startsWith("http") ? "_blank" : undefined} rel="noreferrer">
+            <a
+              id={link.label === "微信" ? "wechat" : undefined}
+              class="platform-card"
+              href={link.url}
+              target={link.url.startsWith("http") ? "_blank" : undefined}
+              rel="noreferrer"
+            >
               <img class="platform-card__icon" src={link.icon} alt="" loading="lazy" decoding="async" />
               <span>{link.note}</span>
               <strong>{link.label}</strong>

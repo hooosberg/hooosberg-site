@@ -199,8 +199,8 @@ test("major section pages expose independent topic-cluster structured data", asy
 
   const blogCollection = findJsonLd(blogHtml, "CollectionPage");
   const blogItemList = findJsonLdById(blogHtml, "https://hooosberg.com/blog#article-list");
-  assert.equal(blogCollection?.name, "Hooosberg Build Diaries", "Blog page should identify itself as a build-diary collection");
-  assert.equal(blogCollection?.about?.[0]?.name, "AI product build diaries", "Blog page should expose its main keyword topic");
+  assert.equal(blogCollection?.name, "Hooosberg Notes", "Blog page should identify itself as a notes collection");
+  assert.equal(blogCollection?.about?.[0]?.name, "AI course notes", "Blog page should expose its main keyword topic");
   assert.ok(blogItemList?.itemListElement?.length >= 20, "Blog page should expose recent articles as an ItemList");
 });
 

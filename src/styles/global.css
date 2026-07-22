@@ -3184,7 +3184,7 @@ main.main--ai-directory {
 
 .diary-switch {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
   margin-bottom: 18px;
 }
@@ -3325,6 +3325,42 @@ main.main--ai-directory {
   display: flex;
   justify-content: flex-end;
   margin-top: 30px;
+}
+
+.article-video-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface-solid) 78%, transparent);
+  padding: 20px;
+  margin: 0 0 30px;
+}
+
+.article-video-card span {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.article-video-card strong {
+  display: block;
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.article-video-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
 }
 
 .article-body {
@@ -3506,7 +3542,7 @@ main.main--ai-directory {
 }
 
 .platform-card-grid--direct {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .platform-card {
@@ -4034,6 +4070,15 @@ main.main--ai-directory {
   .article-detail h1,
   .home-cta h2 {
     font-size: 36px;
+  }
+
+  .article-video-card {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .article-video-card .button {
+    width: 100%;
   }
 
   .product-readme dl div,

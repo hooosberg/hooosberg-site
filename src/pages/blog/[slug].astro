@@ -15,9 +15,10 @@ export function getStaticPaths() {
 type Props = { article: Article };
 
 const { article } = Astro.props;
-const visibleBody = article.resourceUrl
-  ? article.body.filter((paragraph) => !paragraph.trim().startsWith("资源链接："))
-  : article.body;
+const hiddenLeadPrefixes = ["资源链接：", "视频入口："];
+const visibleBody = article.body.filter(
+  (paragraph) => !hiddenLeadPrefixes.some((prefix) => paragraph.trim().startsWith(prefix)),
+);
 const relatedProducts = article.productSlugs
   .map((slug) => products.find((product) => product.slug === slug))
   .filter(Boolean);
@@ -61,13 +62,27 @@ const articleJsonLd = {
 >
   <article class="article-detail" data-diary-kind={article.diaryKind}>
     <header>
-      <a class="article-back-link" href={diaryReturnHref}>返回日记</a>
+      <a class="article-back-link" href={diaryReturnHref}>返回笔记</a>
       <p>{article.category} / {article.date}</p>
       <h1>{article.title}</h1>
       <div class="tag-row">
         {article.tags.map((tag) => <span>{tag}</span>)}
       </div>
     </header>
+
+    {article.videoUrl && (
+      <aside class="article-video-card" aria-label="视频入口">
+        <div>
+          <span>视频入口</span>
+          <strong>{article.videoMeta ?? "视频教程"}</strong>
+          <p>每篇视频教程笔记都会先放视频链接，再整理课件、提示词和操作流程。</p>
+        </div>
+        <a class="button article-resource-link" href={article.videoUrl} target="_blank" rel="noreferrer">
+          打开视频
+          <ExternalLink size={16} aria-hidden="true" />
+        </a>
+      </aside>
+    )}
 
     <div class="article-body">
       {visibleBody.map((paragraph) => <p>{paragraph}</p>)}

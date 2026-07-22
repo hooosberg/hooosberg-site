@@ -818,6 +818,7 @@ export const socialLinks = [
   { label: "YouTube", url: "https://www.youtube.com/@hooosberg", note: "@hooosberg", icon: "/icons/social/youtube.svg" },
   { label: "TikTok", url: "https://www.tiktok.com/@hooosberg?_r=1&_t=ZS-97K7KCbBGiq", note: "@hooosberg", icon: "/icons/social/tiktok.svg" },
   { label: "Telegram", url: "https://t.me/hooosberg", note: "@hooosberg", icon: "/icons/social/telegram.svg" },
+  { label: "微信", url: "/links#wechat", note: "hooosberg", icon: "/icons/social/wechat.svg" },
   { label: "抖音", url: "https://v.douyin.com/LSot90h9bfM/", note: "湖森堡AI_hooosberg", icon: "/icons/social/douyin.svg" },
   { label: "快手", url: "https://v.kuaishou.com/724Q5ERy", note: "湖森堡AI_hooosberg", icon: "/icons/social/kuaishou.svg" },
   { label: "小红书", url: "https://xhslink.com/m/51GcoI1h4Gs", note: "湖森堡AI_hooosberg", icon: "/icons/social/xiaohongshu.svg" },

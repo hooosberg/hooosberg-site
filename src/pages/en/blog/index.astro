@@ -12,14 +12,14 @@ const diaryGroups = diarySectionsLocalized.en.map((section) => ({
 }));
 
 const articleHref = (slug: string, kind: string) => `/en/blog/${slug}?kind=${kind}`;
-const pageDescription = "Product diaries, reading notes, resource notes, and essays about AI, indie apps, product launches, and real build decisions.";
+const pageDescription = "Video tutorial notes, product notes, reading notes, resource notes, and essays about AI, indie apps, product launches, and real build decisions.";
 const jsonLd = [
   buildSectionCollectionJsonLd({
     locale: "en",
     path: "/en/blog",
-    name: "Hooosberg Build Diaries",
+    name: "Hooosberg Notes",
     description: pageDescription,
-    topics: ["AI product build diaries", "indie app development", "AI coding case studies", "App Store review lessons"],
+    topics: ["AI course notes", "AI product build notes", "indie app development", "AI coding case studies"],
   }),
   buildItemListJsonLd(
     "https://hooosberg.com/en/blog#article-list",
@@ -34,22 +34,22 @@ const jsonLd = [
 
 <BaseLayout
   locale="en"
-  title="Journal | Hooosberg"
+  title="Notes | Hooosberg"
   description={pageDescription}
   canonicalPath="/en/blog"
   jsonLd={jsonLd}
 >
   <section class="page-hero page-hero--narrow">
-    <p class="commerce-kicker">Journal</p>
-    <h1>Journal</h1>
+    <p class="commerce-kicker">Notes</p>
+    <h1>Notes</h1>
     <p>
-      Product diaries, reading notes, resource notes, and essays. The product diary is the main asset:
-      each article turns a real build step into a reusable case study.
+      Video tutorial notes collect Bilibili lessons, slides, prompts, and workflows. Product notes keep the real build process visible,
+      while reading notes, resource notes, and essays preserve the thinking behind the work.
     </p>
   </section>
 
   <section class="article-index">
-    <div class="diary-switch" role="tablist" aria-label="Journal sections">
+    <div class="diary-switch" role="tablist" aria-label="Note sections">
       {diaryGroups.map((section, index) => (
         <button
           class="diary-tab"
@@ -61,7 +61,7 @@ const jsonLd = [
           data-active={index === 0 ? "true" : "false"}
         >
           <span>{section.label}</span>
-          <small>{section.articles.length} posts</small>
+          <small>{section.articles.length} notes</small>
         </button>
       ))}
     </div>

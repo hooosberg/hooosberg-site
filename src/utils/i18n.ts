@@ -19,7 +19,7 @@ export const uiText = {
   "zh-CN": {
     brandAria: "湖森堡AI_hooosberg home",
     nav: [
-      ["日记", "/blog"],
+      ["笔记", "/blog"],
       ["产品", "/apps"],
       ["AI导航", "/ai-navigation"],
       ["联系", "/links"],
@@ -32,13 +32,13 @@ export const uiText = {
     themeToggle: "切换黑白主题",
     languageSwitch: "Switch to English",
     footerCopy: "真实项目教程、独立 App、AI 工具和长期产品记录。",
-    productDiary: "开发日记",
+    productDiary: "开发笔记",
     viewProduct: "查看产品详情",
   },
   en: {
     brandAria: "Hooosberg home",
     nav: [
-      ["Journal", "/blog"],
+      ["Notes", "/blog"],
       ["Products", "/apps"],
       ["AI Guide", "/ai-navigation"],
       ["Contact", "/links"],
@@ -50,8 +50,8 @@ export const uiText = {
     ],
     themeToggle: "Toggle light and dark theme",
     languageSwitch: "切换到中文",
-    footerCopy: "Real product diaries, independent apps, AI tools, and long-term build notes.",
-    productDiary: "Build diary",
+    footerCopy: "Real product notes, independent apps, AI tools, and long-term build notes.",
+    productDiary: "Build notes",
     viewProduct: "View product details",
   },
 } satisfies Record<Locale, Record<string, unknown>>;
@@ -100,6 +100,7 @@ const socialLabelEn: Record<string, string> = {
   "快手": "Kuaishou",
   "小红书": "Xiaohongshu",
   "B站": "Bilibili",
+  "微信": "WeChat",
 };
 
 const socialNoteEn: Record<string, string> = {
@@ -108,6 +109,7 @@ const socialNoteEn: Record<string, string> = {
   YouTube: "@hooosberg",
   TikTok: "@hooosberg",
   Telegram: "@hooosberg",
+  "微信": "hooosberg",
   "抖音": "@Hooosberg",
   "快手": "@Hooosberg",
   "小红书": "@Hooosberg",
@@ -121,6 +123,7 @@ const socialHandleEn: Record<string, string> = {
   YouTube: "youtube.com/@hooosberg",
   TikTok: "tiktok.com/@hooosberg",
   Telegram: "t.me/hooosberg",
+  "微信": "WeChat ID: hooosberg",
   "抖音": "Hooosberg AI",
   "快手": "Hooosberg AI",
   "小红书": "Hooosberg AI",
@@ -466,9 +469,10 @@ const categoryEn: Record<string, string> = {
   "AI 工作流": "AI workflow",
   "设计系统": "Design system",
   "架构实现": "Architecture",
-  "读书日记": "Reading note",
-  "随想日记": "Essay",
-  "资源分享": "Resource note",
+  "视频教程笔记": "Video tutorial note",
+  "读书笔记": "Reading note",
+  "随想笔记": "Essay",
+  "资源分享笔记": "Resource note",
 };
 
 const articleTagEn: Record<string, string> = {
@@ -726,6 +730,9 @@ const articleTagEn: Record<string, string> = {
   "语音": "voice",
   "语音转写": "speech transcription",
   "课程": "course",
+  "课件": "slides",
+  "视频教程": "video tutorial",
+  "WorkBuddy": "WorkBuddy",
   "轨迹解析": "track parsing",
   "转化": "conversion",
   "运营": "operations",
@@ -746,13 +753,15 @@ export function getLocalizedArticleTags(tags: string[], locale: Locale) {
 
 export const diarySectionsLocalized: Record<Locale, Array<{ kind: DiaryKind; label: string; summary: string }>> = {
   "zh-CN": [
-    { kind: "product", label: "产品日记", summary: "真实产品开发过程的聚合：立项、功能、架构、上架、复盘和每一次和 AI 共同推进的记录。" },
-    { kind: "reading", label: "读书日记", summary: "AI 时代他们在训练模型，图书就是我们的大脑的磨刀石，最高级的资产就是我们的大脑。" },
-    { kind: "thought", label: "随想日记", summary: "关于 AI、办公、失业、技术人文和个人开发道路的松散记录，先把真实想法留下来。" },
-    { kind: "resource", label: "资源分享日记", summary: "平时发现好的开源项目、工具、资料和工作流，就写成中文推荐，给需要的人一条更短的路。" },
+    { kind: "video", label: "视频教程笔记", summary: "承接 B 站视频课程，把单集链接、课件、提示词和操作流程整理成更清晰的公开笔记。" },
+    { kind: "product", label: "产品笔记", summary: "真实产品开发过程的聚合：立项、功能、架构、上架、复盘和每一次和 AI 共同推进的记录。" },
+    { kind: "reading", label: "读书笔记", summary: "AI 时代他们在训练模型，图书就是我们的大脑的磨刀石，最高级的资产就是我们的大脑。" },
+    { kind: "thought", label: "随想笔记", summary: "关于 AI、办公、失业、技术人文和个人开发道路的松散记录，先把真实想法留下来。" },
+    { kind: "resource", label: "资源分享笔记", summary: "平时发现好的开源项目、工具、资料和工作流，就写成中文推荐，给需要的人一条更短的路。" },
   ],
   en: [
-    { kind: "product", label: "Product diaries", summary: "Real build records covering ideas, features, architecture, review, launch, operations, postmortems, and AI-assisted decisions." },
+    { kind: "video", label: "Video tutorial notes", summary: "Bilibili lessons organized into clearer notes with video links, slides, prompts, and repeatable workflow steps." },
+    { kind: "product", label: "Product notes", summary: "Real build records covering ideas, features, architecture, review, launch, operations, postmortems, and AI-assisted decisions." },
     { kind: "reading", label: "Reading notes", summary: "Books as sharpening stones for the mind in an AI age." },
     { kind: "thought", label: "Essays", summary: "Loose but useful notes on AI, work, unemployment, technology, humanities, and the indie builder path." },
     { kind: "resource", label: "Resource notes", summary: "Curated tools, open-source projects, references, and workflows discovered while building." },
@@ -794,6 +803,15 @@ function makeEnglishArticleBody(article: Article, title: string, localizedProduc
   const productSummary = localizedProducts.map((product) => product.summary).join(" ");
   const hooks = [...new Set(localizedProducts.flatMap((product) => product.courseHooks))].slice(0, 6).join(", ");
   const tags = getLocalizedArticleTags(article.tags, "en").join(", ");
+
+  if (article.diaryKind === "video") {
+    return [
+      `${title} is an English video tutorial note from Hooosberg. It keeps the Bilibili lesson link, cleaned-up course structure, prompts, and workflow notes together.`,
+      `Video URL: ${article.videoUrl ?? article.resourceUrl ?? "The video link is listed on the Chinese source page."}`,
+      `The original Chinese note is tagged with ${tags || "video tutorials and AI workflows"}. The goal is not a transcript, but a clearer companion note for people who want slides, prompts, and repeatable steps.`,
+      "Future course updates can add the episode URL at the top, then summarize the goal, materials, prompts, checks, and reusable workflow.",
+    ];
+  }
 
   if (article.diaryKind === "resource") {
     return [

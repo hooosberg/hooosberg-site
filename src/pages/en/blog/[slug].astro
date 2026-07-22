@@ -21,9 +21,10 @@ const relatedProducts = article.productSlugs
   .filter(Boolean)
   .map((product) => product && getLocalizedProduct(product, "en"));
 const diaryReturnHref = `/en/blog?kind=${article.diaryKind}`;
-const visibleBody = article.resourceUrl
-  ? article.body.filter((paragraph) => !paragraph.trim().toLowerCase().startsWith("resource url:"))
-  : article.body;
+const hiddenLeadPrefixes = ["resource url:", "video url:"];
+const visibleBody = article.body.filter(
+  (paragraph) => !hiddenLeadPrefixes.some((prefix) => paragraph.trim().toLowerCase().startsWith(prefix)),
+);
 const articleJsonLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -64,13 +65,27 @@ const articleJsonLd = {
 >
   <article class="article-detail" data-diary-kind={article.diaryKind}>
     <header>
-      <a class="article-back-link" href={diaryReturnHref}>Back to Journal</a>
+      <a class="article-back-link" href={diaryReturnHref}>Back to Notes</a>
       <p>{article.category} / {article.date}</p>
       <h1>{article.title}</h1>
       <div class="tag-row">
         {article.tags.map((tag) => <span>{tag}</span>)}
       </div>
     </header>
+
+    {article.videoUrl && (
+      <aside class="article-video-card" aria-label="Video link">
+        <div>
+          <span>Video link</span>
+          <strong>{article.videoMeta ?? "Video tutorial"}</strong>
+          <p>Each video note starts with the lesson link, then organizes slides, prompts, and workflow steps.</p>
+        </div>
+        <a class="button article-resource-link" href={article.videoUrl} target="_blank" rel="noreferrer">
+          Open video
+          <ExternalLink size={16} aria-hidden="true" />
+        </a>
+      </aside>
+    )}
 
     <div class="article-body">
       {visibleBody.map((paragraph) => <p>{paragraph}</p>)}

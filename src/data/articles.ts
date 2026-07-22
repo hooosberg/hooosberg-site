@@ -7,7 +7,7 @@ export type ArticleSection = {
   paragraphs: string[];
 };
 
-export type DiaryKind = "product" | "reading" | "thought" | "resource";
+export type DiaryKind = "video" | "product" | "reading" | "thought" | "resource";
 
 export type Article = {
   slug: string;
@@ -19,9 +19,10 @@ export type Article = {
     | "AI 工作流"
     | "设计系统"
     | "架构实现"
-    | "读书日记"
-    | "随想日记"
-    | "资源分享";
+    | "视频教程笔记"
+    | "读书笔记"
+    | "随想笔记"
+    | "资源分享笔记";
   diaryKind: DiaryKind;
   date: string;
   excerpt: string;
@@ -30,6 +31,8 @@ export type Article = {
   productLabel?: string;
   resourceUrl?: string;
   resourceMeta?: string;
+  videoUrl?: string;
+  videoMeta?: string;
   seriesOrder?: number;
   body: string[];
   sections?: ArticleSection[];
@@ -46,47 +49,96 @@ export const diarySections: Array<{
   summary: string;
 }> = [
   {
+    kind: "video",
+    label: "视频教程笔记",
+    summary: "承接 B 站视频课程，把单集链接、课件、提示词和操作流程整理成更清晰的公开笔记。",
+  },
+  {
     kind: "product",
-    label: "产品日记",
+    label: "产品笔记",
     summary: "真实产品开发过程的聚合：立项、功能、架构、上架、复盘和每一次和 AI 共同推进的记录。",
   },
   {
     kind: "reading",
-    label: "读书日记",
+    label: "读书笔记",
     summary: "AI 时代他们在训练模型，图书就是我们的大脑的磨刀石，最高级的资产就是我们的大脑。",
   },
   {
     kind: "thought",
-    label: "随想日记",
+    label: "随想笔记",
     summary: "关于 AI、办公、失业、技术人文和个人开发道路的松散记录，先把真实想法留下来。",
   },
   {
     kind: "resource",
-    label: "资源分享日记",
+    label: "资源分享笔记",
     summary: "平时发现好的开源项目、工具、资料和工作流，就写成中文推荐，给需要的人一条更短的路。",
+  },
+];
+
+const workBuddySeasonUrl = "https://space.bilibili.com/3546822886820332/lists/8625038?type=season";
+
+const videoTutorialNoteSeeds: ArticleSeed[] = [
+  {
+    slug: "video-workbuddy-course-notes-workflow",
+    title: "视频教程笔记 · WorkBuddy 从 0 到 1：课程笔记更新流程",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-07-22",
+    excerpt: "把 WorkBuddy B 站视频、录制课件、提示词和实操流程整理成可检索的文字笔记。",
+    tags: ["视频教程", "WorkBuddy", "课件", "提示词", "AI 办公"],
+    productSlugs: [],
+    videoUrl: workBuddySeasonUrl,
+    videoMeta: "B 站合集：WorkBuddy 从 0 到 1 入门系列",
+    body: [
+      `视频入口：${workBuddySeasonUrl}`,
+      "这个视频教程笔记栏目用来承接 B 站课程。每一期视频发布后，我会把视频开头的链接、课件内容、关键提示词、操作流程和踩坑点整理成文字笔记，让想快速查课件的人不用反复拖进度条。",
+      "第一批课程会围绕 WorkBuddy 的办公和创作场景展开：Excel 自动化办公、PPT 自动化办公、Word 自动化办公、图片编辑，以及 AI 海报制作。课程原始素材会继续保存在 /Users/maohuhu/Desktop/录制课程/课程/，网站只发布整理后的公开笔记。",
+      "每篇视频笔记的基本结构会固定下来：先放视频链接，再写本期目标、适用场景、准备材料、完整流程、可复制提示词、检查点和延伸练习。这样视频负责演示，笔记负责检索、复盘和复用。",
+      "这不是把视频逐字转写，而是把课件变成更清晰的学习材料。读者可以先看视频获得操作感，再回到笔记复制提示词、核对流程；也可以先读笔记判断这一期课程是否解决自己的问题。"
+    ],
+    sections: [
+      {
+        heading: "当前课程包",
+        paragraphs: [
+          "01_WorkBuddy_Excel自动化办公：适合整理表格、生成分析口径、清洗数据和输出办公结果。",
+          "02_WorkBuddy_PPT自动化办公：适合把主题、结构和素材整理成可编辑演示文稿。",
+          "03_WorkBuddy_Word自动化办公：适合写报告、改格式、生成目录和整理长文档。",
+          "04_WorkBuddy_图片编辑：适合做图片处理、批量修改和视觉素材准备。",
+          "05_WorkBuddy_AI海报制作：适合从主题、文案、视觉方向到成图流程做一条完整示范。"
+        ],
+      },
+      {
+        heading: "后续更新流程",
+        paragraphs: [
+          "每发布一期视频，先把 B 站单集链接放到对应笔记开头，再从录制课件里提炼标题、目标、步骤、提示词和检查结果。",
+          "如果某期视频里有可复制提示词，笔记会直接保留可读版本；如果涉及文件、表格或图片，笔记会说明输入材料、操作顺序和最终交付物。",
+          "当课程更新、软件界面变化或 WorkBuddy 能力升级时，不重写整页，而是在同一篇笔记里补充新版流程和注意事项，让视频和文字都能长期复用。"
+        ],
+      },
+    ],
   },
 ];
 
 const readingDiarySeeds: ArticleSeed[] = [
   {
     slug: "reading-shannon-biography",
-    title: "读书日记 · 香农传：信息时代不是从应用开始的",
-    category: "读书日记",
+    title: "读书笔记 · 香农传：信息时代不是从应用开始的",
+    category: "读书笔记",
     diaryKind: "reading",
     date: "2026-06-19",
     excerpt: "从香农看见一件事：真正改变世界的技术，往往先是一种更准确的抽象。",
     tags: ["技术", "信息论", "科学人物"],
     productSlugs: [],
     body: [
-      "《香农传》适合放在这个网站的第一批读书日记里，因为它提醒我：AI、互联网、通信、压缩、密码和计算机并不是突然出现的热闹应用，它们背后有一套更安静的抽象。",
+      "《香农传》适合放在这个网站的第一批读书笔记里，因为它提醒我：AI、互联网、通信、压缩、密码和计算机并不是突然出现的热闹应用，它们背后有一套更安静的抽象。",
       "香农厉害的地方不只是聪明，而是能把混乱的通信问题变成可以计算、可以证明、可以工程化的结构。今天我们做 AI 产品，也需要这种能力：不要只盯着界面和功能，而要找到信息在系统里怎么流动、怎么损失、怎么被重新组织。",
       "读这类传记的意义，不是崇拜天才，而是训练自己的尺度感。很多时候，我们以为自己在追新技术，其实是在追一层层被别人抽象好的工具。真正值得学习的是那些抽象怎么被创造出来。"
     ],
   },
   {
     slug: "reading-hackers-and-painters",
-    title: "读书日记 · 黑客与画家：技术也是一种审美训练",
-    category: "读书日记",
+    title: "读书笔记 · 黑客与画家：技术也是一种审美训练",
+    category: "读书笔记",
     diaryKind: "reading",
     date: "2026-06-18",
     excerpt: "这本书把编程从职业技能拉回到创造活动：像画家一样反复试、反复改。",
@@ -100,8 +152,8 @@ const readingDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "reading-back-stairs-to-philosophy",
-    title: "读书日记 · 通向哲学的后楼梯：从人的困惑进入思想",
-    category: "读书日记",
+    title: "读书笔记 · 通向哲学的后楼梯：从人的困惑进入思想",
+    category: "读书笔记",
     diaryKind: "reading",
     date: "2026-06-17",
     excerpt: "哲学不是高台演讲，而是从普通人的问题后门进去，看见更大的房间。",
@@ -115,8 +167,8 @@ const readingDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "reading-discipline-and-punish",
-    title: "读书日记 · 规训与惩罚：工具也会塑造人",
-    category: "读书日记",
+    title: "读书笔记 · 规训与惩罚：工具也会塑造人",
+    category: "读书笔记",
     diaryKind: "reading",
     date: "2026-06-16",
     excerpt: "福柯提醒我们：系统不只是提高效率，它也在制造行为、秩序和顺从。",
@@ -130,8 +182,8 @@ const readingDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "reading-guns-germs-steel",
-    title: "读书日记 · 枪炮、病菌与钢铁：历史不是个人努力能解释完的",
-    category: "读书日记",
+    title: "读书笔记 · 枪炮、病菌与钢铁：历史不是个人努力能解释完的",
+    category: "读书笔记",
     diaryKind: "reading",
     date: "2026-06-15",
     excerpt: "它让人把视角拉远：命运常常来自地理、制度、技术和长期结构。",
@@ -145,8 +197,8 @@ const readingDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "reading-okakura-aesthetics",
-    title: "读书日记 · 冈仓天心东方美学三书：美不是装饰，是世界观",
-    category: "读书日记",
+    title: "读书笔记 · 冈仓天心东方美学三书：美不是装饰，是世界观",
+    category: "读书笔记",
     diaryKind: "reading",
     date: "2026-06-14",
     excerpt: "东方美学提醒我，产品的克制、留白和气息，也是一种功能。",
@@ -160,8 +212,8 @@ const readingDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "reading-dark-time",
-    title: "读书日记 · 暗时间：最高级的资产是大脑的后台",
-    category: "读书日记",
+    title: "读书笔记 · 暗时间：最高级的资产是大脑的后台",
+    category: "读书笔记",
     diaryKind: "reading",
     date: "2026-06-13",
     excerpt: "真正的学习不是收藏资料，而是让问题在脑子里持续运转。",
@@ -170,7 +222,7 @@ const readingDiarySeeds: ArticleSeed[] = [
     body: [
       "《暗时间》适合和 AI 学习放在一起看。今天工具越来越快，资料越来越多，但如果大脑没有后台处理，收藏再多教程也只是堆积。",
       "我越来越相信，最高级的资产不是账号、模型额度或某个课程，而是自己的大脑如何持续消化问题。读书、写日记、做产品，其实都是在给大脑建立更好的缓存和索引。",
-      "所以读书日记不会追求完整书评，而是记录一本书对我当前问题的触发点。它像磨刀石，不替我战斗，但让刀更锋利。"
+      "所以读书笔记不会追求完整书评，而是记录一本书对我当前问题的触发点。它像磨刀石，不替我战斗，但让刀更锋利。"
     ],
   },
 ];
@@ -178,8 +230,8 @@ const readingDiarySeeds: ArticleSeed[] = [
 const thoughtDiarySeeds: ArticleSeed[] = [
   {
     slug: "thought-static-ai-tutorials-expire-fast",
-    title: "随想日记 · AI 软件变化太快，静态教程为什么会失效",
-    category: "随想日记",
+    title: "随想笔记 · AI 软件变化太快，静态教程为什么会失效",
+    category: "随想笔记",
     diaryKind: "thought",
     date: "2026-06-19",
     excerpt: "如果教程脱离真实项目，它很快就会被新模型、新界面和新工作流淘汰。",
@@ -193,8 +245,8 @@ const thoughtDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "thought-company-ai-adoption-gap",
-    title: "随想日记 · 公司普及 AI 的尴尬：员工不想用，公司不敢用",
-    category: "随想日记",
+    title: "随想笔记 · 公司普及 AI 的尴尬：员工不想用，公司不敢用",
+    category: "随想笔记",
     diaryKind: "thought",
     date: "2026-06-18",
     excerpt: "AI 普及不是买账号的问题，而是信任、流程、责任和收益分配的问题。",
@@ -208,8 +260,8 @@ const thoughtDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "thought-ai-office-is-process-redesign",
-    title: "随想日记 · AI 办公不是提示词，而是重写流程",
-    category: "随想日记",
+    title: "随想笔记 · AI 办公不是提示词，而是重写流程",
+    category: "随想笔记",
     diaryKind: "thought",
     date: "2026-06-17",
     excerpt: "提示词只是入口，真正的变化发生在文件、责任、检查点和交付物上。",
@@ -223,8 +275,8 @@ const thoughtDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "thought-midlife-unemployment-and-small-products",
-    title: "随想日记 · 中年失业之后，个人还能不能有一条小路",
-    category: "随想日记",
+    title: "随想笔记 · 中年失业之后，个人还能不能有一条小路",
+    category: "随想笔记",
     diaryKind: "thought",
     date: "2026-06-16",
     excerpt: "道路并不宽，也不公平，但个人产品、海外收入和长期复利仍然值得尝试。",
@@ -238,8 +290,8 @@ const thoughtDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "thought-technology-and-humanities",
-    title: "随想日记 · 技术和人文不是两条路",
-    category: "随想日记",
+    title: "随想笔记 · 技术和人文不是两条路",
+    category: "随想笔记",
     diaryKind: "thought",
     date: "2026-06-15",
     excerpt: "AI 时代越技术化，越需要重新理解人、语言、制度、审美和恐惧。",
@@ -248,13 +300,13 @@ const thoughtDiarySeeds: ArticleSeed[] = [
     body: [
       "我一直觉得技术和人文不是两条路。技术决定我们能做什么，人文决定我们为什么做、为谁做、做到哪里该停。",
       "AI 越强，这个问题越明显。一个模型可以写代码、生成图像、自动操作网页，但它不知道一个产品进入人的生活之后会带来什么压力、依赖、误解或尊严问题。",
-      "所以我希望这个网站不只放教程，也放哲学、艺术、历史和读书日记。不是为了显得综合，而是因为真正的产品判断必须从人开始。"
+      "所以我希望这个网站不只放教程，也放哲学、艺术、历史和读书笔记。不是为了显得综合，而是因为真正的产品判断必须从人开始。"
     ],
   },
   {
     slug: "thought-indie-developer-road",
-    title: "随想日记 · 个人开发者的路不正确，但不是没有",
-    category: "随想日记",
+    title: "随想笔记 · 个人开发者的路不正确，但不是没有",
+    category: "随想笔记",
     diaryKind: "thought",
     date: "2026-06-14",
     excerpt: "没有标准答案，也没有稳定地图，只能用真实产品把路一点点踩出来。",
@@ -262,7 +314,7 @@ const thoughtDiarySeeds: ArticleSeed[] = [
     productSlugs: [],
     body: [
       "个人开发者这条路很难说是正确的。它不像上班那样有清楚的岗位和晋升，也不像融资创业那样有明确叙事。很多时候，它只是一个人用有限时间、有限钱、有限精力，试着把作品放到世界上。",
-      "但不是没有路。小产品、工具、App Store、浏览器插件、个人站、开发日记、读书日记和社交平台，慢慢可以形成一个微小的系统。每个产品不一定成功，但每个产品都会留下技术、内容、页面、经验和复用资产。",
+      "但不是没有路。小产品、工具、App Store、浏览器插件、个人站、开发日记、读书笔记和社交平台，慢慢可以形成一个微小的系统。每个产品不一定成功，但每个产品都会留下技术、内容、页面、经验和复用资产。",
       "我现在做的就是把这条路公开记录下来。不是证明我已经找到了答案，而是希望真实过程本身能给后来的人一点灵感。"
     ],
   },
@@ -271,8 +323,8 @@ const thoughtDiarySeeds: ArticleSeed[] = [
 const resourceDiarySeeds: ArticleSeed[] = [
   {
     slug: "resource-openclaw-ai-assistant",
-    title: "资源分享 · OpenClaw：个人 AI 助手的开源想象",
-    category: "资源分享",
+    title: "资源分享笔记 · OpenClaw：个人 AI 助手的开源想象",
+    category: "资源分享笔记",
     diaryKind: "resource",
     date: "2026-06-19",
     excerpt: "一个面向多平台个人 AI 助手的开源项目，适合观察 agent 产品如何从工具走向系统。",
@@ -288,8 +340,8 @@ const resourceDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "resource-linux-kernel",
-    title: "资源分享 · Linux：现代开源协作的底层样本",
-    category: "资源分享",
+    title: "资源分享笔记 · Linux：现代开源协作的底层样本",
+    category: "资源分享笔记",
     diaryKind: "resource",
     date: "2026-06-18",
     excerpt: "Linux 内核不是普通学习项目，但它是理解工程规模、协作纪律和长期维护的经典样本。",
@@ -305,8 +357,8 @@ const resourceDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "resource-claw-code-agent-museum",
-    title: "资源分享 · claw-code：观察 agent 自我维护项目",
-    category: "资源分享",
+    title: "资源分享笔记 · claw-code：观察 agent 自我维护项目",
+    category: "资源分享笔记",
     diaryKind: "resource",
     date: "2026-06-17",
     excerpt: "一个强调 agent 管理和自动维护的 Rust 项目，适合思考 AI 开发流程的未来形态。",
@@ -322,8 +374,8 @@ const resourceDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "resource-prompts-chat",
-    title: "资源分享 · prompts.chat：提示词资料库的长期价值",
-    category: "资源分享",
+    title: "资源分享笔记 · prompts.chat：提示词资料库的长期价值",
+    category: "资源分享笔记",
     diaryKind: "resource",
     date: "2026-06-16",
     excerpt: "一个开源提示词集合，适合从社区案例里学习任务拆法，而不是迷信模板。",
@@ -339,8 +391,8 @@ const resourceDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "resource-open-webui",
-    title: "资源分享 · Open WebUI：本地模型入口的成熟形态",
-    category: "资源分享",
+    title: "资源分享笔记 · Open WebUI：本地模型入口的成熟形态",
+    category: "资源分享笔记",
     diaryKind: "resource",
     date: "2026-06-15",
     excerpt: "一个友好的 AI Web 界面，适合搭配 Ollama、OpenAI API 和本地模型工作流。",
@@ -356,8 +408,8 @@ const resourceDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "resource-clash-verge-rev",
-    title: "资源分享 · Clash Verge Rev：跨平台桌面工具的 Tauri 样本",
-    category: "资源分享",
+    title: "资源分享笔记 · Clash Verge Rev：跨平台桌面工具的 Tauri 样本",
+    category: "资源分享笔记",
     diaryKind: "resource",
     date: "2026-06-14",
     excerpt: "一个现代跨平台桌面 GUI 项目，适合观察 Tauri、配置管理和系统托盘类体验。",
@@ -373,8 +425,8 @@ const resourceDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "resource-excalidraw",
-    title: "资源分享 · Excalidraw：白板工具为什么能长期有生命力",
-    category: "资源分享",
+    title: "资源分享笔记 · Excalidraw：白板工具为什么能长期有生命力",
+    category: "资源分享笔记",
     diaryKind: "resource",
     date: "2026-06-13",
     excerpt: "一个手绘风虚拟白板，适合产品、架构、课程和 AI 交流前的想法整理。",
@@ -390,8 +442,8 @@ const resourceDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "resource-comfyui",
-    title: "资源分享 · ComfyUI：节点式 AI 图像工作流",
-    category: "资源分享",
+    title: "资源分享笔记 · ComfyUI：节点式 AI 图像工作流",
+    category: "资源分享笔记",
     diaryKind: "resource",
     date: "2026-06-12",
     excerpt: "一个强大的扩散模型节点界面，适合理解 AI 生成不是按钮，而是一条可调试流程。",
@@ -407,8 +459,8 @@ const resourceDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "resource-cc-switch",
-    title: "资源分享 · cc-switch：多 AI 编程工具的账号与环境切换",
-    category: "资源分享",
+    title: "资源分享笔记 · cc-switch：多 AI 编程工具的账号与环境切换",
+    category: "资源分享笔记",
     diaryKind: "resource",
     date: "2026-06-11",
     excerpt: "一个面向 Claude Code、Codex、OpenCode、Gemini CLI 等工具的跨平台助手。",
@@ -424,8 +476,8 @@ const resourceDiarySeeds: ArticleSeed[] = [
   },
   {
     slug: "resource-awesome-design-md",
-    title: "资源分享 · awesome-design-md：给编码 agent 的设计系统说明书",
-    category: "资源分享",
+    title: "资源分享笔记 · awesome-design-md：给编码 agent 的设计系统说明书",
+    category: "资源分享笔记",
     diaryKind: "resource",
     date: "2026-06-10",
     excerpt: "一个收集 DESIGN.md 的资源库，适合让 AI 更稳定地理解产品视觉和组件规则。",
@@ -442,6 +494,7 @@ const resourceDiarySeeds: ArticleSeed[] = [
 ];
 
 const articleSeed: ArticleSeed[] = [
+  ...videoTutorialNoteSeeds,
   ...expandedProductDiaries,
   ...readingDiarySeeds,
   ...thoughtDiarySeeds,
@@ -1737,14 +1790,16 @@ export const articleCategories = [
   "AI 工作流",
   "设计系统",
   "架构实现",
-  "读书日记",
-  "随想日记",
-  "资源分享",
+  "视频教程笔记",
+  "读书笔记",
+  "随想笔记",
+  "资源分享笔记",
 ] as const;
 
 export const articlesByDate = [...articles].sort((a, b) => b.date.localeCompare(a.date));
 
 export const productDiaryArticles = articlesByDate.filter((article) => article.diaryKind === "product");
+export const videoTutorialNoteArticles = articlesByDate.filter((article) => article.diaryKind === "video");
 export const readingDiaryArticles = articlesByDate.filter((article) => article.diaryKind === "reading");
 export const thoughtDiaryArticles = articlesByDate.filter((article) => article.diaryKind === "thought");
 export const resourceDiaryArticles = articlesByDate.filter((article) => article.diaryKind === "resource");
