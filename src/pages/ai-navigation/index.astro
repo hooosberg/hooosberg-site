@@ -175,10 +175,28 @@ const jules = tool({
 
 const kimi = tool({
   name: "Kimi",
-  description: "月之暗面推出的 AI 助手，长文档、搜索、PPT、表格和 agent 能力都值得关注。",
+  description: "月之暗面 AI 助手主入口，适合长文档、搜索、PPT、表格和中文资料处理；和 Kimi Work / Kimi Code 分开看。",
   url: "https://www.kimi.com/",
   country: "cn",
-  tags: ["长文档", "搜索", "Agent"],
+  tags: ["长文档", "搜索", "中文"],
+  badge: "国产",
+});
+
+const kimiWork = tool({
+  name: "Kimi Work",
+  description: "月之暗面推出的桌面 AI Agent 方向，面向知识工作、PPT/Excel/PDF、智能体集群和长任务执行，是国内 Desktop Agent 第一梯队新入口。",
+  url: "https://www.kimi.com/products/kimi-work",
+  country: "cn",
+  tags: ["桌面 Agent", "办公自动化", "知识工作"],
+  badge: "重点",
+});
+
+const kimiCode = tool({
+  name: "Kimi Code",
+  description: "Kimi 面向智能体编程的入口，适合仓库理解、代码修改、命令执行和工程任务，是国内 Codex 平替第一梯队候选。",
+  url: "https://www.kimi.com/code",
+  country: "cn",
+  tags: ["编程", "Agent", "Kimi"],
   badge: "国产",
 });
 
@@ -219,6 +237,16 @@ const trae = tool({
   badge: "国产",
 });
 
+const traeWork = tool({
+  name: "TRAE Work",
+  description: "TRAE 的专业 AI 工作助手入口，和 TRAE IDE 分开：更偏 agent 执行、多步骤任务和开发者工作流，适合观察字节的桌面/工作台路线。",
+  url: "https://www.trae.ai/work",
+  country: "cn",
+  icon: icon.trae,
+  tags: ["工作助手", "Agent", "字节"],
+  badge: "开发者偏多",
+});
+
 const codebuddy = tool({
   name: "WorkBuddy（CodeBuddy）",
   description: "腾讯云 CodeBuddy 推出的 AI Agent 工作台，主打自主规划并交付多模态复杂任务，支持多 Agents 并行，适合作为国内 Codex 平替第一观察入口。",
@@ -226,6 +254,33 @@ const codebuddy = tool({
   country: "cn",
   tags: ["编程", "Agent", "腾讯"],
   badge: "推荐",
+});
+
+const cozeAgent = tool({
+  name: "扣子 Coze",
+  description: "字节旗下 Agent / 办公自动化平台，适合搭建对话智能体、工作流、AI 写作、PPT、表格和内容生产，不等同于本地桌面 agent。",
+  url: "https://www.coze.cn/",
+  country: "cn",
+  tags: ["Agent", "工作流", "字节"],
+  badge: "平台",
+});
+
+const qwenAgent = tool({
+  name: "通义百炼 Agent",
+  description: "阿里云通义 / 百炼体系里的企业级 Agent 与工作流平台，更适合知识库、客服、流程自动化和企业系统集成。",
+  url: "https://bailian.console.aliyun.com/",
+  country: "cn",
+  tags: ["企业 Agent", "工作流", "阿里"],
+  badge: "企业",
+});
+
+const tencentYuanqiAgent = tool({
+  name: "腾讯元器 Agent",
+  description: "腾讯的零代码智能体创建与分发平台，偏微信、公众号、应用宝等腾讯生态里的智能体搭建；和元宝聊天入口互补。",
+  url: "https://yuanqi.tencent.com/",
+  country: "cn",
+  tags: ["智能体", "微信生态", "腾讯"],
+  badge: "生态",
 });
 
 const groups: ToolGroup[] = [
@@ -469,7 +524,9 @@ const groups: ToolGroup[] = [
     summary: "面向开发者的 AI IDE、终端 agent、代码补全和自动化工程工具。",
     items: [
       codex,
+      kimiCode,
       codebuddy,
+      traeWork,
       claudeCode,
       googleAntigravity,
       jules,
@@ -519,8 +576,12 @@ const groups: ToolGroup[] = [
     id: "office-docs",
     title: "AI 办公 / 文档",
     shortLabel: "办公",
-    summary: "面向 PPT、文档、会议、笔记、知识库和工作流提效的工具。",
+    summary: "面向 PPT、文档、会议、笔记、知识库、桌面 Agent 和工作流提效的工具。",
     items: [
+      kimiWork,
+      codebuddy,
+      cozeAgent,
+      qwenAgent,
       { name: "Notion AI", description: "集成在 Notion 里的写作、总结、知识库和项目管理助手。", url: "https://www.notion.com/product/ai", country: "us", tags: ["文档", "知识库", "项目"] },
       { name: "Gamma", description: "AI 生成演示文稿、网页和文档，适合快速做汇报和课程材料。", url: "https://gamma.app/", country: "us", tags: ["PPT", "演示", "文档"] },
       { name: "Napkin AI", description: "把文字变成图示、流程图和视觉化解释，适合做教程和方案图。", url: "https://www.napkin.ai/", country: "us", tags: ["图示", "流程图", "表达"] },
@@ -549,14 +610,20 @@ const groups: ToolGroup[] = [
     id: "china",
     title: "国产 AI 工具",
     shortLabel: "国产",
-    summary: "优先收国内能直接使用、公开热度高、中文体验强的 AI 产品；不追求数量，只保留最容易推荐给普通用户的入口。",
+    summary: "优先收国内能直接使用、公开热度高、中文体验强的 AI 产品；这次把聊天入口、Coding Agent、Desktop Agent 和企业智能体分开看。",
     items: [
+      kimiWork,
       codebuddy,
+      kimiCode,
+      traeWork,
+      cozeAgent,
       deepseek,
       doubao,
       kimi,
       qwen,
-      { name: "腾讯元宝", description: "腾讯系中文助手，搜索、文档和微信生态观察更顺手。", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["搜索", "腾讯", "中文"] },
+      qwenAgent,
+      tencentYuanqiAgent,
+      { name: "腾讯元宝", description: "腾讯系中文助手，适合搜索、文档和微信生态里的普通问答；Agent 搭建更适合看腾讯元器。", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["搜索", "腾讯", "中文"] },
       { name: "文心一言", description: "百度文心大模型助手入口，适合中文问答和百度生态能力。", url: "https://yiyan.baidu.com/", country: "cn", tags: ["百度", "中文", "助手"] },
       { name: "智谱清言", description: "智谱推出的 AI 助手，适合中文问答、文档和模型能力体验。", url: "https://chatglm.cn/", country: "cn", tags: ["智谱", "模型", "中文"] },
     ],
@@ -593,23 +660,35 @@ const alternativePairs: AlternativePair[] = [
     category: "编程 Agent / 仓库任务",
     source: codex,
     alternatives: [
+      kimiCode,
       codebuddy,
-      { name: "Kimi Code", description: "Kimi 体系里的代码与 agent 能力，适合作为 Codex 的国内快速替代入口。", url: "https://www.kimi.com/", country: "cn", tags: ["编程", "Agent", "Kimi"] },
-      trae,
+      traeWork,
     ],
-    reason: "Codex 更像仓库级开发 agent；国内平替优先看腾讯 CodeBuddy / WorkBuddy 这类 agent 工作台，再看 Kimi 的 agent 能力和 TRAE 的 IDE 路线。",
+    reason: "Codex 更像仓库级开发 agent；国内平替现在优先看 Kimi Code 的智能体编程入口，再看 WorkBuddy / CodeBuddy 的任务交付工作台和 TRAE Work 的开发者 agent 路线。",
     bestFor: ["仓库修改", "自动修复", "代码审查"],
+  },
+  {
+    id: "desktop-agent",
+    category: "桌面 Agent / 办公自动化",
+    source: claudeCowork,
+    alternatives: [
+      kimiWork,
+      codebuddy,
+      traeWork,
+    ],
+    reason: "如果标准不是普通聊天，而是 Mac 客户端、本地文件、浏览器、代码/终端和长时间执行任务，国内第一梯队先看 Kimi Work 与 WorkBuddy；TRAE Work 更偏开发者工作流。",
+    bestFor: ["本地文件", "浏览器自动化", "长任务执行"],
   },
   {
     id: "claude-code",
     category: "终端编程 / 长任务",
     source: claudeCode,
     alternatives: [
-      trae,
-      { name: "Kimi Code", description: "适合国内用户先试代码问答、文件理解和 agent 型开发辅助。", url: "https://www.kimi.com/", country: "cn", tags: ["编程", "Agent", "中文"] },
+      kimiCode,
+      traeWork,
       { name: "Cline + DeepSeek", description: "开源 VS Code agent 搭配国产模型，适合本地可控的 Claude Code 替代流程。", url: "https://cline.bot/", country: "global", icon: icon.cline, tags: ["开源", "VS Code", "国产模型"] },
     ],
-    reason: "Claude Code 的核心是终端长任务与仓库理解；国内用户更容易先从 TRAE、Kimi 或开源 agent 加国产模型组合开始。",
+    reason: "Claude Code 的核心是终端长任务与仓库理解；国内用户更容易先从 Kimi Code、TRAE Work 或开源 agent 加国产模型组合开始。",
     bestFor: ["终端流程", "项目理解", "本地可控"],
   },
   {

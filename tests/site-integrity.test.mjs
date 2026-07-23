@@ -132,6 +132,12 @@ test("AI navigation ranking cards do not duplicate the same customer product", a
     "Google Stitch",
     "腾讯元宝",
     "WorkBuddy（CodeBuddy）",
+    "Kimi Work",
+    "Kimi Code",
+    "TRAE Work",
+    "扣子 Coze",
+    "通义百炼 Agent",
+    "腾讯元器 Agent",
   ]);
   const duplicateNames = productNames
     .filter((name, index) => productNames.indexOf(name) !== index)

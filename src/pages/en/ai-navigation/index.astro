@@ -175,10 +175,28 @@ const jules = tool({
 
 const kimi = tool({
   name: "Kimi",
-  description: "Moonshot AI's assistant for long documents, search, slides, spreadsheets, and agent-style workflows in Chinese contexts.",
+  description: "Moonshot AI's main assistant entry for long documents, search, slides, spreadsheets, and Chinese research; evaluate it separately from Kimi Work and Kimi Code.",
   url: "https://www.kimi.com/",
   country: "cn",
-  tags: ["long documents", "search", "agent"],
+  tags: ["long documents", "search", "Chinese"],
+  badge: "China",
+});
+
+const kimiWork = tool({
+  name: "Kimi Work",
+  description: "Moonshot AI's desktop-agent direction for knowledge work, PPT/Excel/PDF, agent swarms, and long-running work tasks. One of the top Chinese Desktop Agent entries to watch.",
+  url: "https://www.kimi.com/products/kimi-work",
+  country: "cn",
+  tags: ["desktop agent", "office automation", "knowledge work"],
+  badge: "Focus",
+});
+
+const kimiCode = tool({
+  name: "Kimi Code",
+  description: "Kimi's agentic coding entry for repository understanding, code edits, command execution, and engineering tasks. A first-tier regional Codex alternative candidate.",
+  url: "https://www.kimi.com/code",
+  country: "cn",
+  tags: ["coding", "agent", "Kimi"],
   badge: "China",
 });
 
@@ -219,6 +237,16 @@ const trae = tool({
   badge: "China",
 });
 
+const traeWork = tool({
+  name: "TRAE Work",
+  description: "TRAE's professional AI work assistant, separate from TRAE IDE. It leans toward agent execution, multi-step tasks, and developer workflows.",
+  url: "https://www.trae.ai/work",
+  country: "cn",
+  icon: icon.trae,
+  tags: ["work assistant", "agent", "ByteDance"],
+  badge: "Developer-heavy",
+});
+
 const codebuddy = tool({
   name: "WorkBuddy (CodeBuddy)",
   description: "Tencent Cloud CodeBuddy's AI agent workspace for planning and delivering multimodal complex tasks with parallel agents, now a top regional Codex alternative to watch.",
@@ -226,6 +254,33 @@ const codebuddy = tool({
   country: "cn",
   tags: ["coding", "agent", "Tencent"],
   badge: "Recommended",
+});
+
+const cozeAgent = tool({
+  name: "Coze",
+  description: "ByteDance's agent and office-automation platform for conversational agents, workflows, AI writing, slides, spreadsheets, and content production. It is not the same as a local desktop agent.",
+  url: "https://www.coze.cn/",
+  country: "cn",
+  tags: ["agent", "workflow", "ByteDance"],
+  badge: "Platform",
+});
+
+const qwenAgent = tool({
+  name: "Qwen Bailian Agent",
+  description: "Alibaba Cloud's Qwen/Bailian enterprise agent and workflow platform, better suited to knowledge bases, customer service, process automation, and business-system integration.",
+  url: "https://bailian.console.aliyun.com/",
+  country: "cn",
+  tags: ["enterprise agent", "workflow", "Alibaba"],
+  badge: "Enterprise",
+});
+
+const tencentYuanqiAgent = tool({
+  name: "Tencent Yuanqi Agent",
+  description: "Tencent's no-code agent creation and distribution platform for WeChat, official accounts, Yingyongbao, and other Tencent ecosystem channels.",
+  url: "https://yuanqi.tencent.com/",
+  country: "cn",
+  tags: ["agent", "WeChat ecosystem", "Tencent"],
+  badge: "Ecosystem",
 });
 
 const groups: ToolGroup[] = [
@@ -465,7 +520,9 @@ const groups: ToolGroup[] = [
     summary: "AI IDEs, terminal agents, code completion, and agentic engineering tools for real product work.",
     items: [
       codex,
+      kimiCode,
       codebuddy,
+      traeWork,
       claudeCode,
       googleAntigravity,
       jules,
@@ -515,8 +572,12 @@ const groups: ToolGroup[] = [
     id: "office-docs",
     title: "AI Office / Documents",
     shortLabel: "Office",
-    summary: "Slides, documents, meetings, notes, knowledge bases, and practical productivity workflows.",
+    summary: "Slides, documents, meetings, notes, knowledge bases, desktop agents, and practical productivity workflows.",
     items: [
+      kimiWork,
+      codebuddy,
+      cozeAgent,
+      qwenAgent,
       { name: "Notion AI", description: "Writing, summarization, knowledge base, and project-management assistant inside Notion.", url: "https://www.notion.com/product/ai", country: "us", tags: ["docs", "knowledge base", "projects"] },
       { name: "Gamma", description: "AI-generated presentations, webpages, and documents for reports, courses, and quick storytelling.", url: "https://gamma.app/", country: "us", tags: ["slides", "presentations", "docs"] },
       { name: "Napkin AI", description: "Turns text into diagrams, flows, and visual explanations for tutorials and proposals.", url: "https://www.napkin.ai/", country: "us", tags: ["diagrams", "flows", "communication"] },
@@ -545,14 +606,20 @@ const groups: ToolGroup[] = [
     id: "china",
     title: "China AI Tools",
     shortLabel: "China",
-    summary: "High-visibility Chinese AI products that are easier to access in Chinese contexts and useful for regional comparison.",
+    summary: "High-visibility Chinese AI products for regional comparison, now separated into chat entries, coding agents, desktop agents, and enterprise agent platforms.",
     items: [
+      kimiWork,
       codebuddy,
+      kimiCode,
+      traeWork,
+      cozeAgent,
       deepseek,
       doubao,
       kimi,
       qwen,
-      { name: "Tencent Yuanbao", description: "Tencent's Chinese assistant for search, documents, Q&A, and WeChat ecosystem observation.", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["search", "Tencent", "Chinese"] },
+      qwenAgent,
+      tencentYuanqiAgent,
+      { name: "Tencent Yuanbao", description: "Tencent's Chinese assistant for search, documents, and ordinary Q&A around the WeChat ecosystem; use Yuanqi for agent creation.", url: "https://yuanbao.tencent.com/", country: "cn", tags: ["search", "Tencent", "Chinese"] },
       { name: "Wenxin Yiyan", description: "Baidu's Wenxin assistant entry for Chinese Q&A and Baidu ecosystem capabilities.", url: "https://yiyan.baidu.com/", country: "cn", tags: ["Baidu", "Chinese", "assistant"] },
       { name: "Zhipu Qingyan", description: "Zhipu's AI assistant for Chinese Q&A, documents, and model capability evaluation.", url: "https://chatglm.cn/", country: "cn", tags: ["Zhipu", "models", "Chinese"] },
     ],
@@ -589,23 +656,35 @@ const alternativePairs: AlternativePair[] = [
     category: "Coding agent / repository tasks",
     source: codex,
     alternatives: [
+      kimiCode,
       codebuddy,
-      { name: "Kimi Code", description: "Kimi's code and agent direction can serve as a fast regional entry for code assistance.", url: "https://www.kimi.com/", country: "cn", tags: ["coding", "agent", "Kimi"] },
-      trae,
+      traeWork,
     ],
-    reason: "Codex is repository-level. For Chinese users, CodeBuddy / WorkBuddy is the first regional agent workspace to watch, followed by Kimi's agent direction and TRAE's IDE path.",
+    reason: "Codex is repository-level. For Chinese users, start with Kimi Code's agentic coding entry, then compare WorkBuddy / CodeBuddy's task-delivery workspace and TRAE Work's developer-agent route.",
     bestFor: ["repository edits", "automated fixes", "code review"],
+  },
+  {
+    id: "desktop-agent",
+    category: "Desktop agent / office automation",
+    source: claudeCowork,
+    alternatives: [
+      kimiWork,
+      codebuddy,
+      traeWork,
+    ],
+    reason: "If the standard is not chat but a Mac client, local files, browser control, code/terminal access, and long-running tasks, the first Chinese tier is Kimi Work and WorkBuddy, while TRAE Work is more developer-oriented.",
+    bestFor: ["local files", "browser automation", "long-running tasks"],
   },
   {
     id: "claude-code",
     category: "Terminal coding / long tasks",
     source: claudeCode,
     alternatives: [
-      trae,
-      { name: "Kimi Code", description: "Useful for code Q&A, file understanding, and agent-style development assistance.", url: "https://www.kimi.com/", country: "cn", tags: ["coding", "agent", "Chinese"] },
+      kimiCode,
+      traeWork,
       { name: "Cline + DeepSeek", description: "Open-source VS Code agent paired with Chinese models for a more controllable local workflow.", url: "https://cline.bot/", country: "global", icon: icon.cline, tags: ["open source", "VS Code", "local models"] },
     ],
-    reason: "Claude Code is about terminal workflows and project understanding. Regional paths often start with TRAE, Kimi, or an open-source agent plus a local/provider model.",
+    reason: "Claude Code is about terminal workflows and project understanding. Regional paths often start with Kimi Code, TRAE Work, or an open-source agent plus a local/provider model.",
     bestFor: ["terminal flow", "project understanding", "controllable setup"],
   },
   {
