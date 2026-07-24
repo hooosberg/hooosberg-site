@@ -58,8 +58,8 @@ test("homepage and header focus on diaries, products, AI navigation, and contact
   ]);
 
   for (const [pageHtml, labels] of [
-    [html, ["笔记", "产品", "AI导航", "联系", "其他"]],
-    [enHtml, ["Notes", "Products", "AI Guide", "Contact", "More"]],
+    [html, ["笔记", "产品", "AI导航", "联系", "定制服务", "其他"]],
+    [enHtml, ["Notes", "Products", "AI Guide", "Contact", "Custom Services", "More"]],
   ]) {
     const navMatch = pageHtml.match(/<nav class="nav-links"[\s\S]*?<\/nav>/);
     assert.ok(navMatch, "primary navigation should render");
@@ -72,9 +72,10 @@ test("homepage and header focus on diaries, products, AI navigation, and contact
 
   assert.match(html, /class="nav-more"/, "Chinese header should group lower-priority routes in a More menu");
   assert.match(html, /href="\/courses"[\s\S]*课程/, "Chinese More menu should include courses");
-  assert.match(html, /href="\/services"[\s\S]*企业服务/, "Chinese More menu should include enterprise services");
+  assert.match(html, /href="\/services"[\s\S]*定制服务/, "Chinese primary navigation should include custom services");
   const flatNavHtml = (html.match(/<nav class="nav-links"[\s\S]*?<details class="nav-more">/)?.[0] ?? "");
-  assert.doesNotMatch(flatNavHtml, /href="\/courses"|href="\/services"/, "courses and services should not remain as flat primary nav links");
+  assert.match(flatNavHtml, /href="\/services"/, "custom services should be a flat primary nav link");
+  assert.doesNotMatch(flatNavHtml, /href="\/courses"/, "courses should remain in the More menu");
 
   assert.ok(html.indexOf('id="articles"') < html.indexOf('class="landing-section home-products-section"'), "Chinese homepage should lead from diaries into products");
   assert.ok(html.indexOf('class="landing-section home-products-section"') < html.indexOf('id="ai-navigation"'), "Chinese homepage should place AI navigation after products");

@@ -30,15 +30,13 @@ test("courses and services render as separate commerce pages", async () => {
   assert.doesNotMatch(coursesHtml, /预购买断价 1499 元/, "courses page should not show the old pre-order pricing label");
   assert.doesNotMatch(coursesHtml, /AI 企业落地顾问/, "courses page should not render service cards");
 
-  assert.match(servicesHtml, /企业服务/, "services page should render the enterprise service heading");
+  assert.match(servicesHtml, /定制服务/, "services page should render the custom services heading");
   assert.doesNotMatch(servicesHtml, /class="commerce-kicker">Services/, "Chinese services page should not show the old English hero kicker");
   assert.doesNotMatch(servicesHtml, /class="course-hero-tags"/, "services page should not render hero scope tags");
-  assert.match(servicesHtml, /企业 AI 战略与落地规划/, "services page should use professional enterprise service naming");
-  assert.match(servicesHtml, /企业级 AI Agent 与自动化系统定制/, "services page should name custom agent work as an enterprise system service");
-  assert.match(servicesHtml, /10w 起/, "services page should show enterprise pricing from 10w");
-  assert.match(servicesHtml, /30w 起/, "services page should show high-end custom system pricing in w units");
-  assert.doesNotMatch(servicesHtml, /\d{4} 元/, "services page should not show low four-digit RMB pricing");
-  assert.doesNotMatch(servicesHtml, /1499 - 8999 元/, "services page should not show the old low service price range");
+  assert.match(servicesHtml, /WorkBuddy 专家定制/, "services page should include WorkBuddy expert customization");
+  assert.match(servicesHtml, /WorkBuddy 技能定制/, "services page should include WorkBuddy skill customization");
+  assert.equal((servicesHtml.match(/1500 元/g) ?? []).length, 3, "services page should show the unified RMB 1500 price in its heading and both cards");
+  assert.doesNotMatch(servicesHtml, /10w 起|30w 起/, "services page should not show enterprise pricing");
   assert.doesNotMatch(servicesHtml, /未来课程方向/, "services page should not render course cards");
 });
 
@@ -46,6 +44,6 @@ test("header links service navigation to the standalone services page", async ()
   const coursesHtml = await readFile(coursesPage, "utf8");
 
   assert.match(coursesHtml, /href="\/services"/, "header service link should point to /services");
-  assert.match(coursesHtml, /企业服务/, "header service link should use the enterprise service label");
+  assert.match(coursesHtml, /定制服务/, "header service link should use the custom services label");
   assert.doesNotMatch(coursesHtml, /href="\/courses#services"/, "service link should not point to an in-page anchor");
 });

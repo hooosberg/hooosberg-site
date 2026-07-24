@@ -1,83 +1,50 @@
 ---
 import {
   ArrowRight,
-  BarChart3,
-  BriefcaseBusiness,
-  Building2,
-  Palette,
-  Search,
   Wrench,
+  UserRoundCog,
 } from "@lucide/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { buildSectionWebPageJsonLd } from "../../utils/structuredData";
 
 const services = [
   {
-    title: "企业 AI 战略与落地规划",
-    description: "面向管理层和业务负责人，梳理业务目标、组织现状、可落地场景和阶段路线图，输出企业 AI 转型优先级。",
-    price: "10w 起",
-    note: "适合战略评估、年度 AI 规划和试点项目启动",
-    icon: Building2,
+    title: "WorkBuddy 专家定制",
+    description: "根据你的业务目标和日常工作方式，定制 WorkBuddy 的使用方案、任务流程与专家级协作方法。",
+    price: "1500 元",
+    note: "一对一梳理需求，交付可直接执行的定制方案",
+    icon: UserRoundCog,
   },
   {
-    title: "企业 AI 工作流重构咨询",
-    description: "围绕销售、运营、内容、客服、研发和管理流程，拆解岗位动作、数据流和审批节点，设计可执行的 AI 工作流。",
-    price: "15w 起",
-    note: "按部门数量、访谈范围和流程复杂度报价",
-    icon: BriefcaseBusiness,
-  },
-  {
-    title: "AI 产品战略与商业化顾问",
-    description: "从产品定位、目标客户、定价模型、交付边界和增长路径出发，帮助 AI 产品建立可验证的商业闭环。",
-    price: "12w 起",
-    note: "适合新产品立项、融资前梳理或上线前复盘",
-    icon: BarChart3,
-  },
-  {
-    title: "产品体验与增长诊断",
-    description: "针对网页、App、SaaS 或内部工具，输出体验路径、功能优先级、转化表达和改版建议清单。",
-    price: "10w 起",
-    note: "含诊断报告、关键页面建议和一次复盘沟通",
-    icon: Search,
-  },
-  {
-    title: "品牌美学与产品叙事顾问",
-    description: "把艺术、建筑和产品表达结合起来，统一品牌气质、视觉系统、交互风格和内容叙事。",
-    price: "10w 起",
-    note: "适合品牌升级、官网改版和高端产品表达",
-    icon: Palette,
-  },
-  {
-    title: "企业级 AI Agent 与自动化系统定制",
-    description: "为企业重复任务定制 AI Agent、浏览器自动化、内部工具、数据处理模板和可交付的使用流程。",
-    price: "30w 起",
-    note: "按集成范围、数据权限、交付周期和维护要求报价",
+    title: "WorkBuddy 技能定制",
+    description: "围绕具体任务设计和配置 WorkBuddy 技能，让重复工作形成稳定、可复用的工作流。",
+    price: "1500 元",
+    note: "按实际使用场景定制技能与操作说明",
     icon: Wrench,
   },
 ];
-const pageDescription = "湖森堡AI_hooosberg 的 AI 企业落地、产品开发和艺术顾问服务。";
+const pageDescription = "湖森堡AI_hooosberg 提供 WorkBuddy 专家定制与技能定制服务。";
 const jsonLd = buildSectionWebPageJsonLd({
   locale: "zh-CN",
   path: "/services",
-  name: "湖森堡 AI 企业服务",
+  name: "湖森堡 WorkBuddy 定制服务",
   description: pageDescription,
-  topics: ["AI automation services", "AI workflow consulting", "AI product prototype service", "business automation with AI"],
+  topics: ["WorkBuddy custom service", "WorkBuddy expert customization", "WorkBuddy skill customization"],
 });
 ---
 
-<BaseLayout title="企业服务 | 湖森堡AI_hooosberg" description={pageDescription} jsonLd={jsonLd}>
+<BaseLayout title="定制服务 | 湖森堡AI_hooosberg" description={pageDescription} jsonLd={jsonLd}>
   <section class="page-hero page-hero--narrow courses-hero commerce-hero">
-    <h1>企业服务</h1>
+    <h1>定制服务</h1>
     <p>
-      提供面向企业团队和高价值项目的 AI 战略咨询、工作流重构、产品商业化、品牌美学和 AI Agent 系统定制。
-      服务以项目制交付为主，默认按企业级预算和落地复杂度评估。
+      围绕你的实际工作场景，提供 WorkBuddy 专家定制和技能定制服务，帮助你更高效地使用 AI 完成任务。
     </p>
   </section>
 
   <section class="catalog-section commerce-section service-section">
     <div class="section-line-heading course-section-heading commerce-section-heading">
-      <h2>企业服务项目</h2>
-      <span>10w - 30w+</span>
+      <h2>定制项目</h2>
+      <span>1500 元</span>
     </div>
 
     <div class="service-grid commerce-card-grid">
@@ -88,7 +55,7 @@ const jsonLd = buildSectionWebPageJsonLd({
           <article class="service-card commerce-card">
             <div class="commerce-card__top">
               <div class="course-icon"><Icon size={20} aria-hidden="true" /></div>
-              <span>企业项目</span>
+              <span>WorkBuddy 定制</span>
             </div>
             <h3>{service.title}</h3>
             <p>{service.description}</p>
@@ -98,7 +65,7 @@ const jsonLd = buildSectionWebPageJsonLd({
                 <small>{service.note}</small>
               </div>
               <a class="commerce-action" href="/links">
-                咨询服务
+                咨询
                 <ArrowRight size={15} aria-hidden="true" />
               </a>
             </div>

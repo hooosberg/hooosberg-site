@@ -1,81 +1,52 @@
 ---
-import { ArrowRight, BarChart3, BriefcaseBusiness, Building2, Palette, Search, Wrench } from "@lucide/astro";
+import { ArrowRight, UserRoundCog, Wrench } from "@lucide/astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { buildSectionWebPageJsonLd } from "../../../utils/structuredData";
 
 const services = [
   {
-    title: "Enterprise AI Strategy and Roadmap",
-    description: "Executive-level AI opportunity assessment, workflow prioritization, phased roadmap, and pilot planning.",
-    price: "from $14,800",
-    note: "For strategy reviews, annual AI planning, and pilot starts",
-    icon: Building2,
+    title: "WorkBuddy Expert Customization",
+    description: "A tailored WorkBuddy setup, task workflow, and expert collaboration approach built around your goals and working style.",
+    price: "RMB 1,500",
+    note: "One-to-one discovery and an actionable custom plan",
+    icon: UserRoundCog,
   },
   {
-    title: "AI Workflow Redesign Consulting",
-    description: "Break down sales, operations, content, support, R&D, and management workflows into AI-ready process maps.",
-    price: "from $22,200",
-    note: "Quoted by departments, interviews, and process complexity",
-    icon: BriefcaseBusiness,
-  },
-  {
-    title: "AI Product Strategy and Commercialization",
-    description: "Positioning, target customers, pricing, delivery boundaries, and growth paths for AI products.",
-    price: "from $17,700",
-    note: "For product validation, launch preparation, or pre-fundraising clarity",
-    icon: BarChart3,
-  },
-  {
-    title: "Product Experience and Growth Diagnosis",
-    description: "Audit websites, apps, SaaS products, or internal tools for user paths, priority, conversion, and redesign direction.",
-    price: "from $14,800",
-    note: "Includes diagnosis report, key page recommendations, and review call",
-    icon: Search,
-  },
-  {
-    title: "Brand Aesthetics and Product Narrative",
-    description: "Unify product tone, visual system, interaction style, and content narrative through an art-and-architecture lens.",
-    price: "from $14,800",
-    note: "For brand upgrades, product websites, and high-end product expression",
-    icon: Palette,
-  },
-  {
-    title: "Enterprise AI Agent and Automation Systems",
-    description: "Custom AI agents, browser automation, internal tools, data-processing templates, and operational workflows.",
-    price: "from $44,300",
-    note: "Quoted by integration scope, data access, delivery cycle, and support needs",
+    title: "WorkBuddy Skill Customization",
+    description: "Custom WorkBuddy skills for a specific task, turning repeat work into a reliable and reusable workflow.",
+    price: "RMB 1,500",
+    note: "Skills and operating guidance tailored to your use case",
     icon: Wrench,
   },
 ];
-const pageDescription = "Enterprise AI strategy, AI workflow consulting, product commercialization, brand aesthetics, and AI agent automation services.";
+const pageDescription = "WorkBuddy expert customization and skill customization services from Hooosberg.";
 const jsonLd = buildSectionWebPageJsonLd({
   locale: "en",
   path: "/en/services",
-  name: "Hooosberg Enterprise AI Services",
+  name: "Hooosberg WorkBuddy Custom Services",
   description: pageDescription,
-  topics: ["AI automation services", "AI workflow consulting", "AI product prototype service", "business automation with AI"],
+  topics: ["WorkBuddy custom service", "WorkBuddy expert customization", "WorkBuddy skill customization"],
 });
 ---
 
 <BaseLayout
   locale="en"
-  title="Enterprise Services | Hooosberg"
+  title="Custom Services | Hooosberg"
   description={pageDescription}
   canonicalPath="/en/services"
   jsonLd={jsonLd}
 >
   <section class="page-hero page-hero--narrow courses-hero commerce-hero">
-    <h1>Enterprise Services</h1>
+    <h1>Custom Services</h1>
     <p>
-      Enterprise-grade consulting for AI strategy, workflow redesign, product commercialization,
-      brand narrative, and custom AI agent systems.
+      WorkBuddy expert customization and skill customization, built around the way you actually work.
     </p>
   </section>
 
   <section class="catalog-section commerce-section service-section">
     <div class="section-line-heading course-section-heading commerce-section-heading">
-      <h2>Service Items</h2>
-      <span>$14,800 - $44,300+</span>
+      <h2>Custom Services</h2>
+      <span>RMB 1,500</span>
     </div>
 
     <div class="service-grid commerce-card-grid">
@@ -86,7 +57,7 @@ const jsonLd = buildSectionWebPageJsonLd({
           <article class="service-card commerce-card">
             <div class="commerce-card__top">
               <div class="course-icon"><Icon size={20} aria-hidden="true" /></div>
-              <span>Enterprise project</span>
+              <span>WorkBuddy custom</span>
             </div>
             <h3>{service.title}</h3>
             <p>{service.description}</p>

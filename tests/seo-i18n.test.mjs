@@ -113,8 +113,9 @@ test("English brand and pricing use localized presentation", async () => {
   assert.match(enHomeHtml, />Douyin</, "English footer/social links should translate Chinese platform names");
   assert.doesNotMatch(enHomeHtml, />湖森堡AI_hooosberg</, "English visible brand surfaces should not show the Chinese brand name");
   assert.match(combinedEnglish, /\$220/, "English course price should be displayed in USD");
-  assert.match(enServicesHtml, /\$14,800 - \$44,300\+/, "English service price range should be displayed in USD");
-  assert.doesNotMatch(combinedEnglish, /RMB|100k|1499 RMB/, "English pages should not expose RMB pricing");
+  assert.equal((enServicesHtml.match(/RMB 1,500/g) ?? []).length, 3, "English custom services should show the unified RMB 1,500 price in its heading and both cards");
+  assert.doesNotMatch(enServicesHtml, /\$14,800|\$44,300/, "English services should not show the retired enterprise price range");
+  assert.doesNotMatch(combinedEnglish, /100k|1499 RMB/, "English pages should not expose retired service pricing");
 });
 
 test("English articles localize visible tags and metadata keywords", async () => {
@@ -218,7 +219,7 @@ test("commercial and contact navigation pages expose focused WebPage entities", 
   assert.equal(courses?.["@id"], "https://hooosberg.com/courses#webpage", "Courses should expose a stable WebPage entity");
   assert.equal(courses?.about?.[0]?.name, "AI coding course", "Courses should expose its search topic");
   assert.equal(services?.["@id"], "https://hooosberg.com/services#webpage", "Services should expose a stable WebPage entity");
-  assert.equal(services?.about?.[0]?.name, "AI automation services", "Services should expose its search topic");
+  assert.equal(services?.about?.[0]?.name, "WorkBuddy custom service", "Services should expose its WorkBuddy customization topic");
   assert.equal(links?.["@id"], "https://hooosberg.com/links#webpage", "Contact links should expose a stable WebPage entity");
   assert.equal(links?.about?.[0]?.name, "Hooosberg official links", "Contact page should expose its search topic");
 });

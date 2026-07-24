@@ -164,9 +164,9 @@ test("AI navigation ranking cards do not duplicate the same customer product", a
 
 test("services page keeps consultation CTAs on the contact route", async () => {
   const html = await readFile(servicesPage, "utf8");
-  const serviceCtas = [...html.matchAll(/<a\s+class="commerce-action"[^>]*href="([^"]+)"[\s\S]*?咨询服务[\s\S]*?<\/a>/g)].map((match) => match[1]);
+  const serviceCtas = [...html.matchAll(/<a\s+class="commerce-action"[^>]*href="([^"]+)"[\s\S]*?咨询[\s\S]*?<\/a>/g)].map((match) => match[1]);
 
-  assert.equal(serviceCtas.length, 6, "services page should render one consultation CTA per service card");
+  assert.equal(serviceCtas.length, 2, "services page should render one consultation CTA per service card");
   assert.deepEqual([...new Set(serviceCtas)], ["/links"], "service consultation CTAs should route to the central contact page");
 
   const linksPage = new URL("../dist/links/index.html", import.meta.url);
