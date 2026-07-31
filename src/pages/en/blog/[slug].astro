@@ -1,5 +1,6 @@
 ---
 import { ExternalLink } from "@lucide/astro";
+import CopyableCodeBlock from "../../../components/CopyableCodeBlock.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { articles, type Article } from "../../../data/articles";
 import { products } from "../../../data/products";
@@ -98,7 +99,7 @@ const articleJsonLd = {
           <h2>{section.heading}</h2>
           {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
           {section.codeBlocks?.map((code) => (
-            <pre class="article-code-block"><code>{code}</code></pre>
+            <CopyableCodeBlock code={code} label="Copy prompt" copiedLabel="Copied" />
           ))}
         </section>
       ))}

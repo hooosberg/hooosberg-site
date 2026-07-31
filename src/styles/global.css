@@ -3401,13 +3401,18 @@ main.main--ai-directory {
   line-height: 1.92;
 }
 
+.article-code-card {
+  position: relative;
+  margin-top: 18px;
+}
+
 .article-code-block {
   overflow-x: auto;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: color-mix(in srgb, var(--surface-solid) 84%, transparent);
-  margin: 18px 0 0;
-  padding: 18px;
+  margin: 0;
+  padding: 18px 18px 60px;
   white-space: pre-wrap;
 }
 
@@ -3416,6 +3421,56 @@ main.main--ai-directory {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 14px;
   line-height: 1.75;
+}
+
+.copy-prompt-button {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--surface-solid) 94%, var(--bg));
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 680;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 160ms ease, color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.copy-prompt-button:hover,
+.copy-prompt-button:focus-visible {
+  border-color: var(--text);
+  color: var(--text);
+  outline: none;
+}
+
+.copy-prompt-button:active {
+  transform: translateY(1px);
+}
+
+.copy-prompt-button.is-copied {
+  border-color: color-mix(in srgb, #2d8a61 52%, var(--line));
+  background: color-mix(in srgb, #2d8a61 12%, var(--surface-solid));
+  color: #247552;
+}
+
+.copy-prompt-button.is-copied .copy-prompt-icon {
+  display: none;
+}
+
+.copy-prompt-button.is-copied::before {
+  width: 15px;
+  height: 15px;
+  content: "";
+  background: currentColor;
+  clip-path: polygon(15% 52%, 0 68%, 38% 100%, 100% 18%, 84% 3%, 36% 66%);
 }
 
 .legal-document header .product-icon {

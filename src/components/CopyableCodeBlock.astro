@@ -1,0 +1,70 @@
+---
+import { Copy } from "@lucide/astro";
+
+type Props = {
+  code: string;
+  label: string;
+  copiedLabel: string;
+};
+
+const { code, label, copiedLabel } = Astro.props;
+---
+
+<div class="article-code-card">
+  <pre class="article-code-block"><code>{code}</code></pre>
+  <button
+    class="copy-prompt-button"
+    type="button"
+    data-copy-prompt
+    data-copy-label={label}
+    data-copied-label={copiedLabel}
+    aria-label={label}
+  >
+    <Copy class="copy-prompt-icon" size={15} aria-hidden="true" />
+    <span>{label}</span>
+  </button>
+</div>
+
+<script>
+  const copyText = async (text: string) => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.append(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    textarea.remove();
+  };
+
+  document.querySelectorAll<HTMLButtonElement>("[data-copy-prompt]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const card = button.closest(".article-code-card");
+      const code = card?.querySelector("code")?.textContent;
+      if (!code) return;
+
+      const label = button.dataset.copyLabel ?? "Copy";
+      const copiedLabel = button.dataset.copiedLabel ?? "Copied";
+      const text = button.querySelector("span");
+
+      try {
+        await copyText(code);
+        button.classList.add("is-copied");
+        button.setAttribute("aria-label", copiedLabel);
+        if (text) text.textContent = copiedLabel;
+        window.setTimeout(() => {
+          button.classList.remove("is-copied");
+          button.setAttribute("aria-label", label);
+          if (text) text.textContent = label;
+        }, 1800);
+      } catch {
+        button.setAttribute("aria-label", label);
+      }
+    });
+  });
+</script>
