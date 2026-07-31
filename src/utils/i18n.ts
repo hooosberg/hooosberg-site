@@ -854,6 +854,48 @@ function makeEnglishArticleSections(article: Article, localizedProducts: Product
   const features = localizedProducts.flatMap((product) => product.features).slice(0, 6).join(", ");
   const productNames = localizedProducts.map((product) => product.displayName).join(", ");
 
+  if (article.diaryKind === "video") {
+    const sourcePrompts = (article.sections ?? []).flatMap((section) => section.codeBlocks ?? []);
+    const sourceHeadings = (article.sections ?? []).map((section) => section.heading).join(", ") || "the lesson walkthrough";
+    return [
+      {
+        heading: "Lesson approach",
+        paragraphs: [
+          "This companion note follows the same order as the video: understand the work problem first, prepare the files and rules, run the prompts in sequence, then verify the output before treating it as usable.",
+          `The Chinese source lesson covers ${sourceHeadings}. It is designed as a practical workflow note, not a detached summary: the reader should be able to pause the video, complete one step, and return to the next step with evidence of what changed.`,
+        ],
+      },
+      {
+        heading: "How to study with the video",
+        paragraphs: [
+          "On the first pass, watch for the inputs, constraints, and expected outputs. On the second pass, reproduce the workflow in a separate test folder. Keep source files unchanged and save generated reports, cleaned data, drafts, or exports in the designated output location.",
+          "Do not treat an AI response as a final decision. Check whether the task was fully specified, whether uncertain values were labelled, whether the result can be traced back to source material, and whether a human approval is needed before any submission, purchase, application, or external action.",
+        ],
+      },
+      {
+        heading: "Copy-ready source prompts",
+        paragraphs: sourcePrompts.length
+          ? ["The original prompts are kept below in Chinese so that the operational meaning used in the video is not weakened by translation. Replace every sample file name, person, company, amount, rule, and destination with verified information from your own task."]
+          : ["This lesson is primarily a workflow demonstration. Convert your own task into six fields—goal, available materials, rules, output, prohibited actions, and verification—before asking WorkBuddy to help."],
+        codeBlocks: sourcePrompts.length ? sourcePrompts : undefined,
+      },
+      {
+        heading: "Knowledge points and checks",
+        paragraphs: [
+          "The transferable skill is not a single prompt. It is the ability to turn scattered materials into a repeatable system: inputs have fixed locations, rules are written down, intermediate work is separated from final deliverables, and exceptions are visible instead of silently invented.",
+          "Before closing the task, verify four things: the input set is complete; unknown information is marked rather than guessed; the output is saved where the workflow expects it; and a small sample can be checked against the original files. High-impact decisions always remain subject to human review.",
+        ],
+      },
+      {
+        heading: "Wrap-up",
+        paragraphs: [
+          "Reuse the structure rather than copying the example blindly: define the objective and boundary, organize files and rules, run the steps in order, verify the result, and keep the workflow for the next similar task.",
+          "That is the central lesson behind this WorkBuddy series: AI becomes more reliable when work is expressed as a clear, inspectable process instead of a vague request for a finished answer.",
+        ],
+      },
+    ];
+  }
+
   if (article.diaryKind !== "product") {
     return [
       {

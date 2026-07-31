@@ -2100,6 +2100,51 @@ const ensureProductDiaryDetail = (
   ];
 };
 
+const ensureVideoTutorialDetail = (article: ArticleSeed, body: string[], sections?: ArticleSection[]) => {
+  const existingSections = sections ?? [];
+  const hasTemplate = existingSections.some((section) => section.heading === "如何使用这篇教程笔记");
+  if (hasTemplate) return { body, sections: existingSections };
+
+  const lessonName = article.title.replace(/^第\d+集｜/, "");
+  const tags = article.tags.filter((tag) => !["视频教程", "WorkBuddy", "课件", "提示词"].includes(tag)).join("、") || "AI 办公";
+  const sourceSections = existingSections.map((section) => section.heading).join("、") || "课程讲解";
+  const promptSection = existingSections.find((section) => section.codeBlocks?.length);
+
+  return {
+    body: [
+      ...body,
+      `这篇笔记按视频学习顺序重排，适合边看边做：先理解“${lessonName}”要解决的真实工作问题，再准备资料和工作区，随后逐段复制提示词执行，最后用核对清单确认结果。它不是脱离视频的泛泛文章，而是把课件、演示顺序和可复用方法留在同一页。`,
+      `本课关联的知识方向是 ${tags}。学习时不要把 WorkBuddy 当成一次性答案机器：先让它读取资料和规则，再让它提出处理方案，确认后才生成文件或结果。这样每一步都有来源、有边界，也更容易在下次同类任务里复用。`,
+    ],
+    sections: [
+      {
+        heading: "如何使用这篇教程笔记",
+        paragraphs: [
+          "先打开页面顶部的视频入口。第一次观看时只跟着理解问题、资料和流程；第二次再在自己的测试文件夹中执行提示词。不要直接把教学示例套进真实工资、投标、求职、采购或行政数据。",
+          "本文保留的课程段落包括：" + sourceSections + "。提示词按原有顺序排列；如果某一步要求先创建 README、检查报告或中间层文件，请先完成它，避免跳过规则就直接生成最终结果。",
+        ],
+      },
+      ...existingSections,
+      {
+        heading: "知识点与结果核对",
+        paragraphs: [
+          "知识点一：AI 办公的核心不是替人点击，而是把资料、规则、当前任务和输出位置组织成可重复执行的流程。知识点二：原始资料应保持不变，分析、清洗和草稿要另存，才能追溯错误。",
+          "完成后至少核对四件事：输入资料是否完整；AI 是否把不确定信息标记出来；输出是否保存到指定位置；抽样结果是否能回到原始资料复核。涉及对外提交、投递、下单、薪酬、招投标或正式业务系统时，最终决定仍由人承担。",
+        ],
+      },
+      {
+        heading: "课后总结",
+        paragraphs: [
+          `学完“${lessonName}”，带走的不应只是一段提示词，而是一套可复用的工作方法：先定义目标和边界，再整理资料和规则，按步骤执行，最后验证并沉淀到工作区。下一次遇到相似任务时，优先复用这个结构，再按实际业务调整。`,
+          promptSection
+            ? "提示词可以直接复制，但其中的文件夹名、字段、金额、公司名称、收件人和规则必须换成自己的真实且已核验的信息。"
+            : "这节课以方法和流程为主；建议把自己的任务写成“目标、现有资料、规则、输出、不能做什么、如何核对”六部分，再交给 WorkBuddy 处理。",
+        ],
+      },
+    ],
+  };
+};
+
 export const articles: Article[] = articleSeed.map((article) => {
   const diaryKind = article.diaryKind ?? "product";
   const productNames = article.productSlugs
@@ -2111,13 +2156,17 @@ export const articles: Article[] = articleSeed.map((article) => {
     : "";
 
   const baseBody = article.body ?? productFallbackBody(article, productNames);
+  const videoDetail = diaryKind === "video"
+    ? ensureVideoTutorialDetail(article, baseBody, article.sections)
+    : { body: baseBody, sections: article.sections };
 
   return {
     ...article,
     title: `${productTitlePrefix}${article.title}`,
     diaryKind,
     productLabel: productNames || undefined,
-    body: ensureProductDiaryDetail(article, baseBody, productNames, diaryKind),
+    body: ensureProductDiaryDetail(article, videoDetail.body, productNames, diaryKind),
+    sections: videoDetail.sections,
   };
 });
 
