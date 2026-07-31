@@ -772,6 +772,95 @@ export type LocalizedArticle = Omit<Article, "category"> & {
   category: string;
 };
 
+type EnglishVideoOverride = Pick<LocalizedArticle, "title" | "excerpt" | "body" | "sections">;
+
+const englishVideoArticleOverrides: Record<string, EnglishVideoOverride> = {
+  "video-workbuddy-lesson1-excel-automation": {
+    title: "Lesson 1 | Learn AI Office Automation with an Excel Scheduling Case",
+    excerpt: "Use a scheduling workbook to learn the safe order for AI-assisted spreadsheet work: inspect, plan, process, and verify.",
+    body: ["This introductory lesson uses a company scheduling workbook to show that reliable automation begins with understanding the file—not with asking AI to change it immediately.", "The practical sequence is simple: inspect every sheet and its fields, explain the existing rules, agree on a processing plan, create a new output, and spot-check the result against the source workbook."],
+    sections: [{ heading: "What to learn", paragraphs: ["Ask WorkBuddy to identify worksheets, people, dates, shifts, status fields, and missing or inconsistent values before it performs any edit.", "When the output is ready, compare a sample of source rows with the result and check date ranges, headcount, shift totals, and exception flags."], codeBlocks: ["Read this Excel workbook without modifying it. Explain the purpose of each worksheet, the important fields, their relationships, and any data issues that could affect later processing. Then propose a verification-friendly processing plan."] }],
+  },
+  "video-workbuddy-lesson2-ppt-murals": {
+    title: "Lesson 2 | Build a Tang-Dynasty Mural Presentation with AI",
+    excerpt: "Turn a presentation brief into an editable deck by separating narrative, slide copy, imagery, and visual direction.",
+    body: ["The case is a presentation on Tang-dynasty mural research and conservation. The lesson separates the public-education story from the museum team's fieldwork and future plan.", "Instead of asking for slides in one step, define the audience, outline, slide-level copy, image brief, and layout guidance first."],
+    sections: [{ heading: "Workflow", paragraphs: ["Start with an outline. Then specify every slide in three layers: concise on-slide text, an image brief for search or generation, and design direction for layout, color, hierarchy, and image placement.", "Before export, check text density, image overlap, title consistency, and visual rhythm between section-divider and content slides."], codeBlocks: ["Create an editable presentation about Tang-dynasty mural research and conservation. First provide an outline only. Then describe each slide with: (1) concise visible copy, (2) an image brief, and (3) design guidance for layout, type, color, and image placement."] }],
+  },
+  "video-workbuddy-lesson3-word-formatting": {
+    title: "Lesson 3 | Automate Formal Word Document Formatting",
+    excerpt: "Use an official-notice case to turn Word formatting requirements into an inspectable, repeatable delivery process.",
+    body: ["This lesson uses a performance-review notice, a formatting specification, and a stamp asset. The goal is to preserve the business meaning while making the document conform to a formal layout standard.", "AI should inspect before editing, create a new version rather than overwrite the source, and report every formatting change."],
+    sections: [{ heading: "Workflow", paragraphs: ["Identify the title, body, numbered sections, signature block, date, margins, and seal position. Compare them with the supplied specification before making changes.", "Review font and size consistency, paragraph spacing, indents, numbering continuity, signature placement, and whether the seal is transparent and clear of important text."], codeBlocks: ["Read the Word document and the formatting specification. List every mismatch before editing. Then create a new formatted version that preserves the original meaning, and report the changes to titles, body text, numbering, signature block, date, margins, and seal placement."] }],
+  },
+  "video-workbuddy-lesson4-image-editing": {
+    title: "Lesson 4 | Edit Images with WorkBuddy",
+    excerpt: "Make AI image editing reviewable by defining the target, local changes, versioned exports, and visual checks.",
+    body: ["The lesson treats image editing as a versioned production task rather than a vague request to make an image look better.", "Keep the original image, describe the exact areas that may change, export intermediate versions, and inspect the result before final delivery."],
+    sections: [{ heading: "Workflow", paragraphs: ["First ask the tool to observe the subject, background, text, edges, crop, and constraints. Confirm the target before it alters anything.", "For every important revision, save a separate version and check proportions, edges, text clarity, lower-edge cropping, and the overall composition."], codeBlocks: ["Inspect this image before making changes. Describe the subject, background, visible text, and details that may affect editing. Propose the steps, create a separate intermediate version, and then check proportions, edges, text clarity, and cropping before final export."] }],
+  },
+  "video-workbuddy-lesson5-ai-poster": {
+    title: "Lesson 5 | Create a Company Poster with AI",
+    excerpt: "A repeatable poster workflow: copy first, images second, composition third, then focused visual review.",
+    body: ["This lesson builds an A4 promotional poster for an industrial manufacturing company. Its core method is: 1) copy, 2) images, 3) composition, and 4) a deliberate review loop.", "The first version may take time. Once the process is saved as a skill, later posters can reuse the same content, asset, layout, and QA sequence."],
+    sections: [{ heading: "Design workflow", paragraphs: ["Start by confirming the headline, company introduction, services, qualifications, partners, and contact details. Only then decide which website assets to reuse, which images to source, and which ones to generate.", "In each review pass, name concrete defects: cropped logos, misaligned title groups, unreadable text, weak contrast, uneven service cards, incorrect partner-logo backgrounds, or poor print margins. Change only the stated issues and export a new numbered version."], codeBlocks: ["Create an A4 technology-style company poster. First turn the approved company information into headline, introduction, services, qualifications, partner, and contact copy. Next select or generate suitable images, then compose the poster. Save each revision as a separate JPEG at 300 dpi. In the review pass, check logo cropping, alignment, contrast, glass-panel readability, card consistency, partner logos, print margins, and bottom spacing."] }],
+  },
+  "video-workbuddy-lesson6-windows-cleanup": {
+    title: "Lesson 6 | Clean Up Unwanted Windows Software and Install Trusted Apps",
+    excerpt: "Use WorkBuddy to inspect software remnants carefully, verify what can safely be removed, and follow a clean installation path.",
+    body: ["The lesson connects two practices: removing unwanted software remnants and installing software from legitimate sources. Clean installation reduces the chance of stray folders, startup entries, and registry debris later.", "System-level cleanup is high-risk. AI should list targets and explain risk before removal; registry, startup, and service changes require human confirmation."],
+    sections: [{ heading: "Safe cleanup sequence", paragraphs: ["Inspect residual folders, registry references, startup items, suspicious entries, and scripts that could restore unwanted software. Do not stop at deleting a visible folder.", "After cleanup, run a second inspection for persistence mechanisms. For installations, confirm the source, version, target application, and overwrite decision."], codeBlocks: ["Inspect the listed residual software folders and related registry entries. Before removing anything, show the proposed targets and risks. Check for startup items, scheduled tasks, services, and scripts that could restore the software. After my confirmation, clean only the verified remnants and produce a report."] }],
+  },
+  "video-workbuddy-lesson7-bidding-workspace": {
+    title: "Lesson 7 | Build a Reusable Tender Pricing Workspace",
+    excerpt: "Organize historical projects, evaluation rules, a current tender, and a README into a repeatable pricing-analysis workflow.",
+    body: ["This lesson is not about producing one spreadsheet. It is about building a workspace where historical records, applicable rules, current tender files, and human working instructions remain traceable.", "The reusable formula is: historical materials + rules + current task + a README work guide. New work begins only after the files and decision boundaries are organized."],
+    sections: [{ heading: "Workflow", paragraphs: ["Keep source files unchanged. Use the README to define folder purpose, required fields, processing order, output locations, and how to label missing rules, mismatched units, or uncertain data.", "For a current project, prefer its official tender rules. Explain why any historical project was selected as a comparison, and place scoring, comparison, and risk reports in the output folder. Archive only after the final result is confirmed."], codeBlocks: ["Inspect the historical-project, evaluation-rule, and current-project folders. Create a README that defines file purposes, protected source files, key fields, processing order, exception labels, outputs, and archiving rules. Do not calculate or modify source files yet."] }],
+  },
+  "video-workbuddy-lesson8-study-planning": {
+    title: "Lesson 8 | Build an AI-Assisted University Planning Workspace",
+    excerpt: "Compare domestic, Hong Kong/Macau or joint-program, and overseas routes with evidence—never with a promise of admission.",
+    body: ["The lesson helps families organize school data, planning rules, and a student profile. AI supports comparison and evidence gathering; it does not replace the official application system or the family's decision.", "Every recommendation must name its source, date, uncertainty, and official verification route. Classroom score examples are illustrative only."],
+    sections: [{ heading: "Three planning routes", paragraphs: ["For domestic programmes, verify provincial plans, university regulations, subject requirements, rank history, and admission rules. For Hong Kong/Macau and joint programmes, verify recruitment route, tuition, scholarships, English requirements, and qualification pathway. For overseas routes, verify official application systems, total cost, language and document requirements, visas, and progression options.", "A useful student profile records province, year, subjects, score and rank range, language level, budget, interests, location preferences, non-negotiables, and desired outcome. Missing official evidence must be labelled ‘to be verified’."], codeBlocks: ["Read the school data, pathway notes, and student profile. List source dates and missing information. Compare domestic, Hong Kong/Macau or joint-program, and overseas options. For each option, state fit, budget and language conditions, risks, official verification links, and what the family must confirm next. Never use ‘guaranteed admission’ language."] }],
+  },
+  "video-workbuddy-lesson9-job-expert": {
+    title: "Lesson 9 | Create Your Own AI Job-Search Expert",
+    excerpt: "Structure résumé intake, public job research, company due diligence, and human-approved applications into one workflow.",
+    body: ["The lesson separates an expert, reusable skills, and connectors. The expert makes the overall judgment; skills handle résumé matching and research; connectors access permitted public information or email tools.", "A recommendation is not an employment promise. Applications are a separate stage and must be approved by the person before any email is sent."],
+    sections: [{ heading: "Workflow", paragraphs: ["Start from a reviewable résumé draft. Search only public job information and investigate company background, compensation claims, and public risk signals.", "Before applying, present the role, company, fit rationale, risks, and delivery method for approval. Do not send an unapproved résumé or treat public online information as conclusive evidence."], codeBlocks: ["Create a job-search expert that uses public information to find suitable roles. Build a reviewable résumé profile first; then research role fit, company background, stated compensation and benefits, and public risk signals. Present a shortlist for my approval. Do not apply or email anyone until I explicitly confirm each target."] }],
+  },
+  "video-workbuddy-lesson10-meituan-coupons": {
+    title: "Lesson 10 | Automate a Daily Coupon Check Safely",
+    excerpt: "Use a small recurring-task example to learn triggers, success checks, failure handling, and human fallback.",
+    body: ["The coupon example is deliberately simple. The lesson is about how a recurring task needs a clear entry point, schedule, expected result, and failure notification.", "Account state, CAPTCHA challenges, changing campaign rules, confirmations, and payments remain human-controlled."],
+    sections: [{ heading: "Workflow", paragraphs: ["Describe where the task starts, when it runs, what it is allowed to claim, and how success is detected.", "If login expires, verification is requested, terms are unclear, or an action could cause payment or commitment, stop and notify the user rather than bypassing the control."], codeBlocks: ["Define a daily coupon-check task: specify the entry point, schedule, eligibility conditions, success signal, and failure handling. Never bypass CAPTCHA or platform restrictions. Pause and notify me whenever login, confirmation, payment, or unclear rules require human action."] }],
+  },
+  "video-workbuddy-lesson11-procurement-analysis": {
+    title: "Lesson 11 | Organize Purchasing and Procurement Analysis with AI",
+    excerpt: "Use a procurement assistant to turn a request into a reviewable purchasing list and spreadsheet—not an automatic purchase.",
+    body: ["This short lesson revisits the expert–skill–connector model: the procurement assistant owns the task, skills organize purchase data, and connectors work with approved files, spreadsheets, and communication channels.", "Unverified prices, stock, and supplier claims must never be treated as facts. Ordering, contracts, and payment require human review."],
+    sections: [{ heading: "Workflow", paragraphs: ["Begin with a small request, then collect product name, specification, quantity, budget, delivery date, supplier constraints, and acceptance standard before preparing options.", "Convert only confirmed items into a spreadsheet. Keep unknown details blank and mark them for confirmation."], codeBlocks: ["Procurement assistant: help me prepare a purchase request for LED lights. Ask for specifications, quantity, budget, delivery deadline, supplier constraints, and acceptance criteria. Produce a reviewable list and spreadsheet; leave unknown values blank and do not place an order."] }],
+  },
+  "video-workbuddy-lesson12-salary-workspace": {
+    title: "Lesson 12 | Build an Auditable Payroll Analysis Workspace",
+    excerpt: "Turn many inconsistent payroll files into a governed workspace with mappings, a standardized database, reports, and audit checks.",
+    body: ["The lesson does not ask AI to calculate payroll immediately. It first creates a long-lived project structure: source payroll files remain untouched; mappings, cleaning logs, exceptions, and the standardized database live in an intermediate layer; management reports live in a separate output folder.", "The six steps are workspace setup, source inspection, field mapping, cleaning and normalization, analysis, and audit. Uncertain fields, blank amounts, duplicates, and mismatched totals must be recorded rather than guessed."],
+    sections: [{ heading: "Six-step workflow", paragraphs: ["Create README and rule files, a payroll field guide, a job-title dictionary, intermediate processing, and output folders. Inspect departments, file counts, fields, naming differences, and possible issues before producing final statistics.", "Map inconsistent field names to a standard model, build a new standardized database without editing originals, then analyze roles, pay components, and department labour cost. Finally reconcile all totals, spot-check ten employees, and confirm that department totals equal the sum of role totals."], codeBlocks: ["Create a maintainable payroll-analysis workspace while keeping the original payroll folder read-only. Create a README, analysis rules, payroll-field guide, job-title dictionary, intermediate-processing folder, and output-report folder. Stop after setup. Next, inspect files and field differences; create a mapping; normalize data into a new database; log every missing, duplicate, or inconsistent value; produce analysis reports; and audit total reconciliation, ten sampled employees, and department-versus-role totals."] }],
+  },
+  "video-workbuddy-lesson14-excel-basics": {
+    title: "Lesson 14 | A Minimal Excel Workflow with WorkBuddy",
+    excerpt: "Learn Excel through business intent and result checking instead of memorizing every operation.",
+    body: ["The point is not to abandon Excel knowledge. It is to move the learning focus from clicking through features to understanding the data, stating the goal, and judging the result.", "Start with low-risk work such as summaries, filters, field explanations, and anomaly checks. Money, payroll, and submitted reports always need human review."],
+    sections: [{ heading: "Workflow", paragraphs: ["Ask WorkBuddy to read the workbook, explain sheets and fields, and identify possible data issues. Then state the business outcome in plain language and agree on the plan and output format.", "After processing, check the source and calculation logic for a sample of rows. Do not treat a polished spreadsheet as proof that the underlying rules were correct."], codeBlocks: ["Read this Excel file without modifying it. Explain each worksheet, key fields, and possible data issues. Then propose the automation steps that could support my business goal. Wait for my approval before creating output, and show the source and calculation logic for every result."] }],
+  },
+  "video-workbuddy-lesson15-workflow-dashboard": {
+    title: "Lesson 15 | Manage Work with Folders and a Web Dashboard",
+    excerpt: "Make recurring administrative work visible with stage folders, a written process, task records, and a dashboard.",
+    body: ["This lesson does not try to automate every action on a computer. It first makes the workflow visible: where materials are, what stage each item is in, what happens next, and what is close to its deadline.", "WorkBuddy can organize, check, summarize, and draft. Formal submission, case acceptance, completion, and any sensitive information still require human review."],
+    sections: [{ heading: "Workflow", paragraphs: ["A folder represents a business stage; moving a record changes its status; a process document captures the role rules; and a web dashboard shows the whole workload. The sample includes intake, certificate preparation, case handling, public-disclosure reporting, archiving, completed records, templates, and weekly outputs.", "The real job examples include data entry and document creation, periodic reporting, merging colleagues’ tables, retention and filing, exception follow-up, paper archives, platform deadlines, and weekly reporting. A weekly draft should show new, completed, pending, reported, archived, delayed, and next-week items."], codeBlocks: ["Read the workspace folders, the root process guide, and task records. Count items at every stage; identify the most urgent deadlines; flag missing required fields; list stage, record ID, organization, deadline, and next action; and draft a weekly report covering new, completed, pending, reporting, archiving, exceptions or delays, and next-week work. Do not modify source files or invent, expose, or send sensitive information."] }],
+  },
+};
+
 const titleCaseWord = (word: string) => {
   const upper = new Set(["ai", "api", "ios", "ui", "ux", "json", "dmg", "vfx", "iap", "qa", "mcp", "gpx", "kml", "mlx", "asc"]);
   if (upper.has(word.toLowerCase())) return word.toUpperCase();
@@ -959,6 +1048,18 @@ export function getLocalizedArticle(article: Article, locale: Locale): Localized
   const title = makeEnglishArticleTitle(article, localizedProducts);
   const category = categoryEn[article.category] ?? article.category;
   const tags = getLocalizedArticleTags(article.tags, locale);
+  const videoOverride = article.diaryKind === "video" ? englishVideoArticleOverrides[article.slug] : undefined;
+
+  if (videoOverride) {
+    return {
+      ...article,
+      ...videoOverride,
+      category,
+      tags,
+      videoMeta: article.videoUrl ? "Bilibili · WorkBuddy video lesson" : article.videoMeta,
+      productLabel: localizedProducts.map((product) => product.displayName).join(", ") || undefined,
+    };
+  }
 
   return {
     ...article,
