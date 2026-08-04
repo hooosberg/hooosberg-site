@@ -98,7 +98,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     videoUrl: "https://www.bilibili.com/video/BV1CCgr6nEyD/",
     videoMeta: "B 站：第 7 集｜WorkBuddy＋AI工作流＋Word",
     body: [
-      "视频入口：第 7 集待上传，发布后会替换为单集链接。",
+      "视频入口：第 7 集已发布，页面顶部提供对应的 B 站单集链接。",
       "这一课不是让 AI 临时做一张表，而是把招投标报价工作整理成一个长期可复用的工作区。核心结构是：历史资料 + 规则资料 + 当前任务 + README 工作说明。",
       "文件夹负责放资料：历史项目、评估办法和当前新项目各归各位。README 负责写清楚处理顺序、异常标记、输出位置和归档规则。以后只需要把新项目丢进 03_新项目，再用一句话启动 WorkBuddy。"
     ],

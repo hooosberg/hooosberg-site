@@ -73,13 +73,11 @@ test("blog index leads with video tutorial notes and maps published lessons to B
   ]);
   const firstTab = indexHtml.match(/<button[\s\S]*?class="diary-tab"[\s\S]*?<\/button>/)?.[0] ?? "";
 
-  assert.match(firstTab, /视频教程笔记[\s\S]*7 篇/, "video tutorial notes should be the first note section with one note per lesson");
+  assert.match(firstTab, /视频教程笔记[\s\S]*14 篇/, "video tutorial notes should be the first note section with one note per lesson");
   assert.match(indexHtml, /href="\/blog\/video-workbuddy-lesson7-bidding-workspace\?kind=video"/, "video notes should preserve their section in links");
   assert.match(articleHtml, /data-diary-kind="video"/, "video note detail should expose the video note kind");
   assert.match(articleHtml, /返回笔记/, "article detail should use the notes return label");
-  assert.match(articleHtml, /第 7 集视频待上传/, "unpublished video notes should show a placeholder state");
-  assert.match(articleHtml, /待上传/, "unpublished video notes should render a disabled upload placeholder");
-  assert.doesNotMatch(articleHtml, /href="https:\/\/www\.bilibili\.com\/video\//, "unpublished video notes should not invent an episode link");
+  assert.match(articleHtml, /href="https:\/\/www\.bilibili\.com\/video\/BV1CCgr6nEyD\//, "published video notes should link to the episode");
   for (const [index, lessonHtml] of publishedLessonHtml.entries()) {
     const { bvid } = publishedVideoArticlePages[index];
     assert.match(lessonHtml, new RegExp(`href="https://www\\.bilibili\\.com/video/${bvid}"`), `published video note should link to ${bvid}`);

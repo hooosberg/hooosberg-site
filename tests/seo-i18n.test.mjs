@@ -19,6 +19,8 @@ const enArticlePage = new URL("../dist/en/blog/drowsebook-market-research/index.
 const enGlotShotArticlePage = new URL("../dist/en/blog/glotshot-app-store-lessons/index.html", import.meta.url);
 const robotsPage = new URL("../dist/robots.txt", import.meta.url);
 const sitemapIndex = new URL("../dist/sitemap-index.xml", import.meta.url);
+const sitemap = new URL("../dist/sitemap-0.xml", import.meta.url);
+const notFoundPage = new URL("../dist/404.html", import.meta.url);
 
 function jsonLdItems(html) {
   return [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((match) =>
@@ -54,7 +56,7 @@ test("core pages expose canonical, hreflang, social metadata, and JSON-LD", asyn
   assert.match(productHtml, /name="twitter:card" content="summary_large_image"/, "Twitter card should render");
   assert.match(productHtml, /"@type":"SoftwareApplication"/, "product pages should include SoftwareApplication JSON-LD");
   assert.match(productHtml, /"publisher":\{"@type":"Organization","name":"Hooosberg"/, "product JSON-LD should connect apps to the site organization");
-  assert.match(productHtml, /"downloadUrl":"https:\/\/apps\.apple\.com\/us\/app\/witnote-local-ai-writer\/id6756833873"/, "product JSON-LD should expose the primary download URL");
+  assert.match(productHtml, /"downloadUrl":"https:\/\/apps\.apple\.com\/us\/app\/witnote-ai-writer-reader-hub\/id6756833873\?mt=12"/, "product JSON-LD should expose the primary download URL");
   assert.match(productHtml, /"sameAs":\["https:\/\/github\.com\/hooosberg\/WitNote"/, "product JSON-LD should expose repo and legacy/canonical profiles as sameAs");
   assert.match(productHtml, /"keywords":\[/, "product JSON-LD should expose searchable product keywords");
   assert.match(productHtml, /"@id":"https:\/\/hooosberg\.com\/apps\/witnote#webpage"/, "product pages should identify themselves as independent landing pages");
@@ -63,11 +65,23 @@ test("core pages expose canonical, hreflang, social metadata, and JSON-LD", asyn
   assert.match(enProductHtml, /<html[^>]*lang="en"/, "English product should use an English html lang");
   assert.match(enProductHtml, /<link rel="canonical" href="https:\/\/hooosberg\.com\/en\/apps\/witnote">/, "English product should canonicalize to the /en product URL");
   assert.match(enProductHtml, /hreflang="zh-CN" href="https:\/\/hooosberg\.com\/apps\/witnote"/, "English product should link back to Chinese alternate");
-  assert.match(enProductHtml, /Local-first AI writing app/, "English product content should be translated");
+  assert.match(enProductHtml, /Local Markdown and AI writing workspace/, "English product content should be translated");
 
   assert.match(articleHtml, /"@type":"BlogPosting"/, "Chinese article should include BlogPosting JSON-LD");
   assert.match(enArticleHtml, /<link rel="canonical" href="https:\/\/hooosberg\.com\/en\/blog\/drowsebook-market-research">/, "English article should canonicalize to /en/blog");
   assert.match(enArticleHtml, /This English page is generated from the same public product facts/, "English article should render an indexable English body");
+});
+
+test("SEO URLs use one canonical form and the static 404 page stays out of search", async () => {
+  const [sitemapHtml, notFoundHtml] = await Promise.all([
+    readFile(sitemap, "utf8"),
+    readFile(notFoundPage, "utf8"),
+  ]);
+
+  assert.match(sitemapHtml, /<loc>https:\/\/hooosberg\.com\/ai-navigation<\/loc>/, "sitemap URLs should match canonical URLs without a trailing slash");
+  assert.doesNotMatch(sitemapHtml, /<loc>https:\/\/hooosberg\.com\/ai-navigation\/<\/loc>/, "sitemap should not publish a second trailing-slash URL");
+  assert.match(notFoundHtml, /<meta name="robots" content="noindex, follow">/, "404 page should not be indexed");
+  assert.match(notFoundHtml, /这个页面没有找到/, "404 page should provide a useful visitor-facing response");
 });
 
 test("homepages expose organization website entities and automatic locale routing", async () => {

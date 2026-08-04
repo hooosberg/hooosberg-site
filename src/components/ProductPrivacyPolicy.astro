@@ -10,12 +10,17 @@ const { product } = Astro.props;
 const isMoodButton = product.slug === "mood-button";
 const isSumiMahjong = product.slug === "sumi-mahjong";
 const isRushi = product.slug === "rushi";
-const updatedDate = isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const isWitNote = product.slug === "witnote";
+const updatedDate = isWitNote ? "2026-08-05" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const distributionText = product.hideSourceLinks
   ? `This privacy policy applies to ${product.displayName}. Product delivery for this app happens through the App Store and the linked Hooosberg product website.`
+  : isWitNote
+    ? `This privacy policy applies to ${product.displayName}. Product delivery happens through the Apple App Store and the linked Hooosberg product website. The website and the app are first-party product surfaces; a GitHub repository is provided as a public source and notice reference.`
   : `This privacy policy applies to ${product.displayName}. Product delivery may happen through App Store, Chrome Web Store, GitHub Releases, or the linked product website depending on the product page.`;
 const platformServicesText = product.hideSourceLinks
   ? "When you download, purchase, update, or review this product through Apple App Store, Apple may process account, payment, device, crash, or store activity data under its own privacy policy."
+  : isWitNote
+    ? "When you download, purchase, update, or review WitNote through Apple App Store, Apple may process account, payment, device, crash, or store activity data under Apple's own privacy policy. WitNote may access the network for an optional model download, Apple StoreKit purchase or restore, or a page the user explicitly opens. WitNote does not require a Hooosberg account, run advertising, or maintain a hosted user profile."
   : "When you download, purchase, update, or review this product through Apple, Google, GitHub, Chrome Web Store, or another platform, that platform may process account, payment, device, crash, or store activity data under its own privacy policy.";
 ---
 
@@ -47,6 +52,41 @@ const platformServicesText = product.hideSourceLinks
         <div class="privacy-row"><strong>Advertising or third-party analytics</strong><span>{product.privacy.analytics ? "Disclosed when used" : "Not listed for this product"}</span></div>
       </div>
     </section>
+
+    {isWitNote && (
+      <>
+        <section>
+          <h2>WitNote Data Flow</h2>
+          <p>WitNote is a local-first macOS Markdown writing and knowledge workspace. The folders, Markdown documents, notes, imported files, exports, and app settings selected by the user are handled on the Mac. WitNote does not require a Hooosberg account, run advertising, or maintain a server-side writing profile.</p>
+          <div class="privacy-list">
+            <div class="privacy-row"><strong>Local files and folders</strong><span>WitNote accesses the folder and files that the user chooses through macOS file access. The user remains responsible for backups, permissions, and the contents of imported or exported files.</span></div>
+            <div class="privacy-row"><strong>Local AI inference</strong><span>When a local model is selected, prompts and responses are processed on the Mac through the app's local MLX runtime. The app does not default to sending those documents to a hosted AI service.</span></div>
+            <div class="privacy-row"><strong>App settings and model selection</strong><span>Stored locally so the app can remember the selected workspace, interface preferences, and available local models.</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Local AI and Model Downloads</h2>
+          <p>WitNote 2.0.1 uses a native Swift macOS interface and a local MLX inference route. A small Qwen3 0.6B 4-bit model is bundled so a new user can start without a first model download. Optional model downloads are performed only when the user selects a model or retries a download; the downloaded files are saved in the app's local model directory and are not uploaded by WitNote.</p>
+          <p>MLX and Qwen are third-party open-source or model projects with their own notices and license terms. The app package includes third-party notices and the bundled model's license files. User-downloaded models remain subject to the model source's license, acceptable-use rules, and any attribution requirements. See <a href="https://github.com/ml-explore/mlx" target="_blank" rel="noreferrer">MLX</a> and the <a href="https://huggingface.co/Qwen/Qwen3-0.6B" target="_blank" rel="noreferrer">Qwen3 model page</a> for source information.</p>
+        </section>
+
+        <section>
+          <h2>In-App Purchases</h2>
+          <p>The optional Lifetime purchase for format-conversion features is handled by Apple App Store and StoreKit. WitNote uses StoreKit to verify the purchase and restore it on a user's Apple account. Hooosberg does not receive the user's Apple ID, payment method, billing address, or App Store credentials. Refunds, billing questions, and account-level purchase records are handled by Apple.</p>
+        </section>
+
+        <section>
+          <h2>Third-Party Notices</h2>
+          <p>The installed app includes a <code>ThirdPartyNotices.txt</code> file and bundled Qwen3 <code>LICENSE</code> and <code>NOTICE</code> files where applicable. MLX, Qwen, and any subsequently downloaded model are credited separately from WitNote's own application code. Users should review the relevant source notice before redistributing model files or generated packages.</p>
+        </section>
+
+        <section>
+          <h2>Network and External Links</h2>
+          <p>WitNote may use the network for user-initiated model downloads, Apple StoreKit purchase or restore flows, and pages the user explicitly opens, such as support, privacy, terms, or model-source pages. The core Markdown workspace and local inference path are designed to work without a Hooosberg cloud account. External services process data under their own terms when the user chooses to access them.</p>
+        </section>
+      </>
+    )}
 
     {isMoodButton && (
       <>

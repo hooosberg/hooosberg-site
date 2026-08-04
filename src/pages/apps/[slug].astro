@@ -82,7 +82,7 @@ if (relatedArticles.length > 0) {
 }
 
 if (!product.hideSourceLinks && product.website) {
-  addAction({ label: "旧产品页", url: product.website, icon: "/icons/platform/web.svg" });
+  addAction({ label: product.slug === "witnote" ? "产品网站" : "旧产品页", url: product.website, icon: "/icons/platform/web.svg" });
 }
 
 addAction(product.secondaryAction);

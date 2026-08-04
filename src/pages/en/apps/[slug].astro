@@ -52,7 +52,7 @@ if (relatedArticles.length > 0) {
 }
 
 if (!product.hideSourceLinks && product.website) {
-  addAction({ label: "Legacy page", url: product.website, icon: "/icons/platform/web.svg" });
+  addAction({ label: product.slug === "witnote" ? "Product website" : "Legacy page", url: product.website, icon: "/icons/platform/web.svg" });
 }
 addAction(product.secondaryAction);
 

@@ -180,15 +180,15 @@ type EnglishProductOverride = {
 const productEnglish: Record<string, EnglishProductOverride> = {
   witnote: {
     displayName: "WitNote",
-    category: "Local-first AI writing app",
-    tagline: "Local-first AI writing and note-taking.",
-    summary: "A local-first writing workspace for macOS and Windows, built around private notes, Markdown, Ollama, local models, and OpenAI-compatible APIs.",
-    audience: "Writers, indie builders, and users who want a private AI writing environment.",
-    platforms: ["macOS", "Windows", "Local AI"],
-    status: ["App Store", "Open source", "Local-first"],
-    privacyNote: "Notes stay in the local folder selected by the user. When local models are used, writing content does not leave the device.",
-    features: ["WebLLM, Ollama, and OpenAI-compatible APIs", "Markdown and TXT editing", "Local folders as knowledge bases", "Writing roles, completion, and focus mode"],
-    courseHooks: ["AI writing tools", "Local-first architecture", "Multi-model integration", "App Store launch"],
+    category: "Local Markdown and AI writing workspace",
+    tagline: "Write in a local Markdown workspace with on-device AI assistance.",
+    summary: "WitNote 2.0.1 is a native macOS Markdown writing and knowledge workspace rebuilt in Swift, with local folders, format conversion, bilingual reading, and MLX local AI.",
+    audience: "Writers, researchers, and people who want their Markdown files to stay under their own control.",
+    platforms: ["macOS", "Native Swift", "Local MLX AI"],
+    status: ["Mac App Store", "2.0.1", "Local-first"],
+    privacyNote: "User-selected folders, Markdown documents, and exports stay local by default. Local inference does not send writing to a hosted AI service by default; model downloads, StoreKit, and user-opened external links are explicit network actions.",
+    features: ["Native Swift macOS workspace", "Markdown folders as a local knowledge base", "MLX local AI with a bundled Qwen3 starter model", "PDF / Word / EPUB conversion, bilingual reading, and writing assistance"],
+    courseHooks: ["Native Swift macOS", "Local AI and MLX", "Markdown knowledge workspaces", "App Store refactor launch"],
   },
   agentlimb: {
     category: "AI browser-control tool",
@@ -358,6 +358,40 @@ function buildEnglishDetail(product: Product, override: EnglishProductOverride) 
   const publicLinksText = product.hideSourceLinks
     ? "This page keeps the download path, privacy boundary, support contact, and build diary under one domain."
     : "This page keeps the download path, repository, privacy boundary, support contact, and build diary under one domain.";
+
+  if (product.slug === "witnote") {
+    return {
+      overview: [
+        "WitNote 2.0.1 is a major rewrite of an existing Mac App Store app. The product remains one App Store record, but the implementation now uses a native Swift macOS workspace and a local MLX inference route.",
+        "The center of the product is still the user's Markdown files: a selected folder becomes a working knowledge space for writing, reading, conversion, and review. AI stays beside the document instead of replacing the document as the source of truth.",
+        "The bundled Qwen3 0.6B 4-bit model gives a new user a ready local starting point. Additional model downloads are optional network actions and remain subject to the source model's own license and notice files.",
+      ],
+      proofPoints: [
+        { label: "Version", value: "2.0.1", note: "A major Swift-native rewrite of the existing Mac App Store product." },
+        { label: "Core", value: "Markdown workspace", note: "User-selected folders, editable documents, previews, and exports remain the center of the workflow." },
+        { label: "AI", value: "MLX + Qwen3", note: "A bundled lightweight model supports a quick local start; other downloaded models are disclosed separately." },
+        { label: "Privacy", value: "Local-first", note: override.privacyNote },
+      ],
+      valueProps: [
+        { title: "The document stays in charge", body: "WitNote treats Markdown files and folders as durable user-owned work, while AI actions remain contextual tools for drafting, rewriting, translation, and organization." },
+        { title: "Native Mac structure", body: "The rewrite moves the main workbench, file access, model management, settings, purchase restore, and window behavior into a Swift-native macOS architecture." },
+        { title: "Privacy with explicit boundaries", body: "Local files and local inference are separated from model downloads, StoreKit, and any external page the user chooses to open." },
+      ],
+      featureDetails: [
+        { title: "Markdown workspace", body: "Choose a local folder, edit Markdown documents, preview the rendered result, and keep the source files available to Finder and other tools." },
+        { title: "Local knowledge workflow", body: "Folder organization, search, notes, versions, and document context make the local directory useful as a lightweight knowledge base." },
+        { title: "MLX local AI", body: "The native app includes a Swift MLX runner and a bundled Qwen3 0.6B 4-bit starter model for local writing assistance on supported Macs." },
+        { title: "Reading and conversion", body: "PDF, Word, and EPUB workflows are positioned as supporting capabilities for bringing material into Markdown, bilingual reading, notes, and export." },
+        { title: "Release discipline", body: "The 2.0.1 release treats package signing, model notices, clean-start behavior, IAP restore, metadata, and App Review evidence as one connected acceptance chain." },
+      ],
+      principles: [
+        { title: "Keep the public promise reproducible", body: "The product page only describes the native Mac build, bundled model, and verified workflows that the submitted package can actually reproduce." },
+        { title: "Separate product code from model rights", body: "MLX, Qwen3, and any user-downloaded model remain credited through package notices and source terms instead of being presented as one proprietary asset." },
+        { title: "Make publishing part of engineering", body: "Privacy wording, support links, purchase recovery, model downloads, package integrity, and App Store metadata are tested against the same release candidate." },
+      ],
+      diaryIntro: "The new WitNote diary entry explains the 2.0.1 Swift-native rewrite, local Markdown architecture, MLX model path, model-management lessons, legal boundaries, and the release checks that connect engineering to App Store publishing.",
+    };
+  }
 
   if (product.slug === "rushi") {
     return {
@@ -861,6 +895,54 @@ const englishVideoArticleOverrides: Record<string, EnglishVideoOverride> = {
   },
 };
 
+const englishProductArticleOverrides: Record<string, EnglishVideoOverride> = {
+  "witnote-swift-native-2-0-1-refactor": {
+    title: "WitNote · 2.0.1 Refactor: Native Swift Workspace and Local MLX",
+    excerpt: "How WitNote rebuilt its existing Mac App Store product around a native Swift workspace, local Markdown files, and an MLX model path.",
+    body: [
+      "WitNote 2.0.1 remains the existing App Store product record, but its implementation has gone through a substantial native Swift rewrite. The goal was not to add noise; it was to bring Markdown writing, local files, format conversion, bilingual reading, and on-device AI back into one inspectable workflow.",
+      "The release gate therefore covers both engineering and store truth: a clean Mac must be able to start local AI, folder authorization must recover after a restart, model downloads must cancel and reset cleanly, Lifetime purchases must restore, and third-party model notices must ship with the package."
+    ],
+    sections: [
+      {
+        heading: "A native macOS workbench",
+        paragraphs: [
+          "The workbench, folder access, editor, preview, chat, model management, format conversion, and settings now have clearer Swift-native boundaries. Folder authorization must account for security-scoped bookmarks, restart recovery, and an explicit re-authorize path when the saved permission is no longer usable.",
+          "This makes WitNote a desktop workbench rather than a web surface in a window. Window lifecycle, menus, file permissions, cancellation, and error feedback are part of the product experience."
+        ]
+      },
+      {
+        heading: "Local Markdown remains the source of truth",
+        paragraphs: [
+          "Markdown files stay at the center. The folder and document list organize work, the editor changes it, preview and split view support reading, and conversion can deliver PDF, Word, EPUB, or another workflow. EPUB and bilingual reading are supporting capabilities; the product is positioned as a local Markdown writing and knowledge workspace.",
+          "The content path stays traceable: the user chooses the files and directory, the app works inside that permission boundary, and import, conversion, and export should not take control away from the original files."
+        ]
+      },
+      {
+        heading: "Local MLX and model management",
+        paragraphs: [
+          "The AI route uses local MLX inference. A lightweight Qwen3 0.6B 4-bit starter model is bundled so a new user can complete a local AI action before downloading anything else. Additional models are optional downloads, shown with hardware guidance and real file status.",
+          "The downloader separates received bytes, speed, remaining time, network waiting, cancellation, failure cleanup, and a fresh retry. An interrupted directory must not be mistaken for an installed model. Model selection refreshes across chat, bilingual translation, and other AI entry points without requiring a restart."
+        ]
+      },
+      {
+        heading: "Privacy, purchases, and third-party boundaries",
+        paragraphs: [
+          "Local files and local inference are the default boundary. Model downloads, Apple StoreKit, legal and support pages, and external links opened by the user are distinct network actions. Apple handles the Lifetime purchase and restore flow; WitNote only uses the StoreKit result and does not receive Apple ID or payment details.",
+          "MLX, Qwen, and subsequently downloaded models are not WitNote-owned assets. The package provides third-party notices and bundled model license files, while the website and About surface identify model sources without overstating their ownership or capabilities."
+        ]
+      },
+      {
+        heading: "The release gate",
+        paragraphs: [
+          "The 2.0.1 gate includes 1,300/1,300 automated tests, Distribution signing and a fixed SHA-256, a no-tools and no-cache first launch, Lifetime IAP purchase and restore, twelve-language checks, privacy and license notices, cancellation, memory, and long-text behavior.",
+          "These checks keep the website, App Store metadata, and submitted package aligned. A local AI feature that cannot be reproduced in a clean environment is not presented as delivered, and unverified performance is not turned into an absolute promise."
+        ]
+      }
+    ]
+  }
+};
+
 const titleCaseWord = (word: string) => {
   const upper = new Set(["ai", "api", "ios", "ui", "ux", "json", "dmg", "vfx", "iap", "qa", "mcp", "gpx", "kml", "mlx", "asc"]);
   if (upper.has(word.toLowerCase())) return word.toUpperCase();
@@ -1049,6 +1131,7 @@ export function getLocalizedArticle(article: Article, locale: Locale): Localized
   const category = categoryEn[article.category] ?? article.category;
   const tags = getLocalizedArticleTags(article.tags, locale);
   const videoOverride = article.diaryKind === "video" ? englishVideoArticleOverrides[article.slug] : undefined;
+  const productOverride = article.diaryKind === "product" ? englishProductArticleOverrides[article.slug] : undefined;
 
   if (videoOverride) {
     return {
@@ -1057,6 +1140,16 @@ export function getLocalizedArticle(article: Article, locale: Locale): Localized
       category,
       tags,
       videoMeta: article.videoUrl ? "Bilibili · WorkBuddy video lesson" : article.videoMeta,
+      productLabel: localizedProducts.map((product) => product.displayName).join(", ") || undefined,
+    };
+  }
+
+  if (productOverride) {
+    return {
+      ...article,
+      ...productOverride,
+      category,
+      tags,
       productLabel: localizedProducts.map((product) => product.displayName).join(", ") || undefined,
     };
   }

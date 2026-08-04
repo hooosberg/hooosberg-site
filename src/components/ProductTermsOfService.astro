@@ -9,15 +9,22 @@ type Props = {
 const { product } = Astro.props;
 const isSumiMahjong = product.slug === "sumi-mahjong";
 const isRushi = product.slug === "rushi";
-const updatedDate = isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const isWitNote = product.slug === "witnote";
+const updatedDate = isWitNote ? "2026-08-05" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const scopeText = product.hideSourceLinks
   ? "The product page, App Store download link, privacy policy, terms, and support contact define the current public product scope."
+  : isWitNote
+    ? "The product page, Apple App Store listing, privacy policy, terms, support contact, and public source and notice repository define the current public product scope. WitNote is a local-first macOS application; the website does not create a separate user account or hosted writing workspace."
   : "The product page, download link, source repository, and support contact define the current public product scope.";
 const purchasesText = product.hideSourceLinks
   ? "Downloads, purchases, in-app purchases, refunds, updates, and account-level store records are handled by Apple App Store and Apple StoreKit."
+  : isWitNote
+    ? "WitNote is distributed through Apple App Store. The optional Lifetime purchase is a non-consumable in-app purchase handled by Apple StoreKit; WitNote does not offer an auto-renewable subscription. Refunds, billing issues, and account-level purchase records are handled by Apple."
   : "Downloads, purchases, subscriptions, in-app purchases, refunds, updates, and account-level store records may be handled by the platform linked from the product page, such as Apple App Store, Chrome Web Store, GitHub Releases, or another distribution channel.";
 const thirdPartyText = product.hideSourceLinks
   ? "The app may use Apple platform services such as App Store, StoreKit, and iCloud/iOS system behavior where applicable. Apple's own terms and policies apply to those services."
+  : isWitNote
+    ? "WitNote may use Apple App Store and StoreKit, the MLX runtime, Qwen model files, and other model sources selected by the user. Each third-party service, runtime, model, or downloaded asset remains subject to its own license and terms."
   : "Some workflows may involve third-party systems selected by you, such as model APIs, app stores, browser accounts, GitHub, or cloud services. Their own terms and policies apply to those services.";
 ---
 
@@ -45,6 +52,8 @@ const thirdPartyText = product.hideSourceLinks
         <p>Sumi Mahjong is a casual tile matching game. Do not misuse the app, reverse engineer it, extract or redistribute its artwork, audio, icons, screenshots, code, or other bundled assets, or use it in ways that violate applicable law, platform rules, or third-party rights.</p>
       ) : isRushi ? (
         <p>Rushi is a personal scripture reading, mala counting, and copy-practice utility. It is not a religious service, publication service, donation service, medical or mental-health service, or promise of blessing, merit, salvation, or any spiritual outcome. Do not misuse the app, reverse engineer it, extract or redistribute bundled scripture, sound, calligraphy, copybook images, icons, screenshots, code, or other bundled assets outside their own source licenses, or use it in ways that violate applicable law, platform rules, or third-party rights.</p>
+      ) : isWitNote ? (
+        <p>WitNote is a local Markdown writing, knowledge, reading, conversion, and AI-assistance workspace. You are responsible for the files and content you import, the rights to that content, the prompts you submit, and how you use generated or converted output. Local AI output can be incomplete or inaccurate and must be reviewed before publication, submission, or another consequential use. Do not use the product in ways that violate applicable law, platform rules, model licenses, or third-party rights.</p>
       ) : (
         <p>You are responsible for how you use the product, the files or content you import, and any output you create with it. Do not use the product in ways that violate applicable law, platform rules, or third-party rights.</p>
       )}
@@ -57,6 +66,8 @@ const thirdPartyText = product.hideSourceLinks
         <p>Game progress, best times, settings, and local theme unlock state are stored on the device. You are responsible for your device security, backups, and iOS settings. Deleting the app may remove local app data according to iOS behavior.</p>
       ) : isRushi ? (
         <p>Reading state, mala counts, copy-practice works, settings, and local copy-practice unlock state are stored on the device. You are responsible for your device security, backups, iCloud/device settings, and any exports you create. Deleting the app may remove local app data according to iOS behavior.</p>
+      ) : isWitNote ? (
+        <p>WitNote stores the selected workspace, Markdown files, imports, exports, settings, and local model files on the Mac. You are responsible for macOS file permissions, device security, backups, and any model files you download from external sources. Removing the app or its local data may remove data that has not been backed up.</p>
       ) : (
         <p>When the product works with local files, local browser sessions, local app data, or local models, you remain responsible for maintaining your own backups and device security.</p>
       )}
@@ -71,6 +82,9 @@ const thirdPartyText = product.hideSourceLinks
       {isRushi && (
         <p>Core scripture reading, mala counting, and basic quiet practice features are free. The optional non-consumable in-app purchase Copy Practice Unlock unlocks copy-practice features, brush tracing, PDF export, and source-backed calligraphy copybooks through Apple StoreKit. Rushi does not offer auto-renewable subscriptions. Refunds, billing issues, and purchase records are handled by Apple under App Store rules.</p>
       )}
+      {isWitNote && (
+        <p>The local Markdown workspace and basic local model experience are available according to the current app build. The optional non-consumable Lifetime purchase unlocks format-conversion features through Apple StoreKit. WitNote does not offer an auto-renewable subscription. Restore Purchases uses Apple's StoreKit flow; refunds, billing issues, and purchase records are handled by Apple under App Store rules.</p>
+      )}
     </section>
 
     <section>
@@ -81,6 +95,9 @@ const thirdPartyText = product.hideSourceLinks
       )}
       {isRushi && (
         <p>Rushi does not include advertising networks, third-party analytics SDKs, social feeds, cloud accounts, hosted scripture sync, or third-party AI services. Bundled public-domain, open-license, or otherwise openly usable scripture, sound, and copybook source materials, including Liu Gongquan Diamond Sutra and Ouyang Xun Heart Sutra copybook sources where available, remain subject to their source notices and may not be extracted or reused outside the app except as allowed by those source terms.</p>
+      )}
+      {isWitNote && (
+        <p>WitNote includes or may download MLX-compatible model files, including Qwen3 variants. The app package exposes its third-party notices and bundled model license files. MLX, Qwen, and each downloaded model remain subject to their own licenses, model-use restrictions, and attribution requirements. Do not redistribute those files outside the rights granted by their sources.</p>
       )}
     </section>
 
