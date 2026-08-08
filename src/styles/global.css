@@ -3473,6 +3473,142 @@ main.main--ai-directory {
   clip-path: polygon(15% 52%, 0 68%, 38% 100%, 100% 18%, 84% 3%, 36% 66%);
 }
 
+.article-download-section {
+  margin-top: 52px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface-solid) 88%, var(--bg));
+  padding: 22px;
+}
+
+.article-download-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.article-download-kicker {
+  display: block;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.article-download-heading h2 {
+  margin: 6px 0 8px;
+  color: var(--text);
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.article-download-heading p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.article-download-format {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  min-height: 30px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--surface-solid);
+  color: var(--muted);
+  padding: 4px 9px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.article-download-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.article-download-resource {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+
+.article-download-file {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+}
+
+.article-download-file-icon {
+  display: grid;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--surface-solid);
+  color: var(--accent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.article-download-file strong {
+  display: block;
+  overflow-wrap: anywhere;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.article-download-file p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.article-download-button {
+  flex: none;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .article-download-section {
+    padding: 18px;
+  }
+
+  .article-download-heading {
+    display: block;
+  }
+
+  .article-download-format {
+    margin-top: 14px;
+  }
+
+  .article-download-resource {
+    display: grid;
+    align-items: start;
+  }
+
+  .article-download-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 .legal-document header .product-icon {
   margin-bottom: 24px;
 }

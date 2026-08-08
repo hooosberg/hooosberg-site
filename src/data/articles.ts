@@ -3,12 +3,22 @@ import { expandedProductDiaries } from "./expandedProductDiaries";
 import { defaultProductDiarySourceNote, productDiarySourceNotes } from "./productDiarySourceNotes";
 import { workbuddyLesson16Prompts } from "./workbuddyLesson16Prompts";
 import { workbuddyLesson21Prompts } from "./workbuddyLesson21Prompts";
+import { workbuddyLesson21Skill } from "./workbuddyLesson21Skill";
 import { workbuddyLesson22Prompt } from "./workbuddyLesson22Prompt";
 
 export type ArticleSection = {
   heading: string;
   paragraphs: string[];
   codeBlocks?: string[];
+};
+
+export type DownloadableResource = {
+  title: string;
+  titleEn?: string;
+  description: string;
+  descriptionEn?: string;
+  fileName: string;
+  content: string;
 };
 
 export type DiaryKind = "video" | "product" | "reading" | "thought" | "resource";
@@ -37,6 +47,7 @@ export type Article = {
   resourceMeta?: string;
   videoUrl?: string;
   videoMeta?: string;
+  downloadableResources?: DownloadableResource[];
   seriesOrder?: number;
   body: string[];
   sections?: ArticleSection[];
@@ -523,6 +534,14 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     tags: ["视频教程", "WorkBuddy", "PPT", "视觉设计", "Skill", "AI 配图"], productSlugs: [],
     videoUrl: "https://www.bilibili.com/video/BV1kguN6VExa/",
     videoMeta: "B 站：第 21 集｜WorkBuddy＋PPT",
+    downloadableResources: [{
+      title: "第21集｜视觉抽象插画 Skill",
+      titleEn: "Lesson 21 · Visual illustration Skill",
+      description: "完整原始 SKILL.md，可保存到 WorkBuddy 的 skills 目录或作为学习参考。",
+      descriptionEn: "The complete original SKILL.md. Save it to a WorkBuddy skills folder or use it as a reference.",
+      fileName: "workbuddy-lesson21-photo-to-modern-oriental-abstraction.md",
+      content: workbuddyLesson21Skill,
+    }],
     body: ["第 21 集解决的是 PPT 和 WorkBuddy 配图“能看但不好看”的问题。关键不是继续堆风格词，而是先从艺术参考中拆出可执行的视觉变量。", "课程经历三轮调试：水墨味过重、海报感太强，最后稳定为当代编辑插画、手绘速写、东方留白和现代主义减法的组合。最终 Skill 保留主体关系和原图取色，但删除 90% 以上无关细节。"],
     sections: [{ heading: "把审美写成规则", paragraphs: ["六个旋钮是信息密度、构图、颜色、线条、纹理和禁止项。最终配方要求保留 2–4 个核心形状、3–5 个低饱和色、65%–80% 留白，主体约占 35%–50%，并明确禁止写实、3D、厚重水墨、复杂背景和碰边。", "每一轮只改 1–3 个变量，才能知道哪条规则真正有效。以下保留 Word 课件中的三组原始提示词/Skill。"], codeBlocks: [...workbuddyLesson21Prompts] }],
   },
@@ -534,6 +553,14 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     tags: ["视频教程", "WorkBuddy", "微信", "客户管理", "聊天汇总", "AI 工作流"], productSlugs: [],
     videoUrl: "https://www.bilibili.com/video/BV1xcu563E3H/",
     videoMeta: "B 站：第 22 集｜WorkBuddy＋微信",
+    downloadableResources: [{
+      title: "第22集｜wechat-manager 完整配置提示词",
+      titleEn: "Lesson 22 · Complete wechat-manager prompt",
+      description: "完整提示词.md，包含安装、命令、只读边界、隐私和故障处理规则。",
+      descriptionEn: "The complete prompt.md with installation, commands, read-only boundaries, privacy, and troubleshooting rules.",
+      fileName: "workbuddy-lesson22-wechat-manager-prompt.md",
+      content: workbuddyLesson22Prompt,
+    }],
     body: ["第 22 集把 WorkBuddy 和本机微信聊天记录连接起来：从最近会话、未读消息和增量消息开始，进一步搜索关键词、读取历史、总结群聊、整理客户进度，并导出 Markdown 资料。", "第一版设计边界是只读、本机处理、增量追踪和大群安全：不发送、不修改、不删除；不上传微信数据库、密钥或完整聊天历史；超过 200 条消息时先落本地临时文件再分段处理。", "这不是一个简单的“读微信”功能，而是把碎片化聊天逐渐变成客户列表、项目进度、反馈库和待办来源。以下完整展现并保留课件提供的 `提示词.md`，便于学员直接复制学习。"],
     sections: [{ heading: "完整提示词｜wechat-manager Skill", paragraphs: ["这是第 22 集的完整安装配置提示词，包含 wechat-cli 检查、数据库初始化、Skill 目录、自然语言命令、群聊总结、导出、批量处理、隐私边界和故障处理。请先阅读边界，再在自己的本机环境中使用；不要把密钥文件内容粘贴给 AI。"], codeBlocks: [workbuddyLesson22Prompt] }],
   },

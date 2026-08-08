@@ -1,0 +1,51 @@
+---
+import { Download } from "@lucide/astro";
+import type { DownloadableResource } from "../data/articles";
+
+type Props = {
+  resources: DownloadableResource[];
+  locale?: "zh-CN" | "en";
+};
+
+const { resources, locale = "zh-CN" } = Astro.props;
+const isEnglish = locale === "en";
+---
+
+<section class="article-download-section" aria-label={isEnglish ? "Course resources" : "课程资源"}>
+  <div class="article-download-heading">
+    <div>
+      <span class="article-download-kicker">{isEnglish ? "Course resource" : "课程资源"}</span>
+      <h2>{isEnglish ? "Downloadable Skill / Markdown file" : "可下载的 Skill / Markdown 文件"}</h2>
+      <p>
+        {isEnglish
+          ? "Long-form Skills and prompts stay separate from the copyable blocks above, so you can save the original file and reuse it locally."
+          : "长篇 Skill 和提示词单独收在这里，不和上面的复制提示词混在一起；你可以直接下载原始文件，保存到本地复用。"}
+      </p>
+    </div>
+    <span class="article-download-format">.md</span>
+  </div>
+
+  <div class="article-download-list">
+    {resources.map((resource) => {
+      const title = isEnglish ? (resource.titleEn ?? resource.title) : resource.title;
+      const description = isEnglish ? (resource.descriptionEn ?? resource.description) : resource.description;
+      const href = `data:text/markdown;charset=utf-8,${encodeURIComponent(resource.content)}`;
+
+      return (
+        <div class="article-download-resource">
+          <div class="article-download-file">
+            <span class="article-download-file-icon" aria-hidden="true">MD</span>
+            <div>
+              <strong>{title}</strong>
+              <p>{description}</p>
+            </div>
+          </div>
+          <a class="button article-download-button" href={href} download={resource.fileName}>
+            <Download size={16} aria-hidden="true" />
+            {isEnglish ? "Download Markdown" : "下载 Markdown"}
+          </a>
+        </div>
+      );
+    })}
+  </div>
+</section>

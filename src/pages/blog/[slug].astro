@@ -1,6 +1,7 @@
 ---
 import { ExternalLink } from "@lucide/astro";
 import CopyableCodeBlock from "../../components/CopyableCodeBlock.astro";
+import ArticleDownloadResources from "../../components/ArticleDownloadResources.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { articles, type Article } from "../../data/articles";
 import { products } from "../../data/products";
@@ -101,6 +102,10 @@ const articleJsonLd = {
         </section>
       ))}
     </div>
+
+    {article.downloadableResources && article.downloadableResources.length > 0 && (
+      <ArticleDownloadResources resources={article.downloadableResources} />
+    )}
 
     {article.resourceUrl && (
       <div class="article-resource-actions">
