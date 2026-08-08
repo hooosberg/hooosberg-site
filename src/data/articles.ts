@@ -1,6 +1,9 @@
 import { products, type Product } from "./products";
 import { expandedProductDiaries } from "./expandedProductDiaries";
 import { defaultProductDiarySourceNote, productDiarySourceNotes } from "./productDiarySourceNotes";
+import { workbuddyLesson16Prompts } from "./workbuddyLesson16Prompts";
+import { workbuddyLesson21Prompts } from "./workbuddyLesson21Prompts";
+import { workbuddyLesson22Prompt } from "./workbuddyLesson22Prompt";
 
 export type ArticleSection = {
   heading: string;
@@ -456,6 +459,83 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     videoMeta: "B 站：第 15 集｜WorkBuddy＋工作流",
     body: ["这节课不追求把所有电脑操作自动化，而是先建立工作流程可视化：材料在哪里、事项到哪一步、下一步做什么、哪些任务快到期，都能一眼看清。WorkBuddy 负责整理、检查、汇总和生成草稿。"],
     sections: [{ heading: "核心思路与步骤", paragraphs: ["文件夹就是业务阶段，移动文件就是更新进度，流程说明文件就是岗位规则，网页工作台就是可视化看板。先把岗位工作装进统一工作区，再考虑沉淀为固定的岗位专家和技能。", "案例工作区包含流程说明、网页工作台、01_新收材料、02_待制证、03_待受理办结、04_双公示待报送、05_待整理归档、06_已完成归档、07_模板与规则、08_周报与输出。", "课件的原始岗位案例包括线上制证、每周“双公示”信息报送、纸质档案归档、平台受理办结和工作周报；其去敏后的补充版本还明确了多人表格合并、报送资料留档、阶段性字段提取、异常/延期标记以及周报应列出新增、完成、待处理、数据报送、归档、异常和下周安排。", "课堂按六步演示：看原始问题、打开编号文件夹、查看业务记录、模拟流转、打开网页工作台、让 WorkBuddy 统计临期任务并生成周报草稿。正式系统中的受理、办结和提交仍需人工复核，真实姓名、证件号、联系方式和平台账号不能由 AI 擅自补全或外传。"], codeBlocks: ["请读取当前工作区的文件夹结构、根目录《流程说明.md》以及各业务事项记录：\n1. 统计每个阶段的业务数量；\n2. 按截止日期找出最需要优先处理的事项；\n3. 检查业务是否缺少关键字段；\n4. 列出当前阶段、业务编号、单位名称、截止日期和下一步动作；\n5. 根据现有数据生成一份本周工作周报草稿，包含新增、完成、待处理、报送、归档、异常/延期与下周安排；\n6. 不修改原始文件，不补全、展示或外传任何真实敏感信息。"] }],
+  },
+  {
+    slug: "video-workbuddy-lesson16-inventory-dashboard",
+    title: "第16集｜WorkBuddy＋Excel：做一个每周自动更新的销售库存看板｜AI自动化办公",
+    category: "视频教程笔记", diaryKind: "video", date: "2026-08-02",
+    excerpt: "从一份虚构的女装门店原始数据开始，搭建可筛选、可追加历史周次、可复核的销售库存周报看板。",
+    tags: ["视频教程", "WorkBuddy", "Excel", "销售分析", "库存分析", "数据可视化"], productSlugs: [],
+    videoUrl: "https://www.bilibili.com/video/BV1ht3m6UEMV/",
+    videoMeta: "B 站：第 16 集｜WorkBuddy＋Excel",
+    body: ["第 16 集不直接交付一个做好的看板，而是只从《门店本周销售库存原始数据.xlsx》开始，让 WorkBuddy 逐步完成检查、建模、公式、可视化和每周更新机制。", "案例对应线下女装商品运营专员：每周看总盘、大区和门店的目标完成率、售罄率、动销率、毛利率、折扣、件单价、客单价，以及品类、色系、尺码和库存结构。历史周次只能追加，不能覆盖。"],
+    sections: [{ heading: "从原始数据到长期看板", paragraphs: ["工作簿分为 01_原始数据、02_参数与字典、03_指标汇总、04_可视化看板、05_门店对比和 06_使用说明。所有指标由公式驱动，周次、大区和门店通过下拉框筛选。", "核心口径必须先写清：目标完成率=销售额÷销售目标；售罄率=销售件数÷（期初库存＋到货）；动销率=有销量 SKU 数÷可售 SKU 数；毛利率=（销售额－销售成本）÷销售额；折扣=销售额÷吊牌价销售额；件单价=销售额÷销售件数；客单价=销售额÷成交单数。除法必须处理分母，不能出现 #DIV/0!。", "课件安排七步：检查原始字段与逻辑异常；创建工作簿和字典；搭建可筛选汇总页；制作 KPI 与图表；加入门店对比和异常识别；设计每周追加和历史保留；最后扫描公式错误并抽样复核。以下保留 Word 课件中的七个完整提示词。"], codeBlocks: [...workbuddyLesson16Prompts] }],
+  },
+  {
+    slug: "video-workbuddy-lesson17-xcode-agents",
+    title: "第17集｜Xcode 26.6打通Codex与Claude Code：AI开发iOS更方便了",
+    category: "视频教程笔记", diaryKind: "video", date: "2026-08-03",
+    excerpt: "实测 Xcode 26.6 如何让 Codex、Claude Code 等第三方 AI Agent 获取项目上下文并协作完成编译与测试。",
+    tags: ["视频", "Xcode", "Codex", "Claude Code", "MCP", "iOS 开发"], productSlugs: [],
+    videoUrl: "https://www.bilibili.com/video/BV1Dk3d63E1r/",
+    videoMeta: "B 站：第 17 集｜Xcode 26.6",
+    body: ["这一集是 AI 开发资讯与真实体验，不是 WorkBuddy Word 课件课，因此没有可按 Word 核对的提示词。内容聚焦 Xcode 26.6 对第三方 AI Agent 的连接能力。", "视频演示智能体与权限设置、连接 ChatGPT/Codex/Claude Code、读取当前项目上下文、调用 Xcode 编译与自动化测试，以及 Xcode MCP 与传统命令行工作方式的差异。"],
+    sections: [{ heading: "值得关注的变化", paragraphs: ["过去更多是 Codex 单方面读取项目并调用命令；更新后 Xcode 开始提供面向第三方 Agent 的协作入口，开发者可以减少在 IDE、终端和 AI 工具之间切换的成本。", "实际使用时仍应检查授权范围、编译结果和测试结果。AI 能够调用工具，不等于它自动理解了项目边界。"], codeBlocks: ["本集没有 Word 课件提示词；请在自己的 Xcode 项目中先确认第三方 Agent 权限，再让 AI 读取项目、提出变更计划，并在每次编译和测试后报告结果。"] }],
+  },
+  {
+    slug: "video-workbuddy-lesson18-hy3-model",
+    title: "第18集｜WorkBuddy重大消息：Hy3模型限时免费到8月底，AI办公学习最佳时机",
+    category: "视频教程笔记", diaryKind: "video", date: "2026-08-04",
+    excerpt: "了解 WorkBuddy 的模型选择、额度规则与 Hy3 限时免费活动，把低成本窗口用于真实办公练习。",
+    tags: ["视频", "WorkBuddy", "Hy3", "AI 模型", "AI 办公"], productSlugs: [],
+    videoUrl: "https://www.bilibili.com/video/BV1ypuP65Ev5/",
+    videoMeta: "B 站：第 18 集｜WorkBuddy 模型资讯",
+    body: ["这一集是 WorkBuddy 模型资讯，不是具体案例课，也没有独立 Word 课件。视频介绍 Hy3 模型在 8 月 31 日前的限时免费体验，以及不同模型的选择和额度消耗逻辑。", "学习重点不是追逐一个模型名称，而是理解什么任务需要强推理、什么任务可以用更轻量的模型，以及如何把免费窗口用于文档、Excel、PPT、代码和工作流练习。"],
+    sections: [{ heading: "模型选择方法", paragraphs: ["先看任务复杂度、上下文长度、是否需要工具调用和结果风险，再决定模型。简单整理、草稿和分类不必一开始就使用最强模型；涉及复杂推理、代码或关键业务结果时，再提高模型能力。", "活动与额度规则会变化，使用前要以 WorkBuddy 当前页面为准；不要把历史免费政策当作长期承诺。"], codeBlocks: ["本集没有 Word 课件提示词；请先描述任务目标、输入资料、风险和验收标准，再选择合适的 WorkBuddy 模型，并在执行后检查额度与结果。"] }],
+  },
+  {
+    slug: "video-workbuddy-lesson19-agentlimb-forum-posting",
+    title: "第19集｜WorkBuddy＋AgentLimb：让AI自动发论坛帖子 ｜AI自动化办公",
+    category: "视频教程笔记", diaryKind: "video", date: "2026-08-06",
+    excerpt: "用 AgentLimb 操作浏览器并把成功的网页操作保存为可复用的肌肉记忆，理解浏览器自动化的边界。",
+    tags: ["视频教程", "WorkBuddy", "AgentLimb", "浏览器自动化", "肌肉记忆"], productSlugs: [],
+    videoUrl: "https://www.bilibili.com/video/BV1zyuJ6jE4Q/",
+    videoMeta: "B 站：第 19 集｜WorkBuddy＋AgentLimb",
+    body: ["第 19 集讲 MCP 浏览器操作和 AgentLimb 的肌肉记忆：让 AI 在浏览器中完成一次明确任务，成功后保存稳定的操作经验，下一次可以直接复用。", "论坛发帖只是演示场景。同样的方法可以延伸到公众号发文、视频后台填写、网页信息采集等，但涉及公开发布时必须保留内容审核、账号权限和人工确认。"],
+    sections: [{ heading: "两个课件提示词", paragraphs: ["第一个提示词描述完整任务：打开百度贴吧、选择一个合适的贴吧、发布合适内容，成功后保存为肌肉。第二个提示词直接调用已经保存的肌肉记忆。", "以下按 Word 课件原文保留，不代表可以绕过平台规则或自动发布未经审核的内容。"], codeBlocks: ["提示词 1\n你使用AgentLimb操作我们的浏览器，打开百度贴吧随机在一个贴吧发一个合适的随机内容，内容发送完成后，如果成功，保存成肌肉，方便我们下次快速发帖", "提示词 2\n使用agentlimb 的肌肉记忆 在百度贴吧发帖子"] }],
+  },
+  {
+    slug: "video-workbuddy-lesson20-expense-reimbursement-skill",
+    title: "第20集｜WorkBuddy＋word：ai自动核对报销表生成固定skills",
+    category: "视频教程笔记", diaryKind: "video", date: "2026-08-07",
+    excerpt: "让 WorkBuddy 读取 Word 中的截图和表格，核对报销金额，并把流程沉淀为可复用 Skill。",
+    tags: ["视频教程", "WorkBuddy", "Word", "报销核对", "Skill"], productSlugs: [],
+    videoUrl: "https://www.bilibili.com/video/BV1QnuH66Efc/",
+    videoMeta: "B 站：第 20 集｜WorkBuddy＋Word",
+    body: ["这一课的能力边界很清楚：AI 可以读取 Word 文档里的图片、截图和表格，按规则做金额核对，并把稳定流程生成 Skill；它不是替财务人员做最终审批。", "先核对单张报销表，再把过程固化为 Skill，最后批量核查文件夹内 8 月所有人的报销单。异常要返回原因，一致才标记为通过。"],
+    sections: [{ heading: "完整课件提示词", paragraphs: ["提示词 1 是单张报销表核对；提示词 2 把本次过程生成 Skill；提示词 3 调用 Skill 批量核查。以下不压缩原始提示词。"], codeBlocks: ["提示词 1\n报销表.docx 这是一张报销表，你是核对人员，报销表一般由截图和表格组成，你主要核对截图金额加起来的总金额和表格的总金额是否一致，如果出现错误和不一致请返回错误原因如果一致就是通过", "提示词 2\n我们吧这次过程生成核对报销skill方便以后复用", "提示词 3\n我们使用核对报销skill，核查文件夹内8月的所有人的报销单"] }],
+  },
+  {
+    slug: "video-workbuddy-lesson21-visual-illustration-skill",
+    title: "第21集｜WorkBuddy＋PPT：我做了一个专门解决AI配图丑的 Skill ｜AI自动化办公",
+    category: "视频教程笔记", diaryKind: "video", date: "2026-08-08",
+    excerpt: "把“配图不好看”拆成信息密度、构图、取色、线条、纹理和禁止项，再固化成可批量复用的视觉 Skill。",
+    tags: ["视频教程", "WorkBuddy", "PPT", "视觉设计", "Skill", "AI 配图"], productSlugs: [],
+    videoUrl: "https://www.bilibili.com/video/BV1kguN6VExa/",
+    videoMeta: "B 站：第 21 集｜WorkBuddy＋PPT",
+    body: ["第 21 集解决的是 PPT 和 WorkBuddy 配图“能看但不好看”的问题。关键不是继续堆风格词，而是先从艺术参考中拆出可执行的视觉变量。", "课程经历三轮调试：水墨味过重、海报感太强，最后稳定为当代编辑插画、手绘速写、东方留白和现代主义减法的组合。最终 Skill 保留主体关系和原图取色，但删除 90% 以上无关细节。"],
+    sections: [{ heading: "把审美写成规则", paragraphs: ["六个旋钮是信息密度、构图、颜色、线条、纹理和禁止项。最终配方要求保留 2–4 个核心形状、3–5 个低饱和色、65%–80% 留白，主体约占 35%–50%，并明确禁止写实、3D、厚重水墨、复杂背景和碰边。", "每一轮只改 1–3 个变量，才能知道哪条规则真正有效。以下保留 Word 课件中的三组原始提示词/Skill。"], codeBlocks: [...workbuddyLesson21Prompts] }],
+  },
+  {
+    slug: "video-workbuddy-lesson22-wechat-manager",
+    title: "第22集｜WorkBuddy＋微信=王炸组合：公司群消息自动汇总＋客户信息自动管理｜AI自动化办公",
+    category: "视频教程笔记", diaryKind: "video", date: "2026-08-08",
+    excerpt: "把本机微信聊天变成 WorkBuddy 可搜索、可总结、可导出的工作信息库，并用只读边界管理客户和群消息。",
+    tags: ["视频教程", "WorkBuddy", "微信", "客户管理", "聊天汇总", "AI 工作流"], productSlugs: [],
+    videoUrl: "https://www.bilibili.com/video/BV1xcu563E3H/",
+    videoMeta: "B 站：第 22 集｜WorkBuddy＋微信",
+    body: ["第 22 集把 WorkBuddy 和本机微信聊天记录连接起来：从最近会话、未读消息和增量消息开始，进一步搜索关键词、读取历史、总结群聊、整理客户进度，并导出 Markdown 资料。", "第一版设计边界是只读、本机处理、增量追踪和大群安全：不发送、不修改、不删除；不上传微信数据库、密钥或完整聊天历史；超过 200 条消息时先落本地临时文件再分段处理。", "这不是一个简单的“读微信”功能，而是把碎片化聊天逐渐变成客户列表、项目进度、反馈库和待办来源。以下完整展现并保留课件提供的 `提示词.md`，便于学员直接复制学习。"],
+    sections: [{ heading: "完整提示词｜wechat-manager Skill", paragraphs: ["这是第 22 集的完整安装配置提示词，包含 wechat-cli 检查、数据库初始化、Skill 目录、自然语言命令、群聊总结、导出、批量处理、隐私边界和故障处理。请先阅读边界，再在自己的本机环境中使用；不要把密钥文件内容粘贴给 AI。"], codeBlocks: [workbuddyLesson22Prompt] }],
   },
 ];
 
