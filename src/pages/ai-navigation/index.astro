@@ -256,6 +256,15 @@ const codebuddy = tool({
   badge: "推荐",
 });
 
+const cola = tool({
+  name: "Cola",
+  description: "面向国内用户的海外模型聚合服务，可体验 ChatGPT、Claude Code 等顶尖模型；注册和支付支持国内流程与支付宝，推荐码 KQJV8T 可领取 1 天会员体验。",
+  url: "https://colaos.ai",
+  country: "cn",
+  tags: ["海外模型", "国内支付", "ChatGPT"],
+  badge: "学友福利",
+});
+
 const cozeAgent = tool({
   name: "扣子 Coze",
   description: "字节旗下 Agent / 办公自动化平台，适合搭建对话智能体、工作流、AI 写作、PPT、表格和内容生产，不等同于本地桌面 agent。",
@@ -523,6 +532,7 @@ const groups: ToolGroup[] = [
     shortLabel: "编程",
     summary: "面向开发者的 AI IDE、终端 agent、代码补全和自动化工程工具。",
     items: [
+      cola,
       codex,
       kimiCode,
       codebuddy,
@@ -660,11 +670,12 @@ const alternativePairs: AlternativePair[] = [
     category: "编程 Agent / 仓库任务",
     source: codex,
     alternatives: [
+      cola,
       kimiCode,
       codebuddy,
       traeWork,
     ],
-    reason: "Codex 更像仓库级开发 agent；国内平替现在优先看 Kimi Code 的智能体编程入口，再看 WorkBuddy / CodeBuddy 的任务交付工作台和 TRAE Work 的开发者 agent 路线。",
+    reason: "Codex 更像仓库级开发 agent；若需要国内注册、支付与海外顶级模型入口，可先试 Cola，再对比 Kimi Code 的智能体编程入口、WorkBuddy / CodeBuddy 的任务交付工作台和 TRAE Work 的开发者 agent 路线。",
     bestFor: ["仓库修改", "自动修复", "代码审查"],
   },
   {

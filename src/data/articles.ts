@@ -4,7 +4,7 @@ import { defaultProductDiarySourceNote, productDiarySourceNotes } from "./produc
 import { workbuddyLesson16Prompts } from "./workbuddyLesson16Prompts";
 import { workbuddyLesson21Prompts } from "./workbuddyLesson21Prompts";
 import { workbuddyLesson21Skill } from "./workbuddyLesson21Skill";
-import { workbuddyLesson22Prompt } from "./workbuddyLesson22Prompt";
+import { workbuddyLesson22PromptWithPlatformNotes } from "./workbuddyLesson22PromptWithPlatformNotes";
 
 export type ArticleSection = {
   heading: string;
@@ -556,13 +556,30 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     downloadableResources: [{
       title: "第22集｜wechat-manager 完整配置提示词",
       titleEn: "Lesson 22 · Complete wechat-manager prompt",
-      description: "完整提示词.md，包含安装、命令、只读边界、隐私和故障处理规则。",
-      descriptionEn: "The complete prompt.md with installation, commands, read-only boundaries, privacy, and troubleshooting rules.",
+      description: "完整提示词.md，包含已核对的 Windows 安装路径、命令、只读边界、隐私和故障处理规则。",
+      descriptionEn: "The complete prompt.md with verified legacy Windows installation paths, commands, read-only boundaries, privacy, and troubleshooting rules.",
       fileName: "workbuddy-lesson22-wechat-manager-prompt.md",
-      content: workbuddyLesson22Prompt,
+      content: workbuddyLesson22PromptWithPlatformNotes,
     }],
-    body: ["第 22 集把 WorkBuddy 和本机微信聊天记录连接起来：从最近会话、未读消息和增量消息开始，进一步搜索关键词、读取历史、总结群聊、整理客户进度，并导出 Markdown 资料。", "第一版设计边界是只读、本机处理、增量追踪和大群安全：不发送、不修改、不删除；不上传微信数据库、密钥或完整聊天历史；超过 200 条消息时先落本地临时文件再分段处理。", "这不是一个简单的“读微信”功能，而是把碎片化聊天逐渐变成客户列表、项目进度、反馈库和待办来源。以下完整展现并保留课件提供的 `提示词.md`，便于学员直接复制学习。"],
-    sections: [{ heading: "完整提示词｜wechat-manager Skill", paragraphs: ["这是第 22 集的完整安装配置提示词，包含 wechat-cli 检查、数据库初始化、Skill 目录、自然语言命令、群聊总结、导出、批量处理、隐私边界和故障处理。请先阅读边界，再在自己的本机环境中使用；不要把密钥文件内容粘贴给 AI。"], codeBlocks: [workbuddyLesson22Prompt] }],
+    body: ["第 22 集把 WorkBuddy 和本机微信聊天记录连接起来：从最近会话、未读消息和增量消息开始，进一步搜索关键词、读取历史、总结群聊、整理客户进度，并导出 Markdown 资料。", "第一版设计边界是只读、本机处理、增量追踪和大群安全：不发送、不修改、不删除；不上传微信数据库、密钥或完整聊天历史；超过 200 条消息时先落本地临时文件再分段处理。"],
+    sections: [
+      {
+        heading: "开始前｜第三方开源方案与风险提示",
+        paragraphs: ["本课件使用的是第三方开源方案，不是腾讯或微信官方提供的功能。接入、读取或分析本机微信数据，可能触发账号异常、限制使用，甚至封禁等风险；平台规则和工具状态也可能随时变化。请仅将其用于学习与教学，并自行评估是否继续使用。因使用本方案造成的账号、数据、业务或其他损失，课程与网站不承担责任。", "不要将微信数据库、密钥文件、账号密码或完整聊天记录上传给他人或粘贴给 AI；务必先在自己的本机、自己的测试账号和最小范围数据中验证。"],
+      },
+      {
+        heading: "如何使用这份课件",
+        paragraphs: ["正文只说明使用边界与排障方向；完整配置提示词已放在页面底部，可下载 Markdown 文件后交给 WorkBuddy 或其他 AI 工具执行。开始前先阅读其中的只读、隐私和大批量消息处理规则，再根据你的系统与微信客户端版本逐步验证。", "建议按“检查环境 → 确认微信版本 → 初始化或读取测试 → 验证最近会话 → 再启用搜索、总结和导出”的顺序进行。任何一步失败，都不要跳过检查直接反复初始化或提供密钥。"],
+      },
+      {
+        heading: "Windows 用户特别说明",
+        paragraphs: ["课程在 macOS 环境完成过基础测试与配置；Windows 的文件路径、权限、微信客户端结构和工具安装方式不同，不能照搬 Mac 步骤。我们核对的旧版开源文档明确写明：npm 包只提供 macOS arm64 二进制，Windows 应改用 `pip install wechat-cli`（需要 Python ≥ 3.10），或从源码安装。", "Windows 先保持微信登录并打开过至少一个会话，再在有足够权限的终端中执行 `wechat-cli init`；初始化后用 `wechat-cli sessions` 验证是否能读到最近会话。原项目文档没有给出 Windows 微信客户端的明确版本要求，因此不能把“必须 3.x”或“4.x 一定不行”当作通用结论；使用前请在自己的隔离测试环境验证。"],
+      },
+      {
+        heading: "网友实测的排障线索（非官方、未验证）",
+        paragraphs: ["有网友反馈：Windows 端按 pip 路线部署失败后，改用 chatlogkeeper 方案取得 masterkey；但 chatlogkeeper 与 CLI 的密钥格式不同，还需要让 AI 根据实际报错完成格式适配与解库验证。此路线不属于我们已核对的原项目安装流程。", "原 npm 包目前已标记为 deprecated，原项目又未提供 Windows 客户端版本要求；因此这只是社区经验，不构成可复现承诺或技术支持。请不要分享 masterkey、密钥文件或真实聊天数据；若无法在自己的隔离测试环境中完成验证，应停止继续配置。"],
+      },
+    ],
   },
 ];
 
@@ -2211,7 +2228,9 @@ const ensureProductDiaryDetail = (
 const ensureVideoTutorialDetail = (article: ArticleSeed, body: string[], sections?: ArticleSection[]) => {
   const existingSections = sections ?? [];
   const hasTemplate = existingSections.some((section) => section.heading === "如何使用这篇教程笔记");
-  if (hasTemplate) return { body, sections: existingSections };
+  if (hasTemplate || article.slug === "video-workbuddy-lesson22-wechat-manager") {
+    return { body, sections: existingSections };
+  }
 
   const lessonName = article.title.replace(/^第\d+集｜/, "");
   const tags = article.tags.filter((tag) => !["视频教程", "WorkBuddy", "课件", "提示词"].includes(tag)).join("、") || "AI 办公";

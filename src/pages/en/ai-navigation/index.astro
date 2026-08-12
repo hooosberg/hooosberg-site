@@ -256,6 +256,15 @@ const codebuddy = tool({
   badge: "Recommended",
 });
 
+const cola = tool({
+  name: "Cola",
+  description: "An international-model service for Chinese users, with ChatGPT, Claude Code, and more; China-friendly registration and Alipay payment are supported. Referral code KQJV8T includes a one-day membership trial.",
+  url: "https://colaos.ai",
+  country: "cn",
+  tags: ["international models", "Alipay", "ChatGPT"],
+  badge: "Member perk",
+});
+
 const cozeAgent = tool({
   name: "Coze",
   description: "ByteDance's agent and office-automation platform for conversational agents, workflows, AI writing, slides, spreadsheets, and content production. It is not the same as a local desktop agent.",
@@ -519,6 +528,7 @@ const groups: ToolGroup[] = [
     shortLabel: "Coding",
     summary: "AI IDEs, terminal agents, code completion, and agentic engineering tools for real product work.",
     items: [
+      cola,
       codex,
       kimiCode,
       codebuddy,
@@ -656,11 +666,12 @@ const alternativePairs: AlternativePair[] = [
     category: "Coding agent / repository tasks",
     source: codex,
     alternatives: [
+      cola,
       kimiCode,
       codebuddy,
       traeWork,
     ],
-    reason: "Codex is repository-level. For Chinese users, start with Kimi Code's agentic coding entry, then compare WorkBuddy / CodeBuddy's task-delivery workspace and TRAE Work's developer-agent route.",
+    reason: "Codex is repository-level. Chinese users who need domestic registration and payment with access to leading international models can start with Cola, then compare Kimi Code, WorkBuddy / CodeBuddy, and TRAE Work.",
     bestFor: ["repository edits", "automated fixes", "code review"],
   },
   {
