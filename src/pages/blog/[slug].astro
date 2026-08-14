@@ -24,6 +24,9 @@ const visibleBody = article.body.filter(
 const relatedProducts = article.productSlugs
   .map((slug) => products.find((product) => product.slug === slug))
   .filter(Boolean);
+const relatedArticles = (article.relatedArticleSlugs ?? [])
+  .map((slug) => articles.find((item) => item.slug === slug))
+  .filter((item): item is Article => Boolean(item));
 const diaryReturnHref = `/blog?kind=${article.diaryKind}`;
 const articleJsonLd = {
   "@context": "https://schema.org",
@@ -121,6 +124,15 @@ const articleJsonLd = {
         <h2>关联产品</h2>
         <div class="mini-link-row">
           {relatedProducts.map((product) => product && <a href={`/apps/${product.slug}`}>{product.displayName}</a>)}
+        </div>
+      </footer>
+    )}
+
+    {relatedArticles.length > 0 && (
+      <footer class="article-related">
+        <h2>关联课程</h2>
+        <div class="mini-link-row">
+          {relatedArticles.map((item) => <a href={`/blog/${item.slug}`}>{item.title}</a>)}
         </div>
       </footer>
     )}

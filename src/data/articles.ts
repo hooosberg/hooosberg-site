@@ -5,6 +5,7 @@ import { workbuddyLesson16Prompts } from "./workbuddyLesson16Prompts";
 import { workbuddyLesson21Prompts } from "./workbuddyLesson21Prompts";
 import { workbuddyLesson21Skill } from "./workbuddyLesson21Skill";
 import { workbuddyLesson22UnifiedPrompt } from "./workbuddyLesson22UnifiedPrompt";
+import { workbuddyLesson23Prompts } from "./workbuddyLesson23Prompts";
 
 export type ArticleSection = {
   heading: string;
@@ -48,6 +49,7 @@ export type Article = {
   videoUrl?: string;
   videoMeta?: string;
   downloadableResources?: DownloadableResource[];
+  relatedArticleSlugs?: string[];
   seriesOrder?: number;
   body: string[];
   sections?: ArticleSection[];
@@ -578,6 +580,175 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       {
         heading: "苹果电脑要按微信版本分情况处理",
         paragraphs: ["macOS 不是把 Windows 的底层取钥脚本直接复制过去。合并版会先检查是否已有可用的 `wechat-cli` 历史配置：有配置且真实查询能返回会话，就直接复用，不重新 init；没有历史配置或已失效时，才尝试一次原 `wechat-cli` 初始化。出现 `0 keys` 后必须停止旧路线，不能反复 init 或把它误判为 Skill 创建成功。", "新版 macOS 微信在用户明确同意高级兼容操作后，才会进入 `wcdb-key-tool` 的 macOS 分支；该分支可能涉及 Xcode Command Line Tools、重新登录、`sudo`、LLDB 或 WeChat.app 重签名，因此不会自动执行。网络、证书、DNS 或权限问题仍按一次性 npm 镜像/官方源回退和 macOS 完全磁盘访问排查；不要关闭 TLS 校验、长期用 `sudo npm install -g` 绕过权限，或从不明镜像、网盘和二进制包下载同名工具。"],
+      },
+    ],
+  },
+  {
+    slug: "video-workbuddy-lesson23-web-export-dingtalk",
+    title: "第23集｜WorkBuddy＋Excel＋钉钉：总公司网页数据自动导出＋定时推送工作群｜AI自动化办公",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-11",
+    seriesOrder: 23,
+    excerpt: "把网页导出、Excel 文件归档、钉钉群上传和定时执行拆成可验收的工作流，再沉淀为可复用 Skill。",
+    tags: ["视频教程", "WorkBuddy", "Excel", "钉钉", "网页自动化", "定时任务", "Skill"],
+    productSlugs: [],
+    videoMeta: "本地课程视频已制作，B 站入口待补",
+    downloadableResources: [{
+      title: "第23集｜网页导出与钉钉推送提示词",
+      titleEn: "Lesson 23 · Web export and DingTalk delivery prompts",
+      description: "根据本地 Word 课件逐字整理的五段提示词：浏览器导出、固定脚本、钉钉上传、定时执行和 Skill 固化。",
+      descriptionEn: "Five prompts transcribed from the local Word courseware: browser export, reusable script, DingTalk upload, scheduling, and Skill packaging.",
+      fileName: "workbuddy-lesson23-web-export-dingtalk-prompts.md",
+      content: workbuddyLesson23Prompts,
+    }],
+    body: [
+      "第 23 集把一个总部岗位的重复工作拆开：每两小时从网页系统导出各工作站 Excel，再将最新文件推送到指定钉钉工作群。重点不是一次性把所有动作交给 AI，而是让下载位置、最新文件判断、推送目标、定时频率和失败停止点都有明确规则。",
+      "本地课程目录中已有视频、字幕、Word 课件与五段原始提示词；但没有记录可核对的 B 站 BV 链接，页面因此只展示课程笔记与本地来源，不伪造公开视频入口。",
+    ],
+    sections: [
+      {
+        heading: "先把工作流拆成五个可验收环节",
+        paragraphs: [
+          "课件给出的顺序是：建立工作区域 → 浏览器控制导出网页数据 → 用 WorkBuddy 连接钉钉 → 上传最新 Excel → 设定每两小时的定时任务 → 将整个流程固定成可复用 Skill。每一步先在测试目录和测试群验证，再进入下一步。",
+          "网页系统、账号登录状态、钉钉群权限与字段口径都属于实际环境条件。自动化前需先得到网站和群的授权；不要把生产账号、员工信息、客户数据或任何凭证放进提示词，也不要把“下载成功”误当成“已正确发送”。",
+        ],
+      },
+      {
+        heading: "Word 课件原始提示词",
+        paragraphs: [
+          "下面五段按本地 Word 课件原文与顺序保留。第 1 段使用百度页面作为浏览器控制演示；迁移到真实系统前，必须将网址、按钮、保存路径、群和定时频率改为已获授权且已核对的实际信息。",
+        ],
+        codeBlocks: [
+          "AgentLimb 帮我在我的chrome浏览器上操作 www.baidu.com这个页面，然后点击其中的导出按钮，下载excel文件，最后放到我们的根目录的下载excel",
+          "AgentLimb 我们这次不这个插件来操作浏览器导出，我们只使用workbuddy 去操作浏览器，最好生成一个网页操作脚本，每次都可以自动化使用这个脚本来下载excel，我们开始研究网页，生成固定脚本，脚本保存到我们的根目录",
+          "帮我把根目录下的下载excel文件夹里面的，最新的下载的表格，上传到钉钉，工作站群",
+          "帮我每个两个小时，定时从网页上导出表格，保存到指定文件夹，再从文件夹选择最新的表格，上传钉钉的指定的群",
+          "帮我们把今天的整个流程变成一个叫做推送表格的skill，然后在根目录写一个readme，方便以后确定这个文件将是对应的那一个项目或者技能",
+        ],
+      },
+      {
+        heading: "定时和对外发送前的检查",
+        paragraphs: [
+          "第一次不要直接开启两小时循环。先手动运行一次：确认导出的文件确实来自目标页面、文件名和时间正确、最新文件选择规则没有误选旧文件、钉钉群也确实是目标群。任何一项无法验证时，停止自动化并保留错误记录。",
+          "推送涉及外部系统和团队沟通，应设置人工确认、测试群或明确的失败提醒；不要让 AI 代替人处理敏感数据、删除旧文件、修改业务网页记录或对外承诺。Skill 只有在第二次独立运行也能通过验收后，才适合保存复用。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "video-workbuddy-lesson24-salary-data-boundaries",
+    title: "第24集｜WorkBuddy＋Excel：工资数据怎么保证数据安全？数据与表格分离，输入即出结果｜AI自动化办公",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-12",
+    seriesOrder: 24,
+    excerpt: "用真实数据禁区、AI 可读脱敏模板和本地公式工作簿分层处理工资资料：AI 只参与表格设计，真实明细始终留在受控本机。",
+    tags: ["视频教程", "WorkBuddy", "Excel", "工资数据", "数据安全", "脱敏", "本地工作流"],
+    productSlugs: [],
+    videoMeta: "本地课程视频已制作，B 站入口待补",
+    body: [
+      "第 24 集围绕“工资数据怎么保证安全”建立一条明确边界：真实工资原始表留在本地受控区域，AI 只接触字段结构、脱敏模板和需要什么汇总表的描述，结果由本地 Excel 公式工作簿计算并由人验收。",
+      "本地目录同时保留了课程初始化说明、Word 课件、录制提纲、视频、脱敏样表和公式工作簿。B 站链接仍未记录，且课包中的提示词 2、3 为空，因此本站只公开 Word 课件已经写入的第 1 段提示词，不补写其余内容，也不生成猜测版下载文件。",
+    ],
+    sections: [
+      {
+        heading: "三层文件边界",
+        paragraphs: [
+          "第一层是 `01_加密数据_禁止上传_仅本地/`：真实工资原始表、员工信息和真实金额只由有权限的人在本机处理，禁止上传或交给 WorkBuddy/其他 AI 读取。第二层是 `02_AI可读数据_脱敏模板/`：只保留字段、列顺序、格式和虚构样例，用于讨论表格、公式和展示。第三层是 `03_公式工作簿_输入即出结果/`：第一张表输入，其他表在本地自动汇总与检查。",
+          "“本地分层”并不等于绝对安全或企业合规。真实场景仍需要文件加密、系统权限、备份、访问审批，以及财务/人事人员对工资口径、个税、社保和异常行的人工确认。",
+        ],
+      },
+      {
+        heading: "Word 课件已写入的提示词 1",
+        paragraphs: [
+          "以下为本地 Word 课件的第 1 段原文。运行时只把脱敏模板交给 AI；真实工资文件不要出现在 AI 工作区、上传窗口或录屏画面中。",
+        ],
+        codeBlocks: [
+          "02_AI可读数据_脱敏模板 根据脱敏模版我们开始设计一个工资数据展示展示，因为这个原始数据是脱敏的，所以我们设计的时候公式模版需要可以根据输入信息灵活统计。脱敏模版在后期我们替换真实信息后，其他的统计公司表格可以同步更新。",
+        ],
+      },
+      {
+        heading: "本地公式工作簿的验收",
+        paragraphs: [
+          "在 `01_输入数据` 中只录入允许在本机处理的数据，不修改黑色公式列；再查看公司汇总、部门汇总和数据检查。至少抽查人数、应发工资、实发工资、部门合计和异常行，确认部门总额能回到公司总额。",
+          "公式工作簿通过基础检查，只能说明输入、公式与汇总关系没有明显冲突；它不是工资发放、税务或安全合规系统。涉及真实员工数据的任何导入、确认或对外使用，必须由负责人员完成。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "video-workbuddy-lesson25-wechat-order-workbench",
+    title: "第25集｜WorkBuddy＋微信+工作台=绝了：3D打印公司微信客户订单管理进度工作台｜AI自动化",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-13",
+    seriesOrder: 25,
+    excerpt: "把经授权的微信客户沟通整理为订单、生产、回款和售后工作台；再把当天群消息沉淀为可复用的 AI 群日报流程。",
+    tags: ["视频教程", "WorkBuddy", "微信", "客户管理", "订单管理", "工作台", "AI 工作流"],
+    productSlugs: [],
+    videoUrl: "https://www.bilibili.com/video/BV16TgE62ELQ/",
+    videoMeta: "B 站：第 25 集｜WorkBuddy＋微信＋工作台",
+    relatedArticleSlugs: ["video-workbuddy-lesson22-wechat-manager"],
+    downloadableResources: [{
+      title: "第22集关联资源｜Windows + macOS 自动识别合并版 wechat-manager 提示词",
+      titleEn: "Related Lesson 22 · Windows + macOS auto-detect wechat-manager prompt",
+      description: "第 25 集启动微信客户订单工作台前，先下载并完成第 22 集的本地只读微信读取验收；此处复用同一份原始 Markdown，不另造版本。",
+      descriptionEn: "Before starting the Lesson 25 order workbench, download and validate the Lesson 22 local read-only WeChat workflow. This is the same source Markdown, not a rewritten variant.",
+      fileName: "第22集-微信管理-Windows_macOS自动识别合并版提示词.md",
+      content: workbuddyLesson22UnifiedPrompt,
+    }],
+    body: [
+      "第 25 集把上一集的“聊天信息整理”继续推进到真实业务工作台：以 3D 打印公司为例，将已获授权的客户沟通整理为客户需求、合同与订单金额、生产进度、回款、历史交易、客户分级和售后等可核对信息。",
+      "最终交付不是一份聊天摘要，而是能看见生产进度甘特图、本月成交金额、客户订单状态和售后情况的工作台。视频后半段还演示了把当天群消息整理为适合手机阅读的 AI 群日报长图，并将稳定流程保存为 Skill 以便复用。",
+      "本地 Word 课件已写入两条可直接复制的原始提示词。微信读取与本地配置不在第 25 集重新发明：页面下载项直接复用第 22 集的 Windows + macOS 自动识别合并版提示词，底部也保留第 22 集课程链接。",
+    ],
+    sections: [
+      {
+        heading: "这节课解决的真实问题",
+        paragraphs: [
+          "客户需求、订单状态和售后进展散落在多段聊天中时，最大的风险不是“没有 AI”，而是信息无法回溯：订单金额、当前生产阶段、回款状态和负责人容易被遗漏。课程示例把这些业务事实整理到同一工作台，而不是让 AI 直接替业务做承诺或修改订单。",
+          "工作台的价值在于把沟通转换成可查看、可追问、可人工复核的状态。3D 打印只是演示行业；设计工作室、律师客户管理等高度依赖沟通记录的场景，也应先定义自己的字段、状态和人工审核人，再考虑复用同一结构。",
+        ],
+      },
+      {
+        heading: "从聊天到工作台的学习顺序",
+        paragraphs: [
+          "先用脱敏测试资料确认哪些信息允许读取和整理，再明确每个字段的业务含义：客户需求、订单金额、生产阶段、回款、历史交易、客户分级、售后。字段不清楚时必须标记待确认，不能让 AI 从聊天语气或上下文自行补全。",
+          "再把已确认信息呈现在进度、成交金额、订单状态和售后等视图中。每个数字与状态都应能回到原始授权资料核对；没有来源、金额不一致、订单主体不明确或生产节点冲突时，应进入异常清单而不是展示为确定结论。",
+          "群日报是另一条独立流程：从当天群消息中提取重要提问、回答、典型表达和群公告，生成便于手机查看的摘要。它适合帮助回顾，不替代正式通知、客户确认或人工客服回复。",
+        ],
+      },
+      {
+        heading: "Word 课件原始提示词",
+        paragraphs: [
+          "提示词 1 的前提是：先在第 22 集完成自己电脑、自己账号、最小范围数据的本地只读验收。不要把它用于未授权聊天、正式生产环境或自动对外操作；字段没有来源时必须标记待确认。",
+        ],
+        codeBlocks: [
+          "我们使用微信信息读取技能，开始根据标签中的最近沟通的3d打印客户，生成工作台，我需要订单管理，通过聊天记录来进行，确定需求，签订合同，订单金额，生产进度，客户回款，客户交易记录，客户基本信息，客户分级。工作台还可以有，生产进度甘特图，本月成交金额汇总，售后管理。这个工作台需要设计高科技感觉，适合生产制造企业的一目了然的界面设计表达。",
+          "帮我总结今天湖森堡hooosberg Ai学习群里面内容总结，然后生成简报网页，生成长海报设计感强烈，导出到根目录图片格式jpg，适合手机观看的的比例，里面有今天群的内容总结，经典语录，等关键信息，比如提问 解答等群主的公告什么的也就会自动摘取关键信息呈现，然后我们把整个流程保存成技能，我们方便以后一句话总结湖森堡日报",
+        ],
+      },
+      {
+        heading: "第22集是本课的前置资源",
+        paragraphs: [
+          "第 25 集只负责把已授权、可读取的聊天信息组织成订单工作台和群日报；本地微信读取、系统识别、只读边界与真实会话验证沿用第 22 集。页面底部的关联课程可回到第 22 集查看完整风险说明与操作顺序。",
+          "下载项也使用第 22 集同一份 Windows + macOS 自动识别合并版 Markdown。不要把 Windows 与 macOS 的底层步骤混用；若真实会话、群历史或搜索不能返回结果，就停止，不要把“安装完成”误当成功。",
+        ],
+      },
+      {
+        heading: "数据安全与人工验收",
+        paragraphs: [
+          "仅处理自己拥有或已取得明确授权的数据，并从最小范围、脱敏测试资料开始。不要把完整聊天记录、客户隐私、账号凭证或未授权群消息上传、分享或交给不受控的第三方服务。",
+          "验收至少包括：字段是否来自允许使用的资料；订单金额、生产进度和回款是否能回到原始记录核对；异常是否被清楚标注；群日报是否误删关键限制条件。对外报价、订单确认、催款、售后承诺和任何正式业务动作，必须由有权限的人最终确认。",
+        ],
+      },
+      {
+        heading: "如何使用这篇教程笔记",
+        paragraphs: [
+          "先打开页面顶部的视频入口，第一次观看只确认业务问题、资料来源、字段与验收人；第二次再在自己的脱敏测试工作区复现。不要把演示行业、客户名称、金额或业务规则直接套进真实公司。",
+          "学习顺序是“第 22 集完成本地只读验收 → 第 25 集提示词 1 组织订单工作台 → 提示词 2 生成群日报 → 用第二组资料复测并人工验收”。学习重点仍是“授权资料 → 结构化字段 → 可追溯工作台 → 异常标记 → 人工确认”的闭环。",
+        ],
       },
     ],
   },

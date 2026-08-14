@@ -680,6 +680,51 @@ main.main--ai-directory {
   line-height: 1.85;
 }
 
+.ai-directory-hero .directory-guide {
+  max-width: 760px;
+  margin-top: 18px;
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.not-found-page {
+  display: grid;
+  min-height: min(68vh, 680px);
+  width: min(760px, calc(100% - 48px));
+  place-content: center start;
+  margin-inline: auto;
+  padding-block: 80px;
+}
+
+.not-found-page > p {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 14px;
+  font-weight: 850;
+  letter-spacing: 0.15em;
+}
+
+.not-found-page h1 {
+  margin: 0;
+  font-size: clamp(36px, 6vw, 64px);
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+}
+
+.not-found-page > span {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 17px;
+}
+
+.not-found-page > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
 .directory-search {
   display: flex;
   align-items: center;
@@ -1240,6 +1285,15 @@ main.main--ai-directory {
   padding: 2px 7px;
   font-size: 10px;
   font-weight: 720;
+}
+
+.directory-card__action {
+  width: fit-content;
+  margin-top: 2px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 820;
+  line-height: 1.35;
 }
 
 .directory-card__arrow {
