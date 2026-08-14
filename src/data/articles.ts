@@ -4,8 +4,7 @@ import { defaultProductDiarySourceNote, productDiarySourceNotes } from "./produc
 import { workbuddyLesson16Prompts } from "./workbuddyLesson16Prompts";
 import { workbuddyLesson21Prompts } from "./workbuddyLesson21Prompts";
 import { workbuddyLesson21Skill } from "./workbuddyLesson21Skill";
-import { workbuddyLesson22MacosPrompt } from "./workbuddyLesson22MacosPrompt";
-import { workbuddyLesson22WindowsPrompt } from "./workbuddyLesson22WindowsPrompt";
+import { workbuddyLesson22UnifiedPrompt } from "./workbuddyLesson22UnifiedPrompt";
 
 export type ArticleSection = {
   heading: string;
@@ -554,25 +553,15 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     tags: ["视频教程", "WorkBuddy", "微信", "客户管理", "聊天汇总", "AI 工作流"], productSlugs: [],
     videoUrl: "https://www.bilibili.com/video/BV1xcu563E3H/",
     videoMeta: "B 站：第 22 集｜WorkBuddy＋微信",
-    downloadableResources: [
-      {
-        title: "第22集｜Windows（微软电脑）实测版 wechat-manager 提示词",
-        titleEn: "Lesson 22 · Windows verified wechat-manager prompt",
-        description: "适用于 Windows 10/11 与微信 4.x 的实测只读方案；包含固定材料、安装、验收、隐私边界和失败处理。",
-        descriptionEn: "The verified Windows 10/11 read-only workflow, including fixed materials, installation, acceptance, privacy boundaries, and failure handling.",
-        fileName: "第22集-微信管理-微软Windows电脑实测版提示词.md",
-        content: workbuddyLesson22WindowsPrompt,
-      },
-      {
-        title: "第22集｜macOS（苹果电脑）大陆网络优化版 wechat-manager 提示词",
-        titleEn: "Lesson 22 · macOS China-network optimized wechat-manager prompt",
-        description: "适用于苹果电脑；保留原有 macOS 配置流程，并增加大陆网络的 npm 临时镜像、官方源回退与权限排障。",
-        descriptionEn: "The macOS workflow with a mainland-China npm mirror path, official-registry fallback, and permission troubleshooting.",
-        fileName: "第22集-微信管理-苹果macOS电脑大陆网络优化版提示词.md",
-        content: workbuddyLesson22MacosPrompt,
-      },
-    ],
-    body: ["第 22 集把 WorkBuddy 和本机微信聊天记录连接起来：从最近会话、未读消息和增量消息开始，进一步搜索关键词、读取历史、总结群聊、整理客户进度，并导出本地资料。", "现在课件已按系统拆为两份下载文件：Windows 用户下载“微软 Windows 电脑实测版”，苹果用户下载“macOS 大陆网络优化版”。请只使用与你的电脑匹配的那一份，不要把两套安装流程或命令混在一起。"],
+    downloadableResources: [{
+      title: "第22集｜Windows + macOS 自动识别合并版 wechat-manager 提示词",
+      titleEn: "Lesson 22 · Windows + macOS auto-detect wechat-manager prompt",
+      description: "一份提示词自动识别 Windows / macOS，并选择对应的本地只读微信读取路线；Windows 已跑通，macOS 按历史配置与微信版本分情况处理。",
+      descriptionEn: "One prompt detects Windows or macOS and selects the matching local read-only route. Windows is validated; macOS follows version- and existing-configuration-specific paths.",
+      fileName: "第22集-微信管理-Windows_macOS自动识别合并版提示词.md",
+      content: workbuddyLesson22UnifiedPrompt,
+    }],
+    body: ["第 22 集把 WorkBuddy 和本机微信聊天记录连接起来：从最近会话、未读消息和增量消息开始，进一步搜索关键词、读取历史、总结群聊、整理客户进度，并导出本地资料。", "现在页面只保留一份“Windows + macOS 自动识别合并版”提示词。交给 WorkBuddy 后，它会先判断当前电脑系统与现有可用配置，再选择对应的本地只读路线；不要手动把 Windows 和 macOS 的底层步骤混用。"],
     sections: [
       {
         heading: "开始前｜第三方开源方案与风险提示",
@@ -580,15 +569,15 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       },
       {
         heading: "如何使用这份课件",
-        paragraphs: ["页面底部提供两份独立的 Markdown 提示词：Windows 用户下载“微软 Windows 电脑实测版”；苹果用户下载“macOS 大陆网络优化版”。下载后将对应文件交给 WorkBuddy 或其他 AI 工具执行；开始前先完整阅读其中的只读、隐私、批量消息和失败停止规则。", "建议按“检查环境 → 完成安装验证 → 初始化或生成快照 → 验证最近会话或指定群 → 再启用搜索、总结和导出”的顺序进行。任何一步失败，都不要跳过检查反复初始化、泄露密钥，或改用未验证的工具绕过。"],
+        paragraphs: ["页面底部提供一份 Windows + macOS 自动识别合并版 Markdown 提示词。下载后交给 WorkBuddy 或其他 AI 工具执行；它会先识别系统、微信版本、登录状态、实际 Skills 根目录，以及是否已有可用的本地读取工具，再按平台选择路线。开始前请完整阅读其中的只读、隐私、批量消息和失败停止规则。", "建议按“检查环境 → 复用已有可用配置或完成首次安装验证 → 生成或读取本地快照 → 验证真实会话或指定群 → 再启用搜索、总结和导出”的顺序进行。任何一步失败，都不要跳过检查反复初始化、泄露密钥，或改用未验证的工具绕过。"],
       },
       {
         heading: "Windows 用户特别说明",
-        paragraphs: ["Windows 请不要再使用旧的 npm / pip wechat-cli 安装说明，也不要下载 macOS 文件。请下载“微软 Windows 电脑实测版”，其中是 Windows 10 与微信 4.1.10.27 的实际验收路线：通过只读的 Config.Cipher 扫描、HMAC 验证与本地解密快照读取指定群消息，无需降级微信、debugger、DLL 注入或 Hook。", "该实测结果只覆盖文档注明的测试环境，不代表所有 Windows 或未来微信版本都可用。请保持微信已登录，在自己的测试环境严格按照文件中的 `doctor → groups → history` 验收；只有指定近期活跃群确实读到消息，才算部署成功。"],
+        paragraphs: ["Windows 路线已经在 Windows 10、微信 4.1.10.27 上实际验收：通过只读的 Config.Cipher 扫描、HMAC 验证与本地解密快照读取指定群消息，无需降级微信、debugger、DLL 注入或 Hook。合并版会在识别到 Windows 后优先使用这条课程实测路线。", "该实测结果只覆盖文档注明的测试环境，不代表所有 Windows 或未来微信版本都可用。请保持微信已登录，在自己的测试环境严格按照文件中的 `doctor → groups → history → search` 验收；只有真实会话或群能读到消息和搜索结果，才算部署成功。"],
       },
       {
-        heading: "苹果电脑与大陆网络特别说明",
-        paragraphs: ["macOS 下载文件保留原有 `@canghe_ai/wechat-cli` 主体结构与命令，仅针对大陆网络增加“一次性 npm 镜像安装 → npm 官方源回退”的步骤；镜像只作用于当前安装命令，不会改写电脑全局 npm 配置。安装完成必须先通过 `wechat-cli --help` 验证，再继续初始化。", "若出现网络、证书、DNS 或权限错误，请按文件中的镜像/官方源回退和 macOS 完全磁盘访问排查。不要关闭 TLS 校验、使用 `sudo npm install -g` 长期绕过权限，或从不明镜像、网盘和二进制包下载同名工具。"],
+        heading: "苹果电脑要按微信版本分情况处理",
+        paragraphs: ["macOS 不是把 Windows 的底层取钥脚本直接复制过去。合并版会先检查是否已有可用的 `wechat-cli` 历史配置：有配置且真实查询能返回会话，就直接复用，不重新 init；没有历史配置或已失效时，才尝试一次原 `wechat-cli` 初始化。出现 `0 keys` 后必须停止旧路线，不能反复 init 或把它误判为 Skill 创建成功。", "新版 macOS 微信在用户明确同意高级兼容操作后，才会进入 `wcdb-key-tool` 的 macOS 分支；该分支可能涉及 Xcode Command Line Tools、重新登录、`sudo`、LLDB 或 WeChat.app 重签名，因此不会自动执行。网络、证书、DNS 或权限问题仍按一次性 npm 镜像/官方源回退和 macOS 完全磁盘访问排查；不要关闭 TLS 校验、长期用 `sudo npm install -g` 绕过权限，或从不明镜像、网盘和二进制包下载同名工具。"],
       },
     ],
   },
