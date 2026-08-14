@@ -14,6 +14,7 @@ type ToolItem = {
   icon?: string;
   tags: string[];
   badge?: string;
+  actionLabel?: string;
 };
 
 type ToolSection = {
@@ -247,22 +248,45 @@ const traeWork = tool({
   badge: "开发者偏多",
 });
 
-const codebuddy = tool({
-  name: "WorkBuddy（CodeBuddy）",
-  description: "腾讯云 CodeBuddy 推出的 AI Agent 工作台，主打自主规划并交付多模态复杂任务，支持多 Agents 并行，适合作为国内 Codex 平替第一观察入口。",
-  url: "https://www.codebuddy.cn/work/",
+const workBuddy = tool({
+  name: "腾讯 WorkBuddy",
+  description: "腾讯推出的全场景 AI 办公工作台：一句话下达任务后可自主拆解、规划、调用工具并读写本地文件；支持通过微信、企业微信远程下发和接收任务结果。",
+  url: "https://cloud.tencent.cn/product/workbuddy",
   country: "cn",
-  tags: ["编程", "Agent", "腾讯"],
-  badge: "推荐",
+  tags: ["桌面 Agent", "微信 / 企微", "腾讯"],
+  badge: "国产办公 #1",
+  actionLabel: "前往下载 / 使用",
+});
+
+const qwenWork = tool({
+  name: "阿里 千问办公",
+  description: "阿里巴巴的一站式 AI 办公平台，覆盖网页与桌面端，并接入钉钉生态；一句话可完成数据分析、PPT、视频、网页等任务，面向个人与企业工作流。",
+  url: "https://qwenwork.cn/",
+  country: "cn",
+  tags: ["AI 办公", "钉钉", "企业协作"],
+  badge: "国产办公 #2",
+  actionLabel: "前往使用",
+});
+
+const traeWorkOffice = tool({
+  name: "字节 TRAE Work",
+  description: "面向专业工作的 AI 工作助手，覆盖桌面、网页和移动端；可理解文档、表格、演示与代码，在同一 Workspace 中自动完成研究、写作、数据分析与交付。",
+  url: "https://www.trae.ai/download",
+  country: "cn",
+  icon: icon.trae,
+  tags: ["AI 办公", "桌面 / Web / 移动", "字节"],
+  badge: "国产办公 #3",
+  actionLabel: "下载 TRAE Work",
 });
 
 const cola = tool({
   name: "Cola",
-  description: "面向国内用户的海外模型聚合服务，可体验 ChatGPT、Claude Code 等顶尖模型；注册和支付支持国内流程与支付宝，推荐码 KQJV8T 可领取 1 天会员体验。",
-  url: "https://colaos.ai",
+  description: "桌面与移动端 AI 工作台，可在国内流程中使用多模型与 Agent 工作流；提供 macOS、Windows、iOS 和 Android 下载入口。",
+  url: "https://colaos.ai/download.html",
   country: "cn",
-  tags: ["海外模型", "国内支付", "ChatGPT"],
-  badge: "学友福利",
+  tags: ["桌面工作台", "多模型", "国内可用"],
+  badge: "国产办公 #4",
+  actionLabel: "下载 Cola",
 });
 
 const cozeAgent = tool({
@@ -293,6 +317,19 @@ const tencentYuanqiAgent = tool({
 });
 
 const groups: ToolGroup[] = [
+  {
+    id: "china-office",
+    title: "国产 AI 办公",
+    shortLabel: "国产办公",
+    summary: "本导航按公开产品信息、办公覆盖面与生态位置作的编辑排序，不等同于第三方下载量榜单。前三位分别对应腾讯、阿里、字节的桌面/企业办公路线；点击卡片可直达官方下载或产品入口。",
+    items: [
+      workBuddy,
+      qwenWork,
+      traeWorkOffice,
+      cola,
+      kimiWork,
+    ],
+  },
   {
     id: "top",
     title: "夯级产品榜",
@@ -535,7 +572,7 @@ const groups: ToolGroup[] = [
       cola,
       codex,
       kimiCode,
-      codebuddy,
+      workBuddy,
       traeWork,
       claudeCode,
       googleAntigravity,
@@ -589,7 +626,7 @@ const groups: ToolGroup[] = [
     summary: "面向 PPT、文档、会议、笔记、知识库、桌面 Agent 和工作流提效的工具。",
     items: [
       kimiWork,
-      codebuddy,
+      workBuddy,
       cozeAgent,
       qwenAgent,
       { name: "Notion AI", description: "集成在 Notion 里的写作、总结、知识库和项目管理助手。", url: "https://www.notion.com/product/ai", country: "us", tags: ["文档", "知识库", "项目"] },
@@ -623,7 +660,7 @@ const groups: ToolGroup[] = [
     summary: "优先收国内能直接使用、公开热度高、中文体验强的 AI 产品；这次把聊天入口、Coding Agent、Desktop Agent 和企业智能体分开看。",
     items: [
       kimiWork,
-      codebuddy,
+      workBuddy,
       kimiCode,
       traeWork,
       cozeAgent,
@@ -671,23 +708,20 @@ const alternativePairs: AlternativePair[] = [
     source: codex,
     alternatives: [
       cola,
+      workBuddy,
+      qwenWork,
+      traeWorkOffice,
       kimiCode,
-      codebuddy,
-      traeWork,
     ],
-    reason: "Codex 更像仓库级开发 agent；若需要国内注册、支付与海外顶级模型入口，可先试 Cola，再对比 Kimi Code 的智能体编程入口、WorkBuddy / CodeBuddy 的任务交付工作台和 TRAE Work 的开发者 agent 路线。",
+    reason: "Codex 更像仓库级开发 agent；国内可用路径先看 Cola 的多模型工作台，再按腾讯 WorkBuddy、阿里千问办公、字节 TRAE Work 的桌面 Agent 路线比较。Kimi Code 则更聚焦代码与仓库任务。前四者并非 Codex 的一比一复刻，但适合需要在本地文件、办公产物与多步骤交付间协作的人。",
     bestFor: ["仓库修改", "自动修复", "代码审查"],
   },
   {
     id: "desktop-agent",
     category: "桌面 Agent / 办公自动化",
     source: claudeCowork,
-    alternatives: [
-      kimiWork,
-      codebuddy,
-      traeWork,
-    ],
-    reason: "如果标准不是普通聊天，而是 Mac 客户端、本地文件、浏览器、代码/终端和长时间执行任务，国内第一梯队先看 Kimi Work 与 WorkBuddy；TRAE Work 更偏开发者工作流。",
+    alternatives: [workBuddy, qwenWork, traeWorkOffice, kimiWork],
+    reason: "如果标准不是普通聊天，而是本地文件、浏览器、办公产物和长时间执行任务，先看腾讯 WorkBuddy、阿里千问办公和字节 TRAE Work；Kimi Work 适合作为补充的桌面 Agent 观察入口。",
     bestFor: ["本地文件", "浏览器自动化", "长任务执行"],
   },
   {
@@ -740,6 +774,11 @@ const alternativePairs: AlternativePair[] = [
   },
 ];
 
+const alternativePairsForDisplay = [
+  ...alternativePairs.filter((pair) => pair.id === "codex"),
+  ...alternativePairs.filter((pair) => pair.id !== "codex"),
+];
+
 const getGroupItems = (group: ToolGroup) => group.items ?? group.sections?.flatMap((section) => section.items) ?? [];
 const freeLearningItems = groups.find((group) => group.id === "free-learning")?.items ?? [];
 const mergeFreeLearningIntoGitHubResources = (group: ToolGroup): ToolGroup => {
@@ -757,13 +796,15 @@ const mergeFreeLearningIntoGitHubResources = (group: ToolGroup): ToolGroup => {
   };
 };
 const githubResourcesGroup = groups.find((group) => group.id === "github-free-resources");
+const chinaOfficeGroup = groups.find((group) => group.id === "china-office");
 const directoryGroups = [
+  ...(chinaOfficeGroup ? [chinaOfficeGroup] : []),
   ...(githubResourcesGroup ? [mergeFreeLearningIntoGitHubResources(githubResourcesGroup)] : []),
-  ...groups.filter((group) => group.id !== "github-free-resources" && group.id !== "free-learning"),
+  ...groups.filter((group) => group.id !== "china-office" && group.id !== "github-free-resources" && group.id !== "free-learning"),
 ];
 const totalItems = directoryGroups.reduce((sum, group) => sum + getGroupItems(group).length, 0);
 const emailLink = socialLinks.find((link) => link.label === "Email");
-const pageDescription = "亲自试用后筛选的 AI 工具排行榜导航：不做工具大杂烩，只收录真正高频、成熟、值得国际用户选择的顶级 AI 产品，并提供国内平替和中美产品对照。";
+const pageDescription = "AI 工具导航与排行榜：按真实场景精选 ChatGPT、Claude、Gemini、AI 编程和国内平替，帮助开发者快速选择能用、值得用的 AI 工具。";
 const toolItems = directoryGroups.flatMap((group) =>
   getGroupItems(group).map((item) => ({
     name: item.name,
@@ -784,7 +825,7 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="AI 导航 | 湖森堡AI_hooosberg"
+  title="AI工具导航与排行榜｜亲测工具、国内平替与开发者资源｜湖森堡AI"
   description={pageDescription}
   mainClass="main--ai-directory"
   jsonLd={jsonLd}
@@ -806,10 +847,17 @@ const jsonLd = [
       <div class="directory-stats" aria-label="导航概览">
         <span>{groups.length} 个分类</span>
         <span>{totalItems} 个工具</span>
-        <span>{alternativePairs.length} 组平替</span>
+        <span>{alternativePairsForDisplay.length} 组平替</span>
         <span>亲测精选榜</span>
         <span>人工编辑热度榜</span>
       </div>
+      <p class="directory-guide">
+        使用这份 AI 工具导航时，先按你要完成的任务选分类：想对话、搜索或处理长文档，可从
+        ChatGPT、Claude、Gemini 和国产 AI 工具开始；要做网站、App 或自动化工作流，优先看
+        AI 编程 / Agent、模型接口和开发 / 托管；需要设计、视频、文档或推广素材，再进入对应的生产力分类。
+        每个入口都标注了适用场景、产品来源和国内可用性。这里不追求收录数量，而是持续筛掉低频或只有概念的产品，
+        让你能在国际主流工具、国内平替和开发者资源之间更快做出选择。
+      </p>
     </div>
 
     <div class="directory-method directory-contact-card" aria-label="入库标准和产品提交">
@@ -901,6 +949,7 @@ const jsonLd = [
                               <span class="directory-card__tags">
                                 {item.tags.map((tag) => <span>{tag}</span>)}
                               </span>
+                              {item.actionLabel && <span class="directory-card__action">{item.actionLabel}</span>}
                             </span>
                             <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
                           </a>
@@ -943,6 +992,7 @@ const jsonLd = [
                         <span class="directory-card__tags">
                           {item.tags.map((tag) => <span>{tag}</span>)}
                         </span>
+                        {item.actionLabel && <span class="directory-card__action">{item.actionLabel}</span>}
                       </span>
                       <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
                     </a>
@@ -967,7 +1017,7 @@ const jsonLd = [
         </div>
 
         <div class="alternative-list">
-          {alternativePairs.map((pair, index) => {
+          {alternativePairsForDisplay.map((pair, index) => {
             const sourceCountry = countryMeta[pair.source.country];
 
             return (
