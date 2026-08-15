@@ -3855,7 +3855,7 @@ main.main--ai-directory {
 }
 
 .platform-card-grid--direct {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .platform-card {
@@ -3879,6 +3879,50 @@ main.main--ai-directory {
 
 .platform-card-grid--direct .platform-card strong {
   font-size: 18px;
+}
+
+.qq-group-block {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) minmax(0, 1fr);
+  align-items: center;
+  gap: 32px;
+  padding-top: 24px;
+}
+
+.qq-group-block__image {
+  width: min(100%, 280px);
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.qq-group-block__content {
+  display: grid;
+  gap: 10px;
+  max-width: 440px;
+}
+
+.qq-group-block__content span,
+.qq-group-block__content p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.qq-group-block__content span {
+  font-size: 13px;
+  font-weight: 760;
+}
+
+.qq-group-block__content strong {
+  color: var(--text);
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.qq-group-block__content p {
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 .platform-card:hover {
@@ -4858,6 +4902,15 @@ main.main--ai-directory {
 
   .diary-switch {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .qq-group-block {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 20px;
+    text-align: center;
   }
 }
 
