@@ -5,20 +5,19 @@ import { getLocalizedSocialLinks } from "../../../utils/i18n";
 import { buildSectionWebPageJsonLd } from "../../../utils/structuredData";
 
 const linkCards = getLocalizedSocialLinks("en");
-const displayNote = (link: (typeof linkCards)[number]) =>
-  link.originalLabel === "微信" ? `WeChat ID: ${link.note}` : link.note;
+const displayNote = (link: (typeof linkCards)[number]) => link.note;
 
 const videoLabels = ["YouTube", "B站", "抖音", "快手", "TikTok"];
 const socialLabels = ["GitHub", "X", "小红书"];
-const directLabels = ["Email", "Telegram", "微信"];
+const directLabels = ["Email", "Telegram"];
 
 const getCards = (labels: string[]) =>
   labels.map((label) => linkCards.find((link) => link.originalLabel === label)).filter(Boolean);
 
 const contactSections = [
   {
-    title: "Email, Telegram, and WeChat",
-    kicker: "Courses, products, collaboration, and technical conversation.",
+    title: "Email, Telegram, and QQ group",
+    kicker: "Courses, products, collaboration, and technical conversation through email, Telegram, or the QQ group.",
     cards: getCards(directLabels),
     className: "platform-card-grid--direct",
   },
@@ -35,7 +34,7 @@ const contactSections = [
     className: "platform-card-grid--social",
   },
 ];
-const pageDescription = "Hooosberg video channels, social profiles, email, Telegram, and WeChat contact links.";
+const pageDescription = "Hooosberg video channels, social profiles, email, Telegram, and QQ group contact links.";
 const jsonLd = buildSectionWebPageJsonLd({
   locale: "en",
   path: "/en/links",
@@ -55,7 +54,7 @@ const jsonLd = buildSectionWebPageJsonLd({
   <section class="page-hero page-hero--narrow">
     <p class="commerce-kicker">Contact</p>
     <h1>Contact</h1>
-    <p>Find Hooosberg through video channels, social platforms, email, Telegram, and WeChat. For product reviews, launch coverage, or collaboration, send the product link and a short introduction by email.</p>
+    <p>Find Hooosberg through video channels, social platforms, email, Telegram, and the QQ group. For product reviews, launch coverage, or collaboration, send the product link and a short introduction by email.</p>
   </section>
 
   <section class="link-hub">
@@ -65,10 +64,25 @@ const jsonLd = buildSectionWebPageJsonLd({
           <span>{section.title}</span>
           <p>{section.kicker}</p>
         </div>
+        {section.className === "platform-card-grid--direct" && (
+          <div class="qq-group-block" id="qq-group">
+            <img
+              class="qq-group-block__image"
+              src="/images/contact/qq-group-1105424769.jpg"
+              alt="Hooosberg QQ group QR code, group number 1105424769"
+              loading="eager"
+              decoding="async"
+            />
+            <div class="qq-group-block__content">
+              <span>QQ group</span>
+              <strong>Join the Hooosberg QQ group</strong>
+              <p>Scan the QR code to join, or search for group number 1105424769.</p>
+            </div>
+          </div>
+        )}
         <div class={`platform-card-grid ${section.className}`}>
           {section.cards.map((link) => (
             <a
-              id={link.originalLabel === "微信" ? "wechat" : undefined}
               class="platform-card"
               href={link.url}
               target={link.url.startsWith("http") ? "_blank" : undefined}
