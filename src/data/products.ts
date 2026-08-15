@@ -102,11 +102,11 @@ export const products: Product[] = [
     name: "AgentLimb",
     displayName: "AgentLimb",
     category: "AI 浏览器控制工具",
-    tagline: "让 Claude Code、Cursor、Codex 控制真实 Chrome。",
-    summary: "让 Claude Code、Cursor、Codex 等 AI 编程工具通过本地桥接操作真实 Chrome，并复用网页路线记忆。",
-    platforms: ["Chrome", "MCP", "本地桥接"],
-    status: ["开源", "本地优先", "AI 编程"],
-    audience: "需要让 AI 操作真实网页、账号会话和多账号流程的开发者。",
+    tagline: "全平台网页控制底座：Claude Code、Codex，以及腾讯 WorkBuddy、千问办公、TRAE Work、Cola、Kimi Work 都能驱动真实浏览器。",
+    summary: "AgentLimb 是一个通用网页控制 Chrome 扩展：任何能执行命令的 AI 终端——海外侧的 Claude Code、Codex、Cursor、Trae、Windsurf，国产侧的腾讯 WorkBuddy、阿里千问办公、字节 TRAE Work、Cola、Kimi Work——都能通过一段提示词接入，用你的真实浏览器会话精准操作网页。0.2.1（b7）起同时完整支持 Windows 和 macOS。",
+    platforms: ["Chrome / Edge / Brave / Vivaldi", "MCP", "Windows + macOS", "本地桥接"],
+    status: ["开源", "0.2.1 b7", "本地优先", "Win + Mac"],
+    audience: "需要让 AI 操作真实网页、账号会话和多账号流程的开发者和 AI 重度用户。",
     primaryAction: { label: "官网", url: "https://agentlimb.com/" },
     secondaryAction: { label: "GitHub", url: "https://github.com/hooosberg/AgentLimb" },
     repo: "https://github.com/hooosberg/AgentLimb",
@@ -116,9 +116,41 @@ export const products: Product[] = [
     priority: "P0",
     learnSlug: "agentlimb-browser-memory",
     privacy: privacyLocal("Bridge 运行在本地 127.0.0.1，浏览器会话和 muscle 文件保留在用户自己的机器上。"),
-    features: ["一段提示词完成接入", "复用 DOM 探索结果", "真实 Chrome 会话", "多账号并行控制"],
+    features: ["一段提示词完成接入", "官方支持国产 AI 终端", "Windows + macOS 双平台", "所有谷歌内核浏览器", "复用 DOM 探索记忆省 85% Token", "真实浏览器会话与多账号"],
     buildNotes: ["AI 自动化课程的技术锚点。", "可解释 MCP、本地 bridge、浏览器 session 和任务记忆。"],
     courseHooks: ["浏览器自动化", "MCP 工具链", "多账号运营", "AI 操作真实网页"],
+    detail: {
+      overview: [
+        "AgentLimb 的定位是「全平台全软件的网页控制通用插件」。它不绑定某一家 AI 工具：只要一个终端能执行本机命令，它就能通过本地 Bridge 的 16 个标准化工具驱动浏览器——定位元素、填表、点击、截图、抓取数据，全程复用你已登录的真实浏览器会话，不需要无头浏览器，也不需要重新登录。",
+        "0.2.1（b7）是双平台里程碑：同一份接入提示词在 Windows 和 macOS 上都能走通。macOS 首次安装后由 agent 直接拉起已装 Runtime，Windows 通过 install.ps1 完成本地注册和自启动，两个平台都先征得用户明确授权、下载前校验 SHA-256。此前 v0.1.4 只发了扩展包导致 Windows 无法安装的问题（GitHub issue #2）已在 v0.2.x 双包模型中彻底解决。",
+        "b7 同步官宣了对国产 AI 终端的官方支持：TOP 1 腾讯 WorkBuddy、TOP 2 阿里千问办公、TOP 3 字节 TRAE Work、TOP 4 Cola、TOP 5 Kimi Work。这五款终端与 Claude Code、Codex、Cursor、Trae、Windsurf 走完全相同的接入协议——打开侧边栏复制接入提示词，粘贴进终端，授权后 10 秒完成配置。配合所有谷歌内核浏览器（Chrome、Edge、Brave、Vivaldi 等），AgentLimb 成为国产 AI 办公场景下可直接使用的网页自动化底座。"
+      ],
+      proofPoints: [
+        { label: "支持终端", value: "海外 5+ / 国产 5 家", note: "Claude Code、Codex、Cursor、Trae、Windsurf，以及腾讯 WorkBuddy、阿里千问办公、字节 TRAE Work、Cola、Kimi Work。" },
+        { label: "平台", value: "Windows + macOS", note: "b7 起同一份提示词双平台可用；Windows 走 install.ps1，macOS 支持已装 Runtime 直接拉起。" },
+        { label: "浏览器", value: "所有谷歌内核", note: "Chrome、Edge、Brave、Vivaldi、Chromium 等均可安装同一枚扩展。" },
+        { label: "隐私", value: "本地优先", note: "Bridge 只监听 127.0.0.1:7791，会话与 muscle 记忆文件全部留在本机。" }
+      ],
+      valueProps: [
+        { title: "国产终端开箱即用", body: "WorkBuddy、千问办公、TRAE Work、Cola、Kimi Work 无需任何特殊配置，与海外终端走同一段接入提示词。用国产 AI 办公套件的人第一次拥有了一套正式适配的网页控制能力。" },
+        { title: "真实会话，不是无头浏览器", body: "AI 操作的是你日常使用的浏览器：登录态、Cookie、多 Profile 全部保留。已登录的网站直接可用，多账号并行互不干扰。" },
+        { title: "越用越省的网页记忆", body: "DOM 探索结果沉淀为可读的 muscle 记忆文件，重复任务平均节省 85.7% 的 Token——对按量计费的国产终端尤其划算。" }
+      ],
+      featureDetails: [
+        { title: "一段提示词接入", body: "侧边栏点「复制接入提示词」，粘贴进任何 AI 终端。终端征得授权后自动下载 Runtime、校验 SHA-256、配置 Native Messaging，健康检查通过即可用。" },
+        { title: "国产 AI 终端官方支持", body: "腾讯 WorkBuddy、阿里千问办公、字节 TRAE Work、Cola、Kimi Work 均按标准协议适配，无需插件端任何改动。" },
+        { title: "Windows + macOS 双平台", body: "b7 完整支持两套系统：Windows 通过 install.ps1 注册本地服务，macOS 已装环境秒级拉起，首装才需要下载。" },
+        { title: "所有谷歌内核浏览器", body: "扩展可装在 Chrome、Edge、Brave、Vivaldi 等一切支持 Chrome 扩展体系的浏览器上。" },
+        { title: "muscle 网页记忆", body: "每个网站的 DOM 结构和操作路线沉淀为人类可读的 JSON 记忆，AI 下次直接复用，省 Token 也省时间。" },
+        { title: "16 个标准化工具", body: "navigate、page_snapshot、javascript_eval、tabs_context 等统一工具面，通过 /docs 端点自动发现，任何 agent 无需预装 SDK。" }
+      ],
+      principles: [
+        { title: "终端无关", body: "不做任何一家终端的私有能力，只维护一套开放协议，新终端出现即天然兼容。" },
+        { title: "授权先行", body: "下载、安装、每一步写操作都需要用户明确批准，沉默永远不等于成功。" },
+        { title: "本地优先", body: "Bridge、会话、记忆文件全部留在本机 127.0.0.1，不上传任何浏览数据。" }
+      ],
+      diaryIntro: "开发日记持续记录 AgentLimb 从浏览器扩展、本地 Bridge、双平台自举到国产终端适配的完整过程，同时沉淀为 AI 自动化课程的案例。"
+    },
   },
   {
     slug: "domprompter",
