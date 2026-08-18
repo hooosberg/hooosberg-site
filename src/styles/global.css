@@ -120,10 +120,11 @@ main.main--ai-directory {
   align-items: center;
   gap: 9px;
   width: min(var(--max), calc(100% - 48px));
-  min-height: 36px;
+  min-height: 0;
   margin-inline: auto;
-  font-size: 12px;
-  line-height: 1.55;
+  padding-block: 6px;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .site-announcement__inner > svg {
@@ -4225,8 +4226,8 @@ main.main--ai-directory {
     width: min(100% - 28px, var(--max));
     align-items: flex-start;
     min-height: 0;
-    padding-block: 7px;
-    font-size: 11px;
+    padding-block: 6px;
+    font-size: 12px;
   }
 
   .site-announcement__inner > svg {
