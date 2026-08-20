@@ -1,6 +1,7 @@
 ---
 import { ExternalLink } from "@lucide/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContactQrGroup from "../../components/ContactQrGroup.astro";
 import { socialLinks } from "../../data/products";
 import { buildSectionWebPageJsonLd } from "../../utils/structuredData";
 
@@ -19,8 +20,8 @@ const getCards = (labels: string[]) =>
 
 const contactSections = [
   {
-    title: "邮箱、电报和 QQ 群",
-    kicker: "课程、产品、合作和技术交流，可以通过邮箱、电报或 QQ 群联系。",
+    title: "邮箱、电报和微信、QQ 群",
+    kicker: "课程、产品、合作和技术交流，可以通过邮箱、电报、QQ 群或微信群联系。",
     cards: getCards(directLabels),
     className: "platform-card-grid--direct",
   },
@@ -37,7 +38,7 @@ const contactSections = [
     className: "platform-card-grid--social",
   },
 ];
-const pageDescription = "湖森堡AI_hooosberg 视频账号、社交媒体、邮箱、电报、QQ 群及产品测评合作联系方式。";
+const pageDescription = "湖森堡AI_hooosberg 视频账号、社交媒体、邮箱、电报、QQ 群、微信群及产品测评合作联系方式。";
 const jsonLd = buildSectionWebPageJsonLd({
   locale: "zh-CN",
   path: "/links",
@@ -51,7 +52,7 @@ const jsonLd = buildSectionWebPageJsonLd({
   <section class="page-hero page-hero--narrow">
     <p class="commerce-kicker">Contact</p>
     <h1>联系</h1>
-    <p>这里整理了我们的视频账号、社交媒体、邮箱、电报和 QQ 群。想看过程、跟进产品、交流合作，或有产品想做视频测评和推广，都可以把链接和简介发到邮箱；内容适合的话，我会再联系沟通。</p>
+    <p>这里整理了我们的视频账号、社交媒体、邮箱、电报、QQ 群和微信群。想看过程、跟进产品、交流合作，或有产品想做视频测评和推广，都可以把链接和简介发到邮箱；内容适合的话，我会再联系沟通。</p>
   </section>
 
   <section class="link-hub">
@@ -61,22 +62,7 @@ const jsonLd = buildSectionWebPageJsonLd({
           <span>{section.title}</span>
           <p>{section.kicker}</p>
         </div>
-        {section.className === "platform-card-grid--direct" && (
-          <div class="qq-group-block" id="qq-group">
-            <img
-              class="qq-group-block__image"
-              src="/images/contact/qq-group-1105424769.jpg"
-              alt="湖森堡 QQ 群二维码，群号 1105424769"
-              loading="eager"
-              decoding="async"
-            />
-            <div class="qq-group-block__content">
-              <span>QQ 群</span>
-              <strong>加入湖森堡 QQ 群</strong>
-              <p>扫描二维码加入群聊，也可搜索群号 1105424769。</p>
-            </div>
-          </div>
-        )}
+        {section.className === "platform-card-grid--direct" && <ContactQrGroup />}
         <div class={`platform-card-grid ${section.className}`}>
           {section.cards.map((link) => (
             <a

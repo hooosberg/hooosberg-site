@@ -1,0 +1,88 @@
+---
+import { wechatQr } from "../data/contactQr";
+
+type Props = {
+  locale?: "zh-CN" | "en";
+};
+
+const { locale = "zh-CN" } = Astro.props;
+const isEnglish = locale === "en";
+---
+
+<div class="contact-qr-grid" data-qr-expiry={wechatQr.expiresAt} data-qr-uploaded={wechatQr.uploadedAt}>
+  <div class="contact-qr-card contact-qr-card--qq">
+    <img
+      class="contact-qr-card__image"
+      src="/images/contact/qq-group-1105424769.jpg"
+      alt={isEnglish ? "Hooosberg QQ group QR code, group number 1105424769" : "湖森堡 QQ 群二维码，群号 1105424769"}
+      loading="eager"
+      decoding="async"
+    />
+    <div class="contact-qr-card__content">
+      <span>{isEnglish ? "QQ group" : "QQ群"}</span>
+      <strong>{isEnglish ? "Join the Hooosberg QQ group" : "加入湖森堡 QQ 群"}</strong>
+      <p>{isEnglish ? "Scan the QR code or search for group number 1105424769." : "扫描二维码加入群聊，也可搜索群号 1105424769。"}</p>
+      <p class="contact-qr-card__note">{isEnglish ? "Course files are available in the QQ group files." : "需要课件可以添加 QQ 群，在群文件中自取。"}</p>
+    </div>
+  </div>
+
+  <div class="contact-qr-card contact-qr-card--wechat" id="wechat" data-wechat-qr>
+    <div class="contact-qr-card__media">
+      <img
+        class="contact-qr-card__image"
+        src={wechatQr.image}
+        alt={isEnglish ? "Hooosberg WeChat group QR code" : "湖森堡微信群二维码"}
+        loading="eager"
+        decoding="async"
+      />
+      <div class="contact-qr-card__expired" data-qr-expired hidden>
+        <strong>{isEnglish ? "QR code expired" : "此二维码已过期"}</strong>
+        <span>{isEnglish ? "Please join the QQ group for the latest WeChat QR code." : "请先加入 QQ 群，获取最新微信群二维码。"}</span>
+      </div>
+    </div>
+    <div class="contact-qr-card__content">
+      <span>{isEnglish ? "WeChat group" : "微信群"}</span>
+      <strong>{isEnglish ? "Join the Hooosberg WeChat group" : "加入湖森堡微信群"}</strong>
+      <p>{isEnglish ? "The QR code is valid for 7 days from the upload date." : "二维码从上传当天开始计时，有效期 7 天。"}</p>
+      <strong class="contact-qr-card__handle">{isEnglish ? "WeChat ID: hooosberg" : "微信号：hooosberg"}</strong>
+      <p class="contact-qr-card__countdown" data-qr-countdown aria-live="polite">{isEnglish ? "Checking validity..." : "正在检查有效期..."}</p>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const grids = document.querySelectorAll("[data-qr-expiry]");
+    const formatRemaining = (expiresAt, isEnglish) => {
+      const remaining = new Date(expiresAt).getTime() - Date.now();
+      if (remaining <= 0) return null;
+      const days = Math.ceil(remaining / 86400000);
+      return isEnglish ? `${days} day${days === 1 ? "" : "s"} remaining` : `剩余 ${days} 天`;
+    };
+
+    grids.forEach((grid) => {
+      const expiry = grid.getAttribute("data-qr-expiry");
+      const qr = grid.querySelector("[data-wechat-qr]");
+      const image = qr?.querySelector(".contact-qr-card__image");
+      const expired = qr?.querySelector("[data-qr-expired]");
+      const countdown = qr?.querySelector("[data-qr-countdown]");
+      const isEnglish = document.documentElement.lang.startsWith("en");
+      if (!expiry || !qr || !image || !expired || !countdown) return;
+
+      const update = () => {
+        const label = formatRemaining(expiry, isEnglish);
+        if (label) {
+          countdown.textContent = label;
+          return;
+        }
+        image.hidden = true;
+        expired.hidden = false;
+        countdown.textContent = isEnglish ? "Expired" : "已过期";
+        qr.classList.add("is-expired");
+      };
+
+      update();
+      window.setInterval(update, 60000);
+    });
+  })();
+</script>
