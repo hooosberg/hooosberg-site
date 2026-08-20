@@ -11,7 +11,7 @@ const isMoodButton = product.slug === "mood-button";
 const isSumiMahjong = product.slug === "sumi-mahjong";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
-const updatedDate = isWitNote ? "2026-08-05" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const updatedDate = isWitNote ? "2026-08-21" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const distributionText = product.hideSourceLinks
   ? `This privacy policy applies to ${product.displayName}. Product delivery for this app happens through the App Store and the linked Hooosberg product website.`
   : isWitNote
@@ -20,7 +20,7 @@ const distributionText = product.hideSourceLinks
 const platformServicesText = product.hideSourceLinks
   ? "When you download, purchase, update, or review this product through Apple App Store, Apple may process account, payment, device, crash, or store activity data under its own privacy policy."
   : isWitNote
-    ? "When you download, purchase, update, or review WitNote through Apple App Store, Apple may process account, payment, device, crash, or store activity data under Apple's own privacy policy. WitNote may access the network for an optional model download, Apple StoreKit purchase or restore, or a page the user explicitly opens. WitNote does not require a Hooosberg account, run advertising, or maintain a hosted user profile."
+    ? "When you download, purchase, update, or review WitNote through Apple App Store, Apple may process account, payment, device, crash, or store activity data under Apple's own privacy policy. WitNote may access the network for user-initiated model downloads, Apple StoreKit purchase or restore, pages the user explicitly opens, a local Ollama service, or a cloud API endpoint that the user configures. WitNote does not require a Hooosberg account, run advertising, or maintain a hosted user profile."
   : "When you download, purchase, update, or review this product through Apple, Google, GitHub, Chrome Web Store, or another platform, that platform may process account, payment, device, crash, or store activity data under its own privacy policy.";
 ---
 
@@ -60,14 +60,22 @@ const platformServicesText = product.hideSourceLinks
           <p>WitNote is a local-first macOS Markdown writing and knowledge workspace. The folders, Markdown documents, notes, imported files, exports, and app settings selected by the user are handled on the Mac. WitNote does not require a Hooosberg account, run advertising, or maintain a server-side writing profile.</p>
           <div class="privacy-list">
             <div class="privacy-row"><strong>Local files and folders</strong><span>WitNote accesses the folder and files that the user chooses through macOS file access. The user remains responsible for backups, permissions, and the contents of imported or exported files.</span></div>
-            <div class="privacy-row"><strong>Local AI inference</strong><span>When a local model is selected, prompts and responses are processed on the Mac through the app's local MLX runtime. The app does not default to sending those documents to a hosted AI service.</span></div>
-            <div class="privacy-row"><strong>App settings and model selection</strong><span>Stored locally so the app can remember the selected workspace, interface preferences, and available local models.</span></div>
+            <div class="privacy-row"><strong>Local AI inference</strong><span>When a local MLX model is selected, prompts and responses are processed on the Mac. The app does not default to sending those documents to a hosted AI service.</span></div>
+            <div class="privacy-row"><strong>Ollama</strong><span>WitNote can connect to an Ollama service running on the same Mac. The app restricts that connection to localhost addresses and reads only the models available in that local service; it does not upload Ollama models to Hooosberg.</span></div>
+            <div class="privacy-row"><strong>App settings and model selection</strong><span>Stored locally so the app can remember the selected workspace, interface preferences, model source, and available local or Ollama models.</span></div>
           </div>
         </section>
 
         <section>
+          <h2>User-Configured Cloud APIs</h2>
+          <p>WitNote can connect directly to an OpenAI-compatible API endpoint chosen and configured by the user. WitNote is not an AI API provider and does not proxy cloud requests through a Hooosberg server. The user chooses the endpoint URL, model ID, and API key; the API key is stored in macOS Keychain on that Mac, not in a WitNote account or Hooosberg database.</p>
+          <p>When the user sends a cloud-AI request, the request text and the model response are transmitted directly between the app and the configured endpoint. Sending attached current-document content is off by default and requires the user to enable a separate permission for that individual endpoint. The user is responsible for choosing a provider, reviewing its privacy policy, and avoiding content they are not permitted to send.</p>
+          <p>WitNote does not retain cloud request bodies or API keys on a Hooosberg server. The configured provider may process, retain, or use data according to its own terms and settings; its retention and deletion practices are outside WitNote's control. Remove an endpoint in WitNote settings to delete its locally stored API key, and disable the document-content permission at any time.</p>
+        </section>
+
+        <section>
           <h2>Local AI and Model Downloads</h2>
-          <p>WitNote 2.0.1 uses a native Swift macOS interface and a local MLX inference route. A small Qwen3 0.6B 4-bit model is bundled so a new user can start without a first model download. Optional model downloads are performed only when the user selects a model or retries a download; the downloaded files are saved in the app's local model directory and are not uploaded by WitNote.</p>
+          <p>WitNote 2.0.3 uses a native Swift macOS interface and supports a local MLX inference route. A small Qwen3 0.6B 4-bit model is bundled so a new user can start without a first model download. Optional model downloads are performed only when the user selects a model or retries a download; the downloaded files are saved in the app's local model directory and are not uploaded by WitNote.</p>
           <p>MLX and Qwen are third-party open-source or model projects with their own notices and license terms. The app package includes third-party notices and the bundled model's license files. User-downloaded models remain subject to the model source's license, acceptable-use rules, and any attribution requirements. See <a href="https://github.com/ml-explore/mlx" target="_blank" rel="noreferrer">MLX</a> and the <a href="https://huggingface.co/Qwen/Qwen3-0.6B" target="_blank" rel="noreferrer">Qwen3 model page</a> for source information.</p>
         </section>
 
@@ -83,7 +91,7 @@ const platformServicesText = product.hideSourceLinks
 
         <section>
           <h2>Network and External Links</h2>
-          <p>WitNote may use the network for user-initiated model downloads, Apple StoreKit purchase or restore flows, and pages the user explicitly opens, such as support, privacy, terms, or model-source pages. The core Markdown workspace and local inference path are designed to work without a Hooosberg cloud account. External services process data under their own terms when the user chooses to access them.</p>
+          <p>WitNote may use the network for user-initiated model downloads, Apple StoreKit purchase or restore flows, pages the user explicitly opens, a local Ollama service, and a cloud endpoint configured by the user. The core Markdown workspace and local inference path are designed to work without a Hooosberg cloud account. External services process data under their own terms when the user chooses to access them.</p>
         </section>
       </>
     )}

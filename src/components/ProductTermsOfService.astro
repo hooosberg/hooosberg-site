@@ -10,7 +10,7 @@ const { product } = Astro.props;
 const isSumiMahjong = product.slug === "sumi-mahjong";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
-const updatedDate = isWitNote ? "2026-08-05" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const updatedDate = isWitNote ? "2026-08-21" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const scopeText = product.hideSourceLinks
   ? "The product page, App Store download link, privacy policy, terms, and support contact define the current public product scope."
   : isWitNote
@@ -24,7 +24,7 @@ const purchasesText = product.hideSourceLinks
 const thirdPartyText = product.hideSourceLinks
   ? "The app may use Apple platform services such as App Store, StoreKit, and iCloud/iOS system behavior where applicable. Apple's own terms and policies apply to those services."
   : isWitNote
-    ? "WitNote may use Apple App Store and StoreKit, the MLX runtime, Qwen model files, and other model sources selected by the user. Each third-party service, runtime, model, or downloaded asset remains subject to its own license and terms."
+    ? "WitNote may use Apple App Store and StoreKit, the MLX runtime, Qwen model files, a user-run local Ollama service, and cloud API endpoints selected by the user. Each third-party service, runtime, model, downloaded asset, or API remains subject to its own license, terms, and privacy policy."
   : "Some workflows may involve third-party systems selected by you, such as model APIs, app stores, browser accounts, GitHub, or cloud services. Their own terms and policies apply to those services.";
 ---
 
@@ -53,7 +53,7 @@ const thirdPartyText = product.hideSourceLinks
       ) : isRushi ? (
         <p>Rushi is a personal scripture reading, mala counting, and copy-practice utility. It is not a religious service, publication service, donation service, medical or mental-health service, or promise of blessing, merit, salvation, or any spiritual outcome. Do not misuse the app, reverse engineer it, extract or redistribute bundled scripture, sound, calligraphy, copybook images, icons, screenshots, code, or other bundled assets outside their own source licenses, or use it in ways that violate applicable law, platform rules, or third-party rights.</p>
       ) : isWitNote ? (
-        <p>WitNote is a local Markdown writing, knowledge, reading, conversion, and AI-assistance workspace. You are responsible for the files and content you import, the rights to that content, the prompts you submit, and how you use generated or converted output. Local AI output can be incomplete or inaccurate and must be reviewed before publication, submission, or another consequential use. Do not use the product in ways that violate applicable law, platform rules, model licenses, or third-party rights.</p>
+        <p>WitNote is a local Markdown writing, knowledge, reading, conversion, and AI-assistance workspace. You are responsible for the files and content you import, the rights to that content, the prompts you submit, and how you use generated or converted output. Local and cloud AI output can be incomplete or inaccurate and must be reviewed before publication, submission, or another consequential use. Do not use the product in ways that violate applicable law, platform rules, model licenses, provider terms, or third-party rights.</p>
       ) : (
         <p>You are responsible for how you use the product, the files or content you import, and any output you create with it. Do not use the product in ways that violate applicable law, platform rules, or third-party rights.</p>
       )}
@@ -97,7 +97,7 @@ const thirdPartyText = product.hideSourceLinks
         <p>Rushi does not include advertising networks, third-party analytics SDKs, social feeds, cloud accounts, hosted scripture sync, or third-party AI services. Bundled public-domain, open-license, or otherwise openly usable scripture, sound, and copybook source materials, including Liu Gongquan Diamond Sutra and Ouyang Xun Heart Sutra copybook sources where available, remain subject to their source notices and may not be extracted or reused outside the app except as allowed by those source terms.</p>
       )}
       {isWitNote && (
-        <p>WitNote includes or may download MLX-compatible model files, including Qwen3 variants. The app package exposes its third-party notices and bundled model license files. MLX, Qwen, and each downloaded model remain subject to their own licenses, model-use restrictions, and attribution requirements. Do not redistribute those files outside the rights granted by their sources.</p>
+        <p>WitNote includes or may download MLX-compatible model files, including Qwen3 variants. It can also connect to a local Ollama service and an OpenAI-compatible cloud endpoint chosen by the user. WitNote does not provide, relay, or control those cloud services. The user is responsible for each selected model or API, its cost, output, availability, content policy, privacy policy, and retention practices. The app package exposes third-party notices and bundled model license files. MLX, Qwen, and each downloaded model remain subject to their own licenses, model-use restrictions, and attribution requirements.</p>
       )}
     </section>
 
