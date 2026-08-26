@@ -9,13 +9,14 @@ import {
   ShieldCheck,
 } from "@lucide/astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ProductCard from "../components/ProductCard.astro";
-import { productDiaryArticles } from "../data/articles";
-import { productsByLatest, socialLinks } from "../data/products";
+import { videoTutorialNoteArticles } from "../data/articles";
+import { learningSeries } from "../data/learningSeries";
+import { socialLinks } from "../data/products";
 import { buildHomeJsonLd } from "../utils/structuredData";
 
-const featuredProducts = productsByLatest.slice(0, 3);
-const featuredArticles = productDiaryArticles.slice(0, 6);
+const featuredArticles = videoTutorialNoteArticles.slice(0, 6);
+const workbuddy = learningSeries.find((series) => series.id === "workbuddy")!;
+const cola = learningSeries.find((series) => series.id === "cola")!;
 
 const socialCards = socialLinks
   .filter((link) => link.label !== "Email")
@@ -23,23 +24,22 @@ const socialCards = socialLinks
 ---
 
 <BaseLayout
-  title="湖森堡AI_hooosberg | 哲学 艺术 AI"
-  description="记录用 AI 做真实产品的过程，整理实际用过和调研过的 AI 工具。"
+  title="湖森堡AI_hooosberg | AI 自动化办公入门绿皮书"
+  description="学习 WorkBuddy、豆包办公、千问、Cola、Codex、Claude Code 等 AI 工具处理表格、文档、PPT、网页与工作流。"
   jsonLd={buildHomeJsonLd("zh-CN")}
 >
   <section class="landing-hero">
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-content">
-      <p class="hero-kicker">我的开发笔记 / AI 工具导航</p>
-      <h1>哲学 艺术 AI</h1>
+      <h1>AI 自动化办公入门<br />绿皮书</h1>
       <p class="hero-subtitle">
-        这里记录我用 AI 做真实产品的过程，也整理实际用过和调研过的 AI 工具。
-        你可以从这里看产品怎么从想法走到发布，也可以快速判断当下该用哪个 AI 工具。
+        学习 WorkBuddy、豆包办公、千问、Kimi、Cola、Codex、Claude Code 等 AI 工具，
+        用它们处理 Excel、Word、PPT、PDF、网页、本地文件和自动化工作流。
       </p>
       <div class="hero-actions">
         <a class="button button--primary button--xl" href="/blog">
           <BookOpen size={18} aria-hidden="true" />
-          看笔记
+          从入门开始
         </a>
         <a class="button button--secondary button--xl" href="/ai-navigation">
           <Search size={18} aria-hidden="true" />
@@ -47,46 +47,43 @@ const socialCards = socialLinks
         </a>
       </div>
       <div class="hero-proof" aria-label="Site focus">
-        <span>Codex App 开发</span>
-        <span>苹果商店上架流程</span>
-        <span>Mac/iOS App 开发</span>
-        <span>AI 入门</span>
+        <span>Excel / Word / PPT / PDF</span>
+        <span>WorkBuddy</span>
+        <span>豆包办公</span>
+        <span>千问</span>
+        <span>Cola</span>
+        <span>Codex</span>
         <span>Claude Code</span>
-        <span>Gemini</span>
-        <span>AI 导航</span>
-        <span>开发笔记</span>
+        <span>开发入门</span>
       </div>
     </div>
   </section>
 
   <section class="landing-section landing-section--split" id="articles">
     <div class="section-heading">
-      <p>开发笔记</p>
-      <h2>先看真实产品怎么被做出来。</h2>
-      <span>这里不是概念教程，而是需求、提示词、代码修改、上架、失败和复盘的连续记录。</span>
-      <a href="/blog">全部笔记 <ArrowRight size={15} aria-hidden="true" /></a>
+      <p>两套免费课程</p>
+      <h2>先入门，再上手做出结果。</h2>
+      <span>入门绿皮书以 WorkBuddy 为主，实战绿皮书用 Cola、Codex 和 Claude Code 处理真实办公问题。</span>
+      <a href="/blog">进入学习笔记 <ArrowRight size={15} aria-hidden="true" /></a>
     </div>
-    <div class="article-list article-list--compact">
-      {featuredArticles.map((article) => (
-        <a class="article-row" href={`/blog/${article.slug}`}>
-          <span class="article-row__category">{article.category}</span>
-          <span class="article-row__title">{article.title}</span>
-          <span class="article-row__excerpt">{article.excerpt}</span>
-          <span class="article-row__date">{article.date}</span>
-        </a>
-      ))}
+    <div class="home-greenbook-list">
+      {[workbuddy, cola].map((series) => <a class="home-greenbook" href={`/blog?section=${series.id}`}>
+        <span>{series.shortTitle}</span><strong>{series.title}</strong><p>{series.toolLine}</p><ArrowRight size={17} aria-hidden="true" />
+      </a>)}
     </div>
   </section>
 
-  <section class="landing-section home-products-section">
+  <section class="landing-section landing-section--split" id="popular-notes">
     <div class="section-heading">
-      <p>产品</p>
-      <h2>产品是笔记的事实来源。</h2>
-      <span>保留少量代表项目入口，更多产品和隐私政策放在产品页里统一查看。</span>
-      <a href="/apps">全部产品 <ArrowRight size={15} aria-hidden="true" /></a>
+      <p>热门笔记</p>
+      <h2>跟着一节课，先解决一个问题。</h2>
+      <span>从真实文件、资料、规则和最终检查开始学习，避免只停留在“听懂了”。</span>
+      <a href="/blog?section=workbuddy">全部课程 <ArrowRight size={15} aria-hidden="true" /></a>
     </div>
-    <div class="product-grid product-grid--catalog product-grid--home">
-      {featuredProducts.map((product) => <ProductCard product={product} />)}
+    <div class="article-list article-list--compact">
+      {featuredArticles.map((article) => <a class="article-row" href={`/blog/${article.slug}`}>
+        <span class="article-row__category">{article.category}</span><span class="article-row__title">{article.title}</span><span class="article-row__excerpt">{article.excerpt}</span><span class="article-row__date">{article.date}</span>
+      </a>)}
     </div>
   </section>
 

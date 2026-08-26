@@ -29,7 +29,7 @@ const isEnglish = locale === "en";
     {resources.map((resource) => {
       const title = isEnglish ? (resource.titleEn ?? resource.title) : resource.title;
       const description = isEnglish ? (resource.descriptionEn ?? resource.description) : resource.description;
-      const href = `data:text/markdown;charset=utf-8,${encodeURIComponent(resource.content)}`;
+      const href = resource.url ?? `data:text/markdown;charset=utf-8,${encodeURIComponent(resource.content ?? "")}`;
 
       return (
         <div class="article-download-resource">

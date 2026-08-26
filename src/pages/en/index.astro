@@ -1,14 +1,14 @@
 ---
 import { ArrowRight, BookOpen, Code2, ExternalLink, Layers3, Search, ShieldCheck } from "@lucide/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import ProductCard from "../../components/ProductCard.astro";
-import { productDiaryArticles } from "../../data/articles";
-import { productsByLatest } from "../../data/products";
+import { videoTutorialNoteArticles } from "../../data/articles";
+import { learningSeries } from "../../data/learningSeries";
 import { getLocalizedArticle, getLocalizedSocialLinks } from "../../utils/i18n";
 import { buildHomeJsonLd } from "../../utils/structuredData";
 
-const featuredProducts = productsByLatest.slice(0, 3);
-const featuredArticles = productDiaryArticles.slice(0, 6).map((article) => getLocalizedArticle(article, "en"));
+const featuredArticles = videoTutorialNoteArticles.slice(0, 6).map((article) => getLocalizedArticle(article, "en"));
+const workbuddy = learningSeries.find((series) => series.id === "workbuddy")!;
+const cola = learningSeries.find((series) => series.id === "cola")!;
 const localizedSocialLinks = getLocalizedSocialLinks("en");
 
 const socialCards = localizedSocialLinks
@@ -18,25 +18,23 @@ const socialCards = localizedSocialLinks
 
 <BaseLayout
   locale="en"
-  title="Hooosberg | Philosophy, Art, AI"
-  description="Public build notes for making real products with AI, plus a practical guide to AI tools I use and research."
+  title="Hooosberg | AI Office Automation: Beginner Green Book"
+  description="Learn AI office automation with WorkBuddy, Doubao Work, Qwen, Cola, Codex, Claude Code, and practical Excel, Word, PPT, PDF, web, and workflow cases."
   canonicalPath="/en"
   jsonLd={buildHomeJsonLd("en")}
 >
   <section class="landing-hero">
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-content">
-      <p class="hero-kicker">My build notes / AI tool guide</p>
-      <h1>Philosophy, Art, AI</h1>
+      <h1>AI Office Automation:<br />Beginner Green Book</h1>
       <p class="hero-subtitle">
-        Hooosberg records my process of building real products with AI and organizes the AI tools
-        I have used or seriously researched. Start here to see how products move from idea to launch,
-        or to decide which AI tool fits the job.
+        Learn WorkBuddy, Doubao Work, Qwen, Kimi, Cola, Codex, Claude Code, and more AI tools
+        for Excel, Word, PPT, PDF, web research, local files, and automation workflows.
       </p>
       <div class="hero-actions">
         <a class="button button--primary button--xl" href="/en/blog">
           <BookOpen size={18} aria-hidden="true" />
-          Read Notes
+          Start learning
         </a>
         <a class="button button--secondary button--xl" href="/en/ai-navigation">
           <Search size={18} aria-hidden="true" />
@@ -44,46 +42,42 @@ const socialCards = localizedSocialLinks
         </a>
       </div>
       <div class="hero-proof" aria-label="Site focus">
-        <span>Codex App Development</span>
-        <span>App Store Launch Process</span>
-        <span>Mac/iOS App Development</span>
-        <span>AI Basics</span>
+        <span>Excel / Word / PPT / PDF</span>
+        <span>WorkBuddy</span>
+        <span>Doubao Work</span>
+        <span>Qwen</span>
+        <span>Cola</span>
         <span>Claude Code</span>
-        <span>Gemini</span>
-        <span>AI Navigation</span>
-        <span>Build Notes</span>
+        <span>Codex</span>
       </div>
     </div>
   </section>
 
   <section class="landing-section landing-section--split" id="articles">
     <div class="section-heading">
-      <p>Build notes</p>
-      <h2>Start with the real product work.</h2>
-      <span>Requirements, prompts, code changes, launch work, failures, and postmortems are kept as public build notes.</span>
-      <a href="/en/blog">All notes <ArrowRight size={15} aria-hidden="true" /></a>
+      <p>Two free courses</p>
+      <h2>Start simple, then make something useful.</h2>
+      <span>The Beginner Green Book starts with WorkBuddy. The Practice Green Book uses Cola, Codex, and Claude Code for real office problems.</span>
+      <a href="/en/blog">Open learning notes <ArrowRight size={15} aria-hidden="true" /></a>
     </div>
-    <div class="article-list article-list--compact">
-      {featuredArticles.map((article) => (
-        <a class="article-row" href={`/en/blog/${article.slug}`}>
-          <span class="article-row__category">{article.category}</span>
-          <span class="article-row__title">{article.title}</span>
-          <span class="article-row__excerpt">{article.excerpt}</span>
-          <span class="article-row__date">{article.date}</span>
-        </a>
-      ))}
+    <div class="home-greenbook-list">
+      {[workbuddy, cola].map((series) => <a class="home-greenbook" href={`/en/blog?section=${series.id}`}>
+        <span>{series.id === "workbuddy" ? "Beginner Green Book" : "Practice Green Book"}</span><strong>{series.id === "workbuddy" ? "AI Office Automation: Beginner Green Book" : "AI Office Automation: Practice Green Book"}</strong><p>{series.id === "workbuddy" ? "WorkBuddy, Doubao Work, Qwen Work, and more · 30 free lessons" : "Cola / Codex / Claude Code · problem-led practice"}</p><ArrowRight size={17} aria-hidden="true" />
+      </a>)}
     </div>
   </section>
 
-  <section class="landing-section home-products-section">
+  <section class="landing-section landing-section--split" id="popular-notes">
     <div class="section-heading">
-      <p>Products</p>
-      <h2>Products are the evidence behind the notes.</h2>
-      <span>A few representative apps stay here; the full catalog, privacy policies, and product pages live in the products section.</span>
-      <a href="/en/apps">All products <ArrowRight size={15} aria-hidden="true" /></a>
+      <p>Popular notes</p>
+      <h2>Follow one lesson. Solve one real problem.</h2>
+      <span>Start with source files, rules, and a final check instead of only watching an explanation.</span>
+      <a href="/en/blog?section=workbuddy">All lessons <ArrowRight size={15} aria-hidden="true" /></a>
     </div>
-    <div class="product-grid product-grid--catalog product-grid--home">
-      {featuredProducts.map((product) => <ProductCard product={product} locale="en" />)}
+    <div class="article-list article-list--compact">
+      {featuredArticles.map((article) => <a class="article-row" href={`/en/blog/${article.slug}`}>
+        <span class="article-row__category">{article.category}</span><span class="article-row__title">{article.title}</span><span class="article-row__excerpt">{article.excerpt}</span><span class="article-row__date">{article.date}</span>
+      </a>)}
     </div>
   </section>
 

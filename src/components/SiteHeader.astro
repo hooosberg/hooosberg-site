@@ -63,12 +63,12 @@ const colaNotice = locale === "zh-CN"
     <div class="site-header__right">
       <nav class="nav-links" aria-label="Primary navigation">
         {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
-        <details class="nav-more">
+        {moreNavItems.length > 0 && <details class="nav-more">
           <summary>{text.moreNavLabel}</summary>
           <div class="nav-more__menu">
             {moreNavItems.map((item) => <a href={item.href}>{item.label}</a>)}
           </div>
-        </details>
+        </details>}
       </nav>
       <div class="site-header__actions">
         <a

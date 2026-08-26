@@ -19,7 +19,8 @@ export type DownloadableResource = {
   description: string;
   descriptionEn?: string;
   fileName: string;
-  content: string;
+  content?: string;
+  url?: string;
 };
 
 export type DiaryKind = "video" | "product" | "reading" | "thought" | "resource";
@@ -51,6 +52,7 @@ export type Article = {
   downloadableResources?: DownloadableResource[];
   relatedArticleSlugs?: string[];
   seriesOrder?: number;
+  handoutFirst?: boolean;
   body: string[];
   sections?: ArticleSection[];
 };
@@ -750,6 +752,196 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
           "学习顺序是“第 22 集完成本地只读验收 → 第 25 集提示词 1 组织订单工作台 → 提示词 2 生成群日报 → 用第二组资料复测并人工验收”。学习重点仍是“授权资料 → 结构化字段 → 可追溯工作台 → 异常标记 → 人工确认”的闭环。",
         ],
       },
+    ],
+  },
+  {
+    slug: "video-workbuddy-lesson26-bilibili-skill",
+    title: "第26集｜WorkBuddy＋AgentLimb：B站视频怎么自动发布？流程做成Skill，第二次5分钟完成｜AI自动化办公",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-18",
+    seriesOrder: 26,
+    excerpt: "把一次成功的网页投稿操作沉淀为 Skill 和操作记忆；第二次执行前仍需逐项人工确认。",
+    tags: ["视频教程", "WorkBuddy", "AgentLimb", "Skill", "浏览器自动化", "B站"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8625038?type=season",
+    videoMeta: "B 站：WorkBuddy 入门绿皮书合集",
+    downloadableResources: [{
+      title: "第26集｜哔哩哔哩 B 站上传流程",
+      description: "课程原始 Markdown：投稿页、上传、标题、标签、合集、封面、声明、定时和最终提交的核对流程。",
+      fileName: "第26集-哔哩哔哩B站上传流程.md",
+      url: "/downloads/workbuddy/第26集-哔哩哔哩B站上传流程.md",
+    }],
+    body: [
+      "这一课的重点不是让 AI 自动点击，而是把第一次已经跑通的网页操作沉淀成 Skill 和操作记忆。以后面对同类型投稿，不需要每次从零探索页面、字段和检查点。",
+      "案例演示从已准备好的视频、标题、简介、标签和封面开始，依次完成上传、加入合集、创作声明、封面设置、定时发布和最终投稿。网页会变化，账号状态也会变化，所以流程可以复用，提交决定不能外包。",
+    ],
+    sections: [{
+      heading: "先跑通，再复用",
+      paragraphs: [
+        "第一次执行的价值在于发现实际页面里的字段、限制和验证方式；第二次才把已经确认的路径变成 Skill。任何登录状态、作品归属、标题、简介、标签、合集、封面、创作声明和发布时间都应在提交前由账号所有者读回确认。",
+        "本课下载项保留原始流程 Markdown。它记录的是当时页面的验证经验，不是永久不变的 B 站规则；遇到界面、限制或账号状态不一致时，应停在当前步骤重新检查。",
+      ],
+    }],
+  },
+  {
+    slug: "video-workbuddy-lesson27-mobile-remote",
+    title: "第27集｜WorkBuddy＋手机：出门也能远程控制电脑，监控任务＋调取文件｜AI自动化办公",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-19",
+    seriesOrder: 27,
+    excerpt: "理解手机端与正在运行的电脑端如何协作：手机负责查看、确认和下达任务，电脑负责在本地完成工作。",
+    tags: ["视频教程", "WorkBuddy", "远程办公", "手机控制电脑", "AI Agent"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8625038?type=season",
+    videoMeta: "B 站：WorkBuddy 入门绿皮书合集",
+    body: [
+      "这节课区分了 WorkBuddy 手机端和电脑端的角色：手机不只是聊天窗口，而是查看任务、继续确认和安排电脑工作的遥控入口；真正读取本地文件和执行长任务的仍是保持在线的电脑。",
+      "演示覆盖手机连接电脑端、查看长任务进度、让电脑新建文件、从手机下达文件处理任务，以及比较云端模式与“连接电脑”模式。",
+    ],
+    sections: [{ heading: "使用边界", paragraphs: ["远程能力不等于可以跳过确认。涉及发送邮件、分享文件、微信发送或访问敏感资料时，应先缩小资料范围、明确接收方并在实际动作前人工确认。", "出门前先在自己的测试文件和测试账号上验证电脑在线、任务可见、文件权限和结果回传；不要把“手机能看到任务”当成“所有本地资料都允许远程处理”。"] }],
+  },
+  {
+    slug: "video-workbuddy-lesson28-custom-model",
+    title: "第28集｜WorkBuddy＋DeepSeek：免费领100万Token，腾讯云API接入自定义模型｜AI自动化办公",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-20",
+    seriesOrder: 28,
+    excerpt: "从 Token、API Key、接口地址和模型 ID 开始，完成一次自定义模型联通测试。",
+    tags: ["视频教程", "WorkBuddy", "DeepSeek", "腾讯云", "API", "自定义模型"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8625038?type=season",
+    videoMeta: "B 站：WorkBuddy 入门绿皮书合集",
+    body: ["这一课从一个实际问题出发：当内置积分不够用时，如何理解第三方模型、Token 和 API 接入。", "课程演示领取体验额度、创建 API Key、找到正确的接口地址和模型 ID，再进入 WorkBuddy 配置自定义模型并进行一次联通测试。"],
+    sections: [{ heading: "先理解四个概念", paragraphs: ["接口地址是请求发送到哪里；API Key 是访问凭证；模型名称和模型 ID 是服务端识别的模型标识；兼容接口决定工具能否按约定通信。不要在截图、录屏、笔记或公开文件中展示真实 Key。", "免费体验额度、可用模型和有效期会变化。任何价格、赠送额度、可用模型与具体配置字段都应以配置当天的官方页面为准。"] }],
+  },
+  {
+    slug: "video-workbuddy-lesson29-beginner",
+    title: "第29集｜WorkBuddy新手入门：边做任务边赚积分，从0到1掌握AI办公助手｜AI自动化办公",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-22",
+    seriesOrder: 29,
+    excerpt: "把新手任务当作熟悉 AI 办公工作流的练习，而不只是一份积分攻略。",
+    tags: ["视频教程", "WorkBuddy", "AI办公", "新手教程", "免费积分"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8625038?type=season",
+    videoMeta: "B 站：WorkBuddy 入门绿皮书合集",
+    body: ["这节课面向第一次接触 AI 办公的学习者，从各类平台的免费体验开始，再以 WorkBuddy 成长计划为例认识新手任务和积分。", "重点不是为了完成任务而完成任务，而是借每个任务熟悉 AI 办公工具、任务流程、结果检查与后续复用的方法。"],
+    sections: [{ heading: "入门顺序", paragraphs: ["先在小而无敏感信息的任务中理解工具能做什么，再逐步增加文件、规则和输出要求。每完成一次任务，都回看输入资料、AI 输出和人工检查点，而不是只看是否获得积分。", "积分规则、活动资格和平台功能会变化，课程中的页面与活动只作当时操作参考；领取或购买前以产品内和官方规则为准。"] }],
+  },
+  {
+    slug: "video-workbuddy-lesson30-wechat-to-word",
+    title: "第30集｜WorkBuddy＋微信：告别复制粘贴！公众号文章一键转Word，图片排版全保留｜AI自动化办公",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-26",
+    seriesOrder: 30,
+    excerpt: "从自己微信中的公开公众号文章出发，读取链接、抓取正文与配图，再生成带原文信息的本地 Word。",
+    tags: ["视频教程", "WorkBuddy", "微信公众号", "Word", "浏览器自动化", "AgentLimb"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8625038?type=season",
+    videoMeta: "B 站：WorkBuddy 入门绿皮书合集",
+    downloadableResources: [{
+      title: "第30集｜微信公众号文章转 Word 自动化流程",
+      description: "课程原始 Markdown：从本机微信的公开文章链接，到正文、配图和带图 Word 的本地工作流。",
+      fileName: "第30集-微信公众号文章转Word流程.md",
+      url: "/downloads/workbuddy/第30集-微信公众号文章转Word流程.md",
+    }],
+    body: ["这一课把微信读取与浏览器自动化串起来：从自己微信中的公开公众号文章取得链接，再由浏览器读取文章、保留标题和配图，最终生成本地 Word 文件。", "先演示一篇文章，流程跑通后可以用于更多文章；但文章来源、访问权限和版权使用范围必须由使用者判断与确认。"],
+    sections: [{ heading: "课前条件与结果核对", paragraphs: ["前置条件是已完成第 22 集的本地微信读取和第 19 集的浏览器自动化基础配置。本课资料只适用于自己有权访问和整理的公开公众号文章，不能绕过访问限制，也不能处理未获授权的聊天或账号资料。", "生成后检查标题、公众号、日期、原文链接、正文结构、图片和图注是否与原文一致；出现缺图、链接错误、正文截断或重复图注时先停下核对，不要把不完整文件当作最终归档。"] }],
+  },
+  {
+    slug: "video-cola-lesson1-expense-sheet-merge",
+    title: "第01集｜AI自动化办公入门＋Excel：多部门乱表合并＋自动找异常",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-27",
+    seriesOrder: 101,
+    handoutFirst: true,
+    excerpt: "用字段映射、受控堆叠与勾稽校验，把 6 个部门的异构费用表合并为可追溯的总表。",
+    tags: ["视频教程", "Cola", "Codex", "Claude Code", "Excel", "AI 自动化办公"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：AI 自动化办公实战绿皮书合集",
+    body: [
+      "学员课件：你可以边看边操作，也可以直接把下面的提示词复制到 Cola 中使用。",
+      "真实问题是：6 个部门的费用表字段名称、日期格式和金额类型都不一致；直接复制粘贴不仅会错位，也容易混淆口径。"
+    ],
+    sections: [
+      { heading: "这节课的目标（最终交付物）", paragraphs: ["统一表头映射表＋清洗合并总表＋保留原表名与行号来源列＋行数金额勾稽校验。"] },
+      { heading: "案例环境与教学锚点", paragraphs: ["这是一个虚构的企业总部财务中心多部门费用月报汇总场景。销售一部、销售二部、市场部、研发部、运营部、行政部分别提交《多部门月报.xlsx》中的不同 Sheet；标准输出字段为部门、报销人、费用类型、金额、发生日期、备注。", "销售部的“员工”、市场部的“姓名”、行政部的“报销人”必须映射为标准字段“报销人”；缺失日期如实标记为“待确认”；文本型金额和负数退款需要保留异常提示；合并后的每行都必须新增“来源 Sheet”和“原行号”，以便回查。"] },
+      { heading: "第1步：异构表头映射与受控堆叠合并", paragraphs: ["思路：建立 6 个 Sheet 的字段映射规则，统一清洗并堆叠合并为规范总表，保留来源行号，标记缺失与异常。做完后检查所有 Sheet 是否正确进入总表、表头是否统一、每行是否有来源信息，以及异常清单是否找出缺失日期与脏数据。"], codeBlocks: ["只读《多部门月报.xlsx》所有Sheet和《字段口径说明.md》，生成合并总表《多部门费用汇总_清洗合并.xlsx》：对照口径说明，将6个Sheet不同的表头（如“员工/姓名/报销人”统一为“报销人”）映射到标准列；转换日期为YYYY-MM-DD标准格式（缺失日期填“待确认”）；统一金额为数值类型；在最前面新增“来源Sheet”和“原行号”两列；同时输出《字段映射表》和《数据异常清单》（列出缺失日期、负数金额和空值记录）。"] },
+      { heading: "第2步：行数与金额勾稽校验", paragraphs: ["思路：反向核验总行数与分表行数之和、各部门金额加总。核对分表行数加总是否等于总表行数，分表金额加总是否等于总金额，再确认没有漏行或公式错误。"], codeBlocks: ["对《多部门费用汇总_清洗合并.xlsx》进行勾稽对账：分别统计6个原始Sheet的数据有效行数与金额总和，比对合并总表的总行数与总金额；核对是否存在重复合并或漏行，输出《合并勾稽核对表》。"] },
+      { heading: "最后检查", paragraphs: ["合并总表包含全部 6 个部门；每一行都能回溯原表；缺失日期没有被凭空补全；分表行数与金额加总和总表一致。所有公司、人名、金额均为虚构教学素材；换成自己的文件后，请重新确认业务规则、权限范围和最终审批责任。"] },
+    ],
+  },
+  {
+    slug: "video-cola-lesson2-resume-screening",
+    title: "第02集｜AI自动化办公入门＋招聘：30份简历批量初筛，自动匹配文员/设计师",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-27",
+    seriesOrder: 102,
+    handoutFirst: true,
+    excerpt: "批量读取 30 份 Word 简历，按两类岗位的硬性门槛输出有依据的初筛矩阵与面试追问。",
+    tags: ["视频教程", "Cola", "Codex", "Claude Code", "招聘", "Word"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：AI 自动化办公实战绿皮书合集",
+    body: ["学员课件：你可以边看边操作，也可以直接把下面的提示词复制到 Cola 中使用。", "真实问题是：30 份 Word 简历格式不一，软件能力、工作年限与期望薪资各不相同；不能只让 AI 给出前三名，必须给出逐人的事实依据与面试追问。"],
+    sections: [
+      { heading: "这节课的目标（最终交付物）", paragraphs: ["30份简历结构化提取表＋行政/设计两岗位初筛打分矩阵＋面试推荐清单与追问要点。"] },
+      { heading: "案例环境与教学锚点", paragraphs: ["这是一个虚构的中小企业招聘初筛场景：行政文员要求大专以上、1年以上经验、熟练 Office、期望薪资不高于 6k；平面设计师要求熟练 PS/AI、有作品集、期望薪资不高于 9k。", "30 份简历的格式存在差异；超薪资或缺技能的候选人应客观扣分并标记原因；A/B/C 等级必须附简历原文依据；对 A/B 级候选人生成 2–3 个针对其简历的面试追问。"] },
+      { heading: "第1步：批量结构化提取与硬性门槛打分", paragraphs: ["思路：批量读取 30 份简历，按岗位标准提取字段、计算匹配得分与等级，并写明判定依据。完成后检查是否每位候选人均已录入、字段是否完整、是否有明确的评级和理由。"], codeBlocks: ["读取《候选人简历/》中所有Word简历和《公司与岗位招聘标准.docx》，输出《30位候选人结构化初筛总表.xlsx》：提取姓名、学历、毕业院校、工作年限、核心技能、期望薪资、应聘意向；分别对照行政文员与平面设计师硬性门槛，计算匹配得分并评定等级（A强推/B可面试/C不匹配），每一行必须写明“评级核心依据与扣分点”；不符合硬性条件的直接标C并注明原因。"] },
+      { heading: "第2步：输出面试推荐矩阵与针对性追问要点", paragraphs: ["思路：从初筛总表筛选 A/B 级推荐名单，再针对每位候选人的薄弱项或关键经历生成面试提纲。检查推荐人选是否按岗位分类，追问是否落在简历细节而不是通用套话。"], codeBlocks: ["基于刚才的初筛总表，生成《初选面试推荐与追问清单.md》：按岗位分类列出A级与B级候选人名单及优先级；针对每位推荐候选人，结合其简历具体项目或疑点（如跳槽频繁、某项技能未体现、薪资偏高）生成2–3个定制化面试追问问题；C级候选人归入归档淘汰区。"] },
+      { heading: "最后检查", paragraphs: ["30 份简历均被解析；评级有据可依，超薪资或缺必备技能被如实标记；推荐清单分类清晰，追问与简历项目相关。素材中的候选人信息均为虚构教学资料；真实招聘仍需遵守权限、隐私与人工决策边界。"] },
+    ],
+  },
+  {
+    slug: "video-cola-lesson3-bonus-rules",
+    title: "第03集｜AI自动化办公入门＋Excel：十几张散表理清奖金规则＋月底算薪不扯皮",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-27",
+    seriesOrder: 103,
+    handoutFirst: true,
+    excerpt: "把口头奖金规则和事后调整固化成规则字典，保留中间计算列并通过抽样反算复核。",
+    tags: ["视频教程", "Cola", "Codex", "Claude Code", "Excel", "奖金核算"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：AI 自动化办公实战绿皮书合集",
+    body: ["学员课件：你可以边看边操作，也可以直接把下面的提示词复制到 Cola 中使用。", "真实问题是：不同车间有不同的阶梯单价、出勤系数、质量扣款与临时调整，口头规则与散表一旦套错公式就容易引发争议。"],
+    sections: [
+      { heading: "这节课的目标（最终交付物）", paragraphs: ["奖金规则字典＋全员奖金计算明细表＋中间计算列＋事后调整记录＋抽样反算复核。"] },
+      { heading: "案例环境与教学锚点", paragraphs: ["这是一个虚构的制造企业月度绩效奖金核算场景，涉及注塑、组装、包装、质检 4 个工段。素材包括《员工产量_2026-07.xlsx》《岗位奖金口径.md》《事后调整记录.md》。", "多工段阶梯规则须精确匹配；事后调整必须关联到具体工号；缺失工号或异常产量要标记“待确认”；结果必须展示基础奖金、阶梯奖金、扣罚金额、调整金额、应发总额等中间列。"] },
+      { heading: "第1步：生产奖金规则标准化与明细计算", paragraphs: ["思路：固化奖金规则，计算阶梯奖金与事后调整，保留中间列，并标记异常与缺工号项。完成后检查公式和结果是否清晰、调整是否正确计入、缺失工号是否标为待确认。"], codeBlocks: ["读取《员工产量_2026-07.xlsx》《岗位奖金口径.md》和《事后调整记录.md》，生成《2026年7月生产奖金核算明细表.xlsx》：根据各工段规则计算员工奖金，必须包含“基础产量、超额产量、阶梯单价、出勤系数、质量扣款、事后调整、实发奖金”等完整计算列；准确关联事后调整记录；对缺失工号或异常产量的员工标记“待确认”；同时输出《奖金规则计算字典》和《异常调整清单》。"] },
+      { heading: "第2步：抽样公式反算与部门总额复核", paragraphs: ["思路：抽取不同工段代表性员工反算公式并统计车间总额，确认算薪透明无误。检查抽查员工的反算步骤、各工段加总和异常问题是否完整。"], codeBlocks: ["对《2026年7月生产奖金核算明细表.xlsx》进行反向抽查：分别抽取注塑组、组装组、质检组各1名员工，列出其详细手工反算步骤与公式比对；汇总各工段奖金总额及事后调整净额；确认无重复计算或负数溢出。输出《奖金反算复核报告》。"] },
+      { heading: "最后检查", paragraphs: ["所有计算规则均有对应字段；调整项准确回填；缺失工号和异常产量如实标注；抽样反算与总额加总正确。所有人员、产量、金额均为虚构教学素材，真实发薪必须由有权限的人员复核与审批。"] },
+    ],
+  },
+  {
+    slug: "video-cola-lesson4-word-template-fill",
+    title: "第04集｜AI自动化办公入门＋Word：固定模板自动填充＋版式一格不乱",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-27",
+    seriesOrder: 104,
+    handoutFirst: true,
+    excerpt: "在固定 Word 模板副本上建立字段映射、回填多源事实并用段落与表格计数检查版式。",
+    tags: ["视频教程", "Cola", "Codex", "Claude Code", "Word", "模板填充"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：AI 自动化办公实战绿皮书合集",
+    body: ["学员课件：你可以边看边操作，也可以直接把下面的提示词复制到 Cola 中使用。", "真实问题是：几十页的标准 Word 模板中，页眉、受控编号、表格结构和条款序号都不能改动；资料散落在项目事实、设备台账和 CSV 中，直接交给 AI 容易破坏版式。"],
+    sections: [
+      { heading: "这节课的目标（最终交付物）", paragraphs: ["字段映射表＋填充后的 Word 方案草稿（模板版式零改动）＋段落表格计数自查报告。"] },
+      { heading: "案例环境与教学锚点", paragraphs: ["场景是虚构的精细化工混合罐验证方案编制；素材为《验证方案模板.docx》《项目事实资料.md》《设备采样记录.xlsx》。", "原模板绝对不可改动，操作必须在副本上进行；取样点 3 的实测值 11.2 超过限度 10，必须标记异常；缺项使用【待确认】占位，不能编造。"] },
+      { heading: "第1步：多源事实核对与模板受控回填", paragraphs: ["思路：建立字段映射，在模板副本上回填数据，拦截 11.2 超限异常，标记缺失项。完成后打开 Word 草稿检查排版是否完好，以及超限是否被醒目标识。"], codeBlocks: ["读取《验证方案模板.docx》《项目事实资料.md》和《设备采样记录.xlsx》，生成《验证方案_VAL-2026-017_混合罐M-03_草稿.docx》：按字段回填；对实测值11.2超限10标红预警；缺项用【待确认】占位；严格保持原模板页眉表格格式；输出《字段映射表.xlsx》。"] },
+      { heading: "第2步：快速抽查版式完整性与防篡改核对", paragraphs: ["思路：对比段落与表格总数，确认格式零变形。完成后确认段落数和表格数吻合、版式完好。"], codeBlocks: ["对比原模板与生成草稿的段落总数与表格数，核对抽样点数据无误，输出《自查报告.md》。"] },
+      { heading: "最后检查", paragraphs: ["模板版式一格不乱，11.2 超限被准确拦截。方法可迁移到固定公文与体系文件批量回填；真实文件应先确认资料授权、业务规则与最终审批责任。"] },
     ],
   },
 ];
@@ -2399,7 +2591,7 @@ const ensureProductDiaryDetail = (
 const ensureVideoTutorialDetail = (article: ArticleSeed, body: string[], sections?: ArticleSection[]) => {
   const existingSections = sections ?? [];
   const hasTemplate = existingSections.some((section) => section.heading === "如何使用这篇教程笔记");
-  if (hasTemplate || article.slug === "video-workbuddy-lesson22-wechat-manager") {
+  if (article.handoutFirst || hasTemplate || article.slug === "video-workbuddy-lesson22-wechat-manager") {
     return { body, sections: existingSections };
   }
 

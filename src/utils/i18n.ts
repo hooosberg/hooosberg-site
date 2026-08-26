@@ -19,16 +19,13 @@ export const uiText = {
   "zh-CN": {
     brandAria: "湖森堡AI_hooosberg home",
     nav: [
-      ["笔记", "/blog"],
-      ["产品", "/apps"],
+      ["学习笔记", "/blog"],
       ["AI导航", "/ai-navigation"],
+      ["产品", "/apps"],
       ["联系", "/links"],
-      ["定制服务", "/services"],
     ],
-    moreNavLabel: "其他",
-    moreNav: [
-      ["课程", "/courses"],
-    ],
+    moreNavLabel: "更多",
+    moreNav: [],
     themeToggle: "切换黑白主题",
     languageSwitch: "Switch to English",
     footerCopy: "真实项目教程、独立 App、AI 工具和长期产品记录。",
@@ -38,16 +35,13 @@ export const uiText = {
   en: {
     brandAria: "Hooosberg home",
     nav: [
-      ["Notes", "/blog"],
-      ["Products", "/apps"],
+      ["Learning Notes", "/blog"],
       ["AI Guide", "/ai-navigation"],
+      ["Products", "/apps"],
       ["Contact", "/links"],
-      ["Custom Services", "/services"],
     ],
     moreNavLabel: "More",
-    moreNav: [
-      ["Courses", "/courses"],
-    ],
+    moreNav: [],
     themeToggle: "Toggle light and dark theme",
     languageSwitch: "切换到中文",
     footerCopy: "Real product notes, independent apps, AI tools, and long-term build notes.",

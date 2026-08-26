@@ -189,7 +189,7 @@ const kimiWork = tool({
   url: "https://www.kimi.com/products/kimi-work",
   country: "cn",
   tags: ["桌面 Agent", "办公自动化", "知识工作"],
-  badge: "重点",
+  badge: "国产办公 #5",
 });
 
 const kimiCode = tool({
@@ -264,7 +264,7 @@ const qwenWork = tool({
   url: "https://qwenwork.cn/",
   country: "cn",
   tags: ["AI 办公", "钉钉", "企业协作"],
-  badge: "国产办公 #2",
+  badge: "国产办公 #3",
   actionLabel: "前往使用",
 });
 
@@ -275,7 +275,7 @@ const traeWorkOffice = tool({
   country: "cn",
   icon: icon.trae,
   tags: ["AI 办公", "桌面 / Web / 移动", "字节"],
-  badge: "国产办公 #3",
+  badge: "国产办公 #4",
   actionLabel: "下载 TRAE Work",
 });
 
@@ -285,8 +285,48 @@ const cola = tool({
   url: "https://colaos.ai/download.html",
   country: "cn",
   tags: ["桌面工作台", "多模型", "国内可用"],
-  badge: "国产办公 #4",
+  badge: "国产办公 #6",
   actionLabel: "下载 Cola",
+});
+
+const doubaoWork = tool({
+  name: "豆包办公",
+  description: "豆包面向工作场景的入口，适合把文档、表格、截图与日常问题放在同一处处理；具体可用能力以当前产品页为准。",
+  url: "https://www.doubao.com/work",
+  country: "cn",
+  tags: ["AI 办公", "文档", "字节"],
+  badge: "国产办公 #2",
+  actionLabel: "前往使用",
+});
+
+const feishuOffice = tool({
+  name: "飞书 AI 工作平台",
+  description: "飞书将云文档、多维表格、会议、业务协同与 AI Agent 结合，更偏团队协作和企业工作流。",
+  url: "https://www.feishu.cn/",
+  country: "cn",
+  tags: ["团队协作", "AI Agent", "飞书"],
+  badge: "国产办公 #7",
+  actionLabel: "前往使用",
+});
+
+const wpsAi = tool({
+  name: "WPS AI",
+  description: "集成在 WPS 文字、表格、演示和 PDF 中的 AI 办公能力，适合文档起草、PPT、表格和阅读辅助。",
+  url: "https://ai.wps.cn/landing",
+  country: "cn",
+  tags: ["文档", "PPT", "表格"],
+  badge: "国产办公 #8",
+  actionLabel: "下载 / 使用",
+});
+
+const yuanbao = tool({
+  name: "腾讯元宝",
+  description: "腾讯的通用 AI 助手入口，适合问答、资料整理和腾讯生态内的日常 AI 使用；不是 WorkBuddy 的替代品。",
+  url: "https://yuanbao.tencent.com/",
+  country: "cn",
+  tags: ["通用助手", "资料整理", "腾讯"],
+  badge: "国产办公 #9",
+  actionLabel: "前往使用",
 });
 
 const cozeAgent = tool({
@@ -295,7 +335,7 @@ const cozeAgent = tool({
   url: "https://www.coze.cn/",
   country: "cn",
   tags: ["Agent", "工作流", "字节"],
-  badge: "平台",
+  badge: "国产办公 #10",
 });
 
 const qwenAgent = tool({
@@ -321,13 +361,18 @@ const groups: ToolGroup[] = [
     id: "china-office",
     title: "国产 AI 办公",
     shortLabel: "国产办公",
-    summary: "本导航按公开产品信息、办公覆盖面与生态位置作的编辑排序，不等同于第三方下载量榜单。前三位分别对应腾讯、阿里、字节的桌面/企业办公路线；点击卡片可直达官方下载或产品入口。",
+    summary: "本站编辑排序，不等同于第三方下载量或市场份额榜单。按 AI 自动化办公的个人上手路径、桌面/文件能力与团队协同覆盖面排列；点击卡片可直达官方入口。",
     items: [
       workBuddy,
+      doubaoWork,
       qwenWork,
       traeWorkOffice,
-      cola,
       kimiWork,
+      cola,
+      feishuOffice,
+      wpsAi,
+      yuanbao,
+      cozeAgent,
     ],
   },
   {

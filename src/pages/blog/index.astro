@@ -1,198 +1,108 @@
 ---
+import { ArrowUpRight, BookOpen, ExternalLink, Lightbulb, Wrench } from "@lucide/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { articlesByDate, diarySections } from "../../data/articles";
+import { articlesByDate, diarySections, videoTutorialNoteArticles } from "../../data/articles";
+import { learningSeries } from "../../data/learningSeries";
 import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../utils/structuredData";
 
 const articlesPerPage = 15;
-const diaryGroups = diarySections.map((section) => ({
+const workbuddy = learningSeries.find((series) => series.id === "workbuddy")!;
+const cola = learningSeries.find((series) => series.id === "cola")!;
+const otherGroups = diarySections.filter((section) => section.kind !== "video").map((section) => ({
   ...section,
   articles: articlesByDate.filter((article) => article.diaryKind === section.kind),
 }));
-
-const articleHref = (slug: string, kind: string) => `/blog/${slug}?kind=${kind}`;
-const pageDescription = "视频教程笔记、产品笔记、读书笔记、资源分享笔记和随想笔记。";
+const courseArticles = new Map(videoTutorialNoteArticles.map((article) => [article.slug, article]));
+const pageDescription = "两套免费的 AI 自动化办公学习路线：WorkBuddy 从零入门与 Cola、Codex、Claude Code 实战合集；另收纳产品、阅读、随想和资源笔记。";
 const jsonLd = [
-  buildSectionCollectionJsonLd({
-    locale: "zh-CN",
-    path: "/blog",
-    name: "Hooosberg Notes",
-    description: pageDescription,
-    topics: ["AI course notes", "AI product build notes", "indie app development", "AI coding case studies"],
-  }),
-  buildItemListJsonLd(
-    "https://hooosberg.com/blog#article-list",
-    articlesByDate.map((article) => ({
-      name: article.title,
-      url: `/blog/${article.slug}`,
-      description: article.excerpt,
-    })),
-  ),
+  buildSectionCollectionJsonLd({ locale: "zh-CN", path: "/blog", name: "湖森堡 AI 自动化办公绿皮书", description: pageDescription, topics: ["AI automation", "WorkBuddy", "Cola", "Codex", "Claude Code"] }),
+  buildItemListJsonLd("https://hooosberg.com/blog#learning-notes", videoTutorialNoteArticles.map((article) => ({ name: article.title, url: `/blog/${article.slug}`, description: article.excerpt }))),
 ];
 ---
 
-<BaseLayout title="笔记 | 湖森堡AI_hooosberg" description={pageDescription} jsonLd={jsonLd}>
-  <section class="page-hero page-hero--narrow">
-    <p class="commerce-kicker">Notes</p>
-    <h1>笔记</h1>
-    <p>
-      视频教程笔记承接 B 站课程和课件整理，产品笔记记录真实开发过程，读书笔记记录大脑的磨刀石，资源分享笔记沉淀有用入口，随想笔记保存路上的判断。
-      AI 时代他们在训练模型，图书就是我们的大脑的磨刀石，最高级的资产就是我们的大脑。
-    </p>
+<BaseLayout title="学习笔记 | 湖森堡AI_hooosberg" description={pageDescription} jsonLd={jsonLd}>
+  <section class="page-hero page-hero--narrow learning-hero">
+    <h1>学习笔记</h1>
+    <p>把 AI 自动化办公，从看懂到做出来。先选一条免费学习路线，再按课时回看视频、课件和可下载资料。</p>
   </section>
 
-  <section class="article-index">
-    <div class="diary-switch" role="tablist" aria-label="笔记分区">
-      {diaryGroups.map((section, index) => (
-        <button
-          class="diary-tab"
-          type="button"
-          role="tab"
-          aria-selected={index === 0 ? "true" : "false"}
-          aria-controls={`diary-panel-${section.kind}`}
-          data-diary-tab={section.kind}
-          data-active={index === 0 ? "true" : "false"}
-        >
-          <span>{section.label}</span>
-          <small>{section.articles.length} 篇</small>
-        </button>
-      ))}
+  <section class="learning-index" aria-label="学习笔记分区">
+    <div class="learning-switch" role="tablist" aria-label="学习路线">
+      <button class="learning-tab" type="button" role="tab" aria-selected="true" data-learning-tab="workbuddy">入门绿皮书</button>
+      <button class="learning-tab" type="button" role="tab" aria-selected="false" data-learning-tab="cola">实战绿皮书</button>
+      <button class="learning-tab" type="button" role="tab" aria-selected="false" data-learning-tab="other">其他笔记</button>
     </div>
 
-    <div class="diary-summary-grid" aria-live="polite">
-      {diaryGroups.map((section, index) => (
-        <p
-          id={`diary-panel-${section.kind}`}
-          role="tabpanel"
-          data-diary-summary={section.kind}
-          hidden={index !== 0}
-        >
-          {section.summary}
-        </p>
-      ))}
-    </div>
+    <section class="learning-panel" data-learning-panel="workbuddy">
+      <div class="series-intro">
+        <div class="series-book series-book--beginner" aria-hidden="true"><BookOpen size={34} /></div>
+        <div><h2>{workbuddy.title}</h2><p class="series-tool-line">{workbuddy.toolLine}</p><p>{workbuddy.description}</p></div>
+        <a class="button button--primary series-playlist" href={workbuddy.playlistUrl} target="_blank" rel="noreferrer">直接看 B 站合集 <ExternalLink size={16} aria-hidden="true" /></a>
+      </div>
+      <div class="learning-list-header"><div><p>B 站合集 30 集 · 已整理 {workbuddy.lessons.length} 篇</p><h3>按课时看笔记与资料</h3></div><span>标有“有下载”的课时附带公开 Markdown 资料。</span></div>
+      <div class="learning-lesson-list">
+        {[...workbuddy.lessons].reverse().map((lesson) => {
+          const article = lesson.articleSlug ? courseArticles.get(lesson.articleSlug) : undefined;
+          const href = article ? `/blog/${article.slug}?kind=video` : workbuddy.playlistUrl;
+          return <a class="learning-lesson-row" href={href} target={article ? undefined : "_blank"} rel={article ? undefined : "noreferrer"}>
+            <span class="learning-lesson-number">{String(lesson.number).padStart(2, "0")}</span>
+            <span class="learning-lesson-copy"><strong>{lesson.title}</strong><small>{lesson.outcome}</small></span>
+            {lesson.hasDownload && <span class="learning-download-flag">有下载</span>}
+            <ArrowUpRight size={17} aria-hidden="true" />
+          </a>;
+        })}
+      </div>
+    </section>
 
-    <div class="article-list">
-      {diaryGroups.map((section, index) => (
-        section.articles.map((article, articleIndex) => (
-          <a
-            class="article-row"
-            href={articleHref(article.slug, section.kind)}
-            data-diary-row
-            data-diary-kind={section.kind}
-            data-diary-page={Math.floor(articleIndex / articlesPerPage) + 1}
-            hidden={index !== 0 || articleIndex >= articlesPerPage}
-          >
-            <span class="article-row__category">{section.kind === "product" ? article.productLabel ?? article.category : article.category}</span>
-            <span class="article-row__title">{article.title}</span>
-            <span class="article-row__excerpt">{article.excerpt}</span>
-            <span class="article-row__date">{article.date}</span>
-          </a>
-        ))
-      ))}
-    </div>
+    <section class="learning-panel" data-learning-panel="cola" hidden>
+      <div class="series-intro">
+        <div class="series-book series-book--practice" aria-hidden="true"><Wrench size={32} /></div>
+        <div><h2>{cola.title}</h2><p class="series-tool-line">{cola.toolLine}</p><p>{cola.description}</p></div>
+        <a class="button button--primary series-playlist" href={cola.playlistUrl} target="_blank" rel="noreferrer">直接看 B 站合集 <ExternalLink size={16} aria-hidden="true" /></a>
+      </div>
+      <div class="series-sync-note"><Lightbulb size={20} aria-hidden="true" /><p>只收录已发布的第 1–4 集，笔记按本地 Word 学员课件转写；后续课程会在视频上传后再同步，避免课件、录制和合集变化后不同步。</p></div>
+      <div class="learning-list-header"><div><p>已发布 4 集 · 课件同步整理</p><h3>按实战案例看笔记与提示词</h3></div><span>每篇页面顶部都保留 B 站实战合集入口。</span></div>
+      <div class="learning-lesson-list">
+        {[...cola.lessons].reverse().map((lesson) => {
+          const article = lesson.articleSlug ? courseArticles.get(lesson.articleSlug) : undefined;
+          const href = article ? `/blog/${article.slug}?kind=video` : cola.playlistUrl;
+          return <a class="learning-lesson-row" href={href} target={article ? undefined : "_blank"} rel={article ? undefined : "noreferrer"}>
+            <span class="learning-lesson-number">{String(lesson.number).padStart(2, "0")}</span>
+            <span class="learning-lesson-copy"><strong>{lesson.title}</strong><small>{lesson.outcome}</small></span>
+            <ArrowUpRight size={17} aria-hidden="true" />
+          </a>;
+        })}
+      </div>
+    </section>
 
-    {diaryGroups.map((section, index) => {
-      const pageCount = Math.ceil(section.articles.length / articlesPerPage);
-      return (
-        <nav
-          class="diary-pagination"
-          aria-label={`${section.label}分页`}
-          data-diary-pagination={section.kind}
-          hidden={index !== 0 || pageCount <= 1}
-        >
-          {Array.from({ length: pageCount }, (_, pageIndex) => {
-            const page = pageIndex + 1;
-            return (
-              <button
-                class="diary-page-button"
-                type="button"
-                data-diary-page-button
-                data-diary-kind={section.kind}
-                data-diary-page={page}
-                aria-current={page === 1 ? "page" : undefined}
-              >
-                {page}
-              </button>
-            );
-          })}
-        </nav>
-      );
-    })}
+    <section class="learning-panel" data-learning-panel="other" hidden>
+      <div class="other-notes-heading"><div><h2>其他笔记</h2><p>把产品开发、读书、随想和资源统一收纳在这里。</p></div></div>
+      <div class="other-note-switch" role="tablist" aria-label="其他笔记类型">
+        {otherGroups.map((group, index) => <button type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} data-other-tab={group.kind}>{group.label}<small>{group.articles.length} 篇</small></button>)}
+      </div>
+      <div class="article-list article-list--other">
+        {otherGroups.flatMap((group, groupIndex) => group.articles.map((article, articleIndex) => <a class="article-row" href={`/blog/${article.slug}?kind=${group.kind}`} data-other-row={group.kind} data-other-page={Math.floor(articleIndex / articlesPerPage) + 1} hidden={groupIndex !== 0 || articleIndex >= articlesPerPage}>
+          <span class="article-row__category">{article.productLabel ?? article.category}</span><span class="article-row__title">{article.title}</span><span class="article-row__excerpt">{article.excerpt}</span><span class="article-row__date">{article.date}</span>
+        </a>))}
+      </div>
+      {otherGroups.map((group, groupIndex) => {
+        const pageCount = Math.ceil(group.articles.length / articlesPerPage);
+        return <nav class="diary-pagination" aria-label={`${group.label}分页`} data-other-pagination={group.kind} hidden={groupIndex !== 0 || pageCount <= 1}>
+          {Array.from({ length: pageCount }, (_, pageIndex) => <button class="diary-page-button" type="button" data-other-page-button data-other-kind={group.kind} data-other-page={pageIndex + 1} aria-current={pageIndex === 0 ? "page" : undefined}>{pageIndex + 1}</button>)}
+        </nav>;
+      })}
+    </section>
   </section>
 </BaseLayout>
 
 <script is:inline>
   (() => {
-    const tabs = Array.from(document.querySelectorAll("[data-diary-tab]"));
-    const rows = Array.from(document.querySelectorAll("[data-diary-row]"));
-    const summaries = Array.from(document.querySelectorAll("[data-diary-summary]"));
-    const paginations = Array.from(document.querySelectorAll("[data-diary-pagination]"));
-    const pageButtons = Array.from(document.querySelectorAll("[data-diary-page-button]"));
-    const validKinds = new Set(tabs.map((tab) => tab.dataset.diaryTab));
-
-    const syncUrl = (kind, page) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set("kind", kind);
-      if (page > 1) {
-        url.searchParams.set("page", String(page));
-      } else {
-        url.searchParams.delete("page");
-      }
-      window.history.replaceState({ diaryKind: kind }, "", `${url.pathname}${url.search}${url.hash}`);
-    };
-
-    const getPageCount = (kind) => {
-      const pages = pageButtons
-        .filter((button) => button.dataset.diaryKind === kind)
-        .map((button) => Number(button.dataset.diaryPage || "1"));
-      return Math.max(1, ...pages);
-    };
-
-    const activate = (kind, options = {}) => {
-      if (!kind || !validKinds.has(kind)) return;
-      const pageCount = getPageCount(kind);
-      const requestedPage = Number(options.page || "1");
-      const activePage = Math.min(Math.max(1, requestedPage || 1), pageCount);
-
-      tabs.forEach((tab) => {
-        const active = tab.dataset.diaryTab === kind;
-        tab.dataset.active = active ? "true" : "false";
-        tab.setAttribute("aria-selected", active ? "true" : "false");
-      });
-      rows.forEach((row) => {
-        row.hidden = row.dataset.diaryKind !== kind || Number(row.dataset.diaryPage || "1") !== activePage;
-      });
-      summaries.forEach((summary) => {
-        summary.hidden = summary.dataset.diarySummary !== kind;
-      });
-      paginations.forEach((pagination) => {
-        pagination.hidden = pagination.dataset.diaryPagination !== kind || pageCount <= 1;
-      });
-      pageButtons.forEach((button) => {
-        const active = button.dataset.diaryKind === kind && Number(button.dataset.diaryPage || "1") === activePage;
-        button.setAttribute("aria-current", active ? "page" : "false");
-      });
-
-      if (options.syncUrl) {
-        syncUrl(kind, activePage);
-      }
-    };
-
-    const searchParams = new URLSearchParams(window.location.search);
-    const initialKind = searchParams.get("kind");
-    const initialPage = Number(searchParams.get("page") || "1");
-    activate(initialKind || tabs[0]?.dataset.diaryTab, { page: initialPage });
-
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => activate(tab.dataset.diaryTab, { page: 1, syncUrl: true }));
-    });
-    pageButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        activate(button.dataset.diaryKind, {
-          page: Number(button.dataset.diaryPage || "1"),
-          syncUrl: true,
-        });
-      });
-    });
+    const panels = Array.from(document.querySelectorAll("[data-learning-panel]")); const tabs = Array.from(document.querySelectorAll("[data-learning-tab]"));
+    const otherTabs = Array.from(document.querySelectorAll("[data-other-tab]")); const otherRows = Array.from(document.querySelectorAll("[data-other-row]"));
+    const otherPaginations = Array.from(document.querySelectorAll("[data-other-pagination]")); const otherPageButtons = Array.from(document.querySelectorAll("[data-other-page-button]"));
+    const setPanel = (name) => { panels.forEach((panel) => { panel.hidden = panel.dataset.learningPanel !== name; }); tabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.learningTab === name))); const url = new URL(window.location.href); url.searchParams.set("section", name); window.history.replaceState({}, "", `${url.pathname}${url.search}`); };
+    const setOther = (kind, page = 1) => { otherTabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.otherTab === kind))); otherRows.forEach((row) => { row.hidden = row.dataset.otherRow !== kind || Number(row.dataset.otherPage || "1") !== page; }); otherPaginations.forEach((nav) => { nav.hidden = nav.dataset.otherPagination !== kind || nav.querySelectorAll("button").length < 2; }); otherPageButtons.forEach((button) => button.setAttribute("aria-current", String(button.dataset.otherKind === kind && Number(button.dataset.otherPage) === page))); };
+    tabs.forEach((tab) => tab.addEventListener("click", () => setPanel(tab.dataset.learningTab))); otherTabs.forEach((tab) => tab.addEventListener("click", () => setOther(tab.dataset.otherTab, 1))); otherPageButtons.forEach((button) => button.addEventListener("click", () => setOther(button.dataset.otherKind, Number(button.dataset.otherPage))));
+    const initial = new URLSearchParams(window.location.search).get("section"); if (initial && tabs.some((tab) => tab.dataset.learningTab === initial)) setPanel(initial); setOther(otherTabs[0]?.dataset.otherTab, 1);
   })();
 </script>
