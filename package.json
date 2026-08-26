@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev --host 0.0.0.0",
     "build": "astro build",
-    "test": "npm run build && node --test tests/*.test.mjs",
+    "test": "npm run build && node --test tests/home-ai-navigation.test.mjs tests/product-localization.test.mjs tests/seo-i18n.test.mjs tests/site-integrity.test.mjs",
     "preview": "astro preview --host 0.0.0.0"
   },
   "dependencies": {

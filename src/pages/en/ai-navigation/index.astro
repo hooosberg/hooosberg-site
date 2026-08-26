@@ -1,7 +1,7 @@
 ---
-import { ExternalLink, Mail, Search } from "@lucide/astro";
+import { ExternalLink } from "@lucide/astro";
+import AiModelSanguoRanking from "../../../components/AiModelSanguoRanking.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { getLocalizedSocialLinks } from "../../../utils/i18n";
 import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../../utils/structuredData";
 
 type CountryCode = "us" | "cn" | "uk" | "au" | "ca" | "fr" | "global";
@@ -757,8 +757,6 @@ const directoryGroups = [
   ...(githubResourcesGroup ? [mergeFreeLearningIntoGitHubResources(githubResourcesGroup)] : []),
   ...groups.filter((group) => group.id !== "github-free-resources" && group.id !== "free-learning"),
 ];
-const totalItems = directoryGroups.reduce((sum, group) => sum + getGroupItems(group).length, 0);
-const emailLink = getLocalizedSocialLinks("en").find((link) => link.originalLabel === "Email");
 const pageDescription = "A practical, searchable AI tool guide for builders: global AI assistants, coding agents, model APIs, product research, design tools, hosting, launch channels, payments, learning resources, and regional alternatives.";
 const toolItems = directoryGroups.flatMap((group) =>
   getGroupItems(group).map((item) => ({
@@ -787,49 +785,10 @@ const jsonLd = [
   mainClass="main--ai-directory"
   jsonLd={jsonLd}
 >
-  <section class="ai-directory-hero">
-    <div>
-      <p class="hero-kicker">AI TOOL GUIDE</p>
-      <h1>Choose tools by workflow, not hype.</h1>
-      <p>
-        This is not a generic link dump. It is a curated working map for builders:
-        global default products, coding agents, model APIs, design and prototype tools,
-        hosting, launch channels, payments, learning resources, and regional alternatives.
-      </p>
-      <label class="directory-search">
-        <Search size={18} aria-hidden="true" />
-        <input type="search" placeholder="Search tools, workflows, tags, or use cases" data-directory-search />
-      </label>
-      <div class="directory-stats" aria-label="Guide overview">
-        <span>{groups.length} categories</span>
-        <span>{totalItems} tools</span>
-        <span>{alternativePairs.length} alternative maps</span>
-        <span>Direct product links</span>
-        <span>Editorial ranking</span>
-      </div>
-    </div>
-
-    <div class="directory-method directory-contact-card" aria-label="Curation standard and submissions">
-      <span class="directory-contact-card__eyebrow">TOOL DIRECTORY</span>
-      <strong>Curation standard</strong>
-      <p>
-        Tools are included when they have a real product surface, practical workflow value,
-        durable visibility, or direct relevance to the builds documented on this site.
-        Announcement-only features are grouped under their parent product.
-      </p>
-      <a class="directory-contact-card__mail" href={emailLink?.url ?? "/en/links"}>
-        <Mail size={18} aria-hidden="true" />
-        <span>
-          <small>Submit or contact</small>
-          <b>{emailLink?.note ?? "zikedece@proton.me"}</b>
-        </span>
-      </a>
-    </div>
-  </section>
-
   <div class="directory-mode-toggle" role="tablist" aria-label="AI guide mode">
     <button class="is-active" type="button" role="tab" aria-selected="true" data-directory-mode="ranking">Workflow Rankings</button>
     <button type="button" role="tab" aria-selected="false" data-directory-mode="alternatives">Regional Alternatives</button>
+    <button type="button" role="tab" aria-selected="false" data-directory-mode="sanguo">AI Model Three Kingdoms</button>
   </div>
 
   <section class="ai-directory-shell" data-directory-shell data-mode="ranking" data-directory-current={directoryGroups[0].id} data-directory-filtered="false">
@@ -1029,6 +988,10 @@ const jsonLd = [
 
         <p class="directory-empty" data-alternative-empty hidden>No matching alternative map. Try another keyword.</p>
       </section>
+
+      <section class="directory-sanguo" data-directory-view="sanguo" hidden>
+        <AiModelSanguoRanking locale="en" embedded={true} />
+      </section>
     </div>
   </section>
 </BaseLayout>
@@ -1132,6 +1095,9 @@ const jsonLd = [
         updateAlternatives();
         return;
       }
+      if (activeMode === "sanguo") {
+        return;
+      }
 
       updateRanking();
     };
@@ -1159,7 +1125,7 @@ const jsonLd = [
       if (options.scroll !== false) scrollCategoryIntoView(activeCategory);
     };
 
-    const setMode = (mode) => {
+    const setMode = (mode, pushState = true) => {
       activeMode = mode;
       syncShellFilteredState();
       if (search) search.value = "";
@@ -1172,6 +1138,17 @@ const jsonLd = [
         view.hidden = view.dataset.directoryView !== mode;
       });
       if (shell) shell.dataset.mode = mode;
+
+      if (pushState && window.history && window.history.replaceState) {
+        const url = new URL(window.location.href);
+        if (mode === "ranking") {
+          url.searchParams.delete("mode");
+        } else {
+          url.searchParams.set("mode", mode);
+        }
+        window.history.replaceState(null, "", url.toString());
+      }
+
       update();
     };
 
@@ -1201,9 +1178,15 @@ const jsonLd = [
       groups.forEach((group) => observer.observe(group));
     }
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialMode = urlParams.get("mode");
     const initialHash = window.location.hash.replace("#", "");
-    if (initialHash === "alternatives") {
-      setMode("alternatives");
+    if (initialMode && ["ranking", "alternatives", "sanguo"].includes(initialMode)) {
+      setMode(initialMode, false);
+    } else if (initialHash === "alternatives") {
+      setMode("alternatives", false);
+    } else if (initialHash === "sanguo") {
+      setMode("sanguo", false);
     } else if (initialHash && groups.some((group) => group.dataset.directoryGroup === initialHash)) {
       setCategory(initialHash, { scroll: false });
     } else {

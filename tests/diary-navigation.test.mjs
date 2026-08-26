@@ -43,7 +43,7 @@ test("brand links home and primary navigation starts with notes", async () => {
   const firstLink = navHtml.match(/<a href="([^"]+)">([^<]+)<\/a>/);
 
   assert.match(html, /<a class="brand" href="\/"/, "brand should remain the home link");
-  assert.deepEqual(firstLink?.slice(1), ["/blog", "笔记"], "notes should be the first primary navigation item");
+  assert.deepEqual(firstLink?.slice(1), ["/blog", "学习笔记"], "notes should be the first primary navigation item");
   assert.doesNotMatch(navHtml.match(/^[\s\S]*?<details class="nav-more">/)?.[0] ?? "", /href="\/"/, "home should not be duplicated as a primary nav item");
 });
 

@@ -27,6 +27,17 @@ export default defineConfig({
     sitemap({
       changefreq: "weekly",
       priority: 0.7,
+      serialize(item) {
+        const url = new URL(item.url);
+
+        // Canonical URLs throughout the site omit a trailing slash (except the
+        // homepage). Keep the sitemap aligned so crawlers see one URL form.
+        if (url.pathname !== "/") {
+          url.pathname = url.pathname.replace(/\/+$/, "");
+        }
+
+        return { ...item, url: url.toString() };
+      },
       filter: (page) => {
         const { pathname } = new URL(page);
         const [, first, second] = pathname.split("/");

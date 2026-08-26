@@ -1,0 +1,16 @@
+---
+import AiModelSanguoRanking from "../../../components/AiModelSanguoRanking.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { buildSectionCollectionJsonLd } from "../../../utils/structuredData";
+
+const description = "AI Model Three Kingdoms: an editorial view of leading AI models through six-axis radar and capability bars.";
+---
+
+<BaseLayout locale="en" title="AI Model Three Kingdoms | Hooosberg" description={description} canonicalPath="/en/ai-model-sanguo-ranking" mainClass="main--model-ranking" jsonLd={[buildSectionCollectionJsonLd({ locale: "en", path: "/en/ai-model-sanguo-ranking", name: "AI Model Three Kingdoms", description, topics: ["AI models", "AI model comparison", "AI capability overview"] })]}>
+  <div class="directory-mode-toggle" role="tablist" aria-label="AI guide mode">
+    <a href="/en/ai-navigation">Workflow Rankings</a>
+    <a href="/en/ai-navigation?mode=alternatives">Regional Alternatives</a>
+    <a class="is-active" href="/en/ai-model-sanguo-ranking" aria-selected="true">AI Model Three Kingdoms</a>
+  </div>
+  <AiModelSanguoRanking locale="en" />
+</BaseLayout>

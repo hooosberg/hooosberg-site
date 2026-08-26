@@ -1,0 +1,728 @@
+---
+type Props = {
+  locale?: "zh-CN" | "en";
+  embedded?: boolean;
+};
+
+const { locale = "zh-CN", embedded = false } = Astro.props;
+const isEnglish = locale === "en";
+
+const G = "https://www.gamecity.com.tw/sangokushi8-re//img/character/";
+
+const models = [
+  {
+    rank: 1,
+    ai: "Claude 3.7 / 3.5 Sonnet",
+    family: "Anthropic",
+    character: isEnglish ? "Zhuge Liang (诸葛亮)" : "诸葛亮",
+    mark: "诸",
+    camp: isEnglish ? "Shu Han · Chief Strategist" : "蜀汉 · 军师",
+    tier: isEnglish ? "T0 · Master Architect" : "T0 · 首席总工",
+    role: isEnglish ? "Sees the entire architectural board before making a move; the most dependable strategist for complex engineering." : "先看全局架构，再精巧落子；复杂工程与大型代码重构最让人放心的首席军师。",
+    tags: isEnglish ? ["Clean Code", "Long Tasks", "Refactoring", "Agentic Coding"] : ["工程洁癖", "长任务", "代码重构", "Agent 规划"],
+    stats: { "综合": 98, "编程": 99, "推理": 97, "长文本": 98, "多模态": 84, "性价比": 68 },
+    price: isEnglish ? "Premium (High Leverage)" : "偏贵 · 生产力重器",
+    killer: isEnglish ? "Unmatched multi-file refactoring, large codebase comprehension, and autonomous test-driven Agent loops." : "大型项目跨文件重构、万行级代码库理解、长流程 Agent 自动测试排错与严谨文档。",
+    shortcoming: isEnglish ? "Token costs burn fast on large projects; slight tendency toward over-engineering on simple tasks." : "调用成本较高，Token 消耗极快；偶尔有过度工程化倾向，日常简单问答略显端着。",
+    priceDetail: isEnglish ? "High API billing rate. Best reserved for high-leverage architectural refactoring and coding missions." : "API 单价与 Token 消耗较高，适合高价值生产力与架构级开发，不适合作为普通聊天玩具。",
+    quote: isEnglish ? "\"Do not rush, my Lord. Allow me to review the entire codebase first.\"" : "“主公莫急，容我先把整个项目看一遍。”",
+    description: isEnglish ? "Claude is like Zhuge Liang: disciplined, intellectually rigorous, and insists on understanding system architecture before writing a line. In complex software development and multi-step Agentic workflows, it acts as your top-tier Chief Architect." : "Claude 很像诸葛亮：严谨、克制、喜欢先把系统架构看明白再动手。你只让它修一个 Bug，它可能已经开始重新梳理架构、数据流和测试用例。复杂编程、大仓重构、长流程 Agent 任务，是它最像“首席总工”的地方。",
+    advice: isEnglish ? "For complex architectures, massive code refactors, and automated agent workflows, summon Zhuge Liang first." : "复杂系统架构、大型代码重构、长期自动化 Agent，优先请诸葛亮。你希望 AI 不只是会写，而是会按规范办事，选 Claude 就对了。",
+    img: G + "chara_main_cid02.png",
+    source: "https://www.gamecity.com.tw/sangokushi8-re/character.html",
+    sourceName: isEnglish ? "Romance of the Three Kingdoms 8 Remake Official Site" : "《三国志8 REMAKE》官网",
+    officialUrl: "https://claude.ai/",
+  },
+  {
+    rank: 2,
+    ai: "OpenAI GPT-4.5 / o3-mini / 4o",
+    family: "OpenAI",
+    character: isEnglish ? "Cao Cao (曹操)" : "曹操",
+    mark: "曹",
+    camp: isEnglish ? "Cao Wei · Warlord Hegemon" : "曹魏 · 枭雄",
+    tier: isEnglish ? "T0 · Universal Overlord" : "T0 · 全能统帅",
+    role: isEnglish ? "Unrestricted and pragmatic; coordinates every tool, modal, and developer ecosystem under heaven." : "天下英雄与工具，皆为我所用；掌控多模态与推理大局的枭雄霸主。",
+    tags: isEnglish ? ["Universal Power", "Tool Ecosystem", "o3-mini Reasoning", "High Versatility"] : ["全能霸主", "工具生态", "o3-mini推理", "适应性极强"],
+    stats: { "综合": 97, "编程": 96, "推理": 98, "长文本": 92, "多模态": 94, "性价比": 76 },
+    price: isEnglish ? "Flagship High / mini Cheap" : "旗舰极贵 / mini档实惠",
+    killer: isEnglish ? "o3-mini competitive math/coding, GPT-4o real-time voice, and unmatched global developer toolchain integration." : "o3-mini 深度算法竞赛与数理证明、GPT-4o 实时语音多模态、全球最丰富的开发工具与插件连接。",
+    shortcoming: isEnglish ? "GPT-4.5 pricing is prohibitive for mass workloads; standard chat outputs can sometimes lean overly compliant." : "GPT-4.5 价格高昂难以大规模跑批；有时输出倾向于保守合规，需精心调整 System Prompt。",
+    priceDetail: isEnglish ? "Tiered strategy: GPT-4.5 is very expensive, but o3-mini and 4o-mini offer excellent price-to-performance." : "阶梯式定价：旗舰 4.5 定价极其高昂，但 o3-mini 与 4o-mini 调用成本亲民，可按任务难度分级分流。",
+    quote: isEnglish ? "\"All talents and tools under heaven that can serve my purpose shall be employed.\"" : "“天下英雄与工具，能为我所用者，皆可用。”",
+    description: isEnglish ? "OpenAI is like Cao Cao: formidable in all domains with unmatched orchestration. Writing code, multimodal vision, deep research, tool calling, and Agent workflows—it commands the entire arena." : "OpenAI 很像曹操：单项不一定永远第一，但综合调度与生态统帅能力极强。写代码、多模态看图、深度研究、工具调用、Agent 连接，它都能接。从 o3 深度推理到 4o-mini 极速响应，体系极为强盛。",
+    advice: isEnglish ? "When facing mixed tasks spanning code, research, imagery, and diverse tool integrations, GPT is your default flagship powerhouse." : "不知道该选谁，或者任务什么都有：代码、算法、图文分析、工具集成一起上，首选 GPT / Codex 体系。",
+    img: G + "chara_main_cid06.png",
+    source: "https://www.gamecity.com.tw/sangokushi8-re/character.html",
+    sourceName: isEnglish ? "Romance of the Three Kingdoms 8 Remake Official Site" : "《三国志8 REMAKE》官网",
+    officialUrl: "https://chatgpt.com/",
+  },
+  {
+    rank: 3,
+    ai: "xAI Grok 3 / Think",
+    family: "xAI (Elon Musk)",
+    character: isEnglish ? "Lu Bu (吕布)" : "吕布",
+    mark: "吕",
+    camp: isEnglish ? "Warlords · Unrivaled Warrior" : "群雄 · 猛将",
+    tier: isEnglish ? "T0 · Unrivaled Brute Force" : "T0 · 无双战神",
+    role: isEnglish ? "100k GPU cluster charging into the front lines; unmatched single-model reasoning breakthrough, fierce and unfiltered." : "十万 H100 集群暴力冲锋，万夫莫敌；单兵推理与数学突破天花板，桀骜不驯。",
+    tags: isEnglish ? ["100k GPUs", "Grok Think", "Raw Power", "Real-Time X Data"] : ["十万卡暴力算力", "Think深度思维", "单兵战力爆表", "实时X数据"],
+    stats: { "综合": 96, "编程": 97, "推理": 99, "长文本": 90, "多模态": 86, "性价比": 66 },
+    price: isEnglish ? "Premium (X Premium+)" : "偏贵 · 算力狂魔",
+    killer: isEnglish ? "Grok 3 Think deep reasoning mode, extraordinary mathematical logic, and direct access to real-time global X news feeds." : "Grok 3 Think 深度长思维链、顶尖数理逻辑破局能力、直接打通 X（Twitter）全球实时第一手资讯信源。",
+    shortcoming: isEnglish ? "High subscription barrier (requires X Premium+); style is bold and aggressive, requiring experienced steering." : "需要 X Premium+ 或官方 API 订阅，门槛较高；个性极其张扬激进，偶尔过于桀骜需妥善引导。",
+    priceDetail: isEnglish ? "Monthly subscription via X Premium+ or official API. Huge compute overhead behind the scenes." : "目前主要依托 X Premium+ 订阅或官方 API 调用，算力消耗极大，适合极客与攻坚高难度逻辑任务。",
+    quote: isEnglish ? "\"Are you still in a meeting? I have already breached the enemy gates with raw compute.\"" : "“你们还在开会讨论？我已经扛着十万算力冲进去了。”",
+    description: isEnglish ? "Grok 3 is like Lu Bu: the pinnacle of raw physical combat power. Backed by the massive Colossus 100,000 GPU cluster, its Grok 3 Think mode delivers staggering benchmark scores in math, coding, and difficult logic." : "Grok 3 就像三国第一猛将吕布：单兵战斗力天花板。背后有马斯克 Colossus 十万卡算力巨兽加持，Grok 3 Think 深度思考模式在数学、代码与推理评测中一骑绝尘。它不是平庸温和的客服助手，而是随时准备冲破防线的神将。",
+    advice: isEnglish ? "If you want the most unfiltered, aggressive frontier reasoning to tackle impossible logic challenges, unleash Lu Bu." : "需要暴力破局极难的数学逻辑、想要最狂野不羁的输出与实时全球情报，找吕布准没错。",
+    img: G + "chara_main_cid15.png",
+    source: "https://www.gamecity.com.tw/sangokushi8-re/character.html",
+    sourceName: isEnglish ? "Romance of the Three Kingdoms 8 Remake Official Site" : "《三国志8 REMAKE》官网",
+    officialUrl: "https://x.ai/",
+  },
+  {
+    rank: 4,
+    ai: "Google Gemini 2.0 Pro / Flash",
+    family: "Google",
+    character: isEnglish ? "Zhou Yu (周瑜)" : "周瑜",
+    mark: "周",
+    camp: isEnglish ? "Eastern Wu · Grand Commander" : "东吴 · 都督",
+    tier: isEnglish ? "T0.5 · Multimodal Maestro" : "T0.5 · 创意都督",
+    role: isEnglish ? "Technical prowess blended with aesthetic refinement; millions of token context and native audio-video capabilities." : "雄姿英发，理工脑里带审美；百万超长上下文与原生音视频多模态绝冠天下。",
+    tags: isEnglish ? ["2M Context", "Native Video/Audio", "Creative Tech", "High Speed"] : ["200万超长窗口", "原生音视频", "审美与前端", "Flash极速"],
+    stats: { "综合": 95, "编程": 91, "推理": 93, "长文本": 99, "多模态": 99, "性价比": 88 },
+    price: isEnglish ? "Flash Super Cheap / Pro Mid" : "Flash极便宜 / Pro适中",
+    killer: isEnglish ? "2,000,000 token context window, native frame-by-frame video understanding, and live audio interaction." : "200万 Token 超大上下文吞吐、原生逐帧音视频理解、Web 前端视觉还原与 Google Workspace 联动。",
+    shortcoming: isEnglish ? "Occasional attention drift on fine-grained textual needles in extremely dense multi-turn chats." : "在极其繁琐的密集纯文本微观指令下，长对话后期注意力偶有轻微漂移。",
+    priceDetail: isEnglish ? "Gemini 2.0 Flash is extraordinarily cheap (or free on Google AI Studio), while Pro remains cost-effective." : "Flash 档位极度便宜甚至在 Google AI Studio 拥有充裕免费额度；Pro 档位定价也远比 GPT-4.5 亲民。",
+    quote: isEnglish ? "\"When a tune is flawed, Zhou Yu attends; when an image or video is off, Gemini perfects it.\"" : "“曲有误，周郎顾；音视频与长文有误，Gemini 也能顾。”",
+    description: isEnglish ? "Gemini perfectly embodies Zhou Yu: dashing, intellectually sharp, with superior visual and artistic sensibility. Video, audio, whole-book retrieval, and multimodal understanding are its unchallenged domain." : "Gemini 对应周瑜最为贴切：年轻聪明、才华横溢、懂技术更懂审美。长达数小时的视频分析、整本技术书检索、网页设计视觉还原是它的绝对主场。它就像那个数学拔尖、同时又懂摄影与导演的大都督。",
+    advice: isEnglish ? "Whenever your workflow involves video, audio, complex PDFs, or modern web interfaces, summon Zhou Yu." : "凡是涉及视频剪辑、整库长资料消化、前端设计还原与多模态交互的任务，优先请周瑜坐镇。",
+    img: G + "chara_main_cid10.png",
+    source: "https://www.gamecity.com.tw/sangokushi8-re/character.html",
+    sourceName: isEnglish ? "Romance of the Three Kingdoms 8 Remake Official Site" : "《三国志8 REMAKE》官网",
+    officialUrl: "https://gemini.google.com/",
+  },
+  {
+    rank: 5,
+    ai: "DeepSeek-V3 / R1",
+    family: "DeepSeek",
+    character: isEnglish ? "Zhao Yun (赵云)" : "赵云",
+    mark: "赵",
+    camp: isEnglish ? "Shu Han · Vanguard Champion" : "蜀汉 · 猛将",
+    tier: isEnglish ? "T1 · Combat-Proven Value" : "T1 · 实战先锋",
+    role: isEnglish ? "Speaks quietly, pierces seven enemy lines with minimal resource cost; the indispensable frontline soldier." : "平时话不多，真上战场能打；以极低成本杀穿算力封锁的实战先锋。",
+    tags: isEnglish ? ["Ultra Low Cost", "R1 Reasoning", "Open Weights", "Battle-Tested"] : ["白菜价API", "R1深度推理", "开源开源", "实战主力"],
+    stats: { "综合": 94, "编程": 95, "推理": 96, "长文本": 88, "多模态": 72, "性价比": 99 },
+    price: isEnglish ? "Ultra Affordable (Pennies)" : "极便宜 · 白菜价神将",
+    killer: isEnglish ? "Open-R1 chain-of-thought reasoning rivaling o1/Claude, open-weights self-hosting, and insanely low API pricing." : "R1 开源深度思考链直追顶级闭源模型、百万 Token 仅数毛钱的 API 定价、全开源支持私有化部署。",
+    shortcoming: isEnglish ? "Multimodal capabilities are still developing; public web servers can experience traffic congestion." : "视觉与多模态非主打强项；官方网页端高峰期偶尔并发排队，建议使用官方 API 或第三方加速中继。",
+    priceDetail: isEnglish ? "Costs a fraction of US frontier models. Million input tokens cost mere cents, revolutionizing developer budgets." : "百万 Token 成本不到欧美旗舰的十分之一，真正做到了让个人开发者与中小企业无痛大规模调用。",
+    quote: isEnglish ? "\"Zhao Zilong speaks little, yet pierces through enemy lines seven times without hesitation.\"" : "“子龙寡言，真到战场，七进七出。”",
+    description: isEnglish ? "DeepSeek is like Zhao Yun: humble, battle-proven, and fiercely reliable. When tackling complex math reasoning, code generation, and heavy pipelines, it repeatedly astonishes developers with top-tier results at near-zero costs." : "DeepSeek 像赵云：白袍单骑、低调实战。在数学推理、代码编写与批量工程分析中，经常给人“这价格怎么能这么能打”的震撼感。它用开源与极致蒸馏技术打破了算力围剿，是每一位开发者最放心的常备猛将。",
+    advice: isEnglish ? "When budget matters but you refuse to compromise on reasoning and coding quality, Zhao Yun is your ultimate frontline champion." : "预算敏感、同时需要过硬的代码与逻辑推理，赵云是日常开发与批处理任务的第一首选。",
+    img: G + "chara_main_cid05.png",
+    source: "https://www.gamecity.com.tw/sangokushi8-re/character.html",
+    sourceName: isEnglish ? "Romance of the Three Kingdoms 8 Remake Official Site" : "《三国志8 REMAKE》官网",
+    officialUrl: "https://chat.deepseek.com/",
+  },
+  {
+    rank: 6,
+    ai: isEnglish ? "Qwen 2.5 / Max / Coder" : "通义千问 Qwen 2.5 / Max",
+    family: isEnglish ? "Alibaba · Qwen" : "阿里 · 通义千问",
+    character: isEnglish ? "Sun Quan (孙权)" : "孙权",
+    mark: "孙",
+    camp: isEnglish ? "Eastern Wu · Sovereign" : "东吴 · 主公",
+    tier: isEnglish ? "T1 · Full-Stack Dynasty" : "T1 · 体系基石",
+    role: isEnglish ? "Not reliant on a single hero; backed by a complete, robust, full-size open-weights dynasty." : "坐断东南，基业最实；开源家族全尺寸覆盖，全端落地与工程基本盘最稳。",
+    tags: isEnglish ? ["Complete Portfolio", "Qwen Coder", "Open Source Base", "Chinese Robustness"] : ["全尺寸开源", "Coder代码王者", "端云全覆盖", "中文根基扎实"],
+    stats: { "综合": 92, "编程": 93, "推理": 89, "长文本": 91, "多模态": 88, "性价比": 92 },
+    price: isEnglish ? "Open Weights / Very Cheap" : "开源免费 / API极低成本",
+    killer: isEnglish ? "Qwen 2.5-Coder specialized code models, massive open-weights portfolio (0.5B to 72B), and deep Alibaba Cloud integration." : "Qwen 2.5-Coder 登顶开源代码模型、从 0.5B 到 72B 全尺寸开源覆盖、阿里云百炼平台深度集成与本地 Ollama 普及。",
+    shortcoming: isEnglish ? "Extreme edge-case reasoning under deep multi-branch planning sits slightly behind dedicated RL models like R1/o3." : "在极端复杂的极客探索型深度推理中，比专门的强化学习模型（R1/o3）略显稳健保守。",
+    priceDetail: isEnglish ? "Free to self-host; Alibaba Bailian API is exceptionally affordable with abundant initial free credits." : "开源权重免费下载商用；阿里云百炼平台提供大量免费测试 Token，商业调用成本极低。",
+    quote: isEnglish ? "\"In my realm of Jiangdong, there stands not just one valiant general, but a full assembly.\"" : "“我江东基业，不只一员大将，而是整套班底一应俱全。”",
+    description: isEnglish ? "Qwen is like Sun Quan: powerful through sheer systemic completeness. From specialized Coder models to vision, edge sizes to cloud flagships, Jiangdong's foundation is unmatched in breadth and endurance." : "Qwen 像孙权：胜在“体系完备、基业雄厚”。从代码王者 Qwen-Coder 到多模态，从手机端小模型到 72B 开源旗舰，江东班底一应俱全。你未必每次都觉得它单项要抢所有风头，但无论是本地部署还是中文云端应用，它都是最坚实的基本盘。",
+    advice: isEnglish ? "For full-suite domestic operations, local private deployments, and versatile coding tools, Sun Quan is your bedrock." : "需要搭建私有化大模型、用 Ollama 本地跑代码助手、或需要全套中文企业方案，找孙权最踏实。",
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Sun_Quan_(Emperor_of_Eastern_Wu).png",
+    source: "https://commons.wikimedia.org/wiki/File:Sun_Quan_(Emperor_of_Eastern_Wu).png",
+    sourceName: isEnglish ? "Wikimedia Commons · Historical Portrait" : "Wikimedia Commons · 历史画像",
+    officialUrl: "https://chat.qwen.ai/",
+  },
+  {
+    rank: 7,
+    ai: "Kimi K1.5 / Kimi",
+    family: "Moonshot AI (月之暗面)",
+    character: isEnglish ? "Guo Jia (郭嘉)" : "郭嘉",
+    mark: "郭",
+    camp: isEnglish ? "Cao Wei · Visionary Strategist" : "曹魏 · 谋士",
+    tier: isEnglish ? "T1 · Deep Research Mind" : "T1 · 奇谋鬼才",
+    role: isEnglish ? "The more documents and context provided, the faster it pinpoints the critical breakthrough." : "才策谋略，世之奇士；材料越多越显神速，超长文档提炼与长思考探路者。",
+    tags: isEnglish ? ["Long Context Research", "K1.5 Long-Thinking", "Document Digest", "Academic Synthesis"] : ["长文档消化", "K1.5深度思考", "研报提炼", "知识库搜索"],
+    stats: { "综合": 90, "编程": 82, "推理": 93, "长文本": 96, "多模态": 80, "性价比": 88 },
+    price: isEnglish ? "Accessible / High Doc Value" : "友好 · 长文性价比高",
+    killer: isEnglish ? "Reading hundreds of pages of complex financial/research reports in seconds, and K1.5 deep long-thinking exploratory reasoning." : "一次性投喂数十万字论文研报秒出结构化要点、K1.5 探索深度长思考逻辑链条与联网学术搜索整合。",
+    shortcoming: isEnglish ? "Terminal-based agentic code editing is not its primary core; multimodal audio/video lags behind specialized suites." : "终端自动化仓库级代码重构非核心主场；音视频原生多模态目前不如专业工具聚焦。",
+    priceDetail: isEnglish ? "Generous daily consumer allowances on web/app; developer API priced very competitively for long-context docs." : "网页与 App 端提供宽裕免费额度；开发者 API 处理长上下文文档时性价比较高。",
+    quote: isEnglish ? "\"Hand me all the raw dossiers; I shall distill the pivotal strategic factor before others finish reading.\"" : "“把材料都给我，我先告诉你真正关键在哪。”",
+    description: isEnglish ? "Kimi is like Guo Jia: swift, insightful, and razor-sharp in strategy. Dump dozens of articles, dense financial disclosures, or complex research papers, and it instantly isolates the crucial takeaways." : "Kimi 像郭嘉：鬼才谋士、脑子极快。你把成堆的研报、招股书、十几篇长文档打包扔给它，它最擅长拨开迷雾提炼核心关系与结论。K1.5 的长思考探索更让它在复杂分析中有了独特的谋士气质。",
+    advice: isEnglish ? "If your daily routine involves reading dense dossiers, synthesis of market research, and multi-doc summarization, Guo Jia is your closest advisor." : "每天要消化大量行业研报、读长篇论文、做资料归纳与研究立项，郭嘉是最省心的智囊。",
+    img: G + "chara_main_cid08.png",
+    source: "https://www.gamecity.com.tw/sangokushi8-re/character.html",
+    sourceName: isEnglish ? "Romance of the Three Kingdoms 8 Remake Official Site" : "《三国志8 REMAKE》官网",
+    officialUrl: "https://www.kimi.com/",
+  },
+  {
+    rank: 8,
+    ai: isEnglish ? "GLM-4 / GLM-Zero" : "智谱 GLM-4 / GLM-Zero",
+    family: isEnglish ? "Zhipu AI (Tsinghua Base)" : "智谱 AI (清华底座)",
+    character: isEnglish ? "Xun Yu (荀彧)" : "荀彧",
+    mark: "荀",
+    camp: isEnglish ? "Cao Wei · Pillar Chancellor" : "曹魏 · 文臣",
+    tier: isEnglish ? "T1 · Solid Pillar / Ultra Low Cost" : "T1 · 稳健重臣",
+    role: isEnglish ? "Autonomous foundational IP from Tsinghua; solid enterprise governance with a massive price reduction plan (Milk Model Economy)." : "王佐之才，清华自研底座重臣；最新极速模型全面大降价，亲民牛奶价实惠万家。",
+    tags: isEnglish ? ["Tsinghua Base", "Milk Price Drop", "GLM-4-Flash", "Enterprise Pillar"] : ["清华自研底座", "极速大降价", "GLM-4-Flash免费", "政企稳健合规"],
+    stats: { "综合": 88, "编程": 84, "推理": 87, "长文本": 89, "多模态": 82, "性价比": 97 },
+    price: isEnglish ? "Ultra Cheap (Milk Plan / Free)" : "极便宜 · 亲民牛奶价",
+    killer: isEnglish ? "GLM-4-Flash ultra-low cost / free API plan, sovereign domestic tech stack, and reliable enterprise tool/function calling." : "智谱推出的 GLM-4-Flash 极速模型免费/极低价调用计划（牛奶价普惠）、纯自研清华底座与扎实的企业级 Function Call 工具调用。",
+    shortcoming: isEnglish ? "Less viral hype in international developer forums; creative and entertainment writing leans slightly formal." : "在海外极客社区声量略少；纯娱乐、玩梗或极其天马行空的创意写作时文风偏向端正严肃。",
+    priceDetail: isEnglish ? "Pioneered the 'Milk Price' ultra-low-cost plan; GLM-4-Flash is free/near-zero cost, making batch processing trivial." : "推行亲民大降价计划，GLM-4-Flash 等轻量模型直接免费或提供白菜价 API，大幅降低批量处理门槛。",
+    quote: isEnglish ? "\"Without chasing viral headlines, true governance and steady enterprise execution require my foundation.\"" : "“不抢虚浮风头，真正治理家国、稳健办正事，少不了我。”",
+    description: isEnglish ? "GLM is like Xun Yu: upright, dependable, and holding the imperial administration together. Backed by Tsinghua University's original foundation, its recent dramatic price cuts (accessible milk pricing) make high-speed AI accessible for everyone." : "GLM 像荀彧：清华学术底座出身，端庄稳健、内政大管家。它不靠炒作网红热搜，而是在政企合规、自主可控与实用工具调用上默默深耕。近期智谱全面推行极速降价（亲民牛奶价计划），让高质量推理以极低成本惠及大众。",
+    advice: isEnglish ? "When you need a 100% sovereign tech stack, high-speed bulk batch processing, or reliable enterprise tools, appoint Xun Yu." : "需要完全自主可控的国产底座、大批量低成本跑数据管线、或者做企业级规范输出，荀彧极其稳健实惠。",
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Portrait_of_Xun_Yu.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:Portrait_of_Xun_Yu.jpg",
+    sourceName: isEnglish ? "Wikimedia Commons · Qing Dynasty Portrait" : "Wikimedia Commons · 清代绣像",
+    officialUrl: "https://chatglm.cn/",
+  },
+  {
+    rank: 9,
+    ai: "MiniMax abab 6.5 / 海螺 AI",
+    family: "MiniMax",
+    character: isEnglish ? "Pang Tong (庞统)" : "庞统",
+    mark: "庞",
+    camp: isEnglish ? "Shu Han · Fledgling Phoenix" : "蜀汉 · 凤雏",
+    tier: isEnglish ? "T1.5 · Hidden Craft Master" : "T1.5 · 奇兵隐士",
+    role: isEnglish ? "Less praised by casual mainstream, yet masters of voice, video, and agentic storytelling never overlook it." : "凤雏展翅，奇谋善出；超拟真音色、长文创作与复杂 Agent 的隐藏高手。",
+    tags: isEnglish ? ["Lifelike Audio", "Hailuo Video", "Agent Persona", "Long Form Craft"] : ["超拟真人声", "海螺AI视频", "长文创作", "Agent角色设定"],
+    stats: { "综合": 87, "编程": 83, "推理": 85, "长文本": 89, "多模态": 92, "性价比": 86 },
+    price: isEnglish ? "Moderate / High Audio ROI" : "中档友好 · 创意高回报",
+    killer: isEnglish ? "Speech-01 hyper-realistic emotional voice synthesis, Hailuo AI video generation, and rich conversational agent personas." : "Speech-01 业界顶尖的拟真情感语音合成、海螺 AI 影视级视频生成、小说长篇剧情推进与个性化 Agent 设定。",
+    shortcoming: isEnglish ? "Hardcore compiler/systems code debugging is not its primary showcase; brand identity still maturing." : "硬核底层代码与算法调试不是最突出卖点；大众品牌认知还在向更多非内容创作者群体渗透。",
+    priceDetail: isEnglish ? "Competitive API pricing with standout value in voice, video, and creative token economics." : "API 价格整体中档友好，在多模态声音与视频生成领域的投入产出比非常突出。",
+    quote: isEnglish ? "\"The Fledgling Phoenix is here; those who truly understand creative intelligence recognize the craft.\"" : "“凤雏在此，懂多模态音视频创作的人自然懂。”",
+    description: isEnglish ? "MiniMax is like Pang Tong: casual observers might initially overlook it, but creative pros utilizing voice cloning, video synthesis, and narrative Agent design know it is a genuine hidden heavyweight." : "MiniMax 很像庞统：普通用户有时会漏掉它，但做过 AI 影视、播客情感语音合成、虚拟人 Agent 的创作者都知道它的实力。它的语音拟真度与海螺视频生成在行业极具辨识度，是名副其实的“多模态奇谋隐士”。",
+    advice: isEnglish ? "If your pipeline focuses on emotional audio, video generation, character agents, or long-form storytelling, consult Pang Tong." : "想要生成极其逼真自然的情感配音、制作 AI 短剧视频、或者设计富有个性的对话 Agent，找庞统最对味。",
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/PangTong.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:PangTong.jpg",
+    sourceName: isEnglish ? "Wikimedia Commons · Qing Dynasty Portrait" : "Wikimedia Commons · 清代三国绣像",
+    officialUrl: "https://hailuoai.video/",
+  },
+  {
+    rank: 10,
+    ai: isEnglish ? "Tencent Hunyuan (混元)" : "腾讯混元 Hunyuan",
+    family: isEnglish ? "Tencent · Hunyuan" : "腾讯 · 混元",
+    character: isEnglish ? "Lu Su (鲁肃)" : "鲁肃",
+    mark: "鲁",
+    camp: isEnglish ? "Eastern Wu · Practical Statesman" : "东吴 · 谋臣",
+    tier: isEnglish ? "T2 · Enterprise Ecosystem" : "T2 · 生态实干",
+    role: isEnglish ? "Quiet on social feeds, but deeply embedded across WeChat, docs, and corporate pipelines." : "忠厚重臣，家底殷实；默默融入微信与企业生态，稳定可靠的实干管家。",
+    tags: isEnglish ? ["WeChat Integration", "Enterprise Docs", "Reliable Baseline", "Cloud Pipeline"] : ["微信生态互通", "企业办公文档", "底盘扎实", "腾讯云管线"],
+    stats: { "综合": 85, "编程": 78, "推理": 82, "长文本": 86, "多模态": 84, "性价比": 87 },
+    price: isEnglish ? "Moderate (WeChat Free Use)" : "适中 · 微信端免配置",
+    killer: isEnglish ? "Native synergy with WeChat, Tencent Yuanbao search, Enterprise WeChat document co-editing, and Tencent Cloud pipelines." : "与微信生态、腾讯元宝、企业微信文档及腾讯云服务的天然无缝打通，日常办公免折腾开箱即用。",
+    shortcoming: isEnglish ? "Less appealing for independent frontier hackers seeking bleeding-edge experimental toolchains." : "面向独立极客开发者的前沿实验性工具链较轻，前沿跑分虽稳健但较少在极客圈引发刷屏。",
+    priceDetail: isEnglish ? "Free directly in WeChat & Yuanbao for consumers; enterprise APIs bundled economically on Tencent Cloud." : "个人用户在微信与元宝中可直接免费使用；企业级 API 依托腾讯云体系打包，成本可控。",
+    quote: isEnglish ? "\"We maintain a steady daily posture, yet when large-scale enterprise collaboration calls, our resilience shines.\"" : "“平日不高调炫技，真到大局协作与生态落地时，才见真章。”",
+    description: isEnglish ? "Hunyuan is like Lu Su: dependable, wealthy in infrastructure, and quietly supporting the entire enterprise framework. Its greatest advantage is its natural embedding inside China's largest digital communication ecosystem." : "混元像鲁肃：性情沉厚、家底殷实。它很少参与互联网上的跑分互撕，但当你需要把 AI 塞进微信客服、公众号、腾讯文档与企业微信里时，它是最省心的正统管家。重在稳扎稳打、润物细无声。",
+    advice: isEnglish ? "For seamless WeChat integration, office collaboration, and enterprise ecosystem workflows, Lu Su is your solid partner." : "业务与微信生态、企业办公协同紧密绑定，需要稳定无痛交付，鲁肃是最可靠的合伙人。",
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/LuSu.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:LuSu.jpg",
+    sourceName: isEnglish ? "Wikimedia Commons · Qing Dynasty Portrait" : "Wikimedia Commons · 清代三国绣像",
+    officialUrl: "https://yuanbao.tencent.com/",
+  },
+  {
+    rank: 11,
+    ai: isEnglish ? "Doubao (豆包)" : "豆包 Doubao",
+    family: isEnglish ? "ByteDance" : "字节跳动",
+    character: isEnglish ? "Liu Bei (刘备)" : "刘备",
+    mark: "刘",
+    camp: isEnglish ? "Shu Han · Benevolent Sovereign" : "蜀汉 · 主公",
+    tier: isEnglish ? "T2 · Universal Mass Adoption" : "T2 · 仁德亲民",
+    role: isEnglish ? "No technical barriers; gives millions of everyday people access to accessible AI." : "仁德爱民，大众普及第一；不设门槛、全端免费，让千家万户真正用上 AI。",
+    tags: isEnglish ? ["Universal Free", "Zero Barrier", "Mobile Mass Favorite", "Everyday Helper"] : ["全民免费", "零门槛交互", "国民级日活", "日常全能助手"],
+    stats: { "综合": 84, "编程": 74, "推理": 80, "长文本": 86, "多模态": 85, "性价比": 98 },
+    price: isEnglish ? "Ultra Friendly (Free App)" : "极便宜 · 全民免费",
+    killer: isEnglish ? "Massive user adoption, intuitive voice chat on mobile, and ultra-cheap Volcengine API infrastructure for businesses." : "全国最大规模的大众日活普及、手机端极简语音与问答、火山引擎普惠级极低成本商业 API。",
+    shortcoming: isEnglish ? "Not suited for deep architectural refactoring or academic math research compared to Claude/o3/R1." : "不适合极其硬核的大型底层软件重构与学术级定理证明，更侧重于大众日常与通用工作流。",
+    priceDetail: isEnglish ? "Consumer app & mobile voice features are 100% free; enterprise Volcengine token prices lead the market down." : "C 端 App 与手机语音助手完全免费；B 端火山引擎价格极低，彻底打掉大众使用门槛。",
+    quote: isEnglish ? "\"Let us first ensure every ordinary individual can walk alongside AI without friction.\"" : "“先让天下所有人都能无门槛用上 AI，方为根本。”",
+    description: isEnglish ? "Doubao is like Liu Bei: its supreme superpower is affinity and benevolence. It reaches every regular smartphone user, communicates naturally, and breaks down all psychological barriers to using AI." : "豆包像刘备：最大神通是“得人心与亲和力”。它离大众用户最近、上手毫无心理负担。对大量非技术从业者、学生和日常办公人员来说，豆包是他们真正天天在用的 AI 助手。全方位降低门槛是它的时代使命。",
+    advice: isEnglish ? "For effortless daily chats, frictionless mobile onboarding, and developing an everyday AI habit, start with Liu Bei." : "纯新手入门、日常轻办公、手机端语音随问随答，刘备是最好的第一站。",
+    img: G + "chara_main_cid01.png",
+    source: "https://www.gamecity.com.tw/sangokushi8-re/character.html",
+    sourceName: isEnglish ? "Romance of the Three Kingdoms 8 Remake Official Site" : "《三国志8 REMAKE》官网",
+    officialUrl: "https://www.doubao.com/",
+  },
+];
+
+const copy = isEnglish
+  ? {
+      title: "AI Model Three Kingdoms",
+      subtitle: "Instead of memorizing model parameters, remember which Three Kingdoms hero you need today.",
+      headerBadge1: "One-screen Selector",
+      headerBadge2: "← → Navigate",
+      listTitle: "Model Leaderboard",
+      family: "Family",
+      overall: "Overall Score",
+      price: "Cost / Price",
+      officialLink: "Official Site ↗",
+      radarTitle: "Six-Axis Capability Radar",
+      radarSub: "Capability distribution, not benchmark scores",
+      killerTitle: "🎯 Killer Scenarios & Strengths",
+      shortcomingTitle: "⚠️ Limitations & Real-world Tips",
+      bioTitle: "Hero Profile",
+      priceTitle: "Cost & Pricing Analysis",
+      adviceTitle: "How to choose as a builder?",
+      prev: "◀ Previous",
+      next: "Next ▶",
+      toggleSide: "Collapse / Expand list",
+      sourcePrefix: "↗ Image Source: ",
+      hint: "Click any character on the left to jump directly",
+    }
+  : {
+      title: "AI 三国群英谱",
+      subtitle: "不是死记模型参数，而是记住：今天你需要哪位“三国人物”来帮你。",
+      headerBadge1: "一屏角色选择器",
+      headerBadge2: "← → 翻页",
+      listTitle: "综合推荐榜",
+      family: "模型家族",
+      overall: "综合推荐",
+      price: "军饷 / 价格感",
+      officialLink: "官网 / 平台直达 ↗",
+      radarTitle: "六维战力雷达图",
+      radarSub: "能力分布，不是官方跑分",
+      killerTitle: "🎯 杀手锏场景 / 最强主场",
+      shortcomingTitle: "⚠️ 真实短板 / 避坑指南",
+      bioTitle: "人物简介",
+      priceTitle: "军饷与价格深度解析",
+      adviceTitle: "新手实战怎么选？",
+      prev: "◀ 上一个",
+      next: "下一个 ▶",
+      toggleSide: "收起 / 展开排行榜",
+      sourcePrefix: "↗ 查看人物图片来源",
+      hint: "点击左侧排行榜可直接跳转",
+    };
+---
+
+<div class:list={["sanguo-interactive-root", { "is-embedded": embedded }]} data-sanguo-root>
+  {!embedded && (
+    <header class="sanguo-top-header">
+      <div class="sanguo-brand">
+        <div class="sanguo-brand-mark">AI</div>
+        <div>
+          <h2>{copy.title}</h2>
+          <p>{copy.subtitle}</p>
+        </div>
+      </div>
+      <div class="sanguo-header-right">
+        <span class="sanguo-header-pill">{copy.headerBadge1}</span>
+        <span class="sanguo-header-pill">{copy.headerBadge2}</span>
+      </div>
+    </header>
+  )}
+
+  <div class="sanguo-shell" data-sanguo-shell>
+    <aside class="sanguo-sidebar" aria-label={copy.listTitle}>
+      <div class="sanguo-side-head">
+        <strong>{copy.listTitle}</strong>
+        <button class="sanguo-toggle-btn" data-sanguo-toggle title={copy.toggleSide} aria-label={copy.toggleSide}>☰</button>
+      </div>
+      <div class="sanguo-rank-list" data-sanguo-rank-list>
+        {models.map((m, i) => (
+          <button
+            class:list={["sanguo-rank-item", { active: i === 0 }]}
+            type="button"
+            data-sanguo-index={i}
+          >
+            <span class="sanguo-rank-no">{m.rank}</span>
+            <span class="sanguo-rank-meta">
+              <span class="sanguo-rank-ai">{m.ai}</span>
+              <span class="sanguo-rank-char">{m.character}</span>
+            </span>
+            <span class="sanguo-rank-score">{m.stats.综合}</span>
+          </button>
+        ))}
+      </div>
+    </aside>
+
+    <main class="sanguo-stage">
+      <section class="sanguo-character-view">
+        <article class="sanguo-portrait-card">
+          <div class="sanguo-portrait-top">
+            <span class="sanguo-camp" data-sanguo-camp>{models[0].camp}</span>
+            <span class="sanguo-tier" data-sanguo-tier>{models[0].tier}</span>
+          </div>
+          <div class="sanguo-portrait-area">
+            <img
+              class="sanguo-portrait-img"
+              data-sanguo-img
+              src={models[0].img}
+              alt={`${models[0].character}人物立绘`}
+              referrerpolicy="no-referrer"
+            />
+            <div class="sanguo-fallback-mark" data-sanguo-fallback style="display:none;">{models[0].mark}</div>
+          </div>
+          <div class="sanguo-portrait-bottom">
+            <div class="sanguo-name-row">
+              <div class="sanguo-char-name" data-sanguo-char-name>{models[0].character}</div>
+              <div class="sanguo-ai-name" data-sanguo-ai-name>{models[0].ai}</div>
+            </div>
+            <div class="sanguo-role-line" data-sanguo-role-line>{models[0].role}</div>
+            <div class="sanguo-tag-row" data-sanguo-tag-row>
+              {models[0].tags.map((t) => <span class="sanguo-tag">{t}</span>)}
+            </div>
+            <a
+              class="sanguo-source-link"
+              data-sanguo-source-link
+              href={models[0].source}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {copy.sourcePrefix} {models[0].sourceName}
+            </a>
+          </div>
+        </article>
+
+        <div class="sanguo-right-column">
+          <article class="sanguo-stats-card">
+            <div class="sanguo-stat-head">
+              <div class="sanguo-head-box">
+                <div class="sanguo-head-label">{copy.family}</div>
+                <div class="sanguo-head-value" data-sanguo-family>{models[0].family}</div>
+              </div>
+              <div class="sanguo-head-box">
+                <div class="sanguo-head-label">{copy.overall}</div>
+                <div class="sanguo-head-value" data-sanguo-overall>{models[0].stats.综合} / 100</div>
+              </div>
+              <div class="sanguo-head-box">
+                <div class="sanguo-head-label">{copy.price}</div>
+                <div class="sanguo-head-value" data-sanguo-price>{models[0].price}</div>
+              </div>
+              <a
+                class="sanguo-head-action"
+                data-sanguo-official
+                href={models[0].officialUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {copy.officialLink}
+              </a>
+            </div>
+
+            <div class="sanguo-stat-body">
+              <div class="sanguo-radar-wrap">
+                <div class="sanguo-module-title">
+                  {copy.radarTitle} <span>{copy.radarSub}</span>
+                </div>
+                <div class="sanguo-canvas-box">
+                  <canvas class="sanguo-radar-canvas" data-sanguo-radar width="360" height="360"></canvas>
+                </div>
+              </div>
+
+              <div class="sanguo-deep-analysis">
+                <div class="sanguo-analysis-card sanguo-analysis-card--killer">
+                  <div class="sanguo-analysis-head">
+                    <span class="sanguo-analysis-badge sanguo-analysis-badge--killer">{copy.killerTitle}</span>
+                  </div>
+                  <p class="sanguo-analysis-text" data-sanguo-killer>{models[0].killer}</p>
+                </div>
+
+                <div class="sanguo-analysis-card sanguo-analysis-card--shortcoming">
+                  <div class="sanguo-analysis-head">
+                    <span class="sanguo-analysis-badge sanguo-analysis-badge--shortcoming">{copy.shortcomingTitle}</span>
+                  </div>
+                  <p class="sanguo-analysis-text" data-sanguo-shortcoming>{models[0].shortcoming}</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="sanguo-bio-card">
+            <div class="sanguo-bio-main">
+              <div class="sanguo-bio-title">
+                <strong>{copy.bioTitle}</strong>
+                <span class="sanguo-quote" data-sanguo-quote>{models[0].quote}</span>
+              </div>
+              <div class="sanguo-bio-desc" data-sanguo-desc>{models[0].description}</div>
+              <div class="sanguo-advice-inline">
+                <strong>{copy.adviceTitle}</strong>
+                <p data-sanguo-advice>{models[0].advice}</p>
+              </div>
+            </div>
+            
+            <div class="sanguo-price-box">
+              <div class="sanguo-price-head">
+                <strong>{copy.priceTitle}</strong>
+                <span class="sanguo-price-pill" data-sanguo-price-pill>{copy.price}：{models[0].price}</span>
+              </div>
+              <p class="sanguo-price-detail" data-sanguo-pricedetail>{models[0].priceDetail}</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <footer class="sanguo-nav">
+        <div class="sanguo-nav-left">
+          <button class="sanguo-nav-btn" data-sanguo-prev>{copy.prev}</button>
+          <button class="sanguo-nav-btn" data-sanguo-next>{copy.next}</button>
+          <span class="sanguo-page-indicator" data-sanguo-page>1 / {models.length}</span>
+        </div>
+        <div class="sanguo-nav-right">
+          <span class="sanguo-hint">{copy.hint}</span>
+        </div>
+      </footer>
+    </main>
+  </div>
+</div>
+
+<script define:vars={{ models, copy, isEnglish }}>
+  document.querySelectorAll("[data-sanguo-root]").forEach((root) => {
+    if (root.__sanguoInitialized) return;
+    root.__sanguoInitialized = true;
+
+    let index = 0;
+    const shell = root.querySelector("[data-sanguo-shell]");
+    const rankList = root.querySelector("[data-sanguo-rank-list]");
+    const toggleBtn = root.querySelector("[data-sanguo-toggle]");
+    const campEl = root.querySelector("[data-sanguo-camp]");
+    const tierEl = root.querySelector("[data-sanguo-tier]");
+    const imgEl = root.querySelector("[data-sanguo-img]");
+    const fallbackEl = root.querySelector("[data-sanguo-fallback]");
+    const charNameEl = root.querySelector("[data-sanguo-char-name]");
+    const aiNameEl = root.querySelector("[data-sanguo-ai-name]");
+    const roleLineEl = root.querySelector("[data-sanguo-role-line]");
+    const tagRowEl = root.querySelector("[data-sanguo-tag-row]");
+    const sourceLinkEl = root.querySelector("[data-sanguo-source-link]");
+    const familyEl = root.querySelector("[data-sanguo-family]");
+    const overallEl = root.querySelector("[data-sanguo-overall]");
+    const priceEl = root.querySelector("[data-sanguo-price]");
+    const officialEl = root.querySelector("[data-sanguo-official]");
+    const killerEl = root.querySelector("[data-sanguo-killer]");
+    const shortcomingEl = root.querySelector("[data-sanguo-shortcoming]");
+    const quoteEl = root.querySelector("[data-sanguo-quote]");
+    const descEl = root.querySelector("[data-sanguo-desc]");
+    const priceDetailEl = root.querySelector("[data-sanguo-pricedetail]");
+    const pricePillEl = root.querySelector("[data-sanguo-price-pill]");
+    const adviceEl = root.querySelector("[data-sanguo-advice]");
+    const pageEl = root.querySelector("[data-sanguo-page]");
+    const prevBtn = root.querySelector("[data-sanguo-prev]");
+    const nextBtn = root.querySelector("[data-sanguo-next]");
+    const radarCanvas = root.querySelector("[data-sanguo-radar]");
+
+    const drawRadar = (stats) => {
+      if (!radarCanvas) return;
+      const ctx = radarCanvas.getContext("2d");
+      if (!ctx) return;
+      const labels = Object.keys(stats);
+      const vals = Object.values(stats);
+      const cx = 180;
+      const cy = 180;
+      const R = 104;
+      const n = labels.length;
+
+      ctx.clearRect(0, 0, 360, 360);
+      const glow = ctx.createRadialGradient(cx, cy, 10, cx, cy, 140);
+      glow.addColorStop(0, "rgba(226,190,114,.09)");
+      glow.addColorStop(1, "rgba(226,190,114,0)");
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, 360, 360);
+
+      for (let lv = 1; lv <= 5; lv++) {
+        ctx.beginPath();
+        for (let i = 0; i < n; i++) {
+          const a = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+          const r = (R * lv) / 5;
+          const x = cx + Math.cos(a) * r;
+          const y = cy + Math.sin(a) * r;
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.strokeStyle = lv === 5 ? "rgba(226,190,114,.32)" : "rgba(255,255,255,.08)";
+        ctx.lineWidth = lv === 5 ? 1.5 : 1;
+        ctx.stroke();
+      }
+
+      labels.forEach((lab, i) => {
+        const a = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+        const x = cx + Math.cos(a) * R;
+        const y = cy + Math.sin(a) * R;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = "rgba(255,255,255,.08)";
+        ctx.stroke();
+
+        const lx = cx + Math.cos(a) * (R + 24);
+        const ly = cy + Math.sin(a) * (R + 24);
+        ctx.fillStyle = "rgba(235,242,244,.95)";
+        ctx.font = "bold 12.5px sans-serif";
+        ctx.textAlign = lx < cx - 8 ? "right" : lx > cx + 8 ? "left" : "center";
+        ctx.textBaseline = ly < cy - 6 ? "bottom" : ly > cy + 6 ? "top" : "middle";
+        ctx.fillText(lab, lx, ly);
+      });
+
+      ctx.beginPath();
+      vals.forEach((v, i) => {
+        const a = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+        const r = (R * v) / 100;
+        const x = cx + Math.cos(a) * r;
+        const y = cy + Math.sin(a) * r;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.closePath();
+      ctx.fillStyle = "rgba(119,197,216,.22)";
+      ctx.strokeStyle = "rgba(247,223,170,.95)";
+      ctx.lineWidth = 2.2;
+      ctx.fill();
+      ctx.stroke();
+
+      vals.forEach((v, i) => {
+        const a = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+        const r = (R * v) / 100;
+        const x = cx + Math.cos(a) * r;
+        const y = cy + Math.sin(a) * r;
+        ctx.beginPath();
+        ctx.arc(x, y, 3.8, 0, Math.PI * 2);
+        ctx.fillStyle = "#f7dfaa";
+        ctx.fill();
+      });
+
+      ctx.fillStyle = "#f7dfaa";
+      ctx.font = "bold 13px sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(isEnglish ? "AI Power" : "AI 战力", cx, cy);
+    };
+
+    const updateRankActive = () => {
+      if (!rankList) return;
+      const items = rankList.querySelectorAll("[data-sanguo-index]");
+      items.forEach((item, i) => {
+        const isActive = i === index;
+        item.classList.toggle("active", isActive);
+        item.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+      const activeEl = rankList.querySelector(".active");
+      if (activeEl) {
+        activeEl.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
+    };
+
+    const render = () => {
+      const d = models[index];
+      if (!d) return;
+
+      if (campEl) campEl.textContent = d.camp;
+      if (tierEl) tierEl.textContent = d.tier;
+      if (charNameEl) charNameEl.textContent = d.character;
+      if (aiNameEl) aiNameEl.textContent = d.ai;
+      if (roleLineEl) roleLineEl.textContent = d.role;
+      if (tagRowEl) {
+        tagRowEl.innerHTML = d.tags.map((t) => `<span class="sanguo-tag">${t}</span>`).join("");
+      }
+      if (sourceLinkEl) {
+        sourceLinkEl.href = d.source;
+        sourceLinkEl.textContent = `${copy.sourcePrefix} ${d.sourceName}`;
+      }
+      if (familyEl) familyEl.textContent = d.family;
+      if (overallEl) overallEl.textContent = `${d.stats.综合} / 100`;
+      if (priceEl) priceEl.textContent = d.price;
+      if (officialEl) officialEl.href = d.officialUrl;
+      if (killerEl) killerEl.textContent = d.killer;
+      if (shortcomingEl) shortcomingEl.textContent = d.shortcoming;
+      if (quoteEl) quoteEl.textContent = d.quote;
+      if (descEl) descEl.textContent = d.description;
+      if (priceDetailEl) priceDetailEl.textContent = d.priceDetail;
+      if (pricePillEl) pricePillEl.textContent = `${copy.price}：${d.price}`;
+      if (adviceEl) adviceEl.textContent = d.advice;
+      if (pageEl) pageEl.textContent = `${index + 1} / ${models.length}`;
+
+      if (prevBtn) prevBtn.disabled = index === 0;
+      if (nextBtn) nextBtn.disabled = index === models.length - 1;
+
+      if (fallbackEl) {
+        fallbackEl.textContent = d.mark;
+        fallbackEl.style.display = "none";
+      }
+      if (imgEl) {
+        imgEl.style.display = "block";
+        imgEl.src = d.img;
+        imgEl.alt = `${d.character}人物立绘`;
+      }
+
+      drawRadar(d.stats);
+      updateRankActive();
+    };
+
+    if (imgEl) {
+      imgEl.onerror = () => {
+        imgEl.style.display = "none";
+        if (fallbackEl) fallbackEl.style.display = "grid";
+      };
+    }
+
+    if (toggleBtn && shell) {
+      toggleBtn.onclick = () => shell.classList.toggle("sidebar-collapsed");
+    }
+
+    if (prevBtn) {
+      prevBtn.onclick = () => {
+        if (index > 0) {
+          index--;
+          render();
+        }
+      };
+    }
+
+    if (nextBtn) {
+      nextBtn.onclick = () => {
+        if (index < models.length - 1) {
+          index++;
+          render();
+        }
+      };
+    }
+
+    if (rankList) {
+      rankList.querySelectorAll("[data-sanguo-index]").forEach((item) => {
+        item.addEventListener("click", () => {
+          const targetIndex = Number(item.getAttribute("data-sanguo-index"));
+          if (!isNaN(targetIndex) && targetIndex >= 0 && targetIndex < models.length) {
+            index = targetIndex;
+            render();
+          }
+        });
+      });
+    }
+
+    window.addEventListener("keydown", (e) => {
+      const activeElement = document.activeElement;
+      if (activeElement && (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA")) return;
+      if (root.closest("[hidden]")) return;
+
+      if (e.key === "ArrowLeft" && index > 0) {
+        index--;
+        render();
+      }
+      if (e.key === "ArrowRight" && index < models.length - 1) {
+        index++;
+        render();
+      }
+    });
+
+    render();
+  });
+</script>
+

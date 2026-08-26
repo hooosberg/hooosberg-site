@@ -58,7 +58,7 @@ test("homepage and product catalog use Chinese product card copy", async () => {
     "失败经验：商店海报自动化",
     "3D 轨迹故事工具",
     "本地 AI 情绪日记",
-    "本地优先 AI 写作工具",
+    "本地 Markdown 与 AI 写作工作区",
   ]) {
     assert.match(combined, new RegExp(phrase), `product cards should show Chinese copy: ${phrase}`);
   }

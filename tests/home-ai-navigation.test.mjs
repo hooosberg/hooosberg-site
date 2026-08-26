@@ -32,18 +32,8 @@ test("homepage links to AI navigation without rendering it as a homepage section
   ]);
 
   assert.match(html, /href="\/ai-navigation"/, "homepage header should link to the AI navigation page");
-  assert.match(html, /<title>湖森堡AI_hooosberg \| 哲学 艺术 AI<\/title>/, "Chinese homepage document title should keep the site-level title");
-  assert.match(html, /<h1>哲学 艺术 AI<\/h1>/, "Chinese homepage should use the site philosophy hero title");
-  assert.match(html, /我的开发笔记 \/ AI 工具导航/, "Chinese homepage should keep build notes as the small hero subtitle");
-  assert.match(enHtml, /<title>Hooosberg \| Philosophy, Art, AI<\/title>/, "English homepage document title should keep the site-level title");
-  assert.match(enHtml, /<h1>Philosophy, Art, AI<\/h1>/, "English homepage should use the site philosophy hero title");
-  assert.match(enHtml, /My build notes \/ AI tool guide/, "English homepage should keep build notes as the small hero subtitle");
-  for (const label of ["Codex App 开发", "苹果商店上架流程", "Mac/iOS App 开发", "AI 入门", "Claude Code", "Gemini", "AI 导航", "开发笔记"]) {
-    assert.match(html, new RegExp(label), `Chinese hero tag should include ${label}`);
-  }
-  for (const label of ["Codex App Development", "App Store Launch Process", "Mac/iOS App Development", "AI Basics", "Claude Code", "Gemini", "AI Navigation", "Build Notes"]) {
-    assert.match(enHtml, new RegExp(label), `English hero tag should include ${label}`);
-  }
+  assert.match(html, /<title>湖森堡AI_hooosberg/, "Chinese homepage document title should keep the site-level title");
+  assert.match(enHtml, /<title>Hooosberg/, "English homepage document title should keep the site-level title");
   assert.doesNotMatch(html, /aria-label="AI 导航"/, "AI navigation should not render as a homepage section");
   assert.match(html, /<strong>hooosberg<\/strong>/, "homepage social cards should show handles instead of full URLs");
   assert.match(html, /<strong>湖森堡AI_hooosberg<\/strong>/, "domestic social cards should show the account id directly");
@@ -58,8 +48,8 @@ test("homepage and header focus on diaries, products, AI navigation, and contact
   ]);
 
   for (const [pageHtml, labels] of [
-    [html, ["笔记", "产品", "AI导航", "联系", "定制服务", "其他"]],
-    [enHtml, ["Notes", "Products", "AI Guide", "Contact", "Custom Services", "More"]],
+    [html, ["学习笔记", "AI导航", "产品", "联系"]],
+    [enHtml, ["Learning Notes", "AI Guide", "Products", "Contact"]],
   ]) {
     const navMatch = pageHtml.match(/<nav class="nav-links"[\s\S]*?<\/nav>/);
     assert.ok(navMatch, "primary navigation should render");
@@ -70,36 +60,20 @@ test("homepage and header focus on diaries, products, AI navigation, and contact
     assert.deepEqual([...positions].sort((a, b) => a - b), positions, "primary navigation should keep the simplified order");
   }
 
-  assert.match(html, /class="nav-more"/, "Chinese header should group lower-priority routes in a More menu");
-  assert.match(html, /href="\/courses"[\s\S]*课程/, "Chinese More menu should include courses");
-  assert.match(html, /href="\/services"[\s\S]*定制服务/, "Chinese primary navigation should include custom services");
-  const flatNavHtml = (html.match(/<nav class="nav-links"[\s\S]*?<details class="nav-more">/)?.[0] ?? "");
-  assert.match(flatNavHtml, /href="\/services"/, "custom services should be a flat primary nav link");
-  assert.doesNotMatch(flatNavHtml, /href="\/courses"/, "courses should remain in the More menu");
-
-  assert.ok(html.indexOf('id="articles"') < html.indexOf('class="landing-section home-products-section"'), "Chinese homepage should lead from diaries into products");
-  assert.ok(html.indexOf('class="landing-section home-products-section"') < html.indexOf('id="ai-navigation"'), "Chinese homepage should place AI navigation after products");
-  assert.ok(html.indexOf('id="ai-navigation"') < html.indexOf('id="about"'), "Chinese homepage should end the core flow with contact");
   assert.doesNotMatch(html, /home-course-section/, "Chinese homepage should not render the course card section");
   assert.doesNotMatch(html, /premium-course-card/, "Chinese homepage should not render the premium course card");
   assert.doesNotMatch(html, /faq-section/, "Chinese homepage should not render the old FAQ block");
-
-  assert.ok(enHtml.indexOf('id="articles"') < enHtml.indexOf('class="landing-section home-products-section"'), "English homepage should lead from journal into products");
-  assert.ok(enHtml.indexOf('class="landing-section home-products-section"') < enHtml.indexOf('id="ai-navigation"'), "English homepage should place AI guide after products");
   assert.doesNotMatch(enHtml, /home-course-section|premium-course-card|faq-section/, "English homepage should remove course card and FAQ sections");
 });
 
 test("AI navigation renders as a standalone directory page", async () => {
   const html = await readFile(navigationPage, "utf8");
 
-  assert.match(html, /AI 导航/, "standalone page should render the AI navigation title");
   assert.match(html, /<main class="main--ai-directory">/, "AI navigation main should allow sticky sidebar anchoring");
-  assert.match(html, /placeholder="搜索工具、场景或关键词"/, "page should include a directory-style search box");
+  assert.doesNotMatch(html, /<section class="ai-directory-hero"|搜索工具、场景或关键词|入库标准/, "AI navigation should remove the repeated long-form header, search, and curation card");
   assert.match(html, /夯级产品榜/, "page should lead with a compact tier-one product ranking");
-  assert.doesNotMatch(html, /顶级产品榜/, "top-three product ranking should use the local '夯级产品' naming");
-  assert.match(html, /TOP 01/, "cards should expose leaderboard rank labels");
-  assert.match(html, /人工编辑热度榜/, "page should explain that ranking is editorial");
-  assert.match(html, /入库标准/, "page should explain the curation standard before users trust the list");
+  assert.match(html, /data-directory-mode="sanguo"/, "AI navigation should include the model ranking mode in the toggle");
+  assert.match(html, /AI模型三国榜/, "AI navigation should place the model ranking entry after regional alternatives");
 
   for (const label of ["夯级产品榜", "AI 对话 / 搜索", "AI 编程 / Agent", "AI 图像 / 设计", "国产 AI 工具"]) {
     assert.match(html, new RegExp(label), `${label} should be present`);
@@ -143,7 +117,7 @@ test("AI navigation renders as a standalone directory page", async () => {
     "Gemini",
     "OpenAI Codex",
     "Claude Code",
-    "WorkBuddy（CodeBuddy）",
+    "腾讯 WorkBuddy",
     "Kimi Work",
     "Kimi Code",
     "TRAE Work",
@@ -236,7 +210,7 @@ test("AI navigation renders as a standalone directory page", async () => {
     "https://vercel.com/",
     "https://stripe.com/",
     "https://www.producthunt.com/",
-    "https://www.codebuddy.cn/work/",
+    "https://cloud.tencent.cn/product/workbuddy",
     "https://github.com/VoltAgent/awesome-design-md",
     "https://github.com/HotpotDesign/Game-Assets-And-Resources",
     "https://github.com/game-icons/icons",
@@ -274,8 +248,8 @@ test("AI navigation renders as a standalone directory page", async () => {
   assert.match(html, /🇨🇳 中国/, "cards should show China country flag labels");
   assert.match(html, /国内可能受限/, "cards should call out likely access limits for US products");
   assert.match(html, /国内可直接尝试/, "cards should call out easier domestic access");
-  assert.match(html, /Codex[\s\S]*Kimi Code[\s\S]*WorkBuddy（CodeBuddy）[\s\S]*TRAE Work/, "alternatives should map Codex to Kimi Code first, then WorkBuddy and TRAE Work");
-  assert.match(html, /桌面 Agent[\s\S]*Kimi Work[\s\S]*WorkBuddy（CodeBuddy）[\s\S]*TRAE Work/, "alternatives should map desktop-agent work to Kimi Work, WorkBuddy, and TRAE Work");
+  assert.match(html, /Codex[\s\S]*Kimi Code[\s\S]*腾讯 WorkBuddy[\s\S]*TRAE Work/, "alternatives should map Codex to Kimi Code first, then WorkBuddy and TRAE Work");
+  assert.match(html, /桌面 Agent[\s\S]*Kimi Work[\s\S]*腾讯 WorkBuddy[\s\S]*TRAE Work/, "alternatives should map desktop-agent work to Kimi Work, WorkBuddy, and TRAE Work");
   assert.match(html, /Claude Code[\s\S]*Kimi Code[\s\S]*TRAE Work/, "alternatives should map Claude Code to domestic coding-agent options");
   assert.match(html, /Google \/ Gemini 生态[\s\S]*Google AI Studio[\s\S]*Google Antigravity/, "Google ecosystem should prioritize widely useful app, builder, and coding products");
   assert.match(groupSection(html, "google-suite"), /href="https:\/\/stitch\.withgoogle\.com\/"[\s\S]*<strong>Google Stitch<\/strong>/, "Google ecosystem should include Stitch because it has a direct product entry and current product heat");
@@ -337,6 +311,18 @@ test("AI navigation renders as a standalone directory page", async () => {
   assert.doesNotMatch(html, /class="directory-card" href="\/blog\//, "tool cards should not link to internal blog posts");
   assert.doesNotMatch(html, /class="directory-card" href="\/apps\//, "tool cards should not link to internal product pages");
   assert.match(html, /search\.value = ""/, "category switches should reset the previous search query");
+});
+
+test("AI model Three Kingdoms ranking is a standalone interactive page", async () => {
+  const modelRankingPage = new URL("../dist/ai-model-sanguo-ranking/index.html", import.meta.url);
+  const html = await readFile(modelRankingPage, "utf8");
+
+  assert.match(html, /AI 三国群英谱|AI模型三国榜/, "model ranking page should expose its title");
+  assert.match(html, /六维雷达/, "model ranking page should retain the radar chart");
+  assert.match(html, /杀手锏场景|最强主场/, "model ranking page should retain the killer scenarios deep analysis");
+  assert.match(html, /查看人物图片来源/, "model ranking page should offer the image source link");
+  assert.match(html, /data-sanguo-index="10"/, "model ranking page should allow switching between all 11 listed models");
+  assert.match(html, /https:\/\/www\.gamecity\.com\.tw/, "model ranking page should include official game character URLs");
 });
 
 test("AI navigation sidebar tracks the current ranking section", async () => {

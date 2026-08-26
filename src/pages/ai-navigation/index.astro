@@ -1,7 +1,7 @@
 ---
-import { ExternalLink, Mail, Search } from "@lucide/astro";
+import { ExternalLink } from "@lucide/astro";
+import AiModelSanguoRanking from "../../components/AiModelSanguoRanking.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { socialLinks } from "../../data/products";
 import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../utils/structuredData";
 
 type CountryCode = "us" | "cn" | "uk" | "au" | "ca" | "fr" | "global";
@@ -841,14 +841,10 @@ const mergeFreeLearningIntoGitHubResources = (group: ToolGroup): ToolGroup => {
   };
 };
 const githubResourcesGroup = groups.find((group) => group.id === "github-free-resources");
-const chinaOfficeGroup = groups.find((group) => group.id === "china-office");
 const directoryGroups = [
-  ...(chinaOfficeGroup ? [chinaOfficeGroup] : []),
   ...(githubResourcesGroup ? [mergeFreeLearningIntoGitHubResources(githubResourcesGroup)] : []),
-  ...groups.filter((group) => group.id !== "china-office" && group.id !== "github-free-resources" && group.id !== "free-learning"),
+  ...groups.filter((group) => group.id !== "github-free-resources" && group.id !== "free-learning"),
 ];
-const totalItems = directoryGroups.reduce((sum, group) => sum + getGroupItems(group).length, 0);
-const emailLink = socialLinks.find((link) => link.label === "Email");
 const pageDescription = "AI 工具导航与排行榜：按真实场景精选 ChatGPT、Claude、Gemini、AI 编程和国内平替，帮助开发者快速选择能用、值得用的 AI 工具。";
 const toolItems = directoryGroups.flatMap((group) =>
   getGroupItems(group).map((item) => ({
@@ -875,56 +871,10 @@ const jsonLd = [
   mainClass="main--ai-directory"
   jsonLd={jsonLd}
 >
-  <section class="ai-directory-hero">
-    <div>
-      <p class="hero-kicker">AI NAVIGATION</p>
-      <h1>AI 工具排行榜导航</h1>
-      <p>
-        这不是工具网址大全，也不是把上百个低频产品堆在一起。这里优先收录我亲自用过、
-        长期关注、真正有热度和生产力价值的顶级 AI 产品：国际用户会选择的主流工具、
-        中国用户更容易上手的国内平替，以及同类产品的中美对照。目的很简单：帮你少花时间搜索，
-        直接判断哪个能用、哪个值得用、该用哪个替代。
-      </p>
-      <label class="directory-search">
-        <Search size={18} aria-hidden="true" />
-        <input type="search" placeholder="搜索工具、场景或关键词" data-directory-search />
-      </label>
-      <div class="directory-stats" aria-label="导航概览">
-        <span>{groups.length} 个分类</span>
-        <span>{totalItems} 个工具</span>
-        <span>{alternativePairsForDisplay.length} 组平替</span>
-        <span>亲测精选榜</span>
-        <span>人工编辑热度榜</span>
-      </div>
-      <p class="directory-guide">
-        使用这份 AI 工具导航时，先按你要完成的任务选分类：想对话、搜索或处理长文档，可从
-        ChatGPT、Claude、Gemini 和国产 AI 工具开始；要做网站、App 或自动化工作流，优先看
-        AI 编程 / Agent、模型接口和开发 / 托管；需要设计、视频、文档或推广素材，再进入对应的生产力分类。
-        每个入口都标注了适用场景、产品来源和国内可用性。这里不追求收录数量，而是持续筛掉低频或只有概念的产品，
-        让你能在国际主流工具、国内平替和开发者资源之间更快做出选择。
-      </p>
-    </div>
-
-    <div class="directory-method directory-contact-card" aria-label="入库标准和产品提交">
-      <span class="directory-contact-card__eyebrow">TOOL DIRECTORY</span>
-      <strong>入库标准</strong>
-      <p>
-        只收录我实际用过，或完整调研后认为值得长期关注的工具。排序看热度、成熟度、
-        真实工作价值、国内可用性和生态位置；只有新闻稿、没有直接入口的功能暂不单独入库。
-      </p>
-      <a class="directory-contact-card__mail" href={emailLink?.url ?? "/links"}>
-        <Mail size={18} aria-hidden="true" />
-        <span>
-          <small>入库联系我们</small>
-          <b>{emailLink?.note ?? "联系我"}</b>
-        </span>
-      </a>
-    </div>
-  </section>
-
   <div class="directory-mode-toggle" role="tablist" aria-label="AI 导航模式">
     <button class="is-active" type="button" role="tab" aria-selected="true" data-directory-mode="ranking">分类排行</button>
     <button type="button" role="tab" aria-selected="false" data-directory-mode="alternatives">国内平替</button>
+    <button type="button" role="tab" aria-selected="false" data-directory-mode="sanguo">AI模型三国榜</button>
   </div>
 
   <section class="ai-directory-shell" data-directory-shell data-mode="ranking" data-directory-current={directoryGroups[0].id} data-directory-filtered="false">
@@ -1122,6 +1072,10 @@ const jsonLd = [
 
         <p class="directory-empty" data-alternative-empty hidden>没有匹配的平替组合，换个关键词试试。</p>
       </section>
+
+      <section class="directory-sanguo" data-directory-view="sanguo" hidden>
+        <AiModelSanguoRanking embedded={true} />
+      </section>
     </div>
   </section>
 </BaseLayout>
@@ -1225,6 +1179,9 @@ const jsonLd = [
         updateAlternatives();
         return;
       }
+      if (activeMode === "sanguo") {
+        return;
+      }
 
       updateRanking();
     };
@@ -1252,7 +1209,7 @@ const jsonLd = [
       if (options.scroll !== false) scrollCategoryIntoView(activeCategory);
     };
 
-    const setMode = (mode) => {
+    const setMode = (mode, pushState = true) => {
       activeMode = mode;
       syncShellFilteredState();
       if (search) search.value = "";
@@ -1265,6 +1222,17 @@ const jsonLd = [
         view.hidden = view.dataset.directoryView !== mode;
       });
       if (shell) shell.dataset.mode = mode;
+
+      if (pushState && window.history && window.history.replaceState) {
+        const url = new URL(window.location.href);
+        if (mode === "ranking") {
+          url.searchParams.delete("mode");
+        } else {
+          url.searchParams.set("mode", mode);
+        }
+        window.history.replaceState(null, "", url.toString());
+      }
+
       update();
     };
 
@@ -1291,10 +1259,16 @@ const jsonLd = [
         });
       }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
 
-      groups.forEach((group) => observer.observe(group));
+        groups.forEach((group) => observer.observe(group));
     }
 
-    syncShellFilteredState();
-    setCurrentCategory(currentCategory, { scrollSidebar: false });
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialMode = urlParams.get("mode");
+    if (initialMode && ["ranking", "alternatives", "sanguo"].includes(initialMode)) {
+      setMode(initialMode, false);
+    } else {
+      syncShellFilteredState();
+      setCurrentCategory(currentCategory, { scrollSidebar: false });
+    }
   })();
 </script>

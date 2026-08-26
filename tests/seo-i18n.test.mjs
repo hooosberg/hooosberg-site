@@ -142,14 +142,11 @@ test("English articles localize visible tags and metadata keywords", async () =>
   assert.doesNotMatch(html, /keywords":"[^"]*(上架|审核|闭环)/, "English article JSON-LD keywords should not use Chinese tag labels");
 });
 
-test("English AI guide has search, full workflow categories, and regional alternatives", async () => {
+test("English AI guide keeps full workflow categories, regional alternatives, and the model-ranking entry", async () => {
   const html = await readFile(enAiNavigationPage, "utf8");
 
-  assert.match(html, /placeholder="Search tools, workflows, tags, or use cases"/, "English AI guide should expose a real search input");
-  assert.match(html, /data-directory-search/, "English AI guide should wire the search input to client filtering");
-  assert.match(html, /search\?\.addEventListener\("input", update\)/, "English AI guide search should update visible cards");
-  assert.match(html, /data-directory-filter="all"/, "English AI guide should expose category filtering");
-  assert.match(html, /data-directory-mode="alternatives"/, "English AI guide should include the alternatives mode");
+  assert.match(html, /data-directory-mode="sanguo"/, "English AI guide should include the model ranking mode in the toggle");
+  assert.match(html, /AI Model Three Kingdoms/, "English AI guide should place the model ranking entry after alternatives");
 
   for (const label of [
     "OpenAI / ChatGPT Ecosystem",
@@ -180,8 +177,7 @@ test("English AI guide has search, full workflow categories, and regional altern
   assert.doesNotMatch(html, /id="free-learning"/, "English free learning resources should not render as a separate category");
   assert.doesNotMatch(html, /data-directory-filter="free-learning"/, "English sidebar should not keep a separate free-learning filter");
 
-  assert.match(html, /Curation standard/, "English AI guide should explain the directory standard");
-  assert.match(html, /Regional alternatives/, "English AI guide should translate the alternatives section");
+  assert.match(html, /Regional alternatives|Regional Alternatives/, "English AI guide should translate the alternatives section");
   assert.doesNotMatch(html, /国内平替|分类排行|入库标准|搜索工具/, "English AI guide chrome should not expose Chinese UI labels");
   assert.doesNotMatch(html, /class="directory-more-link"[\s\S]*View OpenAI ecosystem/, "English OpenAI ecosystem should not render a redundant more-products button");
   assert.doesNotMatch(html, /class="directory-more-link"[\s\S]*View Anthropic ecosystem/, "English Anthropic ecosystem should not render a redundant more-products button");
@@ -213,9 +209,9 @@ test("major section pages expose independent topic-cluster structured data", asy
   assert.ok(appsItemList?.itemListElement?.length >= 7, "Products page should expose priority products as an ItemList");
 
   const blogCollection = findJsonLd(blogHtml, "CollectionPage");
-  const blogItemList = findJsonLdById(blogHtml, "https://hooosberg.com/blog#article-list");
-  assert.equal(blogCollection?.name, "Hooosberg Notes", "Blog page should identify itself as a notes collection");
-  assert.equal(blogCollection?.about?.[0]?.name, "AI course notes", "Blog page should expose its main keyword topic");
+  const blogItemList = findJsonLdById(blogHtml, "https://hooosberg.com/blog#learning-notes");
+  assert.equal(blogCollection?.name, "湖森堡 AI 自动化办公绿皮书", "Blog page should identify itself as a notes collection");
+  assert.equal(blogCollection?.about?.[0]?.name, "AI automation", "Blog page should expose its main keyword topic");
   assert.ok(blogItemList?.itemListElement?.length >= 20, "Blog page should expose recent articles as an ItemList");
 });
 

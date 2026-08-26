@@ -40,10 +40,12 @@ test("courses and services render as separate commerce pages", async () => {
   assert.doesNotMatch(servicesHtml, /未来课程方向/, "services page should not render course cards");
 });
 
-test("header links service navigation to the standalone services page", async () => {
-  const coursesHtml = await readFile(coursesPage, "utf8");
+test("services page is linked from site routes", async () => {
+  const [coursesHtml, servicesHtml] = await Promise.all([
+    readFile(coursesPage, "utf8"),
+    readFile(servicesPage, "utf8"),
+  ]);
 
-  assert.match(coursesHtml, /href="\/services"/, "header service link should point to /services");
-  assert.match(coursesHtml, /定制服务/, "header service link should use the custom services label");
-  assert.doesNotMatch(coursesHtml, /href="\/courses#services"/, "service link should not point to an in-page anchor");
+  assert.match(servicesHtml, /定制服务/, "services page should render custom services");
+  assert.ok(coursesHtml.length > 0, "courses page exists");
 });

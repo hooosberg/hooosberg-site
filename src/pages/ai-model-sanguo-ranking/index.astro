@@ -1,0 +1,16 @@
+---
+import AiModelSanguoRanking from "../../components/AiModelSanguoRanking.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { buildSectionCollectionJsonLd } from "../../utils/structuredData";
+
+const description = "AI模型三国榜：用六维雷达与能力条状图，按真实工作模式理解 Claude、GPT、Gemini、DeepSeek、千问和 Kimi。";
+---
+
+<BaseLayout title="AI模型三国榜｜湖森堡AI" description={description} canonicalPath="/ai-model-sanguo-ranking" mainClass="main--model-ranking" jsonLd={[buildSectionCollectionJsonLd({ locale: "zh-CN", path: "/ai-model-sanguo-ranking", name: "AI模型三国榜", description, topics: ["AI models", "AI model comparison", "AI capability overview"] })]}>
+  <div class="directory-mode-toggle" role="tablist" aria-label="AI 导航模式">
+    <a href="/ai-navigation">分类排行</a>
+    <a href="/ai-navigation?mode=alternatives">国内平替</a>
+    <a class="is-active" href="/ai-model-sanguo-ranking" aria-selected="true">AI模型三国榜</a>
+  </div>
+  <AiModelSanguoRanking />
+</BaseLayout>

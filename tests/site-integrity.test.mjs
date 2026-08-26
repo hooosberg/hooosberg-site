@@ -43,7 +43,7 @@ function isPageHref(href) {
     href.startsWith("/") &&
     !href.startsWith("//") &&
     !href.startsWith("/_astro/") &&
-    !/\.(avif|css|gif|ico|jpeg|jpg|js|json|png|svg|webp|xml)$/i.test(href.split("?")[0])
+    !/\.(avif|css|gif|ico|jpeg|jpg|js|json|png|svg|webp|xml|md)$/i.test(href.split("?")[0])
   );
 }
 
@@ -132,9 +132,15 @@ test("AI navigation ranking cards do not duplicate the same customer product", a
     "Google Stitch",
     "腾讯元宝",
     "WorkBuddy（CodeBuddy）",
+    "腾讯 WorkBuddy",
     "Kimi Work",
     "Kimi Code",
     "TRAE Work",
+    "字节 TRAE Work",
+    "阿里 千问办公",
+    "豆包办公",
+    "Cola",
+    "WPS AI",
     "扣子 Coze",
     "通义百炼 Agent",
     "腾讯元器 Agent",
