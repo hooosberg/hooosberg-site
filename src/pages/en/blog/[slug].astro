@@ -98,16 +98,22 @@ const articleJsonLd = {
     )}
 
     <div class="article-body">
-      {visibleBody.map((paragraph) => <p>{paragraph}</p>)}
-      {article.sections?.map((section) => (
-        <section class="article-section">
-          <h2>{section.heading}</h2>
-          {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
-          {section.codeBlocks?.map((code) => (
-            <CopyableCodeBlock code={code} label="Copy prompt" copiedLabel="Copied" />
+      {article.contentHtml ? (
+        <Fragment set:html={article.contentHtml} />
+      ) : (
+        <>
+          {visibleBody.map((paragraph) => <p>{paragraph}</p>)}
+          {article.sections?.map((section) => (
+            <section class="article-section">
+              <h2>{section.heading}</h2>
+              {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+              {section.codeBlocks?.map((code) => (
+                <CopyableCodeBlock code={code} label="Copy prompt" copiedLabel="Copied" />
+              ))}
+            </section>
           ))}
-        </section>
-      ))}
+        </>
+      )}
     </div>
 
     {article.downloadableResources && article.downloadableResources.length > 0 && (

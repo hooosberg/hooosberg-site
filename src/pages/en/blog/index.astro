@@ -77,8 +77,8 @@ const jsonLd = [
         <div><h2>{courseCopy.cola.title}</h2><p class="series-tool-line">{courseCopy.cola.toolLine}</p><p>{courseCopy.cola.description}</p></div>
         <a class="button button--primary series-playlist" href={cola.playlistUrl} target="_blank" rel="noreferrer">Open Bilibili series <ExternalLink size={16} aria-hidden="true" /></a>
       </div>
-      <div class="series-sync-note"><Lightbulb size={20} aria-hidden="true" /><p>Only lessons 1–4 are published here. Their notes follow the local Word student handouts; later lessons are added only after the corresponding video is uploaded.</p></div>
-      <div class="learning-list-header"><div><p>4 published lessons · handouts synchronized</p><h3>Practice notes and copyable prompts</h3></div><span>Each note keeps the Bilibili practice-series link at the top.</span></div>
+      <div class="series-sync-note"><Lightbulb size={20} aria-hidden="true" /><p>Practice series is continuously updated with handouts and step-by-step setup guides.</p></div>
+      <div class="learning-list-header"><div><p>{cola.lessons.length} notes published · handouts synchronized</p><h3>Practice notes and copyable prompts</h3></div><span>Each note keeps the Bilibili practice-series link at the top.</span></div>
       <div class="learning-lesson-list">
         {[...cola.lessons].reverse().map((lesson) => {
           const article = lesson.articleSlug ? courseArticles.get(lesson.articleSlug) : undefined;

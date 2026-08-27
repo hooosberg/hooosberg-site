@@ -73,6 +73,7 @@ export const learningSeries: LearningSeries[] = [
       { number: 2, title: "30 份简历批量初筛", outcome: "把岗位门槛变成可回查的初筛矩阵。", articleSlug: "video-cola-lesson2-resume-screening" },
       { number: 3, title: "十几张散表理清奖金规则", outcome: "固化规则、保留中间列，再抽样反算。", articleSlug: "video-cola-lesson3-bonus-rules" },
       { number: 4, title: "固定 Word 模板自动填充", outcome: "在副本上受控回填，保持版式不变。", articleSlug: "video-cola-lesson4-word-template-fill" },
+      { number: 5, title: "AionUi＋B.AI：免费大模型API接入，零成本手搓专属WorkBuddy", outcome: "在开源 Agent 客户端中接入免费大模型 API，完成 Coding 与多模态工作流配置。", articleSlug: "video-cola-lesson5-aionui-bai-free-api", hasDownload: true },
     ],
   },
 ];

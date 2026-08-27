@@ -55,6 +55,7 @@ export type Article = {
   handoutFirst?: boolean;
   body: string[];
   sections?: ArticleSection[];
+  contentHtml?: string;
 };
 
 export type ArticleSeed = Omit<Article, "body" | "diaryKind"> & {
@@ -943,6 +944,288 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       { heading: "第2步：快速抽查版式完整性与防篡改核对", paragraphs: ["思路：对比段落与表格总数，确认格式零变形。完成后确认段落数和表格数吻合、版式完好。"], codeBlocks: ["对比原模板与生成草稿的段落总数与表格数，核对抽样点数据无误，输出《自查报告.md》。"] },
       { heading: "最后检查", paragraphs: ["模板版式一格不乱，11.2 超限被准确拦截。方法可迁移到固定公文与体系文件批量回填；真实文件应先确认资料授权、业务规则与最终审批责任。"] },
     ],
+  },
+  {
+    slug: "video-cola-lesson5-aionui-bai-free-api",
+    title: "第05集｜AionUi＋B.AI：白嫖大模型API终极教程，零成本手搓专属WorkBuddy Agent",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-27",
+    seriesOrder: 105,
+    handoutFirst: true,
+    excerpt: "汇总开源 24/7 Agent 客户端 AionUi 接入 B.AI 免费大模型 API 的完整配置参数、免费模型清单与 Coding/Agent 模型能力深度对比选型指南。",
+    tags: ["视频教程", "Cola", "AionUi", "B.AI", "Coding Agent", "免费API", "AI 自动化办公"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：AI 自动化办公实战绿皮书合集",
+    downloadableResources: [{
+      title: "第05集-AionUi接入BAI配置与模型对比指南.md",
+      description: "包含 AionUi 表单配置、B.AI 免费模型清单与 Coding Agent 选型对比完整文档。",
+      fileName: "第05集-AionUi接入BAI配置与模型对比指南.md",
+      url: "/downloads/cola/第05集-AionUi接入BAI配置与模型对比指南.md",
+    }],
+    body: [
+      "学员课件：本文档汇总了在开源 AI 客户端 AionUi 中接入 B.AI 大模型服务的完整配置参数、免费模型 ID 清单，以及主流 Coding + Agent 模型的能力对比与选型指南。",
+      "你可以直接按照下方的配置步骤快速接入，也可以下载下方的 Markdown 资料到本地查看。"
+    ],
+    contentHtml: `<p class="article-lead">本文档汇总了在开源 AI 客户端 <strong>AionUi</strong> 中接入 <strong>B.AI</strong> 大模型服务的完整配置参数、免费模型 ID 清单，以及主流 <strong>Coding + Agent 模型的能力对比与选型指南</strong>。</p>
+
+<h2>🔗 一、相关资源与链接</h2>
+<div class="article-table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>资源名称</th>
+        <th>链接地址</th>
+        <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>B.AI 注册与邀请</strong></td>
+        <td><a href="https://chat.b.ai/chat?invite_code=UCPRMG" target="_blank" rel="noreferrer">点击注册 B.AI (邀请码: UCPRMG)</a></td>
+        <td>注册即可体验多款免费大模型</td>
+      </tr>
+      <tr>
+        <td><strong>API Key 获取页面</strong></td>
+        <td><a href="https://chat.b.ai/key" target="_blank" rel="noreferrer">https://chat.b.ai/key</a></td>
+        <td>创建并管理您的 API 密钥</td>
+      </tr>
+      <tr>
+        <td><strong>AionUi 客户端下载</strong></td>
+        <td><a href="https://www.aionui.com/zh-CN/" target="_blank" rel="noreferrer">https://www.aionui.com/zh-CN/</a></td>
+        <td>开源 24/7 AI Agent 桌面客户端</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>⚙️ 二、AionUi 表单配置对照表</h2>
+<p>在 AionUi 中点击 <strong>设置 (Settings)</strong> → <strong>模型设置 (Models)</strong> → <strong>添加模型</strong>，按下方表格对应填写：</p>
+<div class="article-table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>配置项</th>
+        <th>填写内容 / 设置值</th>
+        <th>详细说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>模型平台</strong></td>
+        <td><strong>自定义</strong></td>
+        <td>保持默认的「自定义」即可</td>
+      </tr>
+      <tr>
+        <td><strong>API 请求地址</strong></td>
+        <td><code>https://api.b.ai/v1</code></td>
+        <td>B.AI 标准 API 基础端点</td>
+      </tr>
+      <tr>
+        <td><strong>完整 URL 开关</strong></td>
+        <td><strong>关闭（默认）</strong></td>
+        <td>保持灰色关闭状态，客户端会自动拼接请求路径</td>
+      </tr>
+      <tr>
+        <td><strong>API Key</strong></td>
+        <td><code>sk-...</code></td>
+        <td>粘贴在 chat.b.ai/key 生成的密钥</td>
+      </tr>
+      <tr>
+        <td><strong>模型名称</strong></td>
+        <td><em>填入具体模型 ID</em></td>
+        <td>填写想使用的模型 ID（详见下方免费与常用清单）</td>
+      </tr>
+      <tr>
+        <td><strong>视觉输入</strong></td>
+        <td><strong>自动识别</strong></td>
+        <td>保持默认即可，模型支持看图时会自动启用</td>
+      </tr>
+      <tr>
+        <td><strong>OpenAI 请求接口</strong></td>
+        <td><strong>自动识别（推荐）</strong></td>
+        <td>保持默认即可，系统会自动走兼容接口协议</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>🎁 三、B.AI 当前免费模型 ID 清单（0 积分 / 0 费用）</h2>
+<blockquote><p>💡 <strong>提示</strong>：直接复制下表第一列的 <strong>模型 ID</strong>，填入 AionUi 的「模型名称」输入框即可。</p></blockquote>
+<div class="article-table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>模型 ID（直接复制填写）</th>
+        <th>模型全称</th>
+        <th>核心特性 / 推荐场景</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>deepseek-v4-flash</code></td>
+        <td>DeepSeek-V4-Flash</td>
+        <td><strong>🌟 强烈推荐</strong>：综合与代码能力顶尖，完全免 Token 费与请求费</td>
+      </tr>
+      <tr>
+        <td><code>deepseek-v4-flash-vision-exp</code></td>
+        <td>DeepSeek-V4-Flash 视觉版</td>
+        <td><strong>🖼️ 支持看图</strong>：具备多模态能力，可上传分析图片</td>
+      </tr>
+      <tr>
+        <td><code>hy3</code></td>
+        <td>腾讯混元 Hy3</td>
+        <td>中文语义理解深刻，日常问答与逻辑分析表现优异，Chat / API 均免费</td>
+      </tr>
+      <tr>
+        <td><code>qwen3.8-flash</code></td>
+        <td>阿里通义千问 3.8 Flash</td>
+        <td>响应极快，非常适合快速问答与轻量任务</td>
+      </tr>
+      <tr>
+        <td><code>glm-5.3-flash</code></td>
+        <td>智谱 GLM-5.3 Flash</td>
+        <td>智谱高性价比轻量旗舰模型，API 完全免费</td>
+      </tr>
+      <tr>
+        <td><code>mimo-v2.5</code></td>
+        <td>小米 MiMo-V2.5</td>
+        <td>快速文本生成与日常辅助对话</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>🌟 四、高阶付费模型 ID 参考（需账户额度）</h2>
+<p>如果需要调用更高精度的旗舰模型，只需保持相同的配置，将「模型名称」修改为：</p>
+<div class="article-table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>模型分类</th>
+        <th>模型 ID</th>
+        <th>适用场景</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>OpenAI 系列</strong></td>
+        <td><code>gpt-5.6</code> / <code>gpt-5.5</code> / <code>gpt-5.6-terra</code></td>
+        <td>复杂专业推理、架构设计与重度工程代码</td>
+      </tr>
+      <tr>
+        <td><strong>Claude 系列</strong></td>
+        <td><code>claude-sonnet-4.6</code> / <code>claude-opus-4.6</code></td>
+        <td>长文本阅读、复杂逻辑与高质量写作</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini 系列</strong></td>
+        <td><code>gemini-3.7-flash</code> / <code>gemini-3.5-flash</code> / <code>gemini-3.1-pro</code></td>
+        <td>大上下文处理与快速多模态交互</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>📊 五、Coding 与 Agent 模型能力对比与选型指南</h2>
+<blockquote><p>💡 <strong>对比说明</strong>：以两款主流商业收费模型（<strong>GPT-5.6 Terra</strong> 与 <strong>Gemini 3.7 Flash High</strong>）作为参考基准。通过量化参考分可以直观看到：<strong>B.AI 提供的几款免费模型，在实际 Coding / Agent 场景下的能力已经非常接近常见收费模型，完全可以零成本作为日常主力！</strong></p></blockquote>
+
+<h3>1. 免费模型 vs 商业收费模型能力对照表</h3>
+<div class="article-table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>模型名称</th>
+        <th>费用性质</th>
+        <th>综合参考分</th>
+        <th>定位与能力类比</th>
+        <th>最适合场景</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>GPT-5.6 Terra</strong></td>
+        <td>收费参考</td>
+        <td><strong>100（基准）</strong></td>
+        <td>高推理深度商业模型，适合复杂大工程</td>
+        <td>超大型复杂项目、跨文件深度重构</td>
+      </tr>
+      <tr>
+        <td><strong>Gemini 3.7 Flash High</strong></td>
+        <td>收费参考</td>
+        <td><strong>98</strong></td>
+        <td>高响应速度与多模态商业模型</td>
+        <td>复杂编码、UI/网页设计、自动化 Agent</td>
+      </tr>
+      <tr>
+        <td><strong>GLM-5.3-Flash</strong></td>
+        <td><strong>完全免费</strong></td>
+        <td><strong>96–97</strong></td>
+        <td>能力接近主流收费模型，工具调用极稳</td>
+        <td>开源 Coding Agent、自动化工作流、企业助手</td>
+      </tr>
+      <tr>
+        <td><strong>DeepSeek-V4-Flash</strong></td>
+        <td><strong>完全免费</strong></td>
+        <td><strong>92–94</strong></td>
+        <td>免费主力模型，代码生成与排错能力扎实</td>
+        <td>日常编程排错、终端 Agent、工具调用</td>
+      </tr>
+      <tr>
+        <td><strong>Hy3 (腾讯混元)</strong></td>
+        <td><strong>完全免费</strong></td>
+        <td><strong>84–87</strong></td>
+        <td>中文语义深厚，日常问答与文本处理稳定</td>
+        <td>通用办公自动化、中文知识库、MCP 工具</td>
+      </tr>
+      <tr>
+        <td><strong>MiMo-V2.5</strong></td>
+        <td><strong>完全免费</strong></td>
+        <td><strong>82–85</strong></td>
+        <td>快速文本生成与多模态轻量任务</td>
+        <td>日常脚本编写、看图分析、轻量辅助</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>2. 极简选型与推荐优先级</h3>
+<ul>
+  <li><strong>零成本日常主力（首选推荐）</strong>：日常写代码、跑 Agent 自动化，推荐优先选用 <strong>GLM-5.3-Flash</strong> 和 <strong>DeepSeek-V4-Flash</strong>，免费且能力接近商业收费模型。</li>
+  <li><strong>中文办公与高频调用</strong>：推荐选用 <strong>Hy3</strong>，中文理解好、响应顺畅且完全免费。</li>
+  <li><strong>按需切换收费模型</strong>：平时用免费模型跑通流程，遇到超长周期或特殊工程需求时，可按需切换到 <strong>GPT-5.6 Terra</strong> 或 <strong>Gemini 3.7 Flash High</strong>。</li>
+</ul>
+
+<h4>🎯 Coding Agent 选型链：</h4>
+<blockquote>
+  <p><strong>免费主力优先</strong>：<code>GLM-5.3-Flash (96-97分)</code> / <code>DeepSeek-V4-Flash (92-94分)</code> &gt; <code>Hy3 (84-87分)</code> ≈ <code>MiMo-V2.5 (82-85分)</code><br><small style="color: var(--muted);">(复杂需求可按需对照商业收费模型 <code>GPT-5.6 Terra (100分)</code> / <code>Gemini 3.7 Flash High (98分)</code>)</small></p>
+</blockquote>
+
+<h2>📝 六、极速上手操作三步走</h2>
+<ol>
+  <li>
+    <strong>第一步：获取 Key</strong>
+    <ul>
+      <li>访问 <a href="https://chat.b.ai/chat?invite_code=UCPRMG" target="_blank" rel="noreferrer">B.AI 注册页面</a> 注册并登录。</li>
+      <li>前往 <a href="https://chat.b.ai/key" target="_blank" rel="noreferrer">API Key 页面</a> 点击 <strong>Create API Key</strong>，复制生成的 <code>sk-...</code> 密钥。</li>
+    </ul>
+  </li>
+  <li>
+    <strong>第二步：配置 AionUi</strong>
+    <ul>
+      <li>打开 AionUi 客户端，进入 <strong>设置</strong> → <strong>模型设置</strong> → <strong>添加模型</strong>。</li>
+      <li>请求地址填入 <code>https://api.b.ai/v1</code>，粘贴您的 API Key，模型名称填入 <code>deepseek-v4-flash</code> 或 <code>glm-5.3-flash</code>。</li>
+      <li>点击 <strong>确定</strong> 保存。</li>
+    </ul>
+  </li>
+  <li>
+    <strong>第三步：开始对话</strong>
+    <ul>
+      <li>在对话窗口顶部切换为你刚添加的模型，发送一条消息即可开启免费、高速的 AI 对话与编码体验！</li>
+    </ul>
+  </li>
+</ol>`,
   },
 ];
 

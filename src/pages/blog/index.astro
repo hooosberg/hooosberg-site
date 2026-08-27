@@ -60,8 +60,8 @@ const jsonLd = [
         <div><h2>{cola.title}</h2><p class="series-tool-line">{cola.toolLine}</p><p>{cola.description}</p></div>
         <a class="button button--primary series-playlist" href={cola.playlistUrl} target="_blank" rel="noreferrer">直接看 B 站合集 <ExternalLink size={16} aria-hidden="true" /></a>
       </div>
-      <div class="series-sync-note"><Lightbulb size={20} aria-hidden="true" /><p>只收录已发布的第 1–4 集，笔记按本地 Word 学员课件转写；后续课程会在视频上传后再同步，避免课件、录制和合集变化后不同步。</p></div>
-      <div class="learning-list-header"><div><p>已发布 4 集 · 课件同步整理</p><h3>按实战案例看笔记与提示词</h3></div><span>每篇页面顶部都保留 B 站实战合集入口。</span></div>
+      <div class="series-sync-note"><Lightbulb size={20} aria-hidden="true" /><p>实战课程持续更新，笔记按课件与实战操作整理；视频课程与操作文档保持同步更新。</p></div>
+      <div class="learning-list-header"><div><p>已整理 {cola.lessons.length} 篇 · 课件同步整理</p><h3>按实战案例看笔记与提示词</h3></div><span>每篇页面顶部都保留 B 站实战合集入口。</span></div>
       <div class="learning-lesson-list">
         {[...cola.lessons].reverse().map((lesson) => {
           const article = lesson.articleSlug ? courseArticles.get(lesson.articleSlug) : undefined;
