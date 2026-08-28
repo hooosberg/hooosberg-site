@@ -769,11 +769,9 @@ const mergeFreeLearningIntoGitHubResources = (group: ToolGroup): ToolGroup => {
     ),
   };
 };
-const githubResourcesGroup = groups.find((group) => group.id === "github-free-resources");
-const directoryGroups = [
-  ...(githubResourcesGroup ? [mergeFreeLearningIntoGitHubResources(githubResourcesGroup)] : []),
-  ...groups.filter((group) => group.id !== "github-free-resources" && group.id !== "free-learning"),
-];
+const directoryGroups = groups
+  .filter((group) => group.id !== "free-learning")
+  .map((group) => (group.id === "github-free-resources" ? mergeFreeLearningIntoGitHubResources(group) : group));
 const pageDescription = "A practical, searchable AI tool guide for builders: global AI assistants, coding agents, model APIs, product research, design tools, hosting, launch channels, payments, learning resources, and regional alternatives.";
 const toolItems = directoryGroups.flatMap((group) =>
   getGroupItems(group).map((item) => ({

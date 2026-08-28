@@ -863,11 +863,9 @@ const mergeFreeLearningIntoGitHubResources = (group: ToolGroup): ToolGroup => {
     ),
   };
 };
-const githubResourcesGroup = groups.find((group) => group.id === "github-free-resources");
-const directoryGroups = [
-  ...(githubResourcesGroup ? [mergeFreeLearningIntoGitHubResources(githubResourcesGroup)] : []),
-  ...groups.filter((group) => group.id !== "github-free-resources" && group.id !== "free-learning"),
-];
+const directoryGroups = groups
+  .filter((group) => group.id !== "free-learning")
+  .map((group) => (group.id === "github-free-resources" ? mergeFreeLearningIntoGitHubResources(group) : group));
 const pageDescription = "AI 工具导航与排行榜：按真实场景精选 ChatGPT、Claude、Gemini、AI 编程和国内平替，帮助开发者快速选择能用、值得用的 AI 工具。";
 const toolItems = directoryGroups.flatMap((group) =>
   getGroupItems(group).map((item) => ({

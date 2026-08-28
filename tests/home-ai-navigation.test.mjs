@@ -91,7 +91,7 @@ test("AI navigation renders as a standalone directory page", async () => {
     assert.match(html, new RegExp(label), `${label} should be present for the indie product workflow`);
   }
 
-  assert.equal(directoryGroupIds(html)[0], "github-free-resources", "GitHub free resources should be the first ranking category in the sidebar/content order");
+  assert.equal(directoryGroupIds(html)[0], "china-office", "China office should be the first ranking category in the sidebar/content order");
   assert.doesNotMatch(html, /id="free-learning"/, "free courses should be merged into GitHub resources instead of rendering as a separate category");
   assert.doesNotMatch(html, /data-directory-filter="free-learning"/, "free courses should not appear as a separate sidebar filter");
   assert.doesNotMatch(html, /<h2>免费教程 \/ 学习<\/h2>/, "free courses should not render as a separate group heading");
@@ -328,8 +328,8 @@ test("AI model Three Kingdoms ranking is a standalone interactive page", async (
 test("AI navigation sidebar tracks the current ranking section", async () => {
   const html = await readFile(navigationPage, "utf8");
 
-  assert.match(html, /data-directory-current="github-free-resources"/, "ranking sidebar should expose the first visible category for scroll sync");
-  assert.match(html, /aria-current="true"[^>]*data-directory-filter="github-free-resources"|data-directory-filter="github-free-resources"[^>]*aria-current="true"/, "the first visible ranking category should have an initial current state");
+  assert.match(html, /data-directory-current="china-office"/, "ranking sidebar should expose the first visible category for scroll sync");
+  assert.match(html, /aria-current="true"[^>]*data-directory-filter="china-office"|data-directory-filter="china-office"[^>]*aria-current="true"/, "the first visible ranking category should have an initial current state");
   assert.match(html, /IntersectionObserver/, "ranking page should observe visible sections while browsing all rankings");
   assert.match(html, /setCurrentCategory\([^)]*entry\.target\.dataset\.directoryGroup/, "scrolling into a ranking group should promote that group in the sidebar");
   assert.match(html, /shell\.dataset\.directoryFiltered/, "filtered category mode should be exposed for sticky sidebar layout");
