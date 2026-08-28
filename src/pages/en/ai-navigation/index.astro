@@ -12,8 +12,10 @@ type ToolItem = {
   url: string;
   country: CountryCode;
   icon?: string;
+  iconText?: string;
   tags: string[];
   badge?: string;
+  tone?: "cn" | "global" | "default";
 };
 
 type ToolSection = {
@@ -41,13 +43,13 @@ type AlternativePair = {
 };
 
 const countryMeta: Record<CountryCode, { flag: string; name: string; access: string; tone: "limited" | "easy" | "neutral" }> = {
-  us: { flag: "US", name: "United States", access: "Global availability varies", tone: "limited" },
-  cn: { flag: "CN", name: "China", access: "Strong Chinese-language access", tone: "easy" },
-  uk: { flag: "UK", name: "United Kingdom", access: "Availability varies", tone: "neutral" },
-  au: { flag: "AU", name: "Australia", access: "Availability varies", tone: "neutral" },
-  ca: { flag: "CA", name: "Canada", access: "Availability varies", tone: "neutral" },
-  fr: { flag: "FR", name: "France", access: "Availability varies", tone: "neutral" },
-  global: { flag: "GLOBAL", name: "Global / open source", access: "Depends on deployment", tone: "neutral" },
+  us: { flag: "🇺🇸", name: "United States", access: "US/Global standard", tone: "easy" },
+  cn: { flag: "🇨🇳", name: "China", access: "Direct access in China", tone: "easy" },
+  uk: { flag: "🇬🇧", name: "United Kingdom", access: "Varies by region", tone: "neutral" },
+  au: { flag: "🇦🇺", name: "Australia", access: "Varies by region", tone: "neutral" },
+  ca: { flag: "🇨🇦", name: "Canada", access: "Varies by region", tone: "neutral" },
+  fr: { flag: "🇫🇷", name: "France", access: "Varies by region", tone: "neutral" },
+  global: { flag: "🌐", name: "Global/Open-source", access: "Deployment-dependent", tone: "neutral" },
 };
 
 const icon = {
@@ -247,14 +249,29 @@ const traeWork = tool({
   badge: "Developer-heavy",
 });
 
-const codebuddy = tool({
-  name: "WorkBuddy (CodeBuddy)",
-  description: "Tencent Cloud CodeBuddy's AI agent workspace for planning and delivering multimodal complex tasks with parallel agents, now a top regional Codex alternative to watch.",
-  url: "https://www.codebuddy.cn/work/",
+const workBuddyCn = tool({
+  name: "WorkBuddy (China Edition)",
+  description: "Tencent's all-in-one AI office agent workspace: autonomously plans, breaks down tasks, calls tools, and edits local files; deeply integrated with WeChat & WeCom.",
+  url: "https://www.workbuddy.cn/",
   country: "cn",
-  tags: ["coding", "agent", "Tencent"],
-  badge: "Recommended",
+  iconText: "腾",
+  tags: ["🇨🇳 China", "WeChat / WeCom", "Tencent Hunyuan", "Desktop Agent"],
+  badge: "🇨🇳 China Edition",
+  tone: "cn",
 });
+
+const workBuddyGlobal = tool({
+  name: "WorkBuddy (Global Edition)",
+  description: "WorkBuddy's international version (workbuddy.ai) for global users & cross-border teams: supports international network environments and major global model ecosystems.",
+  url: "https://www.workbuddy.ai/",
+  country: "global",
+  iconText: "WB",
+  tags: ["🌐 Global", "Global Models", "Multi-model", "Cross-border"],
+  badge: "🌐 Global Edition",
+  tone: "global",
+});
+
+const codebuddy = workBuddyCn;
 
 const cola = tool({
   name: "Cola",
@@ -833,7 +850,7 @@ const jsonLd = [
 
                         return (
                           <a
-                            class="directory-card"
+                            class={`directory-card ${item.tone ? `directory-card--${item.tone}` : ""}`}
                             href={item.url}
                             target="_blank"
                             rel="noreferrer"
@@ -843,7 +860,7 @@ const jsonLd = [
                           >
                             <span class="directory-card__rank">TOP {rank}</span>
                             <span class="directory-card__icon">
-                              {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
+                              {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : (item.iconText ?? item.name.slice(0, 1))}
                             </span>
                             <span class="directory-card__body">
                               <span class="directory-card__title-row">
@@ -875,7 +892,7 @@ const jsonLd = [
 
                   return (
                     <a
-                      class="directory-card"
+                      class={`directory-card ${item.tone ? `directory-card--${item.tone}` : ""}`}
                       href={item.url}
                       target="_blank"
                       rel="noreferrer"
@@ -885,7 +902,7 @@ const jsonLd = [
                     >
                       <span class="directory-card__rank">TOP {rank}</span>
                       <span class="directory-card__icon">
-                        {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
+                        {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : (item.iconText ?? item.name.slice(0, 1))}
                       </span>
                       <span class="directory-card__body">
                         <span class="directory-card__title-row">
@@ -969,7 +986,7 @@ const jsonLd = [
                       return (
                         <a class="alternative-tool" href={item.url} target="_blank" rel="noreferrer">
                           <span class="directory-card__icon">
-                            {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
+                            {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : (item.iconText ?? item.name.slice(0, 1))}
                           </span>
                           <span>
                             <strong>{item.name}</strong>

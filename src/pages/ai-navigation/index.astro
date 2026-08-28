@@ -12,8 +12,10 @@ type ToolItem = {
   url: string;
   country: CountryCode;
   icon?: string;
+  iconText?: string;
   tags: string[];
   badge?: string;
+  tone?: "cn" | "global" | "default";
   actionLabel?: string;
 };
 
@@ -248,15 +250,31 @@ const traeWork = tool({
   badge: "开发者偏多",
 });
 
-const workBuddy = tool({
-  name: "腾讯 WorkBuddy",
-  description: "腾讯推出的全场景 AI 办公工作台：一句话下达任务后可自主拆解、规划、调用工具并读写本地文件；支持通过微信、企业微信远程下发和接收任务结果。",
-  url: "https://cloud.tencent.cn/product/workbuddy",
+const workBuddyCn = tool({
+  name: "腾讯 WorkBuddy (国内版)",
+  description: "腾讯推出的全场景 AI 办公工作台（国内版）：一句话下达任务后自主拆解、规划、调用工具并读写本地文件；原生深度打通微信与企业微信生态，支持手机微信远程下发与接收结果。",
+  url: "https://www.workbuddy.cn/",
   country: "cn",
-  tags: ["桌面 Agent", "微信 / 企微", "腾讯"],
-  badge: "国产办公 #1",
-  actionLabel: "前往下载 / 使用",
+  iconText: "腾",
+  tags: ["🇨🇳 国内版", "微信 / 企微", "腾讯混元", "桌面 Agent"],
+  badge: "🇨🇳 国内版 · 微信直通",
+  tone: "cn",
+  actionLabel: "前往国内官网 (workbuddy.cn)",
 });
+
+const workBuddyGlobal = tool({
+  name: "WorkBuddy (海外国际版)",
+  description: "面向全球用户与跨境开发者的 WorkBuddy 国际版（workbuddy.ai）：支持海外网络环境与国际主流大模型生态，具备桌面自主规划、跨应用调度与长流程多任务自动化能力。",
+  url: "https://www.workbuddy.ai/",
+  country: "global",
+  iconText: "WB",
+  tags: ["🌐 海外国际版", "全球网络", "国际模型生态", "跨国协作"],
+  badge: "🌐 海外国际版 · 全球生态",
+  tone: "global",
+  actionLabel: "前往海外官网 (workbuddy.ai)",
+});
+
+const workBuddy = workBuddyCn;
 
 const qwenWork = tool({
   name: "阿里 千问办公",
@@ -363,7 +381,8 @@ const groups: ToolGroup[] = [
     shortLabel: "国产办公",
     summary: "本站编辑排序，不等同于第三方下载量或市场份额榜单。按 AI 自动化办公的个人上手路径、桌面/文件能力与团队协同覆盖面排列；点击卡片可直达官方入口。",
     items: [
-      workBuddy,
+      workBuddyCn,
+      workBuddyGlobal,
       doubaoWork,
       qwenWork,
       traeWorkOffice,
@@ -617,7 +636,8 @@ const groups: ToolGroup[] = [
       cola,
       codex,
       kimiCode,
-      workBuddy,
+      workBuddyCn,
+      workBuddyGlobal,
       traeWork,
       claudeCode,
       googleAntigravity,
@@ -671,7 +691,8 @@ const groups: ToolGroup[] = [
     summary: "面向 PPT、文档、会议、笔记、知识库、桌面 Agent 和工作流提效的工具。",
     items: [
       kimiWork,
-      workBuddy,
+      workBuddyCn,
+      workBuddyGlobal,
       cozeAgent,
       qwenAgent,
       { name: "Notion AI", description: "集成在 Notion 里的写作、总结、知识库和项目管理助手。", url: "https://www.notion.com/product/ai", country: "us", tags: ["文档", "知识库", "项目"] },
@@ -705,7 +726,8 @@ const groups: ToolGroup[] = [
     summary: "优先收国内能直接使用、公开热度高、中文体验强的 AI 产品；这次把聊天入口、Coding Agent、Desktop Agent 和企业智能体分开看。",
     items: [
       kimiWork,
-      workBuddy,
+      workBuddyCn,
+      workBuddyGlobal,
       kimiCode,
       traeWork,
       cozeAgent,
@@ -753,7 +775,8 @@ const alternativePairs: AlternativePair[] = [
     source: codex,
     alternatives: [
       cola,
-      workBuddy,
+      workBuddyCn,
+      workBuddyGlobal,
       qwenWork,
       traeWorkOffice,
       kimiCode,
@@ -765,7 +788,7 @@ const alternativePairs: AlternativePair[] = [
     id: "desktop-agent",
     category: "桌面 Agent / 办公自动化",
     source: claudeCowork,
-    alternatives: [workBuddy, qwenWork, traeWorkOffice, kimiWork],
+    alternatives: [workBuddyCn, workBuddyGlobal, qwenWork, traeWorkOffice, kimiWork],
     reason: "如果标准不是普通聊天，而是本地文件、浏览器、办公产物和长时间执行任务，先看腾讯 WorkBuddy、阿里千问办公和字节 TRAE Work；Kimi Work 适合作为补充的桌面 Agent 观察入口。",
     bestFor: ["本地文件", "浏览器自动化", "长任务执行"],
   },
@@ -919,7 +942,7 @@ const jsonLd = [
 
                         return (
                           <a
-                            class="directory-card"
+                            class={`directory-card ${item.tone ? `directory-card--${item.tone}` : ""}`}
                             href={item.url}
                             target="_blank"
                             rel="noreferrer"
@@ -929,7 +952,7 @@ const jsonLd = [
                           >
                             <span class="directory-card__rank">TOP {rank}</span>
                             <span class="directory-card__icon">
-                              {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
+                              {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : (item.iconText ?? item.name.slice(0, 1))}
                             </span>
                             <span class="directory-card__body">
                               <span class="directory-card__title-row">
@@ -962,7 +985,7 @@ const jsonLd = [
 
                   return (
                     <a
-                      class="directory-card"
+                      class={`directory-card ${item.tone ? `directory-card--${item.tone}` : ""}`}
                       href={item.url}
                       target="_blank"
                       rel="noreferrer"
@@ -972,7 +995,7 @@ const jsonLd = [
                     >
                       <span class="directory-card__rank">TOP {rank}</span>
                       <span class="directory-card__icon">
-                        {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
+                        {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : (item.iconText ?? item.name.slice(0, 1))}
                       </span>
                       <span class="directory-card__body">
                         <span class="directory-card__title-row">
@@ -1053,7 +1076,7 @@ const jsonLd = [
                       return (
                         <a class="alternative-tool" href={item.url} target="_blank" rel="noreferrer">
                           <span class="directory-card__icon">
-                            {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : item.name.slice(0, 1)}
+                            {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : (item.iconText ?? item.name.slice(0, 1))}
                           </span>
                           <span>
                             <strong>{item.name}</strong>

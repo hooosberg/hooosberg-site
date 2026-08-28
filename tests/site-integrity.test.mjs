@@ -96,7 +96,7 @@ test("AI navigation filters map exactly to rendered directory groups", async () 
 
 test("AI navigation tool cards use direct product-style URLs", async () => {
   const html = await readFile(aiNavigationPage, "utf8");
-  const productCardHrefs = [...html.matchAll(/<a\s+class="directory-card"[^>]*href="([^"]+)"/g)].map((match) => match[1]);
+  const productCardHrefs = [...html.matchAll(/<a\s+class="directory-card[^"]*"[^>]*href="([^"]+)"/g)].map((match) => match[1]);
 
   const articleLikeProductLinks = productCardHrefs.filter((href) => {
     const url = new URL(href);
@@ -116,7 +116,7 @@ test("AI navigation tool cards use direct product-style URLs", async () => {
 test("AI navigation ranking cards do not duplicate the same customer product", async () => {
   const html = await readFile(aiNavigationPage, "utf8");
   const rankingHtml = html.match(/<div data-directory-view="ranking">([\s\S]*?)<p class="directory-empty"/)?.[1] ?? "";
-  const rankingCards = [...rankingHtml.matchAll(/<a\s+class="directory-card"[^>]*href="([^"]+)"[^>]*data-category="([^"]+)"[\s\S]*?<strong>([^<]+)<\/strong>/g)]
+  const rankingCards = [...rankingHtml.matchAll(/<a\s+class="directory-card[^"]*"[^>]*href="([^"]+)"[^>]*data-category="([^"]+)"[\s\S]*?<strong>([^<]+)<\/strong>/g)]
     .map((match) => ({ href: match[1], normalizedHref: normalizeProductHref(match[1]), category: match[2], name: match[3] }));
   const productNames = rankingCards.map((card) => card.name);
   const intentionallyRepeatedProducts = new Set([
@@ -133,6 +133,8 @@ test("AI navigation ranking cards do not duplicate the same customer product", a
     "腾讯元宝",
     "WorkBuddy（CodeBuddy）",
     "腾讯 WorkBuddy",
+    "腾讯 WorkBuddy (国内版)",
+    "WorkBuddy (海外国际版)",
     "Kimi Work",
     "Kimi Code",
     "TRAE Work",
