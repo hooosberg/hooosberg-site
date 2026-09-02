@@ -971,6 +971,124 @@ const englishVideoArticleOverrides: Record<string, EnglishVideoOverride> = {
   },
 };
 
+const englishPaidLessonMap: Record<string, { title: string; problem: string; outcome: string }> = {
+  "video-paid-lesson1-install-first-file": {
+    title: "Lesson 01: First Time with Office AI Agents: Setup, Interface & Your First Desktop File",
+    problem: "Stuck at official download sources and authentication, unsure if desktop AI agents can safely interact with local files.",
+    outcome: "Complete official installation and login; understand differences across top AI agent tools; master the desktop UI; verify with a Tang poetry Hello World script.",
+  },
+  "video-paid-lesson2-workspace-boundaries": {
+    title: "Lesson 02: Trusting AI with Your PC? Safe Workspace Boundaries & Least Privilege Permissions",
+    problem: "After testing local files, worrying that AI might access system directories or delete sensitive corporate documents.",
+    outcome: "Set up a 4-folder isolated workspace; configure least privilege principles; perform self-checks on read-only reference data.",
+  },
+  "video-paid-lesson3-cross-file-extraction": {
+    title: "Lesson 03: Already Good at AI Chat, But Why Am I Still Doing the Actual File Work?",
+    problem: "AI generates great text suggestions in a chat box, but spreadsheets, templates, and final reports still have to be built manually.",
+    outcome: "Extract verified facts across emails and order sheets; accurately autofill the tracking spreadsheet while flagging uncertain rows.",
+  },
+  "video-paid-lesson4-meeting-action-items": {
+    title: "Lesson 04: The Real Pain of Meetings: Not Lack of Minutes, But Nobody Knowing the Next Steps",
+    problem: "Meeting transcripts are long and noisy; what leadership actually needs is owners, deadlines, open questions, and next actions.",
+    outcome: "Filter conversational noise; extract multi-dimensional action items; generate standardized action checklists and executive summaries.",
+  },
+  "video-paid-lesson5-six-element-prompts": {
+    title: "Lesson 05: Why Does the Same AI Tool Work Amazingly One Day, But Go Completely Off Track the Next?",
+    problem: "Vague requests like 'make this professional' fail to communicate concrete delivery boundaries and verification criteria to AI.",
+    outcome: "Deconstruct vague requests into the 6-element prompt framework: Objective, Context/Materials, Rules, Boundaries, Format, and Verification.",
+  },
+  "video-paid-lesson6-download-folder-cleanup": {
+    title: "Lesson 06: Your Downloads Folder Is a Junkyard: Can AI Organize It Without Losing Crucial Files?",
+    problem: "Chaotic file names, duplicate versions, and manual archiving risk accidental deletion of irreplaceable source files.",
+    outcome: "Deep inspection of file attributes; systematic classification and renaming; dry-run preview before execution; full change log audit.",
+  },
+  "video-paid-lesson7-word-template-fill": {
+    title: "Lesson 07: The Hardest Part of Word Isn't Writing: It's Filling Strict Templates Pixel-by-Pixel",
+    problem: "Data must be populated into strict legal templates without breaking margins, table cells, headers, or footers.",
+    outcome: "Enforce template constraints; extract values across multiple source files; trace field provenance; populate clean copies with original formatting intact.",
+  },
+  "video-paid-lesson8-ocr-receipt-verification": {
+    title: "Lesson 08: Processing Piles of Photo Receipts: Why Every Single Digit Must Be 100% Correct",
+    problem: "Standard OCR recognition does not equal auditable accounting data; one wrong invoice number or decimal point ruins the ledger.",
+    outcome: "Multimodal photo/PDF receipt extraction; confidence score validation; flag low-confidence items for rapid human verification.",
+  },
+  "video-paid-lesson9-excel-data-cleaning": {
+    title: "Lesson 09: Formulas Work Fine, But Analysis Fails? Clean Up the Dirty Data First",
+    problem: "Inconsistent dates, duplicate order rows, extra spaces, and fuzzy category names contaminate all downstream calculations.",
+    outcome: "Perform data quality diagnostics; define automated cleaning rules; remove duplicates and whitespace; preserve original files with audit logs.",
+  },
+  "video-paid-lesson10-heterogeneous-sheets-merge": {
+    title: "Lesson 10: Merging Dozens of Monthly Reports with Different Formats: Aligning Definitions, Not Copy-Pasting",
+    problem: "Different departments and months use slightly varied column headers, causing mismatched columns when combined naively.",
+    outcome: "Construct heterogeneous field mapping dictionaries; batch stack and concatenate; trace row origins; reconcile grand totals.",
+  },
+  "video-paid-lesson11-rules-to-salary-calculation": {
+    title: "Lesson 11: The Hardest Part of Excel Isn't Math, But Unwritten Corporate Rules Only Veterans Know",
+    problem: "Bonuses, performance multipliers, attendance exceptions, and deductions are tangled in informal institutional knowledge.",
+    outcome: "Convert natural language business rules into multi-role calculation trees; log intermediate variables; spot-check payroll payouts.",
+  },
+  "video-paid-lesson12-inventory-cross-analysis": {
+    title: "Lesson 12: Executives Don't Want 100 Rows of Numbers: They Want Sales, Stockpiles, and Next Week's Action",
+    problem: "Sales, warehouse inventory, and replenishment targets live in separate files; summaries easily become generic truisms.",
+    outcome: "Perform cross-dimensional inventory analysis; compute sell-through and stock-to-sales ratios; tie recommendations directly to row-level evidence.",
+  },
+  "video-paid-lesson13-data-analysis-to-ppt": {
+    title: "Lesson 13: The Analysis Is Complete: Why Waste Another Half-Day Copying Charts into Slides?",
+    problem: "Crunching data and building slide decks are duplicate manual efforts prone to transcription typos and outdated graphs.",
+    outcome: "Distill executive decision outlines from data tables; generate native editable PowerPoint decks; verify figures slide by slide.",
+  },
+  "video-paid-lesson14-corporate-knowledge-base": {
+    title: "Lesson 14: Employees Ask 'What's the Reimbursement Limit?' Every Day: Organizing Scattered Internal Policies",
+    problem: "Corporate regulations are scattered across Word, PDF, and wikis; generic chatbots hallucinate when asked internal questions.",
+    outcome: "Structure company policy documents into an indexable knowledge base; pinpoint exact clause citations; flag policy conflicts and knowledge gaps.",
+  },
+  "video-paid-lesson15-web-bidding-screening": {
+    title: "Lesson 15: Checking Dozens of Websites Daily: Eliminating Redundant Searches for Public Tenders",
+    problem: "Government tenders and procurement notices are fragmented across portals with heavy duplicates and easy-to-miss deadlines.",
+    outcome: "Scrape public announcements across portals; deduplicate using hard filters (region, budget, deadlines); compile structured business opportunity digests.",
+  },
+  "video-paid-lesson16-customer-due-diligence": {
+    title: "Lesson 16: Sales Teams Don't Need More Leads: They Need Concrete Proof Why a Lead Is Worth Calling",
+    problem: "Compiling business lists is easy, but verifying company fit, recent signals, and personalized opening angles consumes hours.",
+    outcome: "Deep research into public business filings; profile corporate pain points; generate client due-diligence briefs and custom conversation starters.",
+  },
+  "video-paid-lesson17-chat-log-to-ledger": {
+    title: "Lesson 17: Hundreds of Daily Messages in Work Chats: Preventing 'Who Was Handling This Order?'",
+    problem: "Urgent orders, delivery changes, price quotes, and support tickets get buried in chat banter, causing missed deadlines.",
+    outcome: "Parse change/order events from long chat logs; append structured records to business ledgers; generate morning executive summaries.",
+  },
+  "video-paid-lesson18-email-connector-draft": {
+    title: "Lesson 18: Research Is Done: Safely Sending Tailored Emails via the QQ Mail Connector",
+    problem: "Client briefs and chat talking points exist, but adapting them into formal email drafts and pasting into mail clients risks accidental sends.",
+    outcome: "Reuse research dossiers; turn informal talking points into formal business email drafts; connect mail client with draft-preview and human approval.",
+  },
+  "video-paid-lesson19-experience-to-skill": {
+    title: "Lesson 19: Repeating the Same Task Weekly: Why Paste a Huge Prompt Every Single Time?",
+    problem: "Successful prompt formulas get lost in message histories, forcing users to re-explain background and rules to AI each week.",
+    outcome: "Run a task successfully once; export proven dialogues into 1-click desktop Skills; swap inputs for instant automated execution.",
+  },
+  "video-paid-lesson20-skill-scheduler-patrol": {
+    title: "Lesson 20: Run Skills Automatically on Schedule: Turning Weekly Tender Screening into a Background Job",
+    problem: "Even with a verified screening Skill, employees still have to remember to sit at their desks, open the app, and manually click run.",
+    outcome: "Package screening workflows into Skills; configure weekly recurring background schedules; log results and pause safely on errors.",
+  },
+  "video-paid-lesson21-sensitive-data-guardrail": {
+    title: "Lesson 21: AI Safety & Data Security: Building an Outbound Sensitive Data Guardrail",
+    problem: "When auto-generating emails or reports, it is easy to accidentally leak credentials, confidential pricing floors, or unverified promises.",
+    outcome: "Audit outbound text for financial secrets, passwords, and commitments; intercept and block sensitive leaks; output scrubbed safe versions.",
+  },
+  "video-paid-lesson22-single-page-dashboard": {
+    title: "Lesson 22: Build a Visual Operations Dashboard in 10 Steps: Knowledge, Chats, Orders & Inventory in One Webpage",
+    problem: "Chat logs, order sheets, and inventory data live in separate silos; even if Excel formulas work, teams cannot see progress at a glance.",
+    outcome: "Unify company policies, chat ledgers, and inventory analytics; assemble all three modules into an interactive single-page HTML operations portal.",
+  },
+  "video-paid-lesson23-modular-project-workflow": {
+    title: "Lesson 23: Capstone Graduation: Orchestrating Proven Skills into Multi-Track Teacher Workflows",
+    problem: "Tasks like lesson planning, exam retrospectives, and parent weekly reports share base modules but serve different goals; single monolithic prompts are too rigid.",
+    outcome: "Open verified modular Skill libraries; compose 4 dedicated workflows (exam debriefs, parent reports, curriculum study, term plans) with human sign-off checkpoints.",
+  },
+};
+
 const englishProductArticleOverrides: Record<string, EnglishVideoOverride> = {
   "witnote-swift-native-2-0-1-refactor": {
     title: "WitNote · 2.0.1 Refactor: Native Swift Workspace and Local MLX",
@@ -1208,6 +1326,44 @@ export function getLocalizedArticle(article: Article, locale: Locale): Localized
   const tags = getLocalizedArticleTags(article.tags, locale);
   const videoOverride = article.diaryKind === "video" ? englishVideoArticleOverrides[article.slug] : undefined;
   const productOverride = article.diaryKind === "product" ? englishProductArticleOverrides[article.slug] : undefined;
+  const paidLesson = englishPaidLessonMap[article.slug];
+  if (paidLesson) {
+    return {
+      ...article,
+      title: `Video Notes · ${paidLesson.title}`,
+      excerpt: paidLesson.outcome,
+      category,
+      tags: ["Paid Course", "WorkBuddy", "Courseware", "Prompts", "Desktop Agent", "AI Office"],
+      videoMeta: "Bilibili Paid Course · Full Practical Lesson",
+      body: [
+        "Video Link: https://www.bilibili.com/cheese/play/ss402180572?csource=private_space_class_null&spm_id_from=333.1387.0.0",
+        "【课程概要与课件下载说明】This page is a conceptual overview of the \"AI Office Automation: AI Agents & Practical Workflows Course\". The complete HD video walkthroughs, 23 hands-on practice asset packs, detailed Word handouts, and copyable prompt libraries (TXT) are hosted on Bilibili. Enrolled students can download the complete package via the companion Baidu Netdisk link. This outline summarizes the core business problems, skills, and verification standards.",
+        `Core Lesson Objective: Address real business bottlenecks using Tencent WorkBuddy as the standard desktop agent environment, mastering: ${paidLesson.outcome}`,
+      ],
+      sections: [
+        {
+          heading: "Real-World Business Case",
+          paragraphs: [
+            `Business Bottleneck: ${paidLesson.problem}`,
+            "This lesson uses this real operational scenario to demonstrate the complete workflow from raw chaos to standardized deliverables.",
+          ],
+        },
+        {
+          heading: "Core Skills & Key Focus",
+          paragraphs: [
+            `Key Focus: ${paidLesson.outcome}`,
+            "Master desktop AI permission boundaries, multi-step task decomposition, and structured prompt engineering. Methodologies are tool-agnostic and freely transferable.",
+          ],
+        },
+        {
+          heading: "Deliverables & Verification Standards",
+          paragraphs: [
+            "Strictly verifiable deliverables only, zero black-box promises. Verification requires inspecting native Word, Excel, PowerPoint, or task automation logs locally to verify styling, formulas, and data precision.",
+          ],
+        },
+      ],
+    };
+  }
 
   if (videoOverride) {
     return {

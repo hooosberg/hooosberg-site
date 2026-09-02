@@ -1,138 +1,627 @@
 ---
-import { ArrowRight, BookOpen, Code2, ExternalLink, Layers3, Search, ShieldCheck } from "@lucide/astro";
+import {
+  ArrowRight,
+  BookOpen,
+  Check,
+  ChevronDown,
+  ExternalLink,
+  FileSpreadsheet,
+  FileText,
+  Flame,
+  Globe,
+  Layers3,
+  MessageSquare,
+  Play,
+  ShieldCheck,
+  Sparkles,
+  Users,
+  Wrench,
+  Zap,
+} from "@lucide/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { videoTutorialNoteArticles } from "../../data/articles";
-import { learningSeries } from "../../data/learningSeries";
-import { getLocalizedArticle, getLocalizedSocialLinks } from "../../utils/i18n";
+import { getLocalizedSocialLinks } from "../../utils/i18n";
 import { buildHomeJsonLd } from "../../utils/structuredData";
 
-const featuredArticles = videoTutorialNoteArticles.slice(0, 6).map((article) => getLocalizedArticle(article, "en"));
-const workbuddy = learningSeries.find((series) => series.id === "workbuddy")!;
-const cola = learningSeries.find((series) => series.id === "cola")!;
-const localizedSocialLinks = getLocalizedSocialLinks("en");
+const bilibiliCourseUrl =
+  "https://www.bilibili.com/cheese/play/ss402180572?csource=private_space_class_null&spm_id_from=333.1387.0.0";
+const curriculumNoteUrl = "/en/blog?section=paid";
 
+const localizedSocialLinks = getLocalizedSocialLinks("en");
 const socialCards = localizedSocialLinks
   .filter((link) => link.originalLabel !== "Email")
   .map((link) => ({ label: link.label, value: link.note, url: link.url, icon: link.icon }));
+
+const courseStages = [
+  {
+    step: "01",
+    stage: "Part 1 · Security",
+    range: "Lessons 01 ~ 05",
+    title: "Security & Workspace",
+    action: "4-Folder Workspace · Least Privilege · 6-Element Prompt",
+    deliverable: "Isolation Setup / Follow-up Ledger / Checklist",
+    tags: "Isolation · Least Privilege · Structured Prompt",
+    color: "#10b981",
+    cx: 180,
+    cy: 214,
+  },
+  {
+    step: "02",
+    stage: "Part 2 · Deliverables",
+    range: "Lessons 06 ~ 13",
+    title: "Core Office Workflows",
+    action: "Word Template Fill · Receipt OCR · Excel Cleaning & Payroll",
+    deliverable: "Word Contracts / Business Payroll / Analysis PPT",
+    tags: "Word Fill · Receipt OCR · Payroll & PPT",
+    color: "#0d9488",
+    cx: 380,
+    cy: 168,
+  },
+  {
+    step: "03",
+    stage: "Part 3 · Extension",
+    range: "Lessons 14 ~ 18",
+    title: "External Information",
+    action: "Policy Knowledge Base · Tender Screener · Chat Ledgers",
+    deliverable: "Knowledge Base / Tender Brief / Ledger File",
+    tags: "Knowledge Base · Tender Screener · Chat Ledger",
+    color: "#0284c7",
+    cx: 580,
+    cy: 102,
+  },
+  {
+    step: "04",
+    stage: "Part 4 · Systems",
+    range: "Lessons 19 ~ 23",
+    title: "Custom Agent Systems",
+    action: "Custom Skills · Scheduled Patrol · Pre-send Guardrail · Single-Page UI",
+    deliverable: "Custom Skill / Weekly Patrol / Single-Page UI",
+    tags: "Custom Skill · Weekly Patrol · Single-Page UI",
+    color: "#2563eb",
+    cx: 780,
+    cy: 58,
+  },
+];
+
+const caseStudies = [
+  {
+    chapter: "Word Templates",
+    title: "Cross-File Word Template Autofill",
+    count: "Lesson 07",
+    lessons: [
+      "Strictly preserve margins, tables, and headers/footers",
+      "Accurately extract values across contracts and invoices",
+      "Generate clean copies with complete field audit trails",
+    ],
+  },
+  {
+    chapter: "Multimodal OCR",
+    title: "Batch Receipt OCR & Validation",
+    count: "Lesson 08",
+    lessons: [
+      "Batch process photo/PDF receipts and invoices",
+      "Cross-check key amounts, dates, and invoice IDs",
+      "Flag low-confidence items for human review",
+    ],
+  },
+  {
+    chapter: "Data & Payroll",
+    title: "Excel Data Cleaning & Payroll Calculations",
+    count: "Lessons 09 ~ 11",
+    lessons: [
+      "Assess data quality, deduplicate, and log alterations",
+      "Build field-mapping dictionaries to merge multi-branch tables",
+      "Turn natural-language rules into automated payroll tables",
+    ],
+  },
+  {
+    chapter: "Analysis & Slides",
+    title: "Cross-Dimensional Inventory Analysis & PPT",
+    count: "Lessons 12 ~ 13",
+    lessons: [
+      "Link sales and stock metrics to calculate sell-through rates",
+      "Flag slow-moving items with direct row-level evidence",
+      "Distill analysis insights into clean executive slides",
+    ],
+  },
+  {
+    chapter: "Chat Logs & Ledgers",
+    title: "Extract Structured Ledgers from Chat Logs",
+    count: "Lesson 17",
+    lessons: [
+      "Filter hundreds of daily messages to isolate orders",
+      "Extract structured data and append directly to business ledgers",
+      "Summarize pending action items into daily morning briefs",
+    ],
+  },
+  {
+    chapter: "Automation & Skills",
+    title: "Package Custom Skills & Schedule Weekly Patrols",
+    count: "Lessons 19 ~ 22",
+    lessons: [
+      "Save proven prompts into 1-click reusable desktop skills",
+      "Schedule automatic weekly checks with failure alerts",
+      "Build unified single-page HTML dashboards for local tasks",
+    ],
+  },
+];
+
+const courseFeatures = [
+  {
+    title: "Tencent WorkBuddy Standard Environment",
+    desc: "A proven desktop AI agent environment that reads and writes local files. Methodologies are tool-agnostic and freely transferable to any major AI tool.",
+    icon: Zap,
+  },
+  {
+    title: "23 Realistic Practice Asset Packs",
+    desc: "Includes 23 hands-on asset packs with sample spreadsheets, invoice images, meeting notes, and templates—ready to run out of the box.",
+    icon: BookOpen,
+  },
+  {
+    title: "Full Prompt & Instruction Library (TXT)",
+    desc: "Direct access to ready-to-copy TXT prompt templates with explicit variable placeholders, eliminating trial-and-error prompt tuning.",
+    icon: FileText,
+  },
+  {
+    title: "Verifiable Deliverables, Zero Black-Box Hype",
+    desc: "We never stop at 'the AI said it finished'. Open real Word, Excel, and PPT files to verify data integrity, formulas, and formatting.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Covers High-Frequency Pain Points for All Roles",
+    desc: "Designed for operations, HR, finance, sales, analysts, and founders to establish shared standards and safe AI workflows.",
+    icon: FileSpreadsheet,
+  },
+  {
+    title: "Dedicated Student WeChat Community & Support",
+    desc: "Access dedicated community channels to troubleshoot software setup, refine prompts, and discuss automation workflows anytime.",
+    icon: MessageSquare,
+  },
+];
+
+const faqs = [
+  {
+    q: "Who is this course for? Can teams and individuals both enroll?",
+    a: "Absolutely! For individuals, it eliminates repetitive manual busywork and dramatically speeds up daily output. For corporate teams, the curriculum enforces strict folder isolation, least-privilege permissions, and safe data governance, making it an ideal internal training standard for AI office automation.",
+  },
+  {
+    q: "How does this differ from typical AI chat courses?",
+    a: "Chatbot tutorials only generate suggestions inside a browser text box—you still have to edit the actual files yourself. In contrast, desktop AI agents (like WorkBuddy) read and write directly to your local Excel, Word, and PPT files, batch process documents, verify receipts, and automate repetitive workflows into real, finished files.",
+  },
+  {
+    q: "What computer specs do I need? Does it support Windows and Mac?",
+    a: "Standard office laptops are completely sufficient! The primary tool, Tencent WorkBuddy, natively supports both Windows and macOS (including Intel and Apple Silicon chips). No high-end GPUs or complicated coding environments are required.",
+  },
+  {
+    q: "How do I access the lessons? Can I watch on mobile and tablet?",
+    a: "The course is hosted on Bilibili's official paid classroom. Once enrolled, you enjoy permanent access across mobile apps, iPad, and desktop web browsers, with HD playback, offline caching, and speed controls.",
+  },
+  {
+    q: "Where do I get the 23 practice packs, Word handouts, and prompt files?",
+    a: "Upon enrollment, download the complete student resource package directly from the course page via Baidu Netdisk. Our website's Learning Notes also provide a synchronized public overview of each lesson.",
+  },
+  {
+    q: "What if I get stuck during setup or practical exercises? Is there a community?",
+    a: "Yes! Paid students can join our dedicated WeChat discussion group. In addition, our site footer openly provides direct WeChat contact information for all learners (including those following our free series) to exchange questions and ideas.",
+  },
+];
 ---
 
 <BaseLayout
   locale="en"
-  title="Hooosberg | AI Office Automation: Beginner Green Book"
-  description="Learn AI office automation with WorkBuddy, Doubao Work, Qwen, Cola, Codex, Claude Code, and practical Excel, Word, PPT, PDF, web, and workflow cases."
+  title="Hooosberg | AI Office Automation: AI Agents & Practical Workflows Course"
+  description="A comprehensive AI office agent curriculum based on Tencent WorkBuddy. 4 parts, 23 lessons, 23 practice packs. Deliver real, verifiable work files from day one."
   canonicalPath="/en"
   jsonLd={buildHomeJsonLd("en")}
 >
-  <section class="landing-hero">
+  <!-- Hero Section -->
+  <section class="landing-hero" style="padding-top: 48px; padding-bottom: 56px;">
     <div class="hero-grid" aria-hidden="true"></div>
-    <div class="hero-content">
-      <h1>AI Office Automation:<br />Beginner Green Book</h1>
-      <p class="hero-subtitle">
-        Learn WorkBuddy, Doubao Work, Qwen, Kimi, Cola, Codex, Claude Code, and more AI tools
-        for Excel, Word, PPT, PDF, web research, local files, and automation workflows.
+    <div class="hero-content" style="max-width: 820px; margin-inline: auto; text-align: center;">
+      <h1 style="font-size: clamp(34px, 5.2vw, 56px); line-height: 1.15; margin-bottom: 22px; font-weight: 850; letter-spacing: -0.02em;">
+        AI Office Automation<br />AI Agents & Practical Workflows Course
+      </h1>
+
+      <p class="hero-subtitle" style="max-width: 700px; margin-inline: auto; font-size: clamp(15px, 2vw, 17.5px); line-height: 1.75; color: var(--muted);">
+        Master desktop AI agents with Tencent WorkBuddy. Hands-on workflows for file organization, Word templates, receipt OCR, Excel cleaning, business payroll, and custom automated skills. Deliver real, verifiable work files from day one!
       </p>
-      <div class="hero-actions">
-        <a class="button button--primary button--xl" href="/en/blog">
-          <BookOpen size={18} aria-hidden="true" />
-          Start learning
+
+      <div class="hero-actions" style="margin-top: 36px; justify-content: center; gap: 16px;">
+        <a class="button button--primary button--xl" style="border-radius: 9999px; padding: 13px 32px; font-size: 16px; font-weight: 700;" href={bilibiliCourseUrl} target="_blank" rel="noreferrer">
+          Buy Course
+          <ArrowRight size={17} aria-hidden="true" />
         </a>
-        <a class="button button--secondary button--xl" href="/en/ai-navigation">
-          <Search size={18} aria-hidden="true" />
-          Open AI Guide
+        <a class="button button--secondary button--xl" style="border-radius: 9999px; padding: 13px 32px; font-size: 16px; font-weight: 700;" href={curriculumNoteUrl}>
+          Course Curriculum
         </a>
       </div>
-      <div class="hero-proof" aria-label="Site focus">
-        <span>Excel / Word / PPT / PDF</span>
-        <span>WorkBuddy</span>
-        <span>Doubao Work</span>
-        <span>Qwen</span>
-        <span>Cola</span>
-        <span>Claude Code</span>
-        <span>Codex</span>
+
+      <div class="course-trust-badges" style="margin-top: 26px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 18px; font-size: 13.5px; color: var(--muted);">
+          <span style="display: inline-flex; align-items: center; gap: 5px;">
+            <Check size={16} color="#10b981" /> Beginner-Friendly
+          </span>
+          <span style="display: inline-flex; align-items: center; gap: 5px;">
+            <Check size={16} color="#10b981" /> 23 Practice Packs
+          </span>
+          <span style="display: inline-flex; align-items: center; gap: 5px; text-decoration: line-through; opacity: 0.7;">
+            Retail ¥299
+          </span>
+        </div>
+        <div style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center;">
+          <span style="background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3); padding: 3px 12px; border-radius: 9999px; font-size: 12.5px; font-weight: 750;">Suitable for Teams & Individuals</span>
+          <span style="color: #2563eb; font-weight: 850; font-size: 15px;">
+            Limited-Time Offer 🔥 <span style="font-size: 17px;">¥199</span>
+          </span>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="landing-section landing-section--split" id="articles">
-    <div class="section-heading">
-      <p>Two free courses</p>
-      <h2>Start simple, then make something useful.</h2>
-      <span>The Beginner Green Book starts with WorkBuddy. The Practice Green Book uses Cola, Codex, and Claude Code for real office problems.</span>
-      <a href="/en/blog">Open learning notes <ArrowRight size={15} aria-hidden="true" /></a>
-    </div>
-    <div class="home-greenbook-list">
-      {[workbuddy, cola].map((series) => <a class="home-greenbook" href={`/en/blog?section=${series.id}`}>
-        <span>{series.id === "workbuddy" ? "Beginner Green Book" : "Practice Green Book"}</span><strong>{series.id === "workbuddy" ? "AI Office Automation: Beginner Green Book" : "AI Office Automation: Practice Green Book"}</strong><p>{series.id === "workbuddy" ? "WorkBuddy, Doubao Work, Qwen Work, and more · 30 free lessons" : "Cola / Codex / Claude Code · problem-led practice"}</p><ArrowRight size={17} aria-hidden="true" />
-      </a>)}
-    </div>
-  </section>
-
-  <section class="landing-section landing-section--split" id="popular-notes">
-    <div class="section-heading">
-      <p>Popular notes</p>
-      <h2>Follow one lesson. Solve one real problem.</h2>
-      <span>Start with source files, rules, and a final check instead of only watching an explanation.</span>
-      <a href="/en/blog?section=workbuddy">All lessons <ArrowRight size={15} aria-hidden="true" /></a>
-    </div>
-    <div class="article-list article-list--compact">
-      {featuredArticles.map((article) => <a class="article-row" href={`/en/blog/${article.slug}`}>
-        <span class="article-row__category">{article.category}</span><span class="article-row__title">{article.title}</span><span class="article-row__excerpt">{article.excerpt}</span><span class="article-row__date">{article.date}</span>
-      </a>)}
-    </div>
-  </section>
-
-  <section class="landing-section home-directory-section" id="ai-navigation">
+  <!-- Section 1: Curriculum Highlights (课程内容精选) -->
+  <section class="landing-section" id="curriculum" style="padding-top: 20px;">
     <div class="section-heading section-heading--center">
-      <p>AI Guide</p>
-      <h2>Choose the right tool first.</h2>
-      <span>AI products, coding agents, model APIs, design tools, hosting, launch channels, and learning resources are organized by workflow.</span>
+      <div class="course-pill">
+        <BookOpen size={14} />
+        <span>Selected Courses</span>
+      </div>
+      <h2>Curriculum Highlights</h2>
+      <span>Carefully curated AI office workflows, from local file management to end-to-end automation</span>
     </div>
 
-    <div class="home-directory-panel">
-      <div class="home-directory-intro">
-        <div>
-          <p class="home-directory-kicker">Quick route</p>
-          <h3>Rankings, alternatives, and builder resources.</h3>
-          <p>
-            The guide is a practical map for choosing tools while building real products: coding agents,
-            model platforms, design, hosting, launch communities, payments, and long-term learning.
-          </p>
+    <div class="course-curriculum-grid">
+      {caseStudies.map((chapter) => (
+        <div class="course-chapter-card">
+          <div class="course-chapter-card__top">
+            <span class="course-chapter-badge">{chapter.chapter}</span>
+            <span class="course-chapter-lessons-count">{chapter.count}</span>
+          </div>
+          <h3>{chapter.title}</h3>
+          <ul class="course-lesson-items">
+            {chapter.lessons.map((lesson) => (
+              <li class="course-lesson-item">
+                <Play size={13} aria-hidden="true" />
+                <span>{lesson}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div class="home-directory-actions">
-          <a class="button button--primary" href="/en/ai-navigation">
-            Open AI Guide
-            <ArrowRight size={17} aria-hidden="true" />
-          </a>
-          <a class="button button--secondary" href="/en/ai-navigation#top">Top products</a>
+      ))}
+    </div>
+
+    <div style="text-align: center; margin-top: 36px;">
+      <a class="button button--primary button--lg" style="border-radius: 9999px; padding: 12px 28px;" href={curriculumNoteUrl}>
+        View Full 23-Lesson Curriculum & Notes
+        <ArrowRight size={16} aria-hidden="true" />
+      </a>
+    </div>
+  </section>
+
+  <!-- Section 2: 4-Stage Learning Curve (Apple Aesthetic Smooth Rising Curve: Green to Blue) -->
+  <section class="landing-section" id="curve">
+    <div class="section-heading section-heading--center">
+      <div class="course-pill">
+        <Layers3 size={14} />
+        <span>Learning Path</span>
+      </div>
+      <h2>4-Stage Learning Curve: From Basics to Full Automation</h2>
+      <span>An Apple-inspired smooth progression curve: from workspace security to modular automation systems</span>
+    </div>
+
+    <div class="apple-curve-board">
+      <div class="apple-curve-header">
+        <div class="apple-curve-meta">
+          <span class="apple-curve-axis-label">
+            <span class="apple-curve-axis-dot"></span>
+            Scientific Capability Horizon · Difficulty Progression
+          </span>
+        </div>
+        <div class="apple-curve-meta" style="font-size: 12px; opacity: 0.85;">
+          Smooth Ease-in-out S-Curve · Interactive Nodes
         </div>
       </div>
 
-      <div class="home-directory-card-grid" aria-label="AI guide quick entries">
-        <a class="home-directory-card" href="/en/ai-navigation">
-          <span class="home-directory-icon"><Search size={20} aria-hidden="true" /></span>
-          <strong>AI product ranking</strong>
-          <p>Start with ChatGPT, Claude, Gemini, and the tools that are useful across many workflows.</p>
-        </a>
-        <a class="home-directory-card" href="/en/ai-navigation#dev-hosting">
-          <span class="home-directory-icon"><Code2 size={20} aria-hidden="true" /></span>
-          <strong>Developer stack</strong>
-          <p>Model APIs, hosting, product prototyping, distribution, and launch infrastructure.</p>
-        </a>
-        <a class="home-directory-card" href="/en/ai-navigation#alternatives">
-          <span class="home-directory-icon"><Layers3 size={20} aria-hidden="true" /></span>
-          <strong>Alternatives</strong>
-          <p>Compare global tools with practical regional or open-source substitutes when needed.</p>
-        </a>
-        <a class="home-directory-card" href="/en/ai-navigation#learning">
-          <span class="home-directory-icon"><ShieldCheck size={20} aria-hidden="true" /></span>
-          <strong>Learning resources</strong>
-          <p>Long-term references for AI, coding, product work, and practical execution.</p>
+      <!-- Scientific Grid System & Smooth Ease-in-out S-Curve (High/Med/Low · Pure Green-Blue · Floating Shadow · 0 Black Block) -->
+      <div class="apple-curve-chart-wrap" aria-label="Scientific Learning Curve">
+        <svg class="apple-curve-svg" viewBox="0 0 960 290" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <!-- Pure Green to Blue Main Gradient -->
+            <linearGradient id="scientificLineGradEn" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#10b981" />
+              <stop offset="35%" stop-color="#0d9488" />
+              <stop offset="70%" stop-color="#0284c7" />
+              <stop offset="100%" stop-color="#2563eb" />
+            </linearGradient>
+            <!-- Ambient Elevation Shadow Gradient -->
+            <linearGradient id="scientificShadowGradEn" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#10b981" />
+              <stop offset="35%" stop-color="#0d9488" />
+              <stop offset="70%" stop-color="#0284c7" />
+              <stop offset="100%" stop-color="#2563eb" />
+            </linearGradient>
+          </defs>
+
+          <!-- Scientific Grid Lines -->
+          <!-- Horizontal Reference Lines (High, Med, Low, Base) -->
+          <line x1="75" y1="55" x2="900" y2="55" stroke="var(--line-soft)" stroke-dasharray="3 4" stroke-width="1" opacity="0.8" />
+          <line x1="75" y1="110" x2="900" y2="110" stroke="var(--line-soft)" stroke-dasharray="2 3" stroke-width="0.8" opacity="0.45" />
+          <line x1="75" y1="165" x2="900" y2="165" stroke="var(--line-soft)" stroke-dasharray="3 4" stroke-width="1" opacity="0.8" />
+          <line x1="75" y1="215" x2="900" y2="215" stroke="var(--line-soft)" stroke-dasharray="3 4" stroke-width="1" opacity="0.8" />
+
+          <!-- Vertical Stage Grid Lines (Aligned with 4 Nodes) -->
+          <line x1="180" y1="45" x2="180" y2="255" stroke="var(--line-soft)" stroke-dasharray="3 5" stroke-width="1" opacity="0.6" />
+          <line x1="380" y1="45" x2="380" y2="255" stroke="var(--line-soft)" stroke-dasharray="3 5" stroke-width="1" opacity="0.6" />
+          <line x1="580" y1="45" x2="580" y2="255" stroke="var(--line-soft)" stroke-dasharray="3 5" stroke-width="1" opacity="0.6" />
+          <line x1="780" y1="45" x2="780" y2="255" stroke="var(--line-soft)" stroke-dasharray="3 5" stroke-width="1" opacity="0.6" />
+
+          <!-- Left Y Axis: Difficulty High, Med, Low, Base -->
+          <line x1="75" y1="40" x2="75" y2="255" stroke="var(--border)" stroke-width="1.5" />
+          <line x1="70" y1="55" x2="75" y2="55" stroke="var(--border)" stroke-width="1.5" />
+          <line x1="70" y1="165" x2="75" y2="165" stroke="var(--border)" stroke-width="1.5" />
+          <line x1="70" y1="215" x2="75" y2="215" stroke="var(--border)" stroke-width="1.5" />
+          <line x1="70" y1="255" x2="75" y2="255" stroke="var(--border)" stroke-width="1.5" />
+
+          <text x="64" y="59" font-size="12" font-family="system-ui, sans-serif" font-weight="750" fill="var(--text)" text-anchor="end">High</text>
+          <text x="64" y="169" font-size="12" font-family="system-ui, sans-serif" font-weight="750" fill="var(--muted)" text-anchor="end">Med</text>
+          <text x="64" y="219" font-size="12" font-family="system-ui, sans-serif" font-weight="750" fill="var(--muted)" text-anchor="end">Low</text>
+          <text x="64" y="259" font-size="11" font-family="system-ui, sans-serif" font-weight="600" fill="var(--muted)" text-anchor="end">Base</text>
+
+          <!-- Bottom X Axis -->
+          <line x1="75" y1="255" x2="900" y2="255" stroke="var(--border)" stroke-width="1.5" />
+          <text x="180" y="275" font-size="11.5" font-family="ui-monospace, monospace" font-weight="700" fill="var(--muted)" text-anchor="middle">Lessons 01~05</text>
+          <text x="380" y="275" font-size="11.5" font-family="ui-monospace, monospace" font-weight="700" fill="var(--muted)" text-anchor="middle">Lessons 06~13</text>
+          <text x="580" y="275" font-size="11.5" font-family="ui-monospace, monospace" font-weight="700" fill="var(--muted)" text-anchor="middle">Lessons 14~18</text>
+          <text x="780" y="275" font-size="11.5" font-family="ui-monospace, monospace" font-weight="700" fill="var(--muted)" text-anchor="middle">Lessons 19~23</text>
+
+          <!-- Floating Elevation Ambient Shadow (fill:none) -->
+          <path
+            class="curve-line-shadow"
+            d="M 80 220 C 420 220, 540 55, 880 55"
+            fill="none"
+            stroke="url(#scientificShadowGradEn)"
+            stroke-width="10"
+            stroke-linecap="round"
+            opacity="0.25"
+            transform="translate(0, 6)"
+          />
+
+          <!-- Pure S-Curve Main Line (Ease-in, Fast Center, Ease-out, fill:none, 5.5px) -->
+          <path
+            class="curve-line-main"
+            d="M 80 220 C 420 220, 540 55, 880 55"
+            fill="none"
+            stroke="url(#scientificLineGradEn)"
+            stroke-width="5.5"
+            stroke-linecap="round"
+          />
+
+          <!-- 4 Interactive Nodes -->
+          {courseStages.map((stage, idx) => (
+            <g
+              class="curve-node-group"
+              data-node-index={idx}
+              data-active={idx === 0 ? "true" : "false"}
+              tabindex="0"
+              role="button"
+              aria-label={`Inspect ${stage.title}`}
+            >
+              <circle class="curve-node-ring" cx={stage.cx} cy={stage.cy} r="15" fill={stage.color} fill-opacity="0.2" />
+              <circle class="curve-node-center" cx={stage.cx} cy={stage.cy} r="8" fill="var(--surface-solid)" stroke={stage.color} stroke-width="3" />
+              <circle cx={stage.cx} cy={stage.cy} r="3" fill={stage.color} />
+              <rect x={stage.cx - 18} y={stage.cy - 27} width="36" height="16" rx="5" fill="var(--surface-solid)" stroke={stage.color} stroke-width="1.2" />
+              <text x={stage.cx} y={stage.cy - 15} font-size="9" font-family="ui-monospace, monospace" font-weight="800" fill={stage.color} text-anchor="middle">P{idx + 1}</text>
+            </g>
+          ))}
+
+          <!-- Floating Tooltip (Clamped inside boundary) -->
+          <g class="curve-floating-tooltip" id="curveDynamicTooltipEn" transform="translate(180, 168)">
+            <rect x="-140" y="-32" width="280" height="42" rx="10" fill="var(--surface-solid)" stroke={courseStages[0].color} stroke-width="1.5" />
+            <text id="tooltipActionEn" x="0" y="-17" font-size="11.5" font-family="system-ui, sans-serif" font-weight="700" fill="var(--text)" text-anchor="middle">{courseStages[0].action}</text>
+            <text id="tooltipDeliverableEn" x="0" y="-3" font-size="10.5" font-family="system-ui, sans-serif" font-weight="600" fill={courseStages[0].color} text-anchor="middle">✔ {courseStages[0].deliverable}</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- 4 Apple Step Cards (Concise, Clickable) -->
+      <div class="apple-curve-cards">
+        {courseStages.map((stage, idx) => (
+          <div
+            class="apple-curve-step-card"
+            data-card-index={idx}
+            data-active={idx === 0 ? "true" : "false"}
+            style={`--step-color: ${stage.color};`}
+            role="button"
+            tabindex="0"
+          >
+            <div class="apple-curve-step-card__top">
+              <span class="apple-curve-step-pill" style={`color: ${stage.color}; background: color-mix(in srgb, ${stage.color} 12%, transparent);`}>
+                {stage.stage}
+              </span>
+              <span class="apple-curve-step-range">{stage.range}</span>
+            </div>
+            <h3>{stage.title}</h3>
+            <p class="apple-curve-step-deliverable">{stage.tags}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <script is:inline define:vars={{ stagesData: courseStages }}>
+      (() => {
+        const nodeGroups = document.querySelectorAll("#curve .curve-node-group");
+        const cards = document.querySelectorAll("#curve .apple-curve-step-card");
+        const tooltip = document.getElementById("curveDynamicTooltipEn");
+        const tooltipAction = document.getElementById("tooltipActionEn");
+        const tooltipDeliverable = document.getElementById("tooltipDeliverableEn");
+
+        const setActive = (index) => {
+          const item = stagesData[index];
+          if (!item) return;
+          nodeGroups.forEach((n, i) => n.setAttribute("data-active", String(i === index)));
+          cards.forEach((c, i) => c.setAttribute("data-active", String(i === index)));
+
+          if (tooltip) {
+            const clampedX = Math.min(Math.max(item.cx, 160), 800);
+            tooltip.setAttribute("transform", `translate(${clampedX}, ${item.cy - 48})`);
+            const rect = tooltip.querySelector("rect");
+            if (rect) rect.setAttribute("stroke", item.color);
+          }
+          if (tooltipAction) tooltipAction.textContent = item.action;
+          if (tooltipDeliverable) {
+            tooltipDeliverable.textContent = `✔ ${item.deliverable}`;
+            tooltipDeliverable.setAttribute("fill", item.color);
+          }
+        };
+
+        nodeGroups.forEach((n) => {
+          n.addEventListener("click", () => setActive(Number(n.dataset.nodeIndex)));
+          n.addEventListener("mouseenter", () => setActive(Number(n.dataset.nodeIndex)));
+        });
+        cards.forEach((c) => {
+          c.addEventListener("click", () => setActive(Number(c.dataset.cardIndex)));
+          c.addEventListener("mouseenter", () => setActive(Number(c.dataset.cardIndex)));
+        });
+      })();
+    </script>
+  </section>
+
+  <!-- Section 3: Core Advantages (核心卖点与实操环境) -->
+  <section class="landing-section" id="features">
+    <div class="section-heading section-heading--center">
+      <div class="course-pill">
+        <Sparkles size={14} />
+        <span>Core Advantages</span>
+      </div>
+      <h2>Why This Course Delivers Real Results</h2>
+      <span>General methodologies that outlast individual software updates, built entirely around verifiable deliverables</span>
+    </div>
+
+    <div class="course-features-grid">
+      {courseFeatures.map((feat) => (
+        <div class="course-feature-card">
+          <div class="course-feature-card__icon">
+            <feat.icon size={22} aria-hidden="true" />
+          </div>
+          <h3>{feat.title}</h3>
+          <p>{feat.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 4: Course Pricing (Pricing Card) -->
+  <section class="landing-section" id="pricing">
+    <div class="section-heading section-heading--center">
+      <div class="course-pill course-pill--hot">
+        <Flame size={14} />
+        <span>Course Pricing</span>
+      </div>
+      <h2>Course Pricing</h2>
+      <span>One-time purchase, lifetime access to practical AI agent automation</span>
+    </div>
+
+    <div class="course-pricing-wrapper">
+      <div class="course-pricing-card">
+        <div class="course-pricing-tag">Limited-Time Offer</div>
+        <h3>AI Office Automation: AI Agents & Practical Workflows</h3>
+
+        <div class="course-price-box">
+          <div class="course-price-original">Retail ¥299</div>
+          <div class="course-price-current">
+            <span class="flame">🔥</span>
+            <span class="price-num">¥199</span>
+            <span class="price-period">/ Lifetime Access</span>
+          </div>
+        </div>
+
+        <p class="course-pricing-desc">
+          A systematic hands-on curriculum to build your custom AI desktop workflows from scratch, with 23 companion asset packs included.
+        </p>
+
+        <ul class="course-perks-list">
+          <li>
+            <Check size={16} />
+            <span>23 HD video lessons with in-depth walkthroughs</span>
+          </li>
+          <li>
+            <Check size={16} />
+            <span>23 realistic practice asset packs (unzip & run)</span>
+          </li>
+          <li>
+            <Check size={16} />
+            <span>23 detailed student handouts & audit criteria (Word)</span>
+          </li>
+          <li>
+            <Check size={16} />
+            <span>Ready-to-copy prompt and instruction library (TXT)</span>
+          </li>
+          <li>
+            <Check size={16} />
+            <span>Full prompt structure cheat sheets</span>
+          </li>
+          <li>
+            <Check size={16} />
+            <span>Dedicated student WeChat community & Q&A</span>
+          </li>
+          <li>
+            <Check size={16} />
+            <span>Lifetime access on mobile, tablet, and desktop</span>
+          </li>
+        </ul>
+
+        <a class="button button--primary button--xl" style="border-radius: 9999px;" href={bilibiliCourseUrl} target="_blank" rel="noreferrer">
+          Enroll on Bilibili (¥199) ↗
         </a>
       </div>
     </div>
   </section>
 
-  <section class="author-section" id="about">
+  <!-- Section 5: FAQ -->
+  <section class="landing-section" id="faq">
+    <div class="section-heading section-heading--center">
+      <div class="course-pill">
+        <Users size={14} />
+        <span>FAQ</span>
+      </div>
+      <h2>Frequently Asked Questions</h2>
+      <span>Key answers on curriculum suitability, tools, and learning setup</span>
+    </div>
+
+    <div class="course-faq-container">
+      {faqs.map((faq, index) => (
+        <details class="course-faq-item" open={index === 0}>
+          <summary class="course-faq-question">
+            <span>{faq.q}</span>
+            <ChevronDown size={18} aria-hidden="true" />
+          </summary>
+          <div class="course-faq-answer">
+            {faq.a}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 6: CTA Banner -->
+  <section class="course-cta-banner">
+    <h2>Ready to build your AI office workflow system?</h2>
+    <p>
+      Join the 4-stage, 23-lesson curriculum and master transferable agent methodologies that turn AI into your round-the-clock productivity partner.
+    </p>
+    <div class="course-cta-actions">
+      <a class="button button--primary button--lg" style="border-radius: 9999px;" href={bilibiliCourseUrl} target="_blank" rel="noreferrer">
+        Enroll for ¥199 ↗
+      </a>
+      <a class="button button--secondary button--lg" style="border-radius: 9999px;" href={curriculumNoteUrl}>
+        View 23-Lesson Outline
+      </a>
+    </div>
+    <p class="course-cta-subtext">
+      Retail ¥299, promo price 🔥 ¥199. Includes 23 full lessons and 23 companion practice packs.
+    </p>
+  </section>
+
+  <!-- Section 7: About Hooosberg & Social Links -->
+  <section class="author-section" id="about" style="margin-top: 80px;">
     <div class="author-card">
       <div class="author-mark">
         <img src="/brand/hooosberg-ai-icon.png" alt="" />

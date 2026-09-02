@@ -1,5 +1,5 @@
 ---
-import { ArrowUpRight, Megaphone, Moon, Sun } from "@lucide/astro";
+import { Moon, Sun } from "@lucide/astro";
 import {
   brandNameByLocale,
   getAlternatePaths,
@@ -23,34 +23,19 @@ const targetLocale: Locale = locale === "en" ? "zh-CN" : "en";
 const languageHref = alternatePaths[targetLocale];
 const homeHref = toLocalizedPath("/", locale);
 const brandTitle = brandNameByLocale[locale];
-const colaNotice = locale === "zh-CN"
-  ? {
-      beforeLink: "给大家搞来一个福利：如果你对海外顶级模型感兴趣，推荐试试 Cola，访问 ",
-      linkLabel: "colaos.ai",
-      afterLink: " 开始体验。内置 ChatGPT、Claude Code 等顶尖模型；推荐码：",
-      code: "HU-U7DSEXZJ",
-      ending: "，填写后可领取 3 天免费体验。注册、使用和支付都可在国内完成，支持支付宝。",
-    }
-  : {
-      beforeLink: "A member perk for trying leading international models: Cola at ",
-      linkLabel: "colaos.ai",
-      afterLink: " includes ChatGPT, Claude Code, and more. Use referral code ",
-      code: "HU-U7DSEXZJ",
-      ending: " for a three-day free trial. Registration and Alipay payment are supported in China.",
-    };
+const courseBuyUrl =
+  "https://www.bilibili.com/cheese/play/ss402180572?csource=private_space_class_null&spm_id_from=333.1387.0.0";
 ---
 
 <header class="site-header">
-  <aside class="site-announcement" aria-label={locale === "zh-CN" ? "学友福利公告" : "Member perk announcement"}>
-    <div class="site-announcement__inner">
-      <Megaphone size={16} strokeWidth={2.2} aria-hidden="true" />
-      <p>
-        {colaNotice.beforeLink}
-        <a href="https://colaos.ai" target="_blank" rel="noreferrer">
-          {colaNotice.linkLabel}<ArrowUpRight size={13} strokeWidth={2.1} aria-hidden="true" />
-        </a>
-        {colaNotice.afterLink}<code>{colaNotice.code}</code>{colaNotice.ending}
-      </p>
+  <aside class="site-top-banner" aria-label="Course announcement">
+    <div class="site-top-banner__inner">
+      <span class="site-top-banner__text">
+        {locale === "en" ? "Automate your daily office tasks with AI from scratch" : "零基础也能用 AI 帮你办公自动化你手上的工作"}
+      </span>
+      <a class="site-top-banner__cta" href={courseBuyUrl} target="_blank" rel="noreferrer">
+        {locale === "en" ? "Enroll Now ↗" : "立即购买 ↗"}
+      </a>
     </div>
   </aside>
   <div class="site-header__inner">

@@ -98,7 +98,27 @@ const articleJsonLd = {
         <Fragment set:html={article.contentHtml} />
       ) : (
         <>
-          {visibleBody.map((paragraph) => <p>{paragraph}</p>)}
+          {visibleBody.map((paragraph) => {
+            if (paragraph.startsWith("【课程概要与课件下载说明】")) {
+              return (
+                <div class="article-course-notice" style="margin: 20px 0 28px; padding: 18px 22px; border-radius: 14px; background: color-mix(in srgb, #10b981 8%, var(--surface-solid)); border: 1.5px solid color-mix(in srgb, #10b981 35%, var(--border)); display: flex; flex-direction: column; gap: 10px;">
+                  <div style="display: flex; align-items: center; gap: 8px; font-weight: 800; color: #059669; font-size: 15px;">
+                    <span style="font-size: 18px;">📌</span>
+                    <span>课程概要与课件下载说明</span>
+                  </div>
+                  <p style="margin: 0; font-size: 14px; line-height: 1.65; color: var(--text);">
+                    {paragraph.replace(/^【课程概要与课件下载说明】/, "")}
+                  </p>
+                  <div style="margin-top: 4px;">
+                    <a class="button button--primary" style="border-radius: 9999px; padding: 8px 18px; font-size: 13.5px; font-weight: 700; width: fit-content; display: inline-flex; align-items: center; gap: 6px;" href="https://www.bilibili.com/cheese/play/ss402180572?csource=private_space_class_null&spm_id_from=333.1387.0.0" target="_blank" rel="noreferrer">
+                      前往 B 站购买课程下载完整资料 (特惠 ¥199) ↗
+                    </a>
+                  </div>
+                </div>
+              );
+            }
+            return <p>{paragraph}</p>;
+          })}
           {article.sections?.map((section) => (
             <section class="article-section">
               <h2>{section.heading}</h2>

@@ -43,9 +43,9 @@ const isEnglish = locale === "en";
     <div class="contact-qr-card__content">
       <span>{isEnglish ? "WeChat group" : "微信群"}</span>
       <strong>{isEnglish ? "Join the Hooosberg WeChat group" : "加入湖森堡微信群"}</strong>
-      <p>{isEnglish ? "The QR code is valid for 7 days from the upload date." : "二维码从上传当天开始计时，有效期 7 天。"}</p>
+      <p>{isEnglish ? "The QR code is valid for 7 days from upload (valid until Sep 10)." : "二维码从上传当天开始计时，有效期 7 天（9月10日前有效）。"}</p>
       <strong class="contact-qr-card__handle">{isEnglish ? "WeChat ID: hooosberg" : "微信号：hooosberg"}</strong>
-      <p class="contact-qr-card__countdown" data-qr-countdown aria-live="polite">{isEnglish ? "Checking validity..." : "正在检查有效期..."}</p>
+      <p class="contact-qr-card__countdown" data-qr-countdown aria-live="polite">{isEnglish ? "Checking validity..." : "正在计算剩余时间..."}</p>
     </div>
   </div>
 </div>
@@ -56,8 +56,17 @@ const isEnglish = locale === "en";
     const formatRemaining = (expiresAt, isEnglish) => {
       const remaining = new Date(expiresAt).getTime() - Date.now();
       if (remaining <= 0) return null;
-      const days = Math.ceil(remaining / 86400000);
-      return isEnglish ? `${days} day${days === 1 ? "" : "s"} remaining` : `剩余 ${days} 天`;
+      const days = Math.floor(remaining / 86400000);
+      const hours = Math.floor((remaining % 86400000) / 3600000);
+      const minutes = Math.floor((remaining % 3600000) / 60000);
+      if (days > 0) {
+        return isEnglish
+          ? `Valid: ${days}d ${hours}h ${minutes}m remaining`
+          : `有效期剩余：${days} 天 ${hours} 小时 ${minutes} 分`;
+      }
+      return isEnglish
+        ? `Expiring soon: ${hours}h ${minutes}m remaining`
+        : `即将过期：剩余 ${hours} 小时 ${minutes} 分`;
     };
 
     grids.forEach((grid) => {
@@ -73,16 +82,19 @@ const isEnglish = locale === "en";
         const label = formatRemaining(expiry, isEnglish);
         if (label) {
           countdown.textContent = label;
+          image.hidden = false;
+          expired.hidden = true;
+          qr.classList.remove("is-expired");
           return;
         }
         image.hidden = true;
         expired.hidden = false;
-        countdown.textContent = isEnglish ? "Expired" : "已过期";
+        countdown.textContent = isEnglish ? "Expired (Contact WeChat: hooosberg)" : "已过期（请添加微信号：hooosberg）";
         qr.classList.add("is-expired");
       };
 
       update();
-      window.setInterval(update, 60000);
+      window.setInterval(update, 10000);
     });
   })();
 </script>

@@ -2812,6 +2812,207 @@ const articleSeed: ArticleSeed[] = [
       },
     ],
   },
+  ...([
+    {
+      num: "01",
+      slug: "video-paid-lesson1-install-first-file",
+      title: "第 01 课：第一次使用办公智能体：安装、登录、界面认识与你的第一个桌面文件",
+      problem: "卡在正规下载入口与登录，不知道智能体能碰电脑文件。",
+      outcome: "官方安全安装登录；口述三款工具差异；认识主界面；跑通桌面写唐诗 Hello World 验证。",
+    },
+    {
+      num: "02",
+      slug: "video-paid-lesson2-workspace-boundaries",
+      title: "第 02 课：把电脑交给AI放心吗？规范工作区与最小权限设置",
+      problem: "体验桌面文件后，担心AI越权访问系统盘或误删敏感文件。",
+      outcome: "搭建四目录隔离工作区；配置最小权限原则；活动资料只读自检。",
+    },
+    {
+      num: "03",
+      slug: "video-paid-lesson3-cross-file-extraction",
+      title: "第 03 课：聊天AI已经会用了，为什么工作还是得自己做？",
+      problem: "AI给了很多建议，但最后文件、表格、整理还是自己手动完成。",
+      outcome: "跨材料（邮件+订单）精准提取事实，回填跟进表第一行并标注待确认。",
+    },
+    {
+      num: "04",
+      slug: "video-paid-lesson4-meeting-action-items",
+      title: "第 04 课：开完会最怕的不是没纪要，而是没人知道下一步谁来做",
+      problem: "会议记录很长，真正需要的是负责人、时间、未决事项与下一步动作。",
+      outcome: "长文本噪音过滤；多要素行动项抽取；生成标准行动清单与高管摘要。",
+    },
+    {
+      num: "05",
+      slug: "video-paid-lesson5-six-element-prompts",
+      title: "第 05 课：为什么同一个AI，有时很好用，有时完全跑偏？",
+      problem: "“帮我整理一下”“做专业一点”等模糊指令没有告诉AI真正的交付要求。",
+      outcome: "把模糊要求拆成：目标、材料、规则、边界、输出、验收六要素提示词。",
+    },
+    {
+      num: "06",
+      slug: "video-paid-lesson6-download-folder-cleanup",
+      title: "第 06 课：下载文件夹乱成垃圾场，AI能不能整理又不把文件搞丢？",
+      problem: "文件名混乱、版本多、归档靠手工，批量操作又怕误删重要原件。",
+      outcome: "穿透识别文件属性；分类重命名；先预演再执行；保留完整改动记录。",
+    },
+    {
+      num: "07",
+      slug: "video-paid-lesson7-word-template-fill",
+      title: "第 07 课：Word最折磨人的不是写字，而是“必须按这个模板一格不动地填”",
+      problem: "多份资料要填进固定模板，版式、表格、页眉页脚不能乱。",
+      outcome: "模板约束、跨文件取值、字段来源追踪，在副本中保持原样排版回填。",
+    },
+    {
+      num: "08",
+      slug: "video-paid-lesson8-ocr-receipt-verification",
+      title: "第 08 课：一堆拍照单据，真正难的是金额一个都不能错",
+      problem: "OCR能识别不等于能直接入账，金额、日期、编号错一个就麻烦。",
+      outcome: "多模态图片/PDF单据提取；金额置信度校验；低置信度人工复核。",
+    },
+    {
+      num: "09",
+      slug: "video-paid-lesson9-excel-data-cleaning",
+      title: "第 09 课：表格公式没错，为什么分析结果还是不可信？先把脏数据处理掉",
+      problem: "日期混乱、重复订单、空值、同义字段会污染后续所有分析。",
+      outcome: "数据质量诊断、清洗规则、去重去空格、原表保留与变更日志。",
+    },
+    {
+      num: "10",
+      slug: "video-paid-lesson10-heterogeneous-sheets-merge",
+      title: "第 10 课：几十张月报格式还不一样，难点不是复制粘贴，是口径能不能对上",
+      problem: "多部门、多月份、不同表头直接合并会把不同口径硬拼在一起。",
+      outcome: "建立异构字段映射字典；批量堆叠合并；来源追踪与总额校验。",
+    },
+    {
+      num: "11",
+      slug: "video-paid-lesson11-rules-to-salary-calculation",
+      title: "第 11 课：Excel最难的不是公式，是公司那套“只有老员工才讲得清”的规则",
+      problem: "奖金、绩效、出勤、奖惩混在一起，公式本身不是核心，口径理解才是。",
+      outcome: "自然语言业务规则→多岗位计算逻辑→中间变量→人工抽检算薪。",
+    },
+    {
+      num: "12",
+      slug: "video-paid-lesson12-inventory-cross-analysis",
+      title: "第 12 课：老板不想看一百行数据，他只想知道：哪里卖得好、哪里压货、下周怎么办",
+      problem: "销售、库存、目标分散在多张表，汇总出来的结论容易变成毫无指导价值的废话。",
+      outcome: "进销存交叉分析、售罄率/存销比、缺货滞销识别、建议强绑定行号证据。",
+    },
+    {
+      num: "13",
+      slug: "video-paid-lesson13-data-analysis-to-ppt",
+      title: "第 13 课：分析做完了，为什么还要花半天复制图表做PPT？",
+      problem: "数据分析和汇报PPT是两套重复劳动，还容易复制错数字和图表。",
+      outcome: "从分析结果提炼决策大纲、生成可编辑PPT与图表、逐页核对原始数据。",
+    },
+    {
+      num: "14",
+      slug: "video-paid-lesson14-corporate-knowledge-base",
+      title: "第 14 课：员工天天问“报销上限多少、请假找谁”，资料明明有却总找不到",
+      problem: "制度散落在Word、PDF、在线文档里，普通聊天AI不知道公司内部具体规则。",
+      outcome: "制度文档结构化入库；穿透条款出处；识别新旧冲突与知识缺口。",
+    },
+    {
+      num: "15",
+      slug: "video-paid-lesson15-web-bidding-screening",
+      title: "第 15 课：每天开十几个网站找项目，真正浪费的是重复搜索和筛选",
+      problem: "招投标、政策、行业信息分散，转载重复多、截止日期容易遗漏。",
+      outcome: "跨网页抓取公告、硬条件初筛去重、商机建议表自动沉淀。",
+    },
+    {
+      num: "16",
+      slug: "video-paid-lesson16-customer-due-diligence",
+      title: "第 16 课：销售不是缺名单，而是缺“这家公司为什么值得联系”的证据",
+      problem: "找公司名单容易，判断匹配度、近期动态和破冰切入点才最费时间。",
+      outcome: "公开资料深度穿透→提炼痛点画像→生成客户背调卡与破冰词。",
+    },
+    {
+      num: "17",
+      slug: "video-paid-lesson17-chat-log-to-ledger",
+      title: "第 17 课：群里一天几百条消息，第二天最怕一句“这个谁跟了？”",
+      problem: "订单、交期、报价、售后夹杂在大量工作闲聊里，极易产生推诿与遗漏。",
+      outcome: "长聊天记录中剥离加单/改单事件；结构化记入台账；生成主管晨报。",
+    },
+    {
+      num: "18",
+      slug: "video-paid-lesson18-email-connector-draft",
+      title: "第 18 课：客户研究做完了，怎么用 QQ 邮箱连接器把定制邮件安全发出去？",
+      problem: "客户研究与微信话术已形成，改成规范邮件、复制进邮箱耗时又容易误发。",
+      outcome: "复用研究成果；微信话术转规范邮件；QQ 邮箱连接器；草稿预览与人工确认。",
+    },
+    {
+      num: "19",
+      slug: "video-paid-lesson19-experience-to-skill",
+      title: "第 19 课：同样的工作每周都做，为什么每次还要贴一大段Prompt？",
+      problem: "成功方法散落在日常聊天记录里，每次启动都要重新对 AI 解释背景与规则。",
+      outcome: "先做成一次→从成功对话保存 Skill→换新输入一键复用。",
+    },
+    {
+      num: "20",
+      slug: "video-paid-lesson20-skill-scheduler-patrol",
+      title: "第 20 课：让做好的 Skill 自己按时运行：每周招投标初筛变成定时任务",
+      problem: "已验证跑通的初筛流程，每周依然需要人工打开电脑手工点击启动。",
+      outcome: "复用招投标初筛；保存 Skill；配置周定时运行与失败停止留痕。",
+    },
+    {
+      num: "21",
+      slug: "video-paid-lesson21-sensitive-data-guardrail",
+      title: "第 21 课：AI的安全问题：敏感信息安全拦截门",
+      problem: "邮件或报表生成后，容易疏忽将账号密码、商业底价或未核实承诺顺手发给外部。",
+      outcome: "发信前审核敏感财务/密码/承诺；触敏即阻断拦截并输出安全脱敏版。",
+    },
+    {
+      num: "22",
+      slug: "video-paid-lesson22-single-page-dashboard",
+      title: "第 22 课：十步做出可视化运营工作台：知识库、聊天、订单、库存和生产进度在一张网页里",
+      problem: "聊天、订单、生产和库存散在不同文件，缺乏统一规范，Excel 算对了团队也很难一眼看懂。",
+      outcome: "复用企业知识库、聊天变台账、数据分析；跑通三模块生成单页 HTML 工作台。",
+    },
+    {
+      num: "23",
+      slug: "video-paid-lesson23-modular-project-workflow",
+      title: "第 23 课：毕业实战：把成熟 Skill 编排成多条教师工作流",
+      problem: "备课、试卷复盘、学情周报等任务共享基础模块但目标不同，单一长流程无法灵活应对。",
+      outcome: "打开已验收的模块库，按业务组合考试复盘、家校周报等四条流程，并保留人工确认点。",
+    },
+  ] as const).map((item) => ({
+    slug: item.slug,
+    title: `视频教程笔记 · ${item.title}`,
+    category: "视频教程笔记",
+    diaryKind: "video" as const,
+    date: "2026-09-01",
+    excerpt: item.outcome,
+    tags: ["收费课程", "WorkBuddy", "课件", "提示词", "桌面Agent", "AI办公"],
+    productSlugs: [],
+    videoUrl: "https://www.bilibili.com/cheese/play/ss402180572?csource=private_space_class_null&spm_id_from=333.1387.0.0",
+    videoMeta: `B 站付费课程 · 第 ${item.num} 课`,
+    body: [
+      "视频入口：https://www.bilibili.com/cheese/play/ss402180572?csource=private_space_class_null&spm_id_from=333.1387.0.0",
+      "【课程概要与课件下载说明】本篇仅为《AI办公新手入门：智能体与自动化实战》本课时的大纲与核心知识点概要，并非详细课件。包含本课完整高清实操视频、随课仿真练习素材包、Word 详细实操讲义与全套可复制提示词指令库（TXT），请在购买课程后前往 B 站课程专区，打开配套的百度网盘链接下载学习。",
+      `本课核心目标：针对真实业务痛点展开实操，以腾讯 WorkBuddy 为标准环境，掌握：${item.outcome}`
+    ],
+    sections: [
+      {
+        heading: "本课实战业务案例",
+        paragraphs: [
+          `现实业务痛点：${item.problem}`,
+          "本节课以此真实业务案例为切入点，演示从混乱原始素材到标准可交付文件的完整全流程。"
+        ]
+      },
+      {
+        heading: "核心技能与知识重点",
+        paragraphs: [
+          `本课实操重点：${item.outcome}`,
+          "掌握桌面智能体的权限隔离、多步骤任务拆解与通用提示词结构，方法可直接迁移至各类主流 AI 工具。"
+        ]
+      },
+      {
+        heading: "交付成果与验收标准",
+        paragraphs: [
+          "严格以真实文件为准，拒绝黑盒回复。课后验收需打开电脑本地实际生成的 Word、Excel、PPT 或自动化运行日志，逐页逐项核对版式规范、数据口径与准确性。"
+        ]
+      }
+    ]
+  })),
 ];
 
 const productFallbackBody = (article: ArticleSeed, productNames: string) => [

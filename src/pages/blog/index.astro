@@ -1,11 +1,12 @@
 ---
-import { ArrowUpRight, BookOpen, ExternalLink, Lightbulb, Wrench } from "@lucide/astro";
+import { ArrowUpRight, BookOpen, ExternalLink, Flame, Lightbulb, Wrench } from "@lucide/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { articlesByDate, diarySections, videoTutorialNoteArticles } from "../../data/articles";
 import { learningSeries } from "../../data/learningSeries";
 import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../utils/structuredData";
 
 const articlesPerPage = 15;
+const paid = learningSeries.find((series) => series.id === "paid")!;
 const workbuddy = learningSeries.find((series) => series.id === "workbuddy")!;
 const cola = learningSeries.find((series) => series.id === "cola")!;
 const otherGroups = diarySections.filter((section) => section.kind !== "video").map((section) => ({
@@ -13,9 +14,9 @@ const otherGroups = diarySections.filter((section) => section.kind !== "video").
   articles: articlesByDate.filter((article) => article.diaryKind === section.kind),
 }));
 const courseArticles = new Map(videoTutorialNoteArticles.map((article) => [article.slug, article]));
-const pageDescription = "两套免费的 AI 自动化办公学习路线：WorkBuddy 从零入门与 Cola、Codex、Claude Code 实战合集；另收纳产品、阅读、随想和资源笔记。";
+const pageDescription = "AI 办公智能体与自动化实战课程笔记；WorkBuddy 免费入门与 Cola 案例实战合集；另收纳产品、阅读、随想和资源笔记。";
 const jsonLd = [
-  buildSectionCollectionJsonLd({ locale: "zh-CN", path: "/blog", name: "湖森堡 AI 自动化办公绿皮书", description: pageDescription, topics: ["AI automation", "WorkBuddy", "Cola", "Codex", "Claude Code"] }),
+  buildSectionCollectionJsonLd({ locale: "zh-CN", path: "/blog", name: "湖森堡 AI 自动化办公绿皮书", description: pageDescription, topics: ["AI automation", "WorkBuddy", "AI办公智能体", "Cola", "Codex"] }),
   buildItemListJsonLd("https://hooosberg.com/blog#learning-notes", videoTutorialNoteArticles.map((article) => ({ name: article.title, url: `/blog/${article.slug}`, description: article.excerpt }))),
 ];
 ---
@@ -23,30 +24,82 @@ const jsonLd = [
 <BaseLayout title="学习笔记 | 湖森堡AI_hooosberg" description={pageDescription} jsonLd={jsonLd}>
   <section class="page-hero page-hero--narrow learning-hero">
     <h1>学习笔记</h1>
-    <p>把 AI 自动化办公，从看懂到做出来。先选一条免费学习路线，再按课时回看视频、课件和可下载资料。</p>
+    <p>把 AI 自动化办公，从看懂到做出来。提供四篇 23 课系统实战课与免费学习路线，按课时回看视频、课件与可复用资料。</p>
   </section>
 
   <section class="learning-index" aria-label="学习笔记分区">
     <div class="learning-switch" role="tablist" aria-label="学习路线">
-      <button class="learning-tab" type="button" role="tab" aria-selected="true" data-learning-tab="workbuddy">入门绿皮书</button>
-      <button class="learning-tab" type="button" role="tab" aria-selected="false" data-learning-tab="cola">实战绿皮书</button>
+      <button class="learning-tab learning-tab--paid" type="button" role="tab" aria-selected="true" data-learning-tab="paid">
+        <Flame size={14} aria-hidden="true" />
+        收费实战课
+      </button>
+      <button class="learning-tab" type="button" role="tab" aria-selected="false" data-learning-tab="workbuddy">免费入门课</button>
+      <button class="learning-tab" type="button" role="tab" aria-selected="false" data-learning-tab="cola">免费实战课</button>
       <button class="learning-tab" type="button" role="tab" aria-selected="false" data-learning-tab="other">其他笔记</button>
     </div>
 
-    <section class="learning-panel" data-learning-panel="workbuddy">
+    <section class="learning-panel" data-learning-panel="paid">
       <div class="series-intro">
         <div class="series-book series-book--beginner" aria-hidden="true"><BookOpen size={34} /></div>
-        <div><h2>{workbuddy.title}</h2><p class="series-tool-line">{workbuddy.toolLine}</p><p>{workbuddy.description}</p></div>
-        <a class="button button--primary series-playlist" href={workbuddy.playlistUrl} target="_blank" rel="noreferrer">直接看 B 站合集 <ExternalLink size={16} aria-hidden="true" /></a>
+        <div>
+          <h2>{paid.title}</h2>
+          <p class="series-tool-line">{paid.toolLine}</p>
+          <p>{paid.description}</p>
+        </div>
+        <a class="button button--primary series-playlist" href={paid.playlistUrl} target="_blank" rel="noreferrer">
+          前往 B 站课程专区 ↗
+          <ExternalLink size={16} aria-hidden="true" />
+        </a>
       </div>
-      <div class="learning-list-header"><div><p>B 站合集 30 集 · 已整理 {workbuddy.lessons.length} 篇</p><h3>按课时看笔记与资料</h3></div><span>标有“有下载”的课时附带公开 Markdown 资料。</span></div>
+      <div class="learning-list-header">
+        <div>
+          <p>B 站官方付费课程 · 标价 ¥299 · 限时特惠 ¥199 · 23 课时完整大纲</p>
+          <h3>按课时查看标题与简介</h3>
+        </div>
+        <span>点击每节课即可查看对应的现实问题、核心能力与验收方法。</span>
+      </div>
+      <div class="learning-lesson-list">
+        {paid.lessons.map((lesson) => {
+          const article = lesson.articleSlug ? courseArticles.get(lesson.articleSlug) : undefined;
+          const displayName = article ? article.title.replace(/^视频教程笔记 · /, "") : lesson.title;
+          const href = article ? `/blog/${article.slug}?kind=video` : paid.playlistUrl;
+          return <a class="learning-lesson-row" href={href} target={article ? undefined : "_blank"} rel={article ? undefined : "noreferrer"}>
+            <span class="learning-lesson-number">{String(lesson.number).padStart(2, "0")}</span>
+            <span class="learning-lesson-copy"><strong>{displayName}</strong><small>{lesson.outcome}</small></span>
+            <ArrowUpRight size={17} aria-hidden="true" />
+          </a>;
+        })}
+      </div>
+    </section>
+
+    <section class="learning-panel" data-learning-panel="workbuddy" hidden>
+      <div class="series-intro">
+        <div class="series-book series-book--beginner" aria-hidden="true"><BookOpen size={34} /></div>
+        <div>
+          <h2>{workbuddy.title}</h2>
+          <p class="series-tool-line">{workbuddy.toolLine}</p>
+          <p>{workbuddy.description}</p>
+        </div>
+        <a class="button button--primary series-playlist" href={workbuddy.playlistUrl} target="_blank" rel="noreferrer">
+          直接看 B 站免费合集 ↗
+          <ExternalLink size={16} aria-hidden="true" />
+        </a>
+      </div>
+      <div class="learning-list-header">
+        <div>
+          <p>B 站免费系列 · 30 课时完整大纲</p>
+          <h3>按课时查看标题、简介与配套笔记资料</h3>
+        </div>
+        <span>每集均配有可复制提示词与课后验收方法。</span>
+      </div>
       <div class="learning-lesson-list">
         {[...workbuddy.lessons].reverse().map((lesson) => {
           const article = lesson.articleSlug ? courseArticles.get(lesson.articleSlug) : undefined;
+          const displayName = article ? article.title.replace(/^视频教程笔记 · /, "") : lesson.title;
           const href = article ? `/blog/${article.slug}?kind=video` : workbuddy.playlistUrl;
           return <a class="learning-lesson-row" href={href} target={article ? undefined : "_blank"} rel={article ? undefined : "noreferrer"}>
             <span class="learning-lesson-number">{String(lesson.number).padStart(2, "0")}</span>
-            <span class="learning-lesson-copy"><strong>{lesson.title}</strong><small>{lesson.outcome}</small></span>
+            <span class="learning-lesson-copy"><strong>{displayName}</strong><small>{lesson.outcome}</small></span>
             {lesson.hasDownload && <span class="learning-download-flag">有下载</span>}
             <ArrowUpRight size={17} aria-hidden="true" />
           </a>;
@@ -65,10 +118,11 @@ const jsonLd = [
       <div class="learning-lesson-list">
         {[...cola.lessons].reverse().map((lesson) => {
           const article = lesson.articleSlug ? courseArticles.get(lesson.articleSlug) : undefined;
+          const displayName = article ? article.title.replace(/^视频教程笔记 · /, "") : lesson.title;
           const href = article ? `/blog/${article.slug}?kind=video` : cola.playlistUrl;
           return <a class="learning-lesson-row" href={href} target={article ? undefined : "_blank"} rel={article ? undefined : "noreferrer"}>
             <span class="learning-lesson-number">{String(lesson.number).padStart(2, "0")}</span>
-            <span class="learning-lesson-copy"><strong>{lesson.title}</strong><small>{lesson.outcome}</small></span>
+            <span class="learning-lesson-copy"><strong>{displayName}</strong><small>{lesson.outcome}</small></span>
             <ArrowUpRight size={17} aria-hidden="true" />
           </a>;
         })}
