@@ -93,6 +93,31 @@ const articleJsonLd = {
       </aside>
     )}
 
+    {(article.slug.startsWith("video-cola-") || article.tags?.includes("Cola")) && (
+      <aside class="article-benefit-card" aria-label="课程实操环境与学员福利">
+        <div class="article-benefit-card__header">
+          <span class="article-benefit-card__icon" aria-hidden="true">🎁</span>
+          <div>
+            <strong>实操环境推荐与学员专属福利</strong>
+            <p>本系列实战课基于 Cola 智能体工作台演示。内置 ChatGPT、Claude Code 等海外顶尖模型，国内支持支付宝直接使用。</p>
+          </div>
+        </div>
+        <div class="article-benefit-card__inner">
+          <p class="article-benefit-card__text">
+            访问官方体验入口 <a href="https://colaos.ai/" target="_blank" rel="noreferrer">colaos.ai</a>，填写推荐码 <code>HU-U7DSEXZJ</code> 可领取 <strong>3 天会员体验</strong>，Ox 模型限时免费。
+          </p>
+          <div class="article-benefit-card__actions">
+            <a class="button button--primary article-benefit-card__btn" href="https://colaos.ai/" target="_blank" rel="noreferrer">
+              访问 colaos.ai 体验 ↗
+            </a>
+            <span class="article-benefit-card__code">
+              推荐码：<strong>HU-U7DSEXZJ</strong>
+            </span>
+          </div>
+        </div>
+      </aside>
+    )}
+
     <div class="article-body">
       {article.contentHtml ? (
         <Fragment set:html={article.contentHtml} />

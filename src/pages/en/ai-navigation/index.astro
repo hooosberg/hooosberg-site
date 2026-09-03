@@ -16,6 +16,7 @@ type ToolItem = {
   tags: string[];
   badge?: string;
   tone?: "cn" | "global" | "default";
+  promoNotice?: string;
 };
 
 type ToolSection = {
@@ -275,11 +276,12 @@ const codebuddy = workBuddyCn;
 
 const cola = tool({
   name: "Cola",
-  description: "An international-model service for Chinese users, with ChatGPT, Claude Code, and more; China-friendly registration and Alipay payment are supported. Referral code KQJV8T includes a one-day membership trial.",
-  url: "https://colaos.ai",
+  description: "Desktop & mobile AI workstation featuring built-in ChatGPT, Claude Code, and top models; full workflow support with domestic Alipay in China.",
+  url: "https://colaos.ai/",
   country: "cn",
-  tags: ["international models", "Alipay", "ChatGPT"],
-  badge: "Member perk",
+  tags: ["international models", "Alipay", "ChatGPT", "Claude Code"],
+  badge: "VIP Perk",
+  promoNotice: "Code: HU-U7DSEXZJ (Claim 3-day VIP, Ox models free for limited time)",
 });
 
 const cozeAgent = tool({
@@ -800,10 +802,21 @@ const jsonLd = [
   mainClass="main--ai-directory"
   jsonLd={jsonLd}
 >
-  <div class="directory-mode-toggle" role="tablist" aria-label="AI guide mode">
-    <button class="is-active" type="button" role="tab" aria-selected="true" data-directory-mode="ranking">Workflow Rankings</button>
-    <button type="button" role="tab" aria-selected="false" data-directory-mode="alternatives">Regional Alternatives</button>
-    <button type="button" role="tab" aria-selected="false" data-directory-mode="sanguo">AI Model Three Kingdoms</button>
+  <div class="directory-top-bar">
+    <div class="directory-mode-toggle" role="tablist" aria-label="AI guide mode">
+      <button class="is-active" type="button" role="tab" aria-selected="true" data-directory-mode="ranking">Workflow Rankings</button>
+      <button type="button" role="tab" aria-selected="false" data-directory-mode="alternatives">Regional Alternatives</button>
+      <button type="button" role="tab" aria-selected="false" data-directory-mode="sanguo">AI Model Three Kingdoms</button>
+    </div>
+
+    <a class="directory-cola-sponsor" href="https://colaos.ai/" target="_blank" rel="noreferrer" title="Try top global models on Cola, claim 3-day VIP with referral code">
+      <span class="directory-cola-sponsor__pill">VIP Offer</span>
+      <span class="directory-cola-sponsor__main">
+        <strong>Global Top Models on Cola</strong>
+        <span class="directory-cola-sponsor__sub">Built-in ChatGPT / Claude Code · Code <code>HU-U7DSEXZJ</code> for 3-Day VIP</span>
+      </span>
+      <span class="directory-cola-sponsor__cta">colaos.ai ↗</span>
+    </a>
   </div>
 
   <section class="ai-directory-shell" data-directory-shell data-mode="ranking" data-directory-current={directoryGroups[0].id} data-directory-filtered="false">
@@ -873,6 +886,12 @@ const jsonLd = [
                               <span class="directory-card__tags">
                                 {item.tags.map((tag) => <span>{tag}</span>)}
                               </span>
+                              {item.promoNotice && (
+                                <span class="directory-card__promo">
+                                  <span class="directory-card__promo-tag">VIP Offer</span>
+                                  <span>{item.promoNotice}</span>
+                                </span>
+                              )}
                             </span>
                             <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
                           </a>
@@ -915,6 +934,12 @@ const jsonLd = [
                         <span class="directory-card__tags">
                           {item.tags.map((tag) => <span>{tag}</span>)}
                         </span>
+                        {item.promoNotice && (
+                          <span class="directory-card__promo">
+                            <span class="directory-card__promo-tag">VIP Offer</span>
+                            <span>{item.promoNotice}</span>
+                          </span>
+                        )}
                       </span>
                       <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
                     </a>

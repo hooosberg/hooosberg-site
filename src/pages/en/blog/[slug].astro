@@ -97,6 +97,31 @@ const articleJsonLd = {
       </aside>
     )}
 
+    {(article.slug.startsWith("video-cola-") || article.tags?.includes("Cola")) && (
+      <aside class="article-benefit-card" aria-label="Course practice environment and student perk">
+        <div class="article-benefit-card__header">
+          <span class="article-benefit-card__icon" aria-hidden="true">🎁</span>
+          <div>
+            <strong>Recommended Practice Environment & Student Perk</strong>
+            <p>This hands-on series uses Cola AI workstation. Experience top global models (built-in ChatGPT, Claude Code) with full Alipay payment support.</p>
+          </div>
+        </div>
+        <div class="article-benefit-card__inner">
+          <p class="article-benefit-card__text">
+            Visit <strong><a href="https://colaos.ai/" target="_blank" rel="noreferrer">colaos.ai</a></strong> and enter student referral code <code>HU-U7DSEXZJ</code> to claim <strong>3-day VIP access</strong>, with Ox models free for a limited time.
+          </p>
+          <div class="article-benefit-card__actions">
+            <a class="button button--primary article-benefit-card__btn" href="https://colaos.ai/" target="_blank" rel="noreferrer">
+              Try colaos.ai ↗
+            </a>
+            <span class="article-benefit-card__code">
+              Code: <strong>HU-U7DSEXZJ</strong>
+            </span>
+          </div>
+        </div>
+      </aside>
+    )}
+
     <div class="article-body">
       {article.contentHtml ? (
         <Fragment set:html={article.contentHtml} />

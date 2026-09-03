@@ -17,6 +17,7 @@ type ToolItem = {
   badge?: string;
   tone?: "cn" | "global" | "default";
   actionLabel?: string;
+  promoNotice?: string;
 };
 
 type ToolSection = {
@@ -299,12 +300,13 @@ const traeWorkOffice = tool({
 
 const cola = tool({
   name: "Cola",
-  description: "桌面与移动端 AI 工作台，可在国内流程中使用多模型与 Agent 工作流；提供 macOS、Windows、iOS 和 Android 下载入口。",
-  url: "https://colaos.ai/download.html",
+  description: "桌面与移动端 AI 工作台，内置 ChatGPT、Claude Code 等海外顶尖模型，支持多模型与 Agent 工作流；国内流程支持支付宝。",
+  url: "https://colaos.ai/",
   country: "cn",
-  tags: ["桌面工作台", "多模型", "国内可用"],
+  tags: ["桌面工作台", "多模型", "国内直连", "支持支付宝"],
   badge: "国产办公 #6",
-  actionLabel: "下载 Cola",
+  actionLabel: "前往体验 Cola",
+  promoNotice: "推荐码：HU-U7DSEXZJ（填码领 3 天会员，Ox模型限时免费）",
 });
 
 const doubaoWork = tool({
@@ -892,10 +894,21 @@ const jsonLd = [
   mainClass="main--ai-directory"
   jsonLd={jsonLd}
 >
-  <div class="directory-mode-toggle" role="tablist" aria-label="AI 导航模式">
-    <button class="is-active" type="button" role="tab" aria-selected="true" data-directory-mode="ranking">分类排行</button>
-    <button type="button" role="tab" aria-selected="false" data-directory-mode="alternatives">国内平替</button>
-    <button type="button" role="tab" aria-selected="false" data-directory-mode="sanguo">AI模型三国榜</button>
+  <div class="directory-top-bar">
+    <div class="directory-mode-toggle" role="tablist" aria-label="AI 导航模式">
+      <button class="is-active" type="button" role="tab" aria-selected="true" data-directory-mode="ranking">分类排行</button>
+      <button type="button" role="tab" aria-selected="false" data-directory-mode="alternatives">国内平替</button>
+      <button type="button" role="tab" aria-selected="false" data-directory-mode="sanguo">AI模型三国榜</button>
+    </div>
+
+    <a class="directory-cola-sponsor" href="https://colaos.ai/" target="_blank" rel="noreferrer" title="访问 colaos.ai 体验海外顶尖模型，填写推荐码领会员">
+      <span class="directory-cola-sponsor__pill">福利</span>
+      <span class="directory-cola-sponsor__main">
+        <strong>海外顶级模型 Cola</strong>
+        <span class="directory-cola-sponsor__sub">内置 ChatGPT / Claude Code · 推荐码 <code>HU-U7DSEXZJ</code> 领 3 天会员</span>
+      </span>
+      <span class="directory-cola-sponsor__cta">colaos.ai ↗</span>
+    </a>
   </div>
 
   <section class="ai-directory-shell" data-directory-shell data-mode="ranking" data-directory-current={directoryGroups[0].id} data-directory-filtered="false">
@@ -965,6 +978,12 @@ const jsonLd = [
                               <span class="directory-card__tags">
                                 {item.tags.map((tag) => <span>{tag}</span>)}
                               </span>
+                              {item.promoNotice && (
+                                <span class="directory-card__promo">
+                                  <span class="directory-card__promo-tag">专属福利</span>
+                                  <span>{item.promoNotice}</span>
+                                </span>
+                              )}
                               {item.actionLabel && <span class="directory-card__action">{item.actionLabel}</span>}
                             </span>
                             <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
@@ -1008,6 +1027,12 @@ const jsonLd = [
                         <span class="directory-card__tags">
                           {item.tags.map((tag) => <span>{tag}</span>)}
                         </span>
+                        {item.promoNotice && (
+                          <span class="directory-card__promo">
+                            <span class="directory-card__promo-tag">专属福利</span>
+                            <span>{item.promoNotice}</span>
+                          </span>
+                        )}
                         {item.actionLabel && <span class="directory-card__action">{item.actionLabel}</span>}
                       </span>
                       <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />

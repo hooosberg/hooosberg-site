@@ -110,8 +110,21 @@ const jsonLd = [
     <section class="learning-panel" data-learning-panel="cola" hidden>
       <div class="series-intro">
         <div class="series-book series-book--practice" aria-hidden="true"><Wrench size={32} /></div>
-        <div><h2>{cola.title}</h2><p class="series-tool-line">{cola.toolLine}</p><p>{cola.description}</p></div>
-        <a class="button button--primary series-playlist" href={cola.playlistUrl} target="_blank" rel="noreferrer">直接看 B 站合集 <ExternalLink size={16} aria-hidden="true" /></a>
+        <div>
+          <h2>{cola.title}</h2>
+          <p class="series-tool-line">{cola.toolLine}</p>
+          <p>{cola.description}</p>
+          <div class="series-cola-perk">
+            <span class="series-cola-perk__badge">学员专属福利</span>
+            <span>
+              推荐实战环境 Cola（内置 ChatGPT / Claude Code 等海外顶尖模型，国内支持支付宝）：访问 <a href="https://colaos.ai/" target="_blank" rel="noreferrer">colaos.ai</a> 填写推荐码 <code>HU-U7DSEXZJ</code> 可领取 <strong>3 天会员体验</strong>，Ox 模型限时免费。
+            </span>
+          </div>
+        </div>
+        <div class="series-intro-actions">
+          <a class="button button--primary series-playlist" href={cola.playlistUrl} target="_blank" rel="noreferrer">直接看 B 站合集 <ExternalLink size={16} aria-hidden="true" /></a>
+          <a class="button button--outline series-cola-btn" href="https://colaos.ai/" target="_blank" rel="noreferrer">体验 Cola 领福利 ↗</a>
+        </div>
       </div>
       <div class="series-sync-note"><Lightbulb size={20} aria-hidden="true" /><p>实战课程持续更新，笔记按课件与实战操作整理；视频课程与操作文档保持同步更新。</p></div>
       <div class="learning-list-header"><div><p>已整理 {cola.lessons.length} 篇 · 课件同步整理</p><h3>按实战案例看笔记与提示词</h3></div><span>每篇页面顶部都保留 B 站实战合集入口。</span></div>
