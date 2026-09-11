@@ -60,146 +60,126 @@ const tools = [
 const courseStages = [
   {
     step: "01",
-    stage: "第 1 篇 · 认知安全",
-    range: "第 01 ~ 05 课",
-    title: "安全边界与工作区",
-    action: "四目录安全隔离 · 最小权限 · 六要素提示词",
-    deliverable: "四目录规范 / 跟进表回填 / 动作清单",
-    tags: "四目录隔离 · 最小权限 · 规范Prompt",
-    color: "#10b981",
-    cx: 180,
-    cy: 214,
+    title: "先解决手边的事",
+    desc: "写通知、理资料、做会议待办，让第一件小事立刻轻松下来。",
+    jobs: "行政 · 文秘 · 老师 · 店长",
+    icon: FileText,
   },
   {
     step: "02",
-    stage: "第 2 篇 · 高频交付",
-    range: "第 06 ~ 13 课",
-    title: "高频办公核心单点",
-    action: "Word保真回填 · 发票OCR置信度 · Excel清洗与算薪",
-    deliverable: "Word保真合同 / 业务工资表 / 进销存PPT",
-    tags: "Word保真 · 发票OCR · 算薪与PPT",
-    color: "#0d9488",
-    cx: 380,
-    cy: 168,
+    title: "处理文档和表格",
+    desc: "填合同、核发票、合并乱表、算工资，把重复操作变成清楚步骤。",
+    jobs: "财务 · 人事 · 运营 · 零售",
+    icon: FileSpreadsheet,
   },
   {
     step: "03",
-    stage: "第 3 篇 · 信息扩展",
-    range: "第 14 ~ 18 课",
-    title: "跨场景与外部信息",
-    action: "企业制度知识库 · 招投标初筛 · 客户背调 · 群聊台账",
-    deliverable: "制度知识库 / 招投标卡 / 业务台账",
-    tags: "制度知识库 · 招投标初筛 · 群聊台账",
-    color: "#0284c7",
-    cx: 580,
-    cy: 102,
+    title: "让沟通有结果",
+    desc: "整理客户信息、回复消息、跟进事项，不再靠翻聊天记录找答案。",
+    jobs: "销售 · 客服 · 商务 · 采购",
+    icon: MessageSquare,
   },
   {
     step: "04",
-    stage: "第 4 篇 · 专属系统",
-    range: "第 19 ~ 23 课",
-    title: "专属自动化智能体",
-    action: "封装专属Skill · 周定时巡检 · 发信拦截 · 单页工作台",
-    deliverable: "专属Skill / 周定时巡检 / 单页HTML工作台",
-    tags: "专属Skill · 周定时巡检 · 单页工作台",
-    color: "#2563eb",
-    cx: 780,
-    cy: 58,
+    title: "把方法留下来",
+    desc: "把反复做的工作整理成自己的流程，换软件也能接着用。",
+    jobs: "项目 · 管理 · 创业 · 团队协作",
+    icon: Wrench,
   },
 ];
 
 const caseStudies = [
   {
-    chapter: "Word 模板",
-    title: "Word 模板跨文件保真填报",
+    chapter: "行政 · 文书 · 审批",
+    title: "合同与申请表原样填报",
     count: "第 07 课",
     lessons: [
-      "严格遵守版式、表格、页眉页脚格式",
-      "跨合同、订单与附件多文件精准取值",
-      "在副本中保真回填并保留字段来源追踪",
+      "无论格式多复杂的合同或表格，原样保留排版与表格结构",
+      "从多份资料或邮件中精准提取关键信息，一键填入对应格子",
+      "告别手动复制粘贴，填完自动保留数据出处，方便随时复核",
     ],
   },
   {
-    chapter: "多模态 OCR",
-    title: "拍照单据 OCR 批量识别与核验",
+    chapter: "财务 · 会计 · 出纳",
+    title: "发票与报销单批量拍照核对",
     count: "第 08 课",
     lessons: [
-      "多模态图片/PDF 发票与单据批量提取",
-      "关键金额、日期、发票号置信度校验",
-      "低于置信度阈值自动提示人工二次复核",
+      "手机拍照发票、电子发票、报销单据一键批量提取",
+      "关键金额、日期、发票代码自动交叉核算对账，不出差错",
+      "对模糊或可疑数据自动标出，提示人工快速核实确认",
     ],
   },
   {
-    chapter: "表格与算薪",
-    title: "Excel 脏数据清洗与业务算薪",
+    chapter: "人事 · 店长 · 综合",
+    title: "多部门乱表格合并与自动算薪",
     count: "第 09~11 课",
     lessons: [
-      "表格数据质量诊断、去重去空格与变更日志",
-      "建立异构字段映射字典与批量堆叠合并",
-      "自然语言提成规则转化为多岗位自动算薪",
+      "各部门、多店铺提交的不同格式表格自动纠错、去重清洗",
+      "把口头或文档里的复杂提成、考勤扣款规则转为自动计算",
+      "支持多岗位自动核算工资条，保留计算步骤随时抽查",
     ],
   },
   {
-    chapter: "分析与汇报",
-    title: "进销存多维交叉分析与 PPT 制作",
+    chapter: "运营 · 零售 · 仓储",
+    title: "进销存交叉分析与一键做 PPT",
     count: "第 12~13 课",
     lessons: [
-      "销售、库存、目标多表联动计算售罄率/存销比",
-      "缺货滞销智能识别，建议强绑定行号证据",
-      "从分析结果提炼决策大纲，一键生成汇报 PPT",
+      "销售表与库存表多表联动分析，快速算出售罄率与存销比",
+      "一眼揪出热卖缺货或积压滞销商品，给出精准调整建议",
+      "从分析结论一键生成带图表、排版工整的高管汇报演示 PPT",
     ],
   },
   {
-    chapter: "群聊与台账",
-    title: "海量长群聊提取并自动记台账",
-    count: "第 17 课",
+    chapter: "商务 · 市场 · 销售",
+    title: "招投标初筛与客户背景调查",
+    count: "第 15~16 课",
     lessons: [
-      "从一天几百条闲聊中剥离订单与交期事件",
-      "多要素结构化提取并自动追加到业务台账",
-      "每天自动提炼未决事项，生成主管晨报",
+      "全网各大招投标平台自动初筛符合预算与地域的新商机",
+      "拜访客户前自动搜集背景信息，挖掘企业真实痛点与合作点",
+      "一键生成针对该客户的沟通破冰词与定制商务邮件",
     ],
   },
   {
-    chapter: "系统与工作流",
-    title: "经验封装 Skill 与周定时自动巡检",
-    count: "第 19~22 课",
+    chapter: "客服 · 项目 · 管理",
+    title: "客户群聊自动记账与定时巡检",
+    count: "第 17 & 19~22 课",
     lessons: [
-      "将成功操作一键保存为专属 Skill 免重复贴词",
-      "配置招投标初筛每周定时调度与失败留痕",
-      "搭建知识库、台账、分析一体化可视化工作台",
+      "一天上百条微信群消息中，自动提取客户加单与交期要求",
+      "自动追加到每日业务台账，清晨准时生成未决事项主管晨报",
+      "把常用工作流程存为一键执行，每周定时自动巡检提醒",
     ],
   },
 ];
 
 const courseFeatures = [
   {
-    title: "腾讯 WorkBuddy 标准主讲环境",
-    desc: "全场景桌面 Agent 标杆，直接读写本地文件、拆解多步骤任务，不绑定单一软件，通用方法可自由迁移至各类主流工具。",
+    title: "普通人学 AI，不需要先学编程",
+    desc: "没有一行复杂的代码门槛。课程全程使用日常普通中文提需求，只要你会打字、平时用电脑办公，人人都能零基础轻松上手。",
+    icon: Users,
+  },
+  {
+    title: "不是学 100 个工具，而是学会解决问题",
+    desc: "软件总会更新换代，但解决工作问题的方法不会变。教你掌握拆解任务、安全边界、格式约束与结果核验的通用底层逻辑，换什么软件都能自如迁移。",
+    icon: Wrench,
+  },
+  {
+    title: "不要追模型，先把工作流程跑通",
+    desc: "不管底座模型多花哨，先把自己的电脑文件、业务表格和交付流程跑通。以交付真实可用的 Word、Excel、PPT 为唯一检验标准。",
     icon: Zap,
   },
   {
     title: "23 套仿真随课实操练习素材包",
-    desc: "提供 23 套仿真业务表格、发票图片、会议记录与标准模板文件，解压即练，跟着视频一步步跑通真实交付。",
+    desc: "随课提供 23 套仿真真实业务表格、发票单据图片、会议记录与标准格式模板，解压即练，跟着视频一步步做出一模一样的成果。",
     icon: BookOpen,
   },
   {
     title: "全流程提示词与操作指令库（TXT）",
-    desc: "随课赠送全套提示词与操作指令 TXT，清晰标明占位符与替换规则，方便随时复制，告别反复调优试错。",
+    desc: "随课附赠全套结构化提示词与操作指令 TXT，清晰标明占位符与替换规则，方便随时复制，告别反复调优与鸡同鸭讲。",
     icon: FileText,
   },
   {
-    title: "结果严格可验收，拒绝黑盒忽悠",
-    desc: "不以“AI说完成了”为结束，逐页逐项打开真实的 Word、Excel、PPT 或自动化日志检查核数，确保交付可靠。",
-    icon: ShieldCheck,
-  },
-  {
-    title: "覆盖日常高频痛点，全岗位适用",
-    desc: "覆盖行政/HR、运营/销售、财务/数据分析、业务管理等多岗位，帮团队建立共同认知、安全边界与自动化标准。",
-    icon: FileSpreadsheet,
-  },
-  {
     title: "专属学员微信交流与答疑支持",
-    desc: "提供专属学员微信交流渠道，遇到软件安装、模型调用、提示词优化或自动化流程卡点，随时在群内交流探讨。",
+    desc: "提供专属学员微信交流渠道。遇到工具使用、指令调优、复杂表格或流程卡点，随时在群内交流探讨，助你顺利通关。",
     icon: MessageSquare,
   },
 ];
@@ -207,91 +187,62 @@ const courseFeatures = [
 const faqs = [
   {
     q: "这门课程适合什么人学习？企业和个人都可以买吗？",
-    a: "企业和个人都非常适合！个人学习可以彻底告别繁琐机械的复制粘贴，大幅提升日常办公交付效率与个人职场竞争力；对于企业团队，课程全程强调四目录隔离、规范工作区与数据安全合规，非常适合作为团队普及 AI 智能体规范与自动化工作流的标准化实操内训教材。",
+    a: "非常适合！企业AI改造，先改人再改系统，这门课非常适合作为团队普及 AI 办公规范与自动化工作流的标准化实操教材；对于个人，普通人学 AI 不需要先学编程，只要你平时要处理 Word、Excel、单据发票、会议纪要或客户对接，都能立刻用上，彻底告别繁琐机械的加班复制粘贴。",
   },
   {
     q: "这门课程和市面上的普通 AI 聊天提问有什么本质区别？",
-    a: "普通聊天 AI 只是在网页对话框里生成文字建议，最后排版表格、汇总数据还是得自己做；而智能体（Agent）能真正深入电脑本地，自动读写 Excel、Word、PPT，批量整理文件、识别核对单据、汇总异构多表，并把成熟流程沉淀为专属 Skill，替你交付可验收的真实成果。",
+    a: "普通聊天 AI 只是在网页对话框里给你出建议，最终改表格、排版 Word、核算账目还是得你自己动手；而智能体（Agent）能真正深入电脑本地，自动读写 Excel、Word、PPT，批量整理文件、核对单据发票、清洗多部门乱表格，并把成熟流程沉淀为一键运行的套路，替你交付真实可验收的工作文件。",
   },
   {
     q: "学这门课对电脑有什么配置要求？Mac 和 Windows 都能用吗？",
-    a: "日常普通办公电脑即可，Windows 和 Mac 均完美支持！课程主讲环境腾讯 WorkBuddy 原生支持 Windows 与 macOS（包括 Intel 与 Apple Silicon 芯片），日常办公笔记本就能流畅实操，不需要购买昂贵的显卡或配置复杂开发环境。",
+    a: "日常普通办公电脑即可，Windows 和 Mac 均完美支持！课程主讲环境（如腾讯 WorkBuddy 等）原生支持 Windows 与 macOS（包括 Intel 与 Apple Silicon 芯片），日常普通办公笔记本就能流畅实操，不需要购买昂贵的独立显卡或配置复杂的开发环境。",
   },
   {
-    q: "购买后如何开始学习？支持手机和平板随时回看吗？",
-    a: "课程托管于哔哩哔哩官方付费专区（B 站课堂），购买后永久有效。手机 App、iPad 或电脑网页端均可随时随地超清回看，支持离线缓存与多倍速播放，碎片化时间也能随时随地学习。",
+    q: "为什么说“软件会换，工作方法不会换”？",
+    a: "如今各种 AI 工具和新模型层出不穷，很多教程追着新工具跑，几个月后软件改版教程就作废了。我们教的是通用的业务处理逻辑：怎么拆解目标、怎么隔离安全边界、怎么让 AI 原样填表、怎么核验数据真实性。掌握了这套工作方法，无论未来用什么软件，你都能自如迁移。",
   },
   {
     q: "配套的 23 套业务素材、Word 讲义和提示词在哪里获取？",
-    a: "购买课程后，在 B 站课程播放页右侧的【课件资料】区即可一键下载全套学员实战资料包（含 23 套随课仿真素材、Word 讲义与 TXT 提示词库）；同时本站「学习笔记」也同步公开了各课时的详细结构与复习要点。",
+    a: "购买课程后，在 B 站课程播放页右侧的【课件资料】区即可一键下载全套学员实操资料包（包含 23 套随课仿真素材、Word 讲义与 TXT 提示词库）；同时本站「学习笔记」也同步公开了各课时的复习要点。",
   },
   {
     q: "遇到操作卡点或想找同行交流怎么办？有学习交流群吗？",
-    a: "有的！购买付费课程的学员可在 B 站课程专区获取专属微信答疑交流渠道；同时我们官网（本站）页面底部也公开了作者微信与全网交流渠道。无论你是付费学员，还是在看免费绿皮书的小伙伴，都欢迎直接添加交流，共同探讨 AI 办公自动化！",
+    a: "有的！购买付费课程的学员可在 B 站课程专区获取专属微信答疑交流渠道；同时本站页面底部也公开了作者微信与全网交流渠道。无论你是付费学员，还是在看免费教程的小伙伴，都欢迎直接添加交流，共同探讨 AI 办公自动化！",
   },
 ];
 ---
 
 <BaseLayout
-  title="湖森堡AI_hooosberg | AI办公新手入门：智能体与自动化实战课程"
-  description="面向办公新手的 AI 智能体通识 + 真实业务实战 + 自动化方法课。以腾讯 WorkBuddy 为标准主讲环境，四篇 23 课系统实战，送 23 套随课素材包。"
+  title="湖森堡AI_hooosberg | AI办公新手入门课程"
+  description="企业AI改造先改人再改系统。面向办公新手的 AI 智能体通识与真实业务实战课程，不学编程、不背工具、先跑通工作流，送 23 套随课素材包。"
   jsonLd={buildHomeJsonLd("zh-CN")}
 >
-  <!-- Hero Section (对标 HappyAICoding 首屏简洁大气质感) -->
-  <section class="landing-hero" style="padding-top: 48px; padding-bottom: 56px;">
-    <div class="hero-grid" aria-hidden="true"></div>
-    <div class="hero-content" style="max-width: 820px; margin-inline: auto; text-align: center;">
-      <h1 style="font-size: clamp(34px, 5.2vw, 56px); line-height: 1.15; margin-bottom: 22px; font-weight: 850; letter-spacing: -0.02em;">
-        AI办公新手入门<br />智能体与自动化实战课程
-      </h1>
-
-      <p class="hero-subtitle" style="max-width: 700px; margin-inline: auto; font-size: clamp(15px, 2vw, 17.5px); line-height: 1.75; color: var(--muted);">
-        以腾讯 WorkBuddy 实战为主，面向办公新手的 AI 智能体通识与自动化实战教程。
-        以真实业务案例带你搞定文件整理、Word模板、单据OCR、Excel脏数据清洗、业务算薪与专属工作流。
-        让你零基础也能真正让 AI 替你交付真实工作文件！
-      </p>
-
-      <div class="hero-actions" style="margin-top: 36px; justify-content: center; gap: 16px;">
-        <a class="button button--primary button--xl" style="border-radius: 9999px; padding: 13px 32px; font-size: 16px; font-weight: 700;" href={bilibiliCourseUrl} target="_blank" rel="noreferrer">
-          购买课程
-          <ArrowRight size={17} aria-hidden="true" />
-        </a>
-        <a class="button button--secondary button--xl" style="border-radius: 9999px; padding: 13px 32px; font-size: 16px; font-weight: 700;" href={curriculumNoteUrl}>
-          课程目录
-        </a>
-      </div>
-
-      <div class="course-trust-badges" style="margin-top: 26px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
-        <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 18px; font-size: 13.5px; color: var(--muted);">
-          <span style="display: inline-flex; align-items: center; gap: 5px;">
-            <Check size={16} color="#10b981" /> 零基础极简上手
-          </span>
-          <span style="display: inline-flex; align-items: center; gap: 5px;">
-            <Check size={16} color="#10b981" /> 23套随课实操素材
-          </span>
-          <span style="display: inline-flex; align-items: center; gap: 5px; text-decoration: line-through; opacity: 0.7;">
-            标价¥299
-          </span>
-        </div>
-        <div style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center;">
-          <span style="background: rgba(16, 185, 129, 0.12); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3); padding: 3px 12px; border-radius: 9999px; font-size: 12.5px; font-weight: 750;">企业 / 个人均适用</span>
-          <span style="color: #2563eb; font-weight: 850; font-size: 15px;">
-            限时优惠 🔥 <span style="font-size: 17px;">¥199</span>
-          </span>
+  <section class="landing-hero landing-hero--course">
+    <div class="hero-grid course-hero__grid" aria-hidden="true"></div>
+    <div class="course-hero">
+      <div class="course-hero__copy">
+        <h1>AI办公新手入门课</h1>
+        <p class="course-hero__lead">不用学编程，也不用追着模型跑。</p>
+        <p class="course-hero__choice">从你手上的工作开始，把 AI 用进日常办公。</p>
+        <div class="hero-actions course-hero__actions">
+          <a class="button button--primary button--xl" href={bilibiliCourseUrl} target="_blank" rel="noreferrer">
+            开始系统学习
+            <ArrowRight size={17} aria-hidden="true" />
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 1: 课程内容精选 (对标 HappyAICoding 部分课程，最先出具体课程！) -->
+  <!-- Section 1: 课程内容精选 (覆盖各行各业高频痛点) -->
   <section class="landing-section" id="curriculum" style="padding-top: 20px;">
     <div class="section-heading section-heading--center">
       <div class="course-pill">
         <BookOpen size={14} />
-        <span>部分课程</span>
+        <span>真实业务场景</span>
       </div>
-      <h2>课程内容精选</h2>
-      <span>精心挑选的 AI 办公实战课程，从文件处理到自动化工作流，助你快速搞定工作交付</span>
+      <h2>覆盖各行各业的高频办公痛点</h2>
+      <span>行政文书、财务出纳、人事算薪、运营零售、商务销售、项目管理……少说技术术语，把你的实际工作问题逐个解决</span>
     </div>
 
     <div class="course-curriculum-grid">
@@ -322,206 +273,35 @@ const faqs = [
     </div>
   </section>
 
-  <!-- Section 2: 四篇 23 课难度阶梯与能力爬坡 (苹果美学平缓提升曲线：绿到蓝) -->
+  <!-- Section 2: 四个阶段学习路线 -->
   <section class="landing-section" id="curve">
     <div class="section-heading section-heading--center">
-      <div class="course-pill">
-        <Layers3 size={14} />
-        <span>学习路线</span>
-      </div>
-      <h2>四篇 23 课难度阶梯与能力爬坡</h2>
-      <span>符合苹果美学的平缓提升曲线：从零基础安全底座，到高频单点交付，再到信息扩展与个人专属自动化系统</span>
+      <h2>从一件小事，到自己的工作方法</h2>
+      <span>无论你做行政、财务、销售、运营还是项目管理，都从自己正在做的事开始。</span>
     </div>
 
-    <div class="apple-curve-board">
-      <div class="apple-curve-header">
-        <div class="apple-curve-meta">
-          <span class="apple-curve-axis-label">
-            <span class="apple-curve-axis-dot"></span>
-            能力进化科学坐标系 · 难度攀升曲线
-          </span>
-        </div>
-        <div class="apple-curve-meta" style="font-size: 12px; opacity: 0.85;">
-          平缓 S 形缓动曲线 · 点击节点/卡片交互
-        </div>
-      </div>
-
-      <!-- 科学网格系统与平缓 S 形缓动曲线 (难度 高中低 · 纯净绿到蓝渐变 · 悬浮投影 · 0 黑色块) -->
-      <div class="apple-curve-chart-wrap" aria-label="能力进化科学曲线图">
-        <svg class="apple-curve-svg" viewBox="0 0 960 290" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <!-- 纯净绿到蓝主线条渐变 -->
-            <linearGradient id="scientificLineGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#10b981" />
-              <stop offset="35%" stop-color="#0d9488" />
-              <stop offset="70%" stop-color="#0284c7" />
-              <stop offset="100%" stop-color="#2563eb" />
-            </linearGradient>
-            <!-- 纯净悬浮阴影渐变 (绿到蓝彩色环境光投影) -->
-            <linearGradient id="scientificShadowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#10b981" />
-              <stop offset="35%" stop-color="#0d9488" />
-              <stop offset="70%" stop-color="#0284c7" />
-              <stop offset="100%" stop-color="#2563eb" />
-            </linearGradient>
-          </defs>
-
-          <!-- 科学网格系统 (Scientific Grid Lines) -->
-          <!-- 水平网格线 (对齐 难度 高、中、低、起步) -->
-          <line x1="75" y1="55" x2="900" y2="55" stroke="var(--line-soft)" stroke-dasharray="3 4" stroke-width="1" opacity="0.8" />
-          <line x1="75" y1="110" x2="900" y2="110" stroke="var(--line-soft)" stroke-dasharray="2 3" stroke-width="0.8" opacity="0.45" />
-          <line x1="75" y1="165" x2="900" y2="165" stroke="var(--line-soft)" stroke-dasharray="3 4" stroke-width="1" opacity="0.8" />
-          <line x1="75" y1="215" x2="900" y2="215" stroke="var(--line-soft)" stroke-dasharray="3 4" stroke-width="1" opacity="0.8" />
-
-          <!-- 纵向阶段刻度网格线 (精准对齐 4 个节点) -->
-          <line x1="180" y1="45" x2="180" y2="255" stroke="var(--line-soft)" stroke-dasharray="3 5" stroke-width="1" opacity="0.6" />
-          <line x1="380" y1="45" x2="380" y2="255" stroke="var(--line-soft)" stroke-dasharray="3 5" stroke-width="1" opacity="0.6" />
-          <line x1="580" y1="45" x2="580" y2="255" stroke="var(--line-soft)" stroke-dasharray="3 5" stroke-width="1" opacity="0.6" />
-          <line x1="780" y1="45" x2="780" y2="255" stroke="var(--line-soft)" stroke-dasharray="3 5" stroke-width="1" opacity="0.6" />
-
-          <!-- 左侧 Y 轴坐标轴与刻度：难度 高、中、低、起步 -->
-          <line x1="75" y1="40" x2="75" y2="255" stroke="var(--border)" stroke-width="1.5" />
-          <!-- Y 轴刻度微标 -->
-          <line x1="70" y1="55" x2="75" y2="55" stroke="var(--border)" stroke-width="1.5" />
-          <line x1="70" y1="165" x2="75" y2="165" stroke="var(--border)" stroke-width="1.5" />
-          <line x1="70" y1="215" x2="75" y2="215" stroke="var(--border)" stroke-width="1.5" />
-          <line x1="70" y1="255" x2="75" y2="255" stroke="var(--border)" stroke-width="1.5" />
-
-          <text x="64" y="59" font-size="12" font-family="system-ui, sans-serif" font-weight="750" fill="var(--text)" text-anchor="end">高</text>
-          <text x="64" y="169" font-size="12" font-family="system-ui, sans-serif" font-weight="750" fill="var(--muted)" text-anchor="end">中</text>
-          <text x="64" y="219" font-size="12" font-family="system-ui, sans-serif" font-weight="750" fill="var(--muted)" text-anchor="end">低</text>
-          <text x="64" y="259" font-size="11" font-family="system-ui, sans-serif" font-weight="600" fill="var(--muted)" text-anchor="end">起步</text>
-
-          <!-- 底部 X 轴基准轴与阶段文字 -->
-          <line x1="75" y1="255" x2="900" y2="255" stroke="var(--border)" stroke-width="1.5" />
-          <text x="180" y="275" font-size="11.5" font-family="ui-monospace, monospace" font-weight="700" fill="var(--muted)" text-anchor="middle">第 01~05 课</text>
-          <text x="380" y="275" font-size="11.5" font-family="ui-monospace, monospace" font-weight="700" fill="var(--muted)" text-anchor="middle">第 06~13 课</text>
-          <text x="580" y="275" font-size="11.5" font-family="ui-monospace, monospace" font-weight="700" fill="var(--muted)" text-anchor="middle">第 14~18 课</text>
-          <text x="780" y="275" font-size="11.5" font-family="ui-monospace, monospace" font-weight="700" fill="var(--muted)" text-anchor="middle">第 19~23 课</text>
-
-          <!-- 悬浮阴影层 (弥散彩色环境光投影 · 显式 fill:none 彻底杜绝黑斑) -->
-          <path
-            class="curve-line-shadow"
-            d="M 80 220 C 420 220, 540 55, 880 55"
-            fill="none"
-            stroke="url(#scientificShadowGrad)"
-            stroke-width="10"
-            stroke-linecap="round"
-            opacity="0.25"
-            transform="translate(0, 6)"
-          />
-
-          <!-- 极简经典 S 形缓动主曲线 (前面缓慢、中间快、后面缓慢 · 显式 fill:none · 5.5px 粗) -->
-          <path
-            class="curve-line-main"
-            d="M 80 220 C 420 220, 540 55, 880 55"
-            fill="none"
-            stroke="url(#scientificLineGrad)"
-            stroke-width="5.5"
-            stroke-linecap="round"
-          />
-
-          <!-- 4 个可交互大节点 -->
-          {courseStages.map((stage, idx) => (
-            <g
-              class="curve-node-group"
-              data-node-index={idx}
-              data-active={idx === 0 ? "true" : "false"}
-              tabindex="0"
-              role="button"
-              aria-label={`查看${stage.title}`}
-            >
-              <circle class="curve-node-ring" cx={stage.cx} cy={stage.cy} r="15" fill={stage.color} fill-opacity="0.2" />
-              <circle class="curve-node-center" cx={stage.cx} cy={stage.cy} r="8" fill="var(--surface-solid)" stroke={stage.color} stroke-width="3" />
-              <circle cx={stage.cx} cy={stage.cy} r="3" fill={stage.color} />
-              <!-- 节点编号标签 -->
-              <rect x={stage.cx - 18} y={stage.cy - 27} width="36" height="16" rx="5" fill="var(--surface-solid)" stroke={stage.color} stroke-width="1.2" />
-              <text x={stage.cx} y={stage.cy - 15} font-size="9" font-family="ui-monospace, monospace" font-weight="800" fill={stage.color} text-anchor="middle">P{idx + 1}</text>
-            </g>
-          ))}
-
-          <!-- 灵动岛交互气泡浮层 (跟随激活节点平滑移动，智能限位不贴边) -->
-          <g class="curve-floating-tooltip" id="curveDynamicTooltip" transform="translate(180, 168)">
-            <rect x="-140" y="-32" width="280" height="42" rx="10" fill="var(--surface-solid)" stroke={courseStages[0].color} stroke-width="1.5" />
-            <text id="tooltipAction" x="0" y="-17" font-size="11.5" font-family="system-ui, sans-serif" font-weight="700" fill="var(--text)" text-anchor="middle">{courseStages[0].action}</text>
-            <text id="tooltipDeliverable" x="0" y="-3" font-size="10.5" font-family="system-ui, sans-serif" font-weight="600" fill={courseStages[0].color} text-anchor="middle">✔ {courseStages[0].deliverable}</text>
-          </g>
-        </svg>
-      </div>
-
-      <!-- 四个极简精炼卡片 (纯净极简 · 点击或悬浮联动) -->
-      <div class="apple-curve-cards">
-        {courseStages.map((stage, idx) => (
-          <div
-            class="apple-curve-step-card"
-            data-card-index={idx}
-            data-active={idx === 0 ? "true" : "false"}
-            style={`--step-color: ${stage.color};`}
-            role="button"
-            tabindex="0"
-          >
-            <div class="apple-curve-step-card__top">
-              <span class="apple-curve-step-pill" style={`color: ${stage.color}; background: color-mix(in srgb, ${stage.color} 12%, transparent);`}>
-                {stage.stage}
-              </span>
-              <span class="apple-curve-step-range">{stage.range}</span>
-            </div>
-            <h3>{stage.title}</h3>
-            <p class="apple-curve-step-deliverable">{stage.tags}</p>
-          </div>
-        ))}
-      </div>
+    <div class="course-stage-list">
+      {courseStages.map((stage) => (
+        <article class="course-stage">
+          <div class="course-stage__number">{stage.step}</div>
+          <div class="course-stage__icon"><stage.icon size={22} aria-hidden="true" /></div>
+          <h3>{stage.title}</h3>
+          <p>{stage.desc}</p>
+          <span>{stage.jobs}</span>
+        </article>
+      ))}
     </div>
-
-    <script is:inline define:vars={{ stagesData: courseStages }}>
-      (() => {
-        const nodeGroups = document.querySelectorAll("#curve .curve-node-group");
-        const cards = document.querySelectorAll("#curve .apple-curve-step-card");
-        const tooltip = document.getElementById("curveDynamicTooltip");
-        const tooltipAction = document.getElementById("tooltipAction");
-        const tooltipDeliverable = document.getElementById("tooltipDeliverable");
-
-        const setActive = (index) => {
-          const item = stagesData[index];
-          if (!item) return;
-          nodeGroups.forEach((n, i) => n.setAttribute("data-active", String(i === index)));
-          cards.forEach((c, i) => c.setAttribute("data-active", String(i === index)));
-
-          if (tooltip) {
-            // 智能横向约束在 160 ~ 800 之间，确保气泡始终在视野中心不溢出边缘
-            const clampedX = Math.min(Math.max(item.cx, 160), 800);
-            tooltip.setAttribute("transform", `translate(${clampedX}, ${item.cy - 48})`);
-            const rect = tooltip.querySelector("rect");
-            if (rect) rect.setAttribute("stroke", item.color);
-          }
-          if (tooltipAction) tooltipAction.textContent = item.action;
-          if (tooltipDeliverable) {
-            tooltipDeliverable.textContent = `✔ ${item.deliverable}`;
-            tooltipDeliverable.setAttribute("fill", item.color);
-          }
-        };
-
-        nodeGroups.forEach((n) => {
-          n.addEventListener("click", () => setActive(Number(n.dataset.nodeIndex)));
-          n.addEventListener("mouseenter", () => setActive(Number(n.dataset.nodeIndex)));
-        });
-        cards.forEach((c) => {
-          c.addEventListener("click", () => setActive(Number(c.dataset.cardIndex)));
-          c.addEventListener("mouseenter", () => setActive(Number(c.dataset.cardIndex)));
-        });
-      })();
-    </script>
   </section>
 
-  <!-- Section 3: 课程核心优势与实操环境 (卖点与环境整合) -->
+  <!-- Section 3: 课程核心优势与实操环境 (卖点与理念整合) -->
   <section class="landing-section" id="features">
     <div class="section-heading section-heading--center">
       <div class="course-pill">
         <Sparkles size={14} />
-        <span>核心卖点</span>
+        <span>核心优势</span>
       </div>
       <h2>为什么这门课能帮你真正搞定办公自动化？</h2>
-      <span>不讲虚的，不随软件更迭而过时，以交付结果为唯一的衡量标准</span>
+      <span>企业AI改造，先改人再改系统。不追模型、不学编程，以真实交付结果为唯一衡量标准</span>
     </div>
 
     <div class="course-features-grid">
@@ -551,7 +331,7 @@ const faqs = [
     <div class="course-pricing-wrapper">
       <div class="course-pricing-card">
         <div class="course-pricing-tag">限时特惠</div>
-        <h3>AI办公新手入门：智能体与自动化实战</h3>
+        <h3>AI办公新手入门课程</h3>
 
         <div class="course-price-box">
           <div class="course-price-original">标价 ¥299</div>
@@ -563,13 +343,13 @@ const faqs = [
         </div>
 
         <p class="course-pricing-desc">
-          系统全面的 AI 办公自动化实战课，从零到一建立你的个人智能体工作流体系，随课赠送 23 套实战素材。
+          系统实用的 AI 办公入门实战课。不学编程、不背工具，带你把工作流程真正跑通，随课赠送 23 套业务实战素材。
         </p>
 
         <ul class="course-perks-list">
           <li>
             <Check size={16} />
-            <span>23 课时高清视频实操详解（B 站官方付费课堂）</span>
+            <span>23 课时超清视频实操详解（B 站官方付费课堂）</span>
           </li>
           <li>
             <Check size={16} />
@@ -585,7 +365,7 @@ const faqs = [
           </li>
           <li>
             <Check size={16} />
-            <span>全课程提示词与操作指令速查手册</span>
+            <span>覆盖行政人事、财务会计、销售商务、运营进销存等全场景</span>
           </li>
           <li>
             <Check size={16} />
@@ -632,9 +412,9 @@ const faqs = [
 
   <!-- Section 6: 底部转化促单 Banner -->
   <section class="course-cta-banner">
-    <h2>准备开启你的 AI 办公智能体之旅吗？</h2>
+    <h2>准备开启你的 AI 办公实战之旅吗？</h2>
     <p>
-      加入四篇 23 课系统实战课，掌握从提示词到智能体交付的通用方法，让 AI 真正成为你 24 小时的高效办公搭子！
+      加入 23 课系统实战课，少说技术术语，跑通自己的工作流程，让 AI 真正替你搞定日常繁琐交付！
     </p>
     <div class="course-cta-actions">
       <a class="button button--primary button--lg" style="border-radius: 9999px;" href={bilibiliCourseUrl} target="_blank" rel="noreferrer">
