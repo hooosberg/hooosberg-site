@@ -969,6 +969,30 @@ const englishVideoArticleOverrides: Record<string, EnglishVideoOverride> = {
       { heading: "macOS must follow version-specific paths", paragraphs: ["macOS must not copy Windows low-level key-extraction steps. The unified prompt first checks for a working historical `wechat-cli` configuration: if real queries work, it reuses it without initialization. If no configuration exists or it has failed, it makes one original `wechat-cli` initialization attempt. `0 keys` stops that legacy path; it is not a successful Skill setup.", "A newer-macOS compatibility branch using `wcdb-key-tool` is considered only with explicit user approval; it may involve Xcode Command Line Tools, re-login, `sudo`, LLDB, or WeChat.app re-signing, so it never runs automatically. For network, certificate, DNS, or permission errors, use the one-time npm mirror/official-registry fallback and macOS Full Disk Access checks. Do not disable TLS verification, use long-term `sudo npm install -g` workarounds, or install identically named tools from untrusted mirrors, drives, or binaries."] },
     ],
   },
+  "video-workbuddy-lesson31-contract-review": {
+    title: "Lesson 31 | Review Commercial Authorization Contracts and Negotiate Terms with WorkBuddy",
+    excerpt: "A real commercial licensing case: use WorkBuddy for clause review, risk detection, renegotiation, multi-round verification, and automated asset delivery.",
+    body: ["This lesson walks through a real creator licensing case: reviewing ambiguous terms, identifying unfair risks, renegotiating balanced conditions, and automating final asset packaging.", "AI helps independent creators and small teams understand legal obligations clearly and protect their rights before signing."],
+    sections: [{ heading: "What to learn", paragraphs: ["Review license period, platform scope, editorial rights, indemnities, and jurisdiction before signing.", "Convert the approved video list into an automated delivery task that copies and renames files without altering the source repository."] }],
+  },
+  "video-workbuddy-lesson32-catering-cost-excel": {
+    title: "Lesson 32 | Build Catering Cost & Break-Even Excel Models with WorkBuddy",
+    excerpt: "Turn business receipt snapshots into a reactive two-sheet Excel model with formulas, then encapsulate the workflow into a reusable Skill.",
+    body: ["Start from restaurant expense screenshots to build an Excel workbook with opening costs, fixed expenses, daily break-even points, and scenario comparisons.", "Keep inputs, formulas, and results separate so adjusting any single parameter instantly updates key business outcomes."],
+    sections: [{ heading: "What to learn", paragraphs: ["Ensure all final figures use Excel formulas rather than static numbers.", "Package the validated accounting logic into a structured Markdown Skill and interactive expert persona."] }],
+  },
+  "video-workbuddy-lesson33-doubao-gongwen-skill": {
+    title: "Lesson 33 | Install Open-Source Official Document Skills into Doubao for Standardized Docs",
+    excerpt: "Import open-source document writing skills into Doubao or WorkBuddy to generate compliant administrative notices and formatted Word documents.",
+    body: ["Load an open-source administrative writing Skill to standardize structure, tone, headers, and dates according to standard official document rules.", "Demonstrate drafting safety inspection notices and exporting print-ready Word documents."],
+    sections: [{ heading: "What to learn", paragraphs: ["Learn the three-part administrative memo structure: context/basis, task deployment, and work requirements.", "Preserve standardized metadata including document number, issuing organization, and formal sign-offs."] }],
+  },
+  "video-workbuddy-lesson34-folder-as-knowledge-base": {
+    title: "Lesson 34 | Stop Overcomplicating Obsidian: In the AI Agent Era, Your Knowledge Base is a Folder",
+    excerpt: "A modern perspective on knowledge management: files at the bottom, AI Agents in the middle, and editors at the top.",
+    body: ["In the age of AI Agents like Codex and WorkBuddy, maintaining complex graph tags and manual bidirectional links creates unnecessary friction.", "Treat your local folders of Markdown, PDF, and Office files as the single source of truth, letting Agents search, summarize, and cross-reference on demand."],
+    sections: [{ heading: "What to learn", paragraphs: ["Adopt a 3-layer architecture: open data formats, autonomous AI Agents, and lightweight presentation tools.", "Focus on active task workspaces rather than elaborate filing taxonomies."] }],
+  },
 };
 
 const englishPaidLessonMap: Record<string, { title: string; problem: string; outcome: string }> = {

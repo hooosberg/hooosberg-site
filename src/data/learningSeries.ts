@@ -68,7 +68,7 @@ export const learningSeries: LearningSeries[] = [
     id: "workbuddy",
     title: "AI 自动化办公入门绿皮书",
     shortTitle: "入门绿皮书",
-    toolLine: "适用于 WorkBuddy、豆包办公、千问办公等工具 · 30 集免费课",
+    toolLine: "适用于 WorkBuddy、豆包办公、千问办公等工具 · 34 集免费课",
     description: "从第一次给 AI 下任务开始，学习资料整理、表格、文档、工作流、浏览器和本地文件的基础用法。",
     playlistUrl: workbuddyPlaylistUrl,
     lessons: [
@@ -101,6 +101,10 @@ export const learningSeries: LearningSeries[] = [
       { number: 28, title: "第 28 课：DeepSeek 接入自定义模型", outcome: "理解 Token、API Key、接口地址和模型 ID。", articleSlug: "video-workbuddy-lesson28-custom-model" },
       { number: 29, title: "第 29 课：新手任务与成长积分", outcome: "从零开始熟悉 AI 办公助手。", articleSlug: "video-workbuddy-lesson29-beginner" },
       { number: 30, title: "第 30 课：公众号文章一键转 Word", outcome: "将公众号内容与图片整理为本地 Word。", articleSlug: "video-workbuddy-lesson30-wechat-to-word", hasDownload: true },
+      { number: 31, title: "第 31 课：商业授权合同审查与谈判", outcome: "四轮审查谈判、条款利益重拟与交付自动化。", articleSlug: "video-workbuddy-lesson31-contract-review", hasDownload: true },
+      { number: 32, title: "第 32 课：餐饮成本核算与保本线分析", outcome: "把经营截图转化为带公式双表并封装为 Skill。", articleSlug: "video-workbuddy-lesson32-catering-cost-excel", hasDownload: true },
+      { number: 33, title: "第 33 课：豆包办公＋开源公文 Skill", outcome: "把开源公文 Skill 装进 AI 生成规范公文 Word。", articleSlug: "video-workbuddy-lesson33-doubao-gongwen-skill", hasDownload: true },
+      { number: 34, title: "第 34 课：AI Agent 时代的知识库", outcome: "理解底层文件、中层 Agent 与上层工具的极简架构。", articleSlug: "video-workbuddy-lesson34-folder-as-knowledge-base", hasDownload: true },
     ],
   },
   {

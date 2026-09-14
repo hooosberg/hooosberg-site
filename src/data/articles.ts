@@ -855,6 +855,185 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     sections: [{ heading: "课前条件与结果核对", paragraphs: ["前置条件是已完成第 22 集的本地微信读取和第 19 集的浏览器自动化基础配置。本课资料只适用于自己有权访问和整理的公开公众号文章，不能绕过访问限制，也不能处理未获授权的聊天或账号资料。", "生成后检查标题、公众号、日期、原文链接、正文结构、图片和图注是否与原文一致；出现缺图、链接错误、正文截断或重复图注时先停下核对，不要把不完整文件当作最终归档。"] }],
   },
   {
+    slug: "video-workbuddy-lesson31-contract-review",
+    title: "第31集｜WorkBuddy＋合同审查：UP主收到商业授权合同别急着签，我让AI帮我谈了4轮｜AI自动化办公",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-07",
+    seriesOrder: 31,
+    excerpt: "真实商业授权案例：用 WorkBuddy 跑通条款审查、风险识别、条款重拟、多轮复核及附件视频清单自动化交付。",
+    tags: ["视频教程", "WorkBuddy", "合同审查", "商业谈判", "法律助手", "文件自动化"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8625038?type=season",
+    videoMeta: "B 站：WorkBuddy 入门绿皮书合集",
+    downloadableResources: [{
+      title: "第31集｜商业授权合同审查与谈判实战课件",
+      description: "包含 4 组提示词（条款审查、重拟合同、回传复核、清单交付）及风险边界说明。",
+      fileName: "第31集-商业授权合同审查与谈判实战.md",
+      url: "/downloads/workbuddy/第31集-商业授权合同审查与谈判实战.md",
+    }],
+    body: [
+      "这期分享一个真实发生的商业授权案例：平台发来正式协议，借助 WorkBuddy 全程参与条款审查、风险识别、多轮修改复核以及最终视频清单的匹配与整理交付。",
+      "AI 在这里不是代替律师，而是帮助自由职业者和小团队把合同条款看清楚、把自己的利益诉求写规范，并在谈判达成后继续完成文件自动化。",
+    ],
+    sections: [
+      {
+        heading: "核心知识点与谈判原则",
+        paragraphs: [
+          "AI 先帮你看清合同：授权期限、平台范围、编辑权、版权责任、违约责任和管辖地。",
+          "商业谈判不是“全拒绝”：先分清自己的底线，以及哪些条件可以交换；对方回传修改版后再复核，谈好的边界不能被附件或旧条款重新放宽。",
+        ],
+      },
+      {
+        heading: "第1步：先审合同，再查合作方背景",
+        paragraphs: ["把有利条款、不利条款和高风险条款分开说明，重点检查授权期限、平台、后续作品、视频编辑和违约管辖；合作方背景调查区分公开事实和判断。"],
+        codeBlocks: [
+          "调查一下，就是这个合同是一个国内的一个平台问我要的一个授权，帮我从这个国内的法律授法合同法包括各各方法律审查一下他这个合同对我有什么好处，什么坏处然后给我说明一下，然后顺便调查一下这个公司的背景【电子签约】-数字资源授权合作协议-模板(1).docx",
+        ],
+      },
+      {
+        heading: "第2步：把风险点直接改成一份能谈的合同",
+        paragraphs: ["真正有用的是把自己的利益写进合同，拿一份完整修改稿和对方谈，而不是只说“这里有风险”。固定授权期限，封闭作品与平台清单，明确视频正文不剪辑、原有署名不遮挡。"],
+        codeBlocks: [
+          "那你帮我把这个合同重新拟一份，然后主要针对按照这种，因为我从他的这种授权里没有获得任何的利益，所以希望这个合同捏到完全这个符合我的利益，然后一个是重新捏一份合同，然后再把这个这份合同的这种修和之前修改的地方单独摘出来写一份。然后我给他发过去，看他愿不愿意。",
+        ],
+      },
+      {
+        heading: "第3步：按最终合同清单自动整理交付视频",
+        paragraphs: ["合同谈完进入执行：把合同附件当成任务清单，让 AI 去本地资料库匹配对应视频，只复制、不移动原始文件，按合同名称对齐。"],
+        codeBlocks: [
+          "【湖森堡】-数字资源授权合作协议-20260904.docx 录制课程Cola_Codex_ClaudeCode_实战案例库_30集_问题驱动版 帮我把合同里面的需要的视频，从我给你的目录里面选择对应的视频，复制一份到桌面，然后名称和合同里面的对齐，然后桌面新建文件夹叫做授权视频。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "video-workbuddy-lesson32-catering-cost-excel",
+    title: "第32集｜WorkBuddy＋Excel：看完勇哥的餐饮账，我让AI做了两张餐饮成本核算表｜AI自动化办公",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-09",
+    seriesOrder: 32,
+    excerpt: "从餐饮经营截图出发，用 WorkBuddy 生成开店成本与保本线两张公式联动表，并封装为可复用 Skill 与核算专家。",
+    tags: ["视频教程", "WorkBuddy", "Excel", "餐饮成本核算", "保本线", "Skill"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8625038?type=season",
+    videoMeta: "B 站：WorkBuddy 入门绿皮书合集",
+    downloadableResources: [{
+      title: "第32集｜餐饮成本核算与保本线分析课件",
+      description: "包含生成两张带公式联动表、沉淀 Skill 及创建专家的 3 组提示词与检查清单。",
+      fileName: "第32集-餐饮成本核算与保本线分析Skill.md",
+      url: "/downloads/workbuddy/第32集-餐饮成本核算与保本线分析Skill.md",
+    }],
+    body: [
+      "这期从餐饮经营截图开始，做一个真正能改数字、能实时看变化的 Excel 工作簿：一张表核算开店成本与固定投入，另一张表做日常保本线与盈亏平衡分析。",
+      "全程不需要先死记 Excel 函数，让 WorkBuddy 生成带公式的双表结构，验证公式联动后，再把核算规则沉淀为标准 Skill 与智能体专家。",
+    ],
+    sections: [
+      {
+        heading: "表格设计的核心原则",
+        paragraphs: [
+          "一个工作簿，两张表：开店成本核算看前期投入，保本线分析看日常经营。",
+          "表格必须区分输入区、公式区和结果区。结果单元格必须由公式动态计算，不能填死静态数值；改动任意输入项，结果必须能自动重算。",
+        ],
+      },
+      {
+        heading: "提示词 1：生成两张带公式的 Excel 表",
+        paragraphs: ["上传经营截图，生成包含面积、房租、设备、人工、毛利等字段的双表，标记输入区与公式区。"],
+        codeBlocks: [
+          "我已经上传两张餐饮经营截图。请根据图片内容，在一个 Excel 工作簿中生成两张带公式的表。\n\n第一张表叫开店成本核算，包含面积、房租、付款方式、押金、宣传、设备等输入项，自动计算建店成本和固定成本；如果数据和单位完整，再计算每日盈亏平衡点。\n\n第二张表叫保本线分析，包含营业额、毛利率、房租、人工、水电等输入项，展示现状、调整后和差异。\n\n要求：\n1. 两张表放在同一个工作簿中。\n2. 明确标出哪些单元格可以输入，哪些单元格是公式结果。\n3. 所有结果使用 Excel 公式计算，不要直接填写最终数字。\n4. 截图中看不清的字段、金额或单位请标为待确认，不要猜。\n5. 完成后告诉我每张表应该修改哪些输入项，以及修改后重点看哪些结果。",
+        ],
+      },
+      {
+        heading: "提示词 2 & 3：经验沉淀为 Skill 与专家",
+        paragraphs: ["把确认好的字段和计算逻辑整理成 Markdown Skill，再进一步挂载为可交互引导的智能体专家。"],
+        codeBlocks: [
+          "请根据本次两张 Excel 表已经确认的字段和计算逻辑，整理一个餐饮成本核算 Skill，并保存为 Markdown 文件。\n\nSkill 需要包含：适用场景、输入字段和单位、两张表各自的计算逻辑、操作步骤、常见错误和验收方法。\n\n字段或规则不完整时，请列出待确认项，不要补造内容。",
+          "请使用这些餐饮成本核算 Skills 创建一个餐饮成本核算专家。\n\n专家接到任务后，先确认用户提供的金额单位、时间周期和关键输入；再指导用户生成或检查开店成本核算和保本线分析两张 Excel 表；最后说明需要修改哪些输入项、哪些结果会受到影响，以及还有哪些内容待确认。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "video-workbuddy-lesson33-doubao-gongwen-skill",
+    title: "第33集｜豆包办公＋公文 Skill：把开源公文 Skill 装进 AI，直接做出一份规范公文｜AI自动化办公",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-11",
+    seriesOrder: 33,
+    excerpt: "把 GitHub 开源公文 Skill 装进豆包办公与 WorkBuddy，现场演示规范公文生成、Word 导出与单位写作习惯优化。",
+    tags: ["视频教程", "WorkBuddy", "豆包办公", "公文写作", "Skill", "Word"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8625038?type=season",
+    videoMeta: "B 站：WorkBuddy 入门绿皮书合集",
+    downloadableResources: [{
+      title: "第33集｜豆包办公开源公文 Skill 使用指南",
+      description: "开源公文 Skill 配置方法、起草通知提示词与规范 Word 导出指南。",
+      fileName: "第33集-豆包办公开源公文Skill使用指南.md",
+      url: "/downloads/workbuddy/第33集-豆包办公开源公文Skill使用指南.md",
+    }],
+    body: [
+      "这一集我们把 GitHub 上的开源公文 Skill 装进豆包办公与 WorkBuddy，现场演示如何让 AI 按规范生成公文并输出 Word 文件。",
+      "讲清规范公文的写作认知框架与结构模板，以及如何结合单位历史公文继续调优，让 AI 更懂你的语言习惯。",
+    ],
+    sections: [
+      {
+        heading: "开源公文 Skill 的核心机制",
+        paragraphs: [
+          "依托包含文章结构模板、写作视角与认知框架的开源公文库，规范正文三段式（背景依据、任务部署、工作要求）。",
+          "公文要素（标题、发文字号、主送机关、附件说明、成文日期）严格保真，杜绝套话空话和格式变形。",
+        ],
+      },
+      {
+        heading: "公文生成提示词示例",
+        paragraphs: ["以起草安全生产检查专项通知为例，下达明确格式和要素约束。"],
+        codeBlocks: [
+          "基于已挂载的公文 Skill 规范，以“临河县五行矿业”名义起草一份《关于开展安全生产检查的通知》：\n要求：\n1. 主送单位为各矿区车间、各职能部门；\n2. 内容包括检查范围（井下作业区、通风机房、尾矿库）、重点排查隐患、整改责任人与整改时限；\n3. 符合国家标准公文格式与语言风格，严谨得体；\n4. 输出可直接转换为规范 Word 排版的内容。",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "video-workbuddy-lesson34-folder-as-knowledge-base",
+    title: "第34集｜别再学 Obsidian 了！AI Agent 时代，知识库就是一个文件夹｜AI自动化办公",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-12",
+    seriesOrder: 34,
+    excerpt: "AI Agent 时代知识管理新思考：底层是文件，中层是 AI Agent，最上面才是展示软件，避免把时间浪费在维护工具上。",
+    tags: ["视频教程", "WorkBuddy", "Obsidian", "知识库", "AIAgent", "知识管理"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8625038?type=season",
+    videoMeta: "B 站：WorkBuddy 入门绿皮书合集",
+    downloadableResources: [{
+      title: "第34集｜AI Agent 时代文件夹即知识库指南",
+      description: "从第二大脑到本地 Agent 文件工作区的架构思考与实践法则。",
+      fileName: "第34集-AI_Agent时代文件夹即知识库.md",
+      url: "/downloads/workbuddy/第34集-AI_Agent时代文件夹即知识库.md",
+    }],
+    body: [
+      "AI Agent 时代，我们还有必要花大量时间学习和维护复杂的“第二大脑”吗？我的核心观点是：知识库本来没有那么复杂，你的 Markdown、PDF、图片、Word 和资料文件夹，本身就是知识库。",
+      "过去我们需要自己分类、打标签、做双链；现在 Codex、WorkBuddy 这类 Agent 已经可以直接读取和整理本地文件。不要为了管理知识，最后变成了管理知识管理软件。",
+    ],
+    sections: [
+      {
+        heading: "未来知识库的三层极简架构",
+        paragraphs: [
+          "底层是数据文件（Markdown / PDF / 表格）→ 中间是 AI Agent（本地搜索、跨文件推理与自动化处理）→ 最上面才是展示工具（Obsidian / 编辑器）。",
+          "保持文件格式通用与开放，不要把资料锁在专有数据库或复杂插件体系中。",
+        ],
+      },
+      {
+        heading: "日常实践三项原则",
+        paragraphs: [
+          "1. 保持纯文本与通用格式：以 Markdown、TXT、CSV 为主；",
+          "2. 少做仪式感分类，多建具体任务工作区；",
+          "3. 把索引与搜索交给 Agent：通过自然语言直接定位事实并生成交付结果。",
+        ],
+      },
+    ],
+  },
+  {
     slug: "video-cola-lesson1-expense-sheet-merge",
     title: "第01集｜AI自动化办公入门＋Excel：多部门乱表合并＋自动找异常",
     category: "视频教程笔记",
