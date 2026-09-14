@@ -67,8 +67,8 @@ export const learningSeries: LearningSeries[] = [
   },
   {
     id: "workbuddy",
-    title: "WorkBuddy 办公教程",
-    shortTitle: "WorkBuddy办公教程",
+    title: "WorkBuddy AI办公教程",
+    shortTitle: "WorkBuddy AI办公教程",
     toolLine: "适用于 WorkBuddy、豆包办公、千问办公等工具 · 34 集免费课",
     description: "从第一次给 AI 下任务开始，学习资料整理、表格、文档、工作流、浏览器和本地文件的基础用法。",
     playlistUrl: workbuddyPlaylistUrl,

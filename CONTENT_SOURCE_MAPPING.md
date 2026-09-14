@@ -8,7 +8,7 @@
 
 | 网站栏目名称 | 网站 Tab 标识 | 对应本地录制视频绝对根路径 | 说明与主要内容 |
 | :--- | :--- | :--- | :--- |
-| **WorkBuddy办公教程** | `workbuddy` | `/Users/maohuhu/进行中的项目/录制课程/课程/免费视频/workbuddy` | 包含 34 节 WorkBuddy 基础到进阶办公自动化视频、配套 Word 提示词、企业实战案例、开源公文 Skill、知识库架构等。 |
+| **WorkBuddy AI办公教程** | `workbuddy` | `/Users/maohuhu/进行中的项目/录制课程/课程/免费视频/workbuddy` | 包含 34 节 WorkBuddy 基础到进阶办公自动化视频、配套 Word 提示词、企业实战案例、开源公文 Skill、知识库架构等。 |
 | **Codex编程教程** | `cola` (原cola) | `/Users/maohuhu/进行中的项目/录制课程/课程/免费视频/` 下的：<br>1. `ai资讯/`<br>2. `chatgpt/`<br>3. `cola/` | 包含：<br>- **ChatGPT 视觉与设计流**（海报转 PSD、MV 分镜、草图控姿态）<br>- **前沿 AI 实测**（GPT-6 Astra 3D 建模、果蝇连接组、Hy4 动效）<br>- **AI 编程与工具实操**（Codex 外挂 Gemini、ColaOS、Claude Code、AionUi 免费 API、WitNote 重构、Markdown 科普） |
 | **收费实战课程（备用）** | `paid` | `/Users/maohuhu/进行中的项目/录制课程/课程/付费视频/` | 收费进阶课程，目前已从前台公开学习笔记中移除，数据模型在后台保留备用。 |
 
