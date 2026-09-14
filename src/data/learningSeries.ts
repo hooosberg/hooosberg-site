@@ -6,6 +6,7 @@ export type LearningLesson = {
   outcome: string;
   articleSlug?: string;
   hasDownload?: boolean;
+  videoUrl?: string;
 };
 
 export type LearningSeries = {
@@ -30,7 +31,7 @@ export const learningSeries: LearningSeries[] = [
   {
     id: "paid",
     title: "AI办公新手入门_智能体与自动化实战",
-    shortTitle: "收费实战课",
+    shortTitle: "WorkBuddy收费实战课自动化办公",
     badge: "B 站官方付费课程",
     toolLine: "腾讯 WorkBuddy 主讲 · 23 课四篇阶梯实战 · 送 23 套随课实操素材",
     description: "面向办公新手的 AI 智能体通识 + 真实业务实战 + 自动化方法课。掌握工作区安全、Word保真填报、OCR复核、Excel清洗与业务算薪、群聊台账与专属 Skill 封装。",
@@ -66,8 +67,8 @@ export const learningSeries: LearningSeries[] = [
   },
   {
     id: "workbuddy",
-    title: "AI 自动化办公入门绿皮书",
-    shortTitle: "入门绿皮书",
+    title: "WorkBuddy 办公教程",
+    shortTitle: "WorkBuddy办公教程",
     toolLine: "适用于 WorkBuddy、豆包办公、千问办公等工具 · 34 集免费课",
     description: "从第一次给 AI 下任务开始，学习资料整理、表格、文档、工作流、浏览器和本地文件的基础用法。",
     playlistUrl: workbuddyPlaylistUrl,
@@ -109,20 +110,41 @@ export const learningSeries: LearningSeries[] = [
   },
   {
     id: "cola",
-    title: "AI 自动化办公实战绿皮书",
-    shortTitle: "实战绿皮书",
-    toolLine: "Cola / Codex / Claude Code · 问题驱动实战课",
-    description: "用真实办公问题练习把资料、规则、提示词、检查和最终交付组织成完整工作流。",
+    title: "Codex 编程教程",
+    shortTitle: "Codex编程教程",
+    toolLine: "Codex / Claude Code / ChatGPT / 实战项目开发",
+    description: "汇聚真实工业工具实战、ChatGPT 视觉设计工作流与前沿大模型深度评测，均附演示视频与实操课件要点。",
     playlistUrl: colaPlaylistUrl,
     lessons: [
-      { number: 1, title: "第 01 课：多部门乱表合并＋自动找异常", outcome: "先统一字段口径，再保留来源做受控合并。", articleSlug: "video-cola-lesson1-expense-sheet-merge" },
-      { number: 2, title: "第 02 课：30 份简历批量初筛", outcome: "把岗位门槛变成可回查的初筛矩阵。", articleSlug: "video-cola-lesson2-resume-screening" },
-      { number: 3, title: "第 03 课：十几张散表理清奖金规则", outcome: "固化规则、保留中间列，再抽样反算。", articleSlug: "video-cola-lesson3-bonus-rules" },
-      { number: 4, title: "第 04 课：固定 Word 模板自动填充", outcome: "在副本上受控回填，保持版式不变。", articleSlug: "video-cola-lesson4-word-template-fill" },
-      { number: 5, title: "第 05 课：AionUi＋B.AI：免费大模型API接入，零成本手搓专属WorkBuddy", outcome: "在开源 Agent 客户端中接入免费大模型 API，完成 Coding 与多模态工作流配置。", articleSlug: "video-cola-lesson5-aionui-bai-free-api", hasDownload: true },
+      // 最新发布倒序排列（编号倒序：最新一课编号最大，与 WorkBuddy 对齐）
+      { number: 24, title: "Codex外挂Gemini！白嫖Antigravity模型，反向代理全自动配置", outcome: "通过CLIProxyAPI把Gemini接进Codex走本地反向代理，实现一键切换多模型。", articleSlug: "video-codex-gemini-proxy", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 23, title: "我和13.9万个果蝇神经元玩了一下午游戏", outcome: "将全脑连接组搬进电脑，实测果蝇生物神经元在游戏对抗与智能决策中的表现。", articleSlug: "video-codex-fruitfly-brain", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 22, title: "失业了、迷茫了？看看你的性格到底适合做什么", outcome: "用性格特质与AI时代生产力工具匹配个人发展道路与创作定位。", articleSlug: "video-codex-career-personality", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 21, title: "ChatGPT Images 2.5 + Codex Astra：AI海报直接变可编辑PSD，设计行业要变天", outcome: "ChatGPT生图联动Codex Astra操作PS，自动重建图层、文字与分组为可编辑PSD。", articleSlug: "video-codex-chatgpt-psd", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 20, title: "AI漫剧别再死磕提示词了！ChatGPT Image 2.5用草图精准控制人物姿势", outcome: "用极简草图替代千字Prompt，精准锁定人物动态与画面构图。", articleSlug: "video-codex-chatgpt-sketch-pose", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 19, title: "ChatGPT Image 2.5炸了｜一键生成AI漫剧MV分镜，9个镜头直接出片", outcome: "9个电影感分镜一气呵成，掌握保持角色一致性与分镜运镜控制技巧。", articleSlug: "video-codex-chatgpt-mv-storyboard", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 18, title: "最新GPT-6 Astra 实测｜一张四视图，直接生成可拆可编辑 Blender 高达！", outcome: "挑战极高难度：一张四视图输入直接逆向生成分层可拆解的3D高达模型。", articleSlug: "video-codex-gundam-3d", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 17, title: "最新GPT-6 Astra 实测｜一张三视图，直接生成可编辑 Blender 豹2坦克！", outcome: "实测GPT-6 Astra多视图还原3D结构件，生成工业软件可二次修改的Blender模型。", articleSlug: "video-codex-leopard-tank", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 16, title: "WorkBuddy 海外版 VS 国内版｜海外版更香？", outcome: "横向对比WorkBuddy海内外版本功能特权、模型支持与网络环境差异。", articleSlug: "video-codex-workbuddy-global-vs-cn", videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 15, title: "Hy4 Preview 实测｜一题硬刚 ChatGPT、Gemini！谁的网页动画能力最强？", outcome: "高难度前端动效Prompt盲测，实测最新Hy4与顶尖闭源模型编码输出能力。", articleSlug: "video-codex-hy4-preview-animation", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 14, title: "第 05 课：AionUi＋B.AI：免费大模型API接入，零成本手搓专属WorkBuddy", outcome: "在开源 Agent 客户端中接入免费大模型 API，完成 Coding 与多模态工作流配置。", articleSlug: "video-cola-lesson5-aionui-bai-free-api", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 13, title: "如果AI模型都是三国人物：谁是诸葛亮，谁是吕布？", outcome: "以生动三国人物类比各家大模型真实性格与长短板，直观选型不踩坑。", articleSlug: "video-codex-ai-sanguo-ranking", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 12, title: "我们一直误解了自动化办公？从Excel到AI智能体，AI自动化办公正在彻底换代", outcome: "深度梳理Office自动化演进史，解析从VBA/RPA到LLM原生Agent的范式跃迁。", articleSlug: "video-codex-office-automation-evolution", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 11, title: "豆包工作正式发布！AI办公“三足鼎立”：WorkBuddy×千问办公×豆包工作三家横评", outcome: "三款主流国内AI办公产品深度横向评测，对比本地操作、工作流与表格处理上限。", articleSlug: "video-codex-office-trio-review", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 10, title: "免费模型杀疯了？神秘Ox Alpha登场：1M上下文、能看视频", outcome: "实测神秘Ox Alpha长文本与多模态视频分析能力，通过Cola免配环境上手体验。", articleSlug: "video-codex-ox-alpha-review", hasDownload: true, videoUrl: "https://www.bilibili.com/video/BV1Cj8t6cEsz/" },
+      { number: 9, title: "AI炒股预测宇树科技有差距？Fable 5 VS 豆包对比实测", outcome: "使用Cola环境中的Claude Code对比不同大模型在量化金融预测中的表现。", articleSlug: "video-codex-ai-stock-fable-vs-doubao", videoUrl: "https://www.bilibili.com/video/BV1TY8M6mEox/" },
+      { number: 8, title: "WorkBuddy VS 千问办公：腾讯阿里AI办公正面对决，谁更好用？", outcome: "腾讯与阿里AI办公助手在真实文档与复杂表格业务场景下的实战PK。", articleSlug: "video-codex-workbuddy-vs-qwen", videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 7, title: "不用折腾Codex、Claude和Gemini了！ColaOS三合一高价值工作流", outcome: "一个软件搞定AI生图、股票分析与自动化编程，一键串联海外顶尖模型环境。", articleSlug: "video-codex-colaos-trio-workflow", hasDownload: true, videoUrl: "https://www.bilibili.com/video/BV1MrbQ6ME6n/" },
+      { number: 6, title: "第一个Vibe Coding项目，我推翻重做了｜WitNote 2.0重构记录", outcome: "真实独立产品WitNote从Demo到生产级架构推翻重做，总结AI协作开发避坑指南。", articleSlug: "video-codex-witnote-vibe-coding", videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 5, title: "第 04 课：固定 Word 模板自动填充", outcome: "在副本上受控回填，保持版式不变。", articleSlug: "video-cola-lesson4-word-template-fill", videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 4, title: "第 03 课：十几张散表理清奖金规则", outcome: "固化规则、保留中间列，再抽样反算。", articleSlug: "video-cola-lesson3-bonus-rules", videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
+      { number: 3, title: "第 02 课：30 份简历批量初筛", outcome: "把岗位门槛变成可回查的初筛矩阵。", articleSlug: "video-cola-lesson2-resume-screening", videoUrl: "https://www.bilibili.com/video/BV1w6hG6pEbg/" },
+      { number: 2, title: "第 01 课：多部门乱表合并＋自动找异常", outcome: "先统一字段口径，再保留来源做受控合并。", articleSlug: "video-cola-lesson1-expense-sheet-merge", videoUrl: "https://www.bilibili.com/video/BV1CFbo66Ebm/" },
+      { number: 1, title: "01-我做了一款笔记 App，才发现 Markdown 可能是 AI 时代最重要的文字格式", outcome: "从自研笔记软件开发实战，拆解Markdown在AI上下文与Agent交付中的核心价值。", articleSlug: "video-codex-markdown-ai-format", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
     ],
   },
 ];
 
 export const getLearningSeries = (id: LearningSeriesId) => learningSeries.find((series) => series.id === id);
+
 

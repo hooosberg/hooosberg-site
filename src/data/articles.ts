@@ -1406,6 +1406,639 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
   </li>
 </ol>`,
   },
+  {
+    slug: "video-codex-gemini-proxy",
+    title: "Codex外挂Gemini！白嫖Antigravity模型，反向代理全自动配置",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-14",
+    seriesOrder: 201,
+    handoutFirst: true,
+    excerpt: "通过 CLIProxyAPI + Antigravity 将 Google Gemini 接入 Codex，实现本地反向代理与多模型一键切换工作台。",
+    tags: ["视频教程", "Codex", "Gemini", "Antigravity", "CLIProxyAPI", "反向代理", "AI编程"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第01集-Codex外挂Gemini反向代理配置指南.md",
+      description: "包含代理安装启动、Provider/Profile 配置、一键切换脚本与常见问题排查。",
+      fileName: "第01集-Codex外挂Gemini反向代理配置指南.md",
+      url: "/downloads/cola/第01集-Codex外挂Gemini反向代理配置指南.md",
+    }],
+    body: [
+      "这套玩法最大的意义，不只是“换一个模型”，而是把 Codex 变成一个可以自由连接不同顶尖模型的前端工作台。",
+      "通过本地反向代理（CLIProxyAPI）结合 Antigravity 认证中继，我们可以在无需修改 Codex 源码的前提下，让 Codex 直接调用拥有百万 Token 上下文的 Gemini 1.5 Pro / Flash。"
+    ],
+    sections: [
+      {
+        heading: "环境准备与代理启动",
+        paragraphs: ["首先确保本地已安装 Codex CLI 与 Node.js 环境。通过 CLIProxyAPI 完成 Google 账号的 Antigravity 授权，并启动本地 8080 端口代理监听。"],
+        codeBlocks: ["npm install -g cliproxyapi\ncliproxyapi login --provider google-antigravity\ncliproxyapi serve --port 8080"],
+      },
+      {
+        heading: "Codex Provider 与 Profile 配置",
+        paragraphs: ["在 Codex 的配置文件（`~/.codex/config.json`）中添加 gemini-proxy 节点，指定本地代理地址与自定义 Token。"],
+        codeBlocks: ["{\n  \"profiles\": {\n    \"default\": {\n      \"model\": \"gpt-4o\",\n      \"provider\": \"openai\"\n    },\n    \"gemini-proxy\": {\n      \"model\": \"gemini-1.5-pro\",\n      \"provider\": \"custom\",\n      \"apiBase\": \"http://127.0.0.1:8080/v1\",\n      \"apiKey\": \"local-proxy-token\",\n      \"contextWindow\": 1000000\n    }\n  }\n}"],
+      },
+      {
+        heading: "一键切换脚本与防坑提示",
+        paragraphs: ["切换到 Gemini 代理模式后，强烈建议执行 /new 新建对话，不要沿用旧的 GPT 上下文，避免不同 Tokenizer 格式导致 503 兼容性错误。"],
+        codeBlocks: ["# 切换到 Gemini 模式\ncodex config set-profile gemini-proxy\n\n# 恢复官方 OpenAI 默认配置\ncodex config set-profile default"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-chatgpt-psd",
+    title: "ChatGPT Images 2.5 + Codex Astra：AI海报直接变可编辑PSD，设计行业要变天",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-08",
+    seriesOrder: 204,
+    handoutFirst: true,
+    excerpt: "AI 生图直出可编辑设计源文件：ChatGPT Images 2.5 生成海报，Codex Astra 驱动 Photoshop 重建 55 个文字图层与规范分组。",
+    tags: ["视频教程", "ChatGPT", "Codex", "Astra", "Photoshop", "PSD分层", "AI设计"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第04集-AI海报转可编辑PSD操作与图层说明.md",
+      description: "包含 55 个图层架构、字体匹配表、无字底图补绘与自动化驱动 Prompt。",
+      fileName: "第04集-AI海报转可编辑PSD操作与图层说明.md",
+      url: "/downloads/cola/第04集-AI海报转可编辑PSD操作与图层说明.md",
+    }],
+    body: [
+      "实测一套全新的 AI 设计工作流：AI 不再只给出一张扁平的位图，而是直接输出具备原生图层、可编辑文字、保留样式效果的 PSD 源工程。",
+      "通过 ChatGPT Images 2.5 生成电商宣传物料，交由 Codex Astra 自动分析版面，在本地 Photoshop 中完成切图、底图智能补绘与文字图层重建。"
+    ],
+    sections: [
+      {
+        heading: "工作流架构与图层设计",
+        paragraphs: ["生成的 PSD 尺寸为 1055 × 1491 像素，完整拆解为 55 个 Photoshop 原生文字图层，并划分五个标准分组：01_主视觉产品、02_多场景展示、03_核心卖点、04_限时价格与 99_原图参考。"],
+      },
+      {
+        heading: "Codex Astra 驱动 Photoshop 自动化 Prompt",
+        paragraphs: ["将以下结构化 Prompt 发送给 Codex Astra，驱动本地 Photoshop 自动执行分层重建。"],
+        codeBlocks: ["请分析海报构图，在本地 Photoshop 中执行重建：\n1. 建立 5 大标准图层组（主视觉、场景展示、卖点、促销价格、背景）；\n2. 使用修图工具去除全部文字，保留无字背景底图；\n3. 提取所有文字，按视觉风格匹配兰亭黑、手札体、苹方，重建为原生文本图层；\n4. 价格区域将货币符号、整数与小数位分层独立，并添加描边投影样式；\n5. 检查文字溢出，另存为可编辑 PSD 文件。"],
+      },
+      {
+        heading: "排版微调与二次修改技巧",
+        paragraphs: ["双击文字图层 T 图标即可随意改字改价，样式效果自动贴合；移动模块时请选中整个文件夹拖拽，避免图文脱节。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-gundam-3d",
+    title: "最新GPT-6 Astra 实测｜一张四视图，直接生成可拆可编辑 Blender 高达！",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-05",
+    seriesOrder: 207,
+    handoutFirst: true,
+    excerpt: "极高难度挑战：输入一张 AI 生成的高达正交四视图，GPT-6 Astra 从零参数化生成 439 个独立网格部件并绑定 18 根骨骼。",
+    tags: ["视频教程", "GPT-6 Astra", "Blender", "3D建模", "高达", "四视图建模", "AI建模"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第07集-四视图生成可编辑Blender高达使用指南.md",
+      description: "包含部件拆解清单、18 根骨骼 Pose Mode 调整技巧与 Blender 脚本使用说明。",
+      fileName: "第07集-四视图生成可编辑Blender高达使用指南.md",
+      url: "/downloads/cola/第07集-四视图生成可编辑Blender高达使用指南.md",
+    }],
+    body: [
+      "这不是一张简单的 3D 渲染图，而是真正的 Blender 工程源文件：439 个独立网格部件、头部、胸腹、腰裙、四肢、盾牌与武器全部独立成组，并且自带可摆动作的骨骼系统。",
+      "实际测试表明，Astra 已经完成了约 80% 的工业硬表面建模工作，为概念设计快速转可编辑资产开辟了全新路径。"
+    ],
+    sections: [
+      {
+        heading: "模型资产与集合规范",
+        paragraphs: ["模型在 Blender 4.5.1 LTS 中构建，部件分为 01_HEAD 到 06_WEAPON 等集合，每个零件均将 Origin 对齐至自身几何中心，倒角均作为可编辑修改器保留。"],
+      },
+      {
+        heading: "骨架摆姿与重置快捷键",
+        paragraphs: ["展开 09_RIG_摆姿骨架 集合，选中骨架按 Ctrl+Tab 进入 Pose Mode，按 R 旋转骨骼。姿态重置快捷键为：全选骨骼后按 Alt+R、Alt+G、Alt+S。"],
+        codeBlocks: ["# Pose Mode 快捷键：\nAlt + R  # 清空旋转，恢复默认站姿\nAlt + G  # 清空位移\nAlt + S  # 清空缩放\nF12      # 启动多机位三点光摄影棚渲染"],
+      },
+      {
+        heading: "参数化重建脚本",
+        paragraphs: ["随工程附带 重建脚本.py，支持根据新正交参考图自动推导网格并生成新的 .blend 场景文件。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-leopard-tank",
+    title: "最新GPT-6 Astra 实测｜一张三视图，直接生成可编辑 Blender 豹2坦克！",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-03",
+    seriesOrder: 208,
+    handoutFirst: true,
+    excerpt: "输入军工三视图，实测 GPT-6 Astra 在 Blender 中精准还原豹2主战坦克车体、履带悬挂、回转炮塔与120mm滑膛炮。",
+    tags: ["视频教程", "GPT-6 Astra", "Blender", "3D建模", "豹2坦克", "三视图建模", "工业建模"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第08集-三视图生成Blender豹2坦克指南与图纸分析.md",
+      description: "包含坦克三视图几何比例基准、车体/悬挂拆解与 3D 打印 STL 导出指南。",
+      fileName: "第08集-三视图生成Blender豹2坦克指南与图纸分析.md",
+      url: "/downloads/cola/第08集-三视图生成Blender豹2坦克指南与图纸分析.md",
+    }],
+    body: [
+      "上一期我们测试了工业硬表面的经典题材——豹2主战坦克。通过输入正视、俯视、侧视军工三视图，检验大模型在三维正交对齐与机械结构理解上的极限。",
+      "生成的坦克具有独立回转炮塔、可调节俯仰角的 120 毫米滑膛炮以及完整的负重轮与履带系统。"
+    ],
+    sections: [
+      {
+        heading: "尺寸基准与图纸几何分析",
+        paragraphs: ["车体长 7.7 米、宽 3.7 米、高 3.0 米，准确还原首上大倾角装甲、动力舱格栅、7 对双轮缘负重轮与楔形炮塔防护装甲。"],
+      },
+      {
+        heading: "炮塔与主炮机械联动调整",
+        paragraphs: ["炮塔旋转轴心严格定位在车体回转座圈中心，主炮与耳轴绑定，可在 -9° 至 +20° 之间平滑俯仰。"],
+        codeBlocks: ["# 机械动作调整方法：\n选中 Turret 炮塔部件 -> 按 R 键后按 Z 键 -> 鼠标拖动实现 360° 水平回转\n选中 Gun 主炮部件 -> 按 R 键后按 X 键 -> 调整主炮俯仰射角"],
+      },
+      {
+        heading: "工程格式导出与 3D 打印支持",
+        paragraphs: ["工程支持直接导出为 .stl、.obj 与 .fbx 格式，方便导入 Unity、Unreal 游戏引擎或进行 3D 打印切片。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-hy4-preview-animation",
+    title: "Hy4 Preview 实测｜一题硬刚 ChatGPT、Gemini！谁的网页动画能力最强？",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-28",
+    seriesOrder: 210,
+    handoutFirst: true,
+    excerpt: "高难度前端动效 Prompt 盲测：HTML5 Canvas 引力场微光粒子与流体形变球体，实测 Hy4 Preview 一次成型与数学推导实力。",
+    tags: ["视频教程", "Hy4", "ChatGPT", "Gemini", "网页动画", "前端动效", "代码评测"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第10集-网页动画Prompt横评与Hy4测试说明.md",
+      description: "包含动效评测基准 Prompt、三家模型对比横评表与测试结论。",
+      fileName: "第10集-网页动画Prompt横评与Hy4测试说明.md",
+      url: "/downloads/cola/第10集-网页动画Prompt横评与Hy4测试说明.md",
+    }],
+    body: [
+      "代码生成能力不只是刷 LeetCode，写具有复杂数学逻辑、物理碰撞和丝滑视觉动效的前端页面，更能检验大模型对空间、帧率与状态机的综合理解。",
+      "我们用同一道“引力场粒子吸附与液体形变动效”题目，同台盲测了 Hy4 Preview、ChatGPT 4o 与 Gemini 1.5 Pro。"
+    ],
+    sections: [
+      {
+        heading: "盲测标准 Prompt",
+        paragraphs: ["要求使用原生 HTML5 Canvas 编写单文件 index.html，包含 200 个带拖尾粒子、鼠标引力场吸附与核心液态球贝塞尔弹性形变。"],
+        codeBlocks: ["编写单文件 index.html（含内联 CSS 与 JS）：\n1. 深色背景（#0a0a0f），居中放置液态边缘波动核心球；\n2. 200 个微光粒子受鼠标引力吸附并产生平滑拖尾；\n3. 鼠标悬停时球体产生贝塞尔流体弹性挤压与呼吸光晕；\n4. 原生 Canvas 60FPS 运行，无第三方依赖，代码一次性完整输出。"],
+      },
+      {
+        heading: "三家模型实测表现对比",
+        paragraphs: ["Hy4 Preview 在一次性运行成功率（98%）和贝塞尔物理阻尼手感上脱颖而出，代码极致精简，三角函数推导极为扎实。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-office-trio-review",
+    title: "豆包工作正式发布！AI办公“三足鼎立”：WorkBuddy×千问办公×豆包工作三家横评",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-27",
+    seriesOrder: 214,
+    handoutFirst: true,
+    excerpt: "腾讯、阿里、字节三家 AI 办公重磅产品正面交锋：实测 12 页《唐代壁画科普》PPT 大纲与排版控制，梳理各自能力边界与选型法则。",
+    tags: ["视频教程", "豆包工作", "WorkBuddy", "千问办公", "AI办公", "PPT生成", "横评"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第14集-AI办公三足鼎立横评与唐代壁画实测课件.md",
+      description: "包含三大产品对比矩阵、DESIGN.md 色彩规范与 STORY.md 大纲范本。",
+      fileName: "第14集-AI办公三足鼎立横评与唐代壁画实测课件.md",
+      url: "/downloads/cola/第14集-AI办公三足鼎立横评与唐代壁画实测课件.md",
+    }],
+    body: [
+      "随着豆包工作正式发布，国内 AI 自动化办公正式形成腾讯 WorkBuddy、阿里通义千问办公、字节豆包工作“三足鼎立”的竞争格局。",
+      "我们用一份真实的 12 页《唐代壁画科普》出版级演示文稿任务，对三家在本地文件深度、大纲逻辑构建与排版审美表现上进行了全方位横评。"
+    ],
+    sections: [
+      {
+        heading: "AI 办公三足鼎立横向评测矩阵",
+        paragraphs: ["WorkBuddy 强在本地系统权限与数据隐私安全；通义千问适合钉钉协同办公；豆包工作在文案通顺度、幻灯片色彩平衡与小白上手度上表现尤为出色。"],
+      },
+      {
+        heading: "高品质 PPT 结构化控制法（DESIGN + STORY）",
+        paragraphs: ["避免 AI 自由发挥导致排版崩坏的关键，在于先让 AI 确认故事大纲与设计规范文件，再生成幻灯片。"],
+        codeBlocks: ["# 唐代壁画色彩与版面规范 (DESIGN.md 摘要)：\n- 核心色盘：赭石 #8C3826、朱砂 #B22D15、石绿 #2E6B55、冷金 #C49C48\n- 版面原则：少字大图、留白通透、左右交错版式\n- 引文样式：关键诗句与典籍加大 1.5 倍采用书法字体"],
+      },
+      {
+        heading: "选型建议与落地指南",
+        paragraphs: ["企业财务、人事等敏感薪酬数据优先本地部署的 WorkBuddy；日常方案汇报与品宣课件，豆包工作是效率极高的利器。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-fruitfly-brain",
+    title: "我和13.9万个果蝇神经元玩了一下午游戏",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-12",
+    seriesOrder: 223,
+    handoutFirst: true,
+    excerpt: "全脑连接组搬进电脑：实测 13.9 万个真实果蝇神经元在游戏对抗与环境反馈中的生物级智能反应。",
+    tags: ["视频教程", "果蝇大脑", "FlyWire", "数字生命", "神经网络", "AI游戏", "具身智能"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第23集-果蝇大脑连接组数字生命与AI对战指南.md",
+      description: "包含 FlyWire 数据集背景、神经元反射电位映射与游戏对战机制解析。",
+      fileName: "第23集-果蝇大脑连接组数字生命与AI对战指南.md",
+      url: "/downloads/cola/第23集-果蝇大脑连接组数字生命与AI对战指南.md",
+    }],
+    body: [
+      "这期视频做了一个非常有意思的交叉科学实验：不依赖传统的 LLM 假装扮演，而是把真实果蝇大脑的 13.9 万个神经元突触连接组（Connectome）在电脑中做数字化仿真，并接入游戏环境进行实时对抗。",
+      "当外部虚拟障碍物或敌人靠近时，感受野电位刺激直接触发神经回路，驱动果蝇做出闪避、盘旋等生物本能动作。"
+    ],
+    sections: [
+      {
+        heading: "大语言模型 vs 生物神经连接组",
+        paragraphs: ["LLM 是基于海量数据统计概率与 Transformer 注意力机制；而神经连接组是演化千万年的真实突触结构。微小的果蝇脑虽然参数量无法与大模型相比，但在运动反射与生存策略上展现出了惊人的计算效率。"],
+      },
+      {
+        heading: "游戏输入与动作映射逻辑",
+        paragraphs: ["游戏画面的相对距离向量被转化为复眼感受野输入刺激，通过仿真器激活上游神经元，下游运动神经元的输出脉冲再映射为游戏角色的位移操作。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-career-personality",
+    title: "失业了、迷茫了？看看你的性格到底适合做什么",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-11",
+    seriesOrder: 222,
+    handoutFirst: true,
+    excerpt: "性格特质决定生产力上限：用最真实不内耗的性格，匹配 AI 时代新型独立创作者与 Agent 工作流。",
+    tags: ["视频教程", "职业规划", "性格测试", "AI生产力", "独立开发者", "AIAgent"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第22集-AI时代个人性格特质与生产力定位指南.md",
+      description: "包含 18 种性格特质与新型 AI 独立工作流匹配对照表。",
+      fileName: "第22集-AI时代个人性格特质与生产力定位指南.md",
+      url: "/downloads/cola/第22集-AI时代个人性格特质与生产力定位指南.md",
+    }],
+    body: [
+      "很多人在面临职业转型时往往陷入内耗：试图强迫自己学习不擅长的事物。其实在 AI Agent 时代，工具抹平了繁琐的执行门槛，个人内在最真实、最不费力的特质反而成了最重要的护城河。",
+      "话多做自媒体、敏感做创作、爱挑刺做产品、爱折腾去创业——AI 时代，不要为了迎合工具而扭曲自己的天性。"
+    ],
+    sections: [
+      {
+        heading: "性格特质与新工作流匹配",
+        paragraphs: ["爱挑刺的人适合成为自动化工作流的主审官，为 Agent 制定严格的边界验收规则；爱研究的人适合深挖多模型反向代理与本地协议打通；爱记录的人则能把实践沉淀为高效的 Markdown 知识库。"],
+      },
+      {
+        heading: "从最小闭环工作区开始",
+        paragraphs: ["不要试图一步到位转型，先在电脑中建立一个专属的项目文件夹，围绕自己的核心特质跑通一个最小闭环产品。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-chatgpt-sketch-pose",
+    title: "AI漫剧别再死磕提示词了！ChatGPT Image 2.5用草图精准控制人物姿势",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-10",
+    seriesOrder: 220,
+    handoutFirst: true,
+    excerpt: "用极简画板草图代替千字 Prompt：5 条线锁定骨骼姿态、几何体锁定机位视线，精准输出 AI 漫剧角色交互画面。",
+    tags: ["视频教程", "ChatGPT", "Image2.5", "AI漫剧", "草图生图", "姿态控制", "分镜"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第20集-ChatGPT草图精准控制人物姿态与分镜Prompt指南.md",
+      description: "包含 Sketch 线条规范、双人交互构图要求与精准提示词模版。",
+      fileName: "第20集-ChatGPT草图精准控制人物姿态与分镜Prompt指南.md",
+      url: "/downloads/cola/第20集-ChatGPT草图精准控制人物姿态与分镜Prompt指南.md",
+    }],
+    body: [
+      "在制作 AI 漫剧和人物分镜时，用文字反复描述人物的肢体动作、坐姿、朝向和双手位置极其困难。ChatGPT Image 2.5 的 Sketch 功能打破了纯文本限制。",
+      "只需用几根简单的火柴人线条或粗略色块把人物动态画出来，AI 就能严格锁定姿态，并结合角色设定图生成高保真成片。"
+    ],
+    sections: [
+      {
+        heading: "画出来比说出来更准",
+        paragraphs: ["火柴人骨骼锁定脊柱与四肢摆位，简单方盒锁定相机俯仰与景深透视，极大降低了反复抽卡的成本。"],
+        codeBlocks: ["参考附带的手绘草图构图与角色设定图：\n1. 姿态约束：严格遵循草图中人物A与人物B的坐姿与朝向；\n2. 风格设定：日系赛璐璐动画风格，带有逆光柔和光晕；\n3. 细节保真：保持角色发型、服饰与参考图一致。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-chatgpt-mv-storyboard",
+    title: "ChatGPT Image 2.5炸了｜一键生成AI漫剧MV分镜，9个镜头直接出片",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-10",
+    seriesOrder: 219,
+    handoutFirst: true,
+    excerpt: "一张角色图＋一张场景图：一键生成 9 宫格电影感日系动画 MV 分镜，掌握景别切换与镜头语言控制。",
+    tags: ["视频教程", "ChatGPT", "Image2.5", "AI漫剧", "MV分镜", "电影分镜", "二次元"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第19集-ChatGPT一键生成MV九宫格分镜与机位控制模板.md",
+      description: "包含 9 宫格景别规划表（远景/全景/特写/POV）与运镜控制提示词。",
+      fileName: "第19集-ChatGPT一键生成MV九宫格分镜与机位控制模板.md",
+      url: "/downloads/cola/第19集-ChatGPT一键生成MV九宫格分镜与机位控制模板.md",
+    }],
+    body: [
+      "利用一张角色参考图与一张重庆洪崖洞场景图，驱动 ChatGPT Image 2.5 直接输出标准的 3x3 九宫格分镜大图。",
+      "镜头涵盖大远景、中景过肩、面部微距特写、低机位雨水反光以及主观视角，非常适合作为短片或 MV 制作的前期视觉预演。"
+    ],
+    sections: [
+      {
+        heading: "九宫格机位语法设计",
+        paragraphs: ["从宏观环境交代、逐渐推进到人物微表情，再通过动态奔跑与远景留白完成情绪沉淀。"],
+        codeBlocks: ["请基于我提供的角色图与场景图，生成一张 3x3 九宫格日系动画 MV 分镜：\n- 统一色调：深蓝雨夜搭配暖金霓虹；\n- 人物一致性：严格保持角色的短发与服饰特征；\n- 镜头推进：从远景推进到特写，带有电影 16:9 画幅切线。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-workbuddy-global-vs-cn",
+    title: "WorkBuddy 海外版 VS 国内版｜海外版更香？",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-02",
+    seriesOrder: 216,
+    handoutFirst: true,
+    excerpt: "腾讯 WorkBuddy 海内外双版本深度对比：模型底座、文件解析上下文、多模态支持与本地网络环境差异全解析。",
+    tags: ["视频教程", "WorkBuddy", "海外版", "GPT-4o", "Claude", "AI办公", "Agent选型"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    body: [
+      "腾讯 WorkBuddy 推出了海外版本，很多学员关心海外版与国内版到底有什么区别，是否值得折腾网络去使用海外版。",
+      "本期实测对比了两者的核心差异：海外版默认接入 OpenAI GPT-4o 与 Claude 系列模型底座，在复杂英文文档、多语言编程代码生成上更具优势；而国内版在微信连接器、本土办公格式兼容及网络稳定性上体验更优。"
+    ],
+    sections: [
+      {
+        heading: "模型生态与上下文对比",
+        paragraphs: ["海外版在海外顶尖大模型支持上更加原汁原味；国内版在中文合规语料、政企文档以及微信群消息集成上无可替代。"],
+      },
+      {
+        heading: "选型建议",
+        paragraphs: ["需要高频使用 Claude/GPT 协同编程的用户推荐海外版；专注国内日常表格、微信订单与公文处理的用户继续坚守国内版即可。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-ai-sanguo-ranking",
+    title: "如果AI模型都是三国人物：谁是诸葛亮，谁是吕布？",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-28",
+    seriesOrder: 213,
+    handoutFirst: true,
+    excerpt: "拒绝枯燥跑分参数：以三国名将生动类比主流 AI 模型（诸葛亮Claude、关羽GPT、周瑜Gemini、赵云DeepSeek），直观选型不踩坑。",
+    tags: ["视频教程", "AI模型", "三国榜", "Claude", "ChatGPT", "Gemini", "DeepSeek", "选型指南"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第13集-主流AI大模型三国人物画像与能力选型对照表.md",
+      description: "包含 10 大顶尖大模型在代码、多模态、长文本与性价比上的精准画像表。",
+      fileName: "第13集-主流AI大模型三国人物画像与能力选型对照表.md",
+      url: "/downloads/cola/第13集-主流AI大模型三国人物画像与能力选型对照表.md",
+    }],
+    body: [
+      "面对几十款让人眼花缭乱的大模型，新手常常陷入选择困难。我们把常见模型映射为三国名将：诸葛亮是谋略深远的 Claude 3.5，关羽是全能威震华夏的 GPT-4o，周瑜是百万水军大上下文的 Gemini，赵云是孤勇高性价比的 DeepSeek。",
+      "任务不同，选派的武将也不同。配合本站制作的交互式“AI模型三国榜”（hooosberg.com/ai-navigation/?mode=sanguo），一眼即可看清各自长短板。"
+    ],
+    sections: [
+      {
+        heading: "极速选型口诀",
+        paragraphs: ["写大型复杂工程找孔明 (Claude)，全能商业生态找云长 (Codex/GPT)，超长书籍视频上下文找公瑾 (Gemini)，高频自建性价比找子龙 (DeepSeek)。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-office-automation-evolution",
+    title: "我们一直误解了自动化办公？从Excel到AI智能体，AI自动化办公正在彻底换代",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-28",
+    seriesOrder: 212,
+    handoutFirst: true,
+    excerpt: "深度解析办公自动化四次工业跃迁：从竹简文书流水线到 Excel 程序化，再到自主规划执行的 LLM 原生 Agent。",
+    tags: ["视频教程", "自动化办公", "Excel", "RPA", "AIAgent", "生产力进化", "科普"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第12集-从Excel到AI智能体：自动化办公演进与思维换代.md",
+      description: "包含办公自动化演进史完整演讲大纲与思维进阶要点。",
+      fileName: "第12集-从Excel到AI智能体：自动化办公演进与思维换代.md",
+      url: "/downloads/cola/第12集-从Excel到AI智能体：自动化办公演进与思维换代.md",
+    }],
+    body: [
+      "很多人以为自动化办公就是学函数和宏命令，但这其实只是“程序化办公”：人负责所有理解和规则铺设，软件只负责计算。",
+      "今天的 AI 办公智能体正在引发质变：从“人教电脑做事”变成“人定目标、AI自主规划执行”。理解这一代际跃迁，才能真正用好 WorkBuddy 和 Codex。"
+    ],
+    sections: [
+      {
+        heading: "办公自动化的四大阶段",
+        paragraphs: ["从古代竹简文书、工业革命文书流水线，到 Office 程序化时代，再到今天由大模型驱动的原生自主 Agent。"],
+      },
+      {
+        heading: "职场思维转换",
+        paragraphs: ["学会把原始事实保留在本地文件夹，让 Agent 在工作区内生成草稿；学会给 AI 写明确的验收标准，而不是纠结具体公式语法。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-ox-alpha-review",
+    title: "免费模型杀疯了？神秘Ox Alpha登场：1M上下文、能看视频",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-26",
+    seriesOrder: 210,
+    handoutFirst: true,
+    excerpt: "实测神秘黑马 Ox Alpha：支持 1M 超长上下文与视频直接输入，在 Cola 客户端免配环境上手评测。",
+    tags: ["视频教程", "OxAlpha", "免费模型", "1M上下文", "视频分析", "Cola", "AI评测"],
+    productSlugs: [],
+    videoUrl: "https://www.bilibili.com/video/BV1Cj8t6cEsz/",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第10集-神秘Ox_Alpha大模型长文本与视频分析实测.md",
+      description: "包含 Ox Alpha 模型参数规格、Cola 客户端配置与长文本评测报告。",
+      fileName: "第10集-神秘Ox_Alpha大模型长文本与视频分析实测.md",
+      url: "/downloads/cola/第10集-神秘Ox_Alpha大模型长文本与视频分析实测.md",
+    }],
+    body: [
+      "神秘的“牛奶模型”Ox Alpha 突然亮相并开启免费预览：直接支持 1M 上下文以及长视频输入，引起了开发者社区的极大关注。",
+      "通过 Cola 客户端接入该模型后，实测其在整段视频时间轴定位、超长技术文档交叉检索上的表现，完全达到甚至超越了部分主流收费模型的水平。"
+    ],
+    sections: [
+      {
+        heading: "核心优势与测试表现",
+        paragraphs: ["单次会话可容纳超过 100 万 Token，能够一次性吞下整份项目工程代码库或 1 小时完整视频，并精准回答特定帧细节。"],
+      },
+      {
+        heading: "Cola 极速接入配置",
+        paragraphs: ["在客户端选择 OpenRouter 协议节点，填入模型代码 ox/ox-alpha 即可直接调用体验。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-ai-stock-fable-vs-doubao",
+    title: "AI炒股预测宇树科技有差距？Fable 5 VS 豆包对比实测",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-25",
+    seriesOrder: 209,
+    handoutFirst: true,
+    excerpt: "真实新股上市回测：同一只股票、同一个分析框架，对比 Claude Code (Fable 5) 与普通对话模型在量化研报分析上的实质差距。",
+    tags: ["视频教程", "ClaudeCode", "AI炒股", "量化分析", "Cola", "豆包", "真实回测"],
+    productSlugs: [],
+    videoUrl: "https://www.bilibili.com/video/BV1TY8M6mEox/",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    body: [
+      "同一只新股、同一个量化提问，分别交给 Cola 运行环境中的 Claude Code (Fable 5) 与国内常规对话大模型豆包进行推导预测。",
+      "待真实上市股价公布后，回测两者的分析逻辑与定价估值区间，直观展示顶尖代码推理 Agent 在处理结构化财务指标与行业研报时的深层差异。"
+    ],
+    sections: [
+      {
+        heading: "回测方法与实验设计",
+        paragraphs: ["对比重点在于是否能深入抓取财务报表附注、可比公司市销率矩阵，并给出带量化公式的区间估值，而非泛泛而谈的行业前景展望。"],
+      },
+      {
+        heading: "结论与启示",
+        paragraphs: ["涉及高价值商业分析与量化建模时，具备代码执行能力和深层逻辑推导的 Agent 显著优于普通问答模型。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-workbuddy-vs-qwen",
+    title: "WorkBuddy VS 千问办公：腾讯阿里AI办公正面对决，谁更好用？",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-24",
+    seriesOrder: 208,
+    handoutFirst: true,
+    excerpt: "国内两大巨头 AI 办公助手正面对决：腾讯 WorkBuddy 与阿里千问办公在微信/钉钉生态、本地文件操作与智能体扩展上的全面 PK。",
+    tags: ["视频教程", "WorkBuddy", "千问办公", "QwenWork", "钉钉", "微信", "AI办公对比"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    body: [
+      "阿里千问办公 QwenWork 正式亮相，与腾讯 WorkBuddy 展开正面竞争。我们从日常最真实的办公痛点切入，评测两款产品在多模型支持、专家技能套件、钉钉与微信生态打通上的优缺点。",
+      "两款产品没有绝对的谁好谁坏：WorkBuddy 微信生态与本地代码执行极其强大；千问办公则与钉钉协同、企业审批天然一体。"
+    ],
+    sections: [
+      {
+        heading: "生态打通与权限对比",
+        paragraphs: ["公司如果重度依赖钉钉文档与考勤审批，千问办公是自然选择；如果业务集中在微信群交流、需要本地文件深度清洗，WorkBuddy 依然是首选。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-colaos-trio-workflow",
+    title: "不用折腾Codex、Claude和Gemini了！ColaOS三合一高价值工作流",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-23",
+    seriesOrder: 207,
+    handoutFirst: true,
+    excerpt: "一站式解决环境配置：ColaOS 串联 AI 生图、股票量化分析与自动化编程，开箱即用海外顶尖大模型。",
+    tags: ["视频教程", "ColaOS", "Codex", "ClaudeCode", "Gemini", "AI工作流", "编程环境"],
+    productSlugs: [],
+    videoUrl: "https://www.bilibili.com/video/BV1MrbQ6ME6n/",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第07集-ColaOS生图与量化编程三合一工作流指南.md",
+      description: "包含 ColaOS 快速上手命令、三合一模块串联与终端使用指南。",
+      fileName: "第07集-ColaOS生图与量化编程三合一工作流指南.md",
+      url: "/downloads/cola/第07集-ColaOS生图与量化编程三合一工作流指南.md",
+    }],
+    body: [
+      "配置海外顶尖 AI 模型常常伴随繁重的环境依赖、代理冲突和网络报错。ColaOS 将 AI 图像生成、股票量化金融分析以及 Claude Code 自动化编程整合为一体化工作台。",
+      "开箱即用，让创作者将精力聚焦在业务价值和创意落地，而不是浪费在环境报错排查上。"
+    ],
+    sections: [
+      {
+        heading: "三合一模块高效串联",
+        paragraphs: ["同一工作区内，生图模块出图，量化模块拉取财报，编程 Agent 原地修改本地脚本，打通完整商业闭环。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-witnote-vibe-coding",
+    title: "第一个Vibe Coding项目，我推翻重做了｜WitNote 2.0重构记录",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-20",
+    seriesOrder: 206,
+    handoutFirst: true,
+    excerpt: "真实独立产品从 Demo 到生产级的残酷蜕变：WitNote 2.0 推翻重做复盘，总结 AI 协作开发大型项目的避坑法则。",
+    tags: ["视频教程", "VibeCoding", "WitNote", "架构重构", "独立开发", "AI编程", "项目复盘"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    body: [
+      "Vibe Coding（氛围感编程）虽然能极快做出酷炫的 Demo，但一旦进入复杂业务状态、离线数据持久化和边缘边界处理，拼凑出的原型往往会瞬间崩溃。",
+      "本期复盘独立笔记软件 WitNote 2.0 整个架构推翻重做的真实经历，总结出在 AI 时代开发真实商业级软件必须遵守的模块解耦与状态机规范。"
+    ],
+    sections: [
+      {
+        heading: "Vibe Coding 的甜蜜陷阱",
+        paragraphs: ["AI 倾向于在单文件里堆砌逻辑以快速满足当前提示词，导致全局状态交织。必须强制要求 AI 分离数据层、呈现层与事件监听。"],
+      },
+      {
+        heading: "重构核心实践",
+        paragraphs: ["制定明确的 TypeScript 类型接口定义，编写完整的单元测试作为护栏，再让 Codex 逐步替换内部实现。"],
+      },
+    ],
+  },
+  {
+    slug: "video-codex-markdown-ai-format",
+    title: "01-我做了一款笔记 App，才发现 Markdown 可能是 AI 时代最重要的文字格式",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-08-15",
+    seriesOrder: 201,
+    handoutFirst: true,
+    excerpt: "从自研笔记软件开发实战，拆解 Markdown 纯文本、自描述与低 Token 损耗特性，为什么它是人机协作的黄金格式。",
+    tags: ["视频教程", "Markdown", "笔记App", "AI格式", "人机交互", "Prompt工程", "科普"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    downloadableResources: [{
+      title: "第01集-为什么Markdown是AI时代最重要的文字格式.md",
+      description: "包含 Markdown 在 AI 上下文中的低 Token 优势与结构化组织法则。",
+      fileName: "第01集-为什么Markdown是AI时代最重要的文字格式.md",
+      url: "/downloads/cola/第01集-为什么Markdown是AI时代最重要的文字格式.md",
+    }],
+    body: [
+      "在研发自主笔记产品的过程中，我们深刻认识到：为什么各种专有数据库和复杂的富文本 Word 格式在 AI 时代反而成了负担，而诞生数十年的 Markdown 却越活越年轻。",
+      "Markdown 结构透明、零格式污染、极度节省 Token，并且与 Git 差分审计天然亲和，是未来十年人机协作事实上的普通话。"
+    ],
+    sections: [
+      {
+        heading: "为什么 Word 和富文本不是 AI 的最优解",
+        paragraphs: ["Word 的底层是庞大的 XML 格式标签，消耗宝贵上下文且容易损坏；Markdown 纯净极简，每一行都是纯粹的语义事实。"],
+      },
+      {
+        heading: "学会 Markdown 就是学会指挥 AI",
+        paragraphs: ["掌握清晰的标题层级、列表和代码块语法，能够让你向 AI 下达的每一句指令和工作流需求都清晰无歧义。"],
+      },
+    ],
+  },
+
 ];
 
 const readingDiarySeeds: ArticleSeed[] = [
