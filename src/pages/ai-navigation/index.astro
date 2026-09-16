@@ -298,16 +298,6 @@ const traeWorkOffice = tool({
   actionLabel: "下载 TRAE Work",
 });
 
-const cola = tool({
-  name: "Cola",
-  description: "桌面与移动端 AI 工作台，内置 ChatGPT、Claude Code 等海外顶尖模型，支持多模型与 Agent 工作流；国内流程支持支付宝。",
-  url: "https://colaos.ai/",
-  country: "cn",
-  tags: ["桌面工作台", "多模型", "国内直连", "支持支付宝"],
-  badge: "国产办公 #6",
-  actionLabel: "前往体验 Cola",
-  promoNotice: "推荐码：HU-U7DSEXZJ（填码领 3 天会员，Ox模型限时免费）",
-});
 
 const doubaoWork = tool({
   name: "豆包办公",
@@ -389,7 +379,6 @@ const groups: ToolGroup[] = [
       qwenWork,
       traeWorkOffice,
       kimiWork,
-      cola,
       feishuOffice,
       wpsAi,
       yuanbao,
@@ -635,7 +624,6 @@ const groups: ToolGroup[] = [
     shortLabel: "编程",
     summary: "面向开发者的 AI IDE、终端 agent、代码补全和自动化工程工具。",
     items: [
-      cola,
       codex,
       kimiCode,
       workBuddyCn,
@@ -776,14 +764,13 @@ const alternativePairs: AlternativePair[] = [
     category: "编程 Agent / 仓库任务",
     source: codex,
     alternatives: [
-      cola,
       workBuddyCn,
       workBuddyGlobal,
       qwenWork,
       traeWorkOffice,
       kimiCode,
     ],
-    reason: "Codex 更像仓库级开发 agent；国内可用路径先看 Cola 的多模型工作台，再按腾讯 WorkBuddy、阿里千问办公、字节 TRAE Work 的桌面 Agent 路线比较。Kimi Code 则更聚焦代码与仓库任务。前四者并非 Codex 的一比一复刻，但适合需要在本地文件、办公产物与多步骤交付间协作的人。",
+    reason: "Codex 更像仓库级开发 agent；国内可用路径按腾讯 WorkBuddy、阿里千问办公、字节 TRAE Work 的桌面 Agent 路线比较，Kimi Code 则更聚焦代码与仓库任务。适合需要在本地文件、办公产物与多步骤交付间协作的人。",
     bestFor: ["仓库修改", "自动修复", "代码审查"],
   },
   {
@@ -900,15 +887,6 @@ const jsonLd = [
       <button type="button" role="tab" aria-selected="false" data-directory-mode="alternatives">国内平替</button>
       <button type="button" role="tab" aria-selected="false" data-directory-mode="sanguo">AI模型三国榜</button>
     </div>
-
-    <a class="directory-cola-sponsor" href="https://colaos.ai/" target="_blank" rel="noreferrer" title="访问 colaos.ai 体验海外顶尖模型，填写推荐码领会员">
-      <span class="directory-cola-sponsor__pill">福利</span>
-      <span class="directory-cola-sponsor__main">
-        <strong>海外顶级模型 Cola</strong>
-        <span class="directory-cola-sponsor__sub">内置 ChatGPT / Claude Code · 推荐码 <code>HU-U7DSEXZJ</code> 领 3 天会员</span>
-      </span>
-      <span class="directory-cola-sponsor__cta">colaos.ai ↗</span>
-    </a>
   </div>
 
   <section class="ai-directory-shell" data-directory-shell data-mode="ranking" data-directory-current={directoryGroups[0].id} data-directory-filtered="false">

@@ -186,8 +186,8 @@ const productEnglish: Record<string, EnglishProductOverride> = {
   },
   agentlimb: {
     category: "AI browser-control tool",
-    tagline: "A universal web-control base: Claude Code, Codex, plus Tencent WorkBuddy, Qwen Office, TRAE Work, Cola, and Kimi Work all drive a real browser.",
-    summary: "AgentLimb is a universal web-control Chrome extension: any command-capable AI terminal — Claude Code, Codex, Cursor, Trae, Windsurf internationally, or Tencent WorkBuddy, Alibaba Qwen Office, ByteDance TRAE Work, Cola, and Kimi Work in China — can onboard with one prompt and operate the web through your real browser sessions. Since 0.2.1 (b7) it fully supports both Windows and macOS.",
+    tagline: "A universal web-control base: Claude Code, Codex, plus Tencent WorkBuddy, Qwen Office, TRAE Work, and Kimi Work all drive a real browser.",
+    summary: "AgentLimb is a universal web-control Chrome extension: any command-capable AI terminal — Claude Code, Codex, Cursor, Trae, Windsurf internationally, or Tencent WorkBuddy, Alibaba Qwen Office, ByteDance TRAE Work, and Kimi Work in China — can onboard with one prompt and operate the web through your real browser sessions. Since 0.2.1 (b7) it fully supports both Windows and macOS.",
     audience: "Developers and heavy AI users who need agents to work with real websites, logged-in sessions, and multi-account workflows.",
     platforms: ["Chrome / Edge / Brave / Vivaldi", "MCP", "Windows + macOS", "Local bridge"],
     status: ["Open source", "0.2.1 b7", "Local-first", "Win + Mac"],
@@ -392,22 +392,22 @@ function buildEnglishDetail(product: Product, override: EnglishProductOverride) 
       overview: [
         "AgentLimb positions itself as a universal web-control plugin for every platform and every AI tool. It is not tied to one vendor: any terminal that can run local commands drives the browser through the local Bridge and 16 standardized tools — locating elements, filling forms, clicking, screenshots, data extraction — all on your real, already-logged-in browser sessions. No headless browser, no re-login.",
         "Version 0.2.1 (b7) is the dual-platform milestone: the same onboarding prompt works on both Windows and macOS. On macOS an already-installed Runtime starts instantly; on Windows install.ps1 registers the local service and autostart. Both platforms require explicit user approval and verify SHA-256 before download. The v0.1.4 Windows install gap (GitHub issue #2) was fully resolved by the v0.2.x two-package model.",
-        "b7 also announces official support for Chinese AI terminals: Tencent WorkBuddy, Alibaba Qwen Office, ByteDance TRAE Work, Cola, and Kimi Work. All five use the exact same onboarding protocol as Claude Code, Codex, Cursor, Trae, and Windsurf — copy the prompt from the side panel, paste it into the terminal, approve, and you are configured in 10 seconds. Combined with every Chromium browser (Chrome, Edge, Brave, Vivaldi), AgentLimb becomes a ready-to-use web-automation base for Chinese AI office scenarios."
+        "b7 also announces official support for Chinese AI terminals: Tencent WorkBuddy, Alibaba Qwen Office, ByteDance TRAE Work, and Kimi Work. All four use the exact same onboarding protocol as Claude Code, Codex, Cursor, Trae, and Windsurf — copy the prompt from the side panel, paste it into the terminal, approve, and you are configured in 10 seconds. Combined with every Chromium browser (Chrome, Edge, Brave, Vivaldi), AgentLimb becomes a ready-to-use web-automation base for Chinese AI office scenarios."
       ],
       proofPoints: [
-        { label: "Terminals", value: "5+ international / 5 Chinese", note: "Claude Code, Codex, Cursor, Trae, Windsurf — plus Tencent WorkBuddy, Alibaba Qwen Office, ByteDance TRAE Work, Cola, and Kimi Work." },
+        { label: "Terminals", value: "5+ international / 4 Chinese", note: "Claude Code, Codex, Cursor, Trae, Windsurf — plus Tencent WorkBuddy, Alibaba Qwen Office, ByteDance TRAE Work, and Kimi Work." },
         { label: "Platform", value: "Windows + macOS", note: "Since b7 one prompt serves both; Windows uses install.ps1, macOS starts an installed Runtime directly." },
         { label: "Browsers", value: "Every Chromium build", note: "Chrome, Edge, Brave, Vivaldi, Chromium and friends all install the same extension." },
         { label: "Privacy", value: "Local-first", note: override.privacyNote },
       ],
       valueProps: [
-        { title: "Works with Chinese AI terminals out of the box", body: "WorkBuddy, Qwen Office, TRAE Work, Cola, and Kimi Work need zero special configuration — the same single onboarding prompt as international terminals. Chinese AI office suites get a properly adapted web-control capability for the first time." },
+        { title: "Works with Chinese AI terminals out of the box", body: "WorkBuddy, Qwen Office, TRAE Work, and Kimi Work need zero special configuration — the same single onboarding prompt as international terminals. Chinese AI office suites get a properly adapted web-control capability for the first time." },
         { title: "Real sessions, not headless browsers", body: "Agents operate the browser you actually use: logins, cookies, and multiple profiles all preserved. Logged-in sites work immediately; multi-account flows run in parallel." },
         { title: "Route memory that pays for itself", body: "DOM exploration settles into human-readable muscle memory files, saving an average of 85.7% tokens on repeat tasks — especially valuable on usage-billed Chinese terminals." },
       ],
       featureDetails: [
         { title: "One-prompt onboarding", body: "Click Copy Onboard Prompt in the side panel and paste it into any AI terminal. After approval the terminal downloads the Runtime, verifies SHA-256, configures Native Messaging, and passes a health check." },
-        { title: "Official Chinese terminal support", body: "Tencent WorkBuddy, Alibaba Qwen Office, ByteDance TRAE Work, Cola, and Kimi Work are adapted via the standard protocol — no plugin-side changes needed." },
+        { title: "Official Chinese terminal support", body: "Tencent WorkBuddy, Alibaba Qwen Office, ByteDance TRAE Work, and Kimi Work are adapted via the standard protocol — no plugin-side changes needed." },
         { title: "Windows + macOS", body: "b7 fully supports both systems: install.ps1 on Windows registers the local service; macOS starts an installed Runtime in seconds and only downloads on first run." },
         { title: "Every Chromium browser", body: "The extension installs on Chrome, Edge, Brave, Vivaldi, and anything else that supports the Chrome extension system." },
         { title: "Muscle route memory", body: "Each site's DOM structure and operation routes persist as human-readable JSON memory the agent reuses next time — saving tokens and time." },

@@ -141,7 +141,6 @@ test("AI navigation ranking cards do not duplicate the same customer product", a
     "字节 TRAE Work",
     "阿里 千问办公",
     "豆包办公",
-    "Cola",
     "WPS AI",
     "扣子 Coze",
     "通义百炼 Agent",

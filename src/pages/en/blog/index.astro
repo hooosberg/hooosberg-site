@@ -30,13 +30,13 @@ const courseCopy = {
   },
   cola: {
     title: "AI Office Automation: Practice Green Book",
-    toolLine: "Cola / Codex / Claude Code · problem-led practice",
+    toolLine: "Codex / Claude Code / ChatGPT · problem-led practice",
     description: "Use real office problems to organize source files, rules, prompts, checks, and final deliverables into a complete workflow.",
   },
 };
 const pageDescription = "AI office automation learning notes: 23-lesson paid masterclass, 30-lesson free beginner course, and practice series, plus product, reading, thought, and resource notes.";
 const jsonLd = [
-  buildSectionCollectionJsonLd({ locale: "en", path: "/en/blog", name: "Hooosberg AI Office Automation Green Books", description: pageDescription, topics: ["AI automation", "WorkBuddy", "AI Agents", "Cola", "Codex", "Claude Code"] }),
+  buildSectionCollectionJsonLd({ locale: "en", path: "/en/blog", name: "Hooosberg AI Office Automation Green Books", description: pageDescription, topics: ["AI automation", "WorkBuddy", "AI Agents", "Codex", "Claude Code"] }),
   buildItemListJsonLd("https://hooosberg.com/en/blog#learning-notes", localizedArticles.filter((article) => article.diaryKind === "video").map((article) => ({ name: article.title, url: `/en/blog/${article.slug}`, description: article.excerpt }))),
 ];
 ---
@@ -119,16 +119,9 @@ const jsonLd = [
           <h2>{courseCopy.cola.title}</h2>
           <p class="series-tool-line">{courseCopy.cola.toolLine}</p>
           <p>{courseCopy.cola.description}</p>
-          <div class="series-cola-perk">
-            <span class="series-cola-perk__badge">Student VIP Perk</span>
-            <span>
-              Recommended workstation Cola (built-in ChatGPT, Claude Code & top global models; Alipay supported): visit <a href="https://colaos.ai/" target="_blank" rel="noreferrer">colaos.ai</a> with referral code <code>HU-U7DSEXZJ</code> to claim a <strong>3-day VIP trial</strong>, with Ox models free for a limited time.
-            </span>
-          </div>
         </div>
         <div class="series-intro-actions">
           <a class="button button--primary series-playlist" href={cola.playlistUrl} target="_blank" rel="noreferrer">Open Bilibili series <ExternalLink size={16} aria-hidden="true" /></a>
-          <a class="button button--outline series-cola-btn" href="https://colaos.ai/" target="_blank" rel="noreferrer">Try Cola & Claim VIP ↗</a>
         </div>
       </div>
       <div class="series-sync-note"><Lightbulb size={20} aria-hidden="true" /><p>Practice series is continuously updated with handouts and step-by-step setup guides.</p></div>

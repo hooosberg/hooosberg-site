@@ -902,7 +902,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
         heading: "第3步：按最终合同清单自动整理交付视频",
         paragraphs: ["合同谈完进入执行：把合同附件当成任务清单，让 AI 去本地资料库匹配对应视频，只复制、不移动原始文件，按合同名称对齐。"],
         codeBlocks: [
-          "【湖森堡】-数字资源授权合作协议-20260904.docx 录制课程Cola_Codex_ClaudeCode_实战案例库_30集_问题驱动版 帮我把合同里面的需要的视频，从我给你的目录里面选择对应的视频，复制一份到桌面，然后名称和合同里面的对齐，然后桌面新建文件夹叫做授权视频。",
+          "【湖森堡】-数字资源授权合作协议-20260904.docx 录制课程Codex_ClaudeCode_实战案例库_30集_问题驱动版 帮我把合同里面的需要的视频，从我给你的目录里面选择对应的视频，复制一份到桌面，然后名称和合同里面的对齐，然后桌面新建文件夹叫做授权视频。",
         ],
       },
     ],
@@ -1034,7 +1034,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     ],
   },
   {
-    slug: "video-cola-lesson1-expense-sheet-merge",
+    slug: "video-codex-lesson1-expense-sheet-merge",
     title: "第01集｜AI自动化办公入门＋Excel：多部门乱表合并＋自动找异常",
     category: "视频教程笔记",
     diaryKind: "video",
@@ -1042,12 +1042,12 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     seriesOrder: 101,
     handoutFirst: true,
     excerpt: "用字段映射、受控堆叠与勾稽校验，把 6 个部门的异构费用表合并为可追溯的总表。",
-    tags: ["视频教程", "Cola", "Codex", "Claude Code", "Excel", "AI 自动化办公"],
+    tags: ["视频教程", "Codex", "Claude Code", "Excel", "AI 自动化办公"],
     productSlugs: [],
     videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
     videoMeta: "B 站：AI 自动化办公实战绿皮书合集",
     body: [
-      "学员课件：你可以边看边操作，也可以直接把下面的提示词复制到 Cola 中使用。",
+      "学员课件：你可以边看边操作，也可以直接把下面的提示词复制到本地终端或 AI 客户端中使用。",
       "真实问题是：6 个部门的费用表字段名称、日期格式和金额类型都不一致；直接复制粘贴不仅会错位，也容易混淆口径。"
     ],
     sections: [
@@ -1059,7 +1059,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     ],
   },
   {
-    slug: "video-cola-lesson2-resume-screening",
+    slug: "video-codex-lesson2-resume-screening",
     title: "第02集｜AI自动化办公入门＋招聘：30份简历批量初筛，自动匹配文员/设计师",
     category: "视频教程笔记",
     diaryKind: "video",
@@ -1067,11 +1067,11 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     seriesOrder: 102,
     handoutFirst: true,
     excerpt: "批量读取 30 份 Word 简历，按两类岗位的硬性门槛输出有依据的初筛矩阵与面试追问。",
-    tags: ["视频教程", "Cola", "Codex", "Claude Code", "招聘", "Word"],
+    tags: ["视频教程", "Codex", "Claude Code", "招聘", "Word"],
     productSlugs: [],
     videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
     videoMeta: "B 站：AI 自动化办公实战绿皮书合集",
-    body: ["学员课件：你可以边看边操作，也可以直接把下面的提示词复制到 Cola 中使用。", "真实问题是：30 份 Word 简历格式不一，软件能力、工作年限与期望薪资各不相同；不能只让 AI 给出前三名，必须给出逐人的事实依据与面试追问。"],
+    body: ["学员课件：你可以边看边操作，也可以直接把下面的提示词复制到本地终端或 AI 客户端中使用。", "真实问题是：30 份 Word 简历格式不一，软件能力、工作年限与期望薪资各不相同；不能只让 AI 给出前三名，必须给出逐人的事实依据与面试追问。"],
     sections: [
       { heading: "这节课的目标（最终交付物）", paragraphs: ["30份简历结构化提取表＋行政/设计两岗位初筛打分矩阵＋面试推荐清单与追问要点。"] },
       { heading: "案例环境与教学锚点", paragraphs: ["这是一个虚构的中小企业招聘初筛场景：行政文员要求大专以上、1年以上经验、熟练 Office、期望薪资不高于 6k；平面设计师要求熟练 PS/AI、有作品集、期望薪资不高于 9k。", "30 份简历的格式存在差异；超薪资或缺技能的候选人应客观扣分并标记原因；A/B/C 等级必须附简历原文依据；对 A/B 级候选人生成 2–3 个针对其简历的面试追问。"] },
@@ -1081,7 +1081,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     ],
   },
   {
-    slug: "video-cola-lesson3-bonus-rules",
+    slug: "video-codex-lesson3-bonus-rules",
     title: "第03集｜AI自动化办公入门＋Excel：十几张散表理清奖金规则＋月底算薪不扯皮",
     category: "视频教程笔记",
     diaryKind: "video",
@@ -1089,11 +1089,11 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     seriesOrder: 103,
     handoutFirst: true,
     excerpt: "把口头奖金规则和事后调整固化成规则字典，保留中间计算列并通过抽样反算复核。",
-    tags: ["视频教程", "Cola", "Codex", "Claude Code", "Excel", "奖金核算"],
+    tags: ["视频教程", "Codex", "Claude Code", "Excel", "奖金核算"],
     productSlugs: [],
     videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
     videoMeta: "B 站：AI 自动化办公实战绿皮书合集",
-    body: ["学员课件：你可以边看边操作，也可以直接把下面的提示词复制到 Cola 中使用。", "真实问题是：不同车间有不同的阶梯单价、出勤系数、质量扣款与临时调整，口头规则与散表一旦套错公式就容易引发争议。"],
+    body: ["学员课件：你可以边看边操作，也可以直接把下面的提示词复制到本地终端或 AI 客户端中使用。", "真实问题是：不同车间有不同的阶梯单价、出勤系数、质量扣款与临时调整，口头规则与散表一旦套错公式就容易引发争议。"],
     sections: [
       { heading: "这节课的目标（最终交付物）", paragraphs: ["奖金规则字典＋全员奖金计算明细表＋中间计算列＋事后调整记录＋抽样反算复核。"] },
       { heading: "案例环境与教学锚点", paragraphs: ["这是一个虚构的制造企业月度绩效奖金核算场景，涉及注塑、组装、包装、质检 4 个工段。素材包括《员工产量_2026-07.xlsx》《岗位奖金口径.md》《事后调整记录.md》。", "多工段阶梯规则须精确匹配；事后调整必须关联到具体工号；缺失工号或异常产量要标记“待确认”；结果必须展示基础奖金、阶梯奖金、扣罚金额、调整金额、应发总额等中间列。"] },
@@ -1103,7 +1103,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     ],
   },
   {
-    slug: "video-cola-lesson4-word-template-fill",
+    slug: "video-codex-lesson4-word-template-fill",
     title: "第04集｜AI自动化办公入门＋Word：固定模板自动填充＋版式一格不乱",
     category: "视频教程笔记",
     diaryKind: "video",
@@ -1111,11 +1111,11 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     seriesOrder: 104,
     handoutFirst: true,
     excerpt: "在固定 Word 模板副本上建立字段映射、回填多源事实并用段落与表格计数检查版式。",
-    tags: ["视频教程", "Cola", "Codex", "Claude Code", "Word", "模板填充"],
+    tags: ["视频教程", "Codex", "Claude Code", "Word", "模板填充"],
     productSlugs: [],
     videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
     videoMeta: "B 站：AI 自动化办公实战绿皮书合集",
-    body: ["学员课件：你可以边看边操作，也可以直接把下面的提示词复制到 Cola 中使用。", "真实问题是：几十页的标准 Word 模板中，页眉、受控编号、表格结构和条款序号都不能改动；资料散落在项目事实、设备台账和 CSV 中，直接交给 AI 容易破坏版式。"],
+    body: ["学员课件：你可以边看边操作，也可以直接把下面的提示词复制到本地终端或 AI 客户端中使用。", "真实问题是：几十页的标准 Word 模板中，页眉、受控编号、表格结构和条款序号都不能改动；资料散落在项目事实、设备台账和 CSV 中，直接交给 AI 容易破坏版式。"],
     sections: [
       { heading: "这节课的目标（最终交付物）", paragraphs: ["字段映射表＋填充后的 Word 方案草稿（模板版式零改动）＋段落表格计数自查报告。"] },
       { heading: "案例环境与教学锚点", paragraphs: ["场景是虚构的精细化工混合罐验证方案编制；素材为《验证方案模板.docx》《项目事实资料.md》《设备采样记录.xlsx》。", "原模板绝对不可改动，操作必须在副本上进行；取样点 3 的实测值 11.2 超过限度 10，必须标记异常；缺项使用【待确认】占位，不能编造。"] },
@@ -1125,7 +1125,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     ],
   },
   {
-    slug: "video-cola-lesson5-aionui-bai-free-api",
+    slug: "video-codex-lesson5-aionui-bai-free-api",
     title: "第05集｜AionUi＋B.AI：白嫖大模型API终极教程，零成本手搓专属WorkBuddy Agent",
     category: "视频教程笔记",
     diaryKind: "video",
@@ -1133,7 +1133,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     seriesOrder: 105,
     handoutFirst: true,
     excerpt: "汇总开源 24/7 Agent 客户端 AionUi 接入 B.AI 免费大模型 API 的完整配置参数、免费模型清单与 Coding/Agent 模型能力深度对比选型指南。",
-    tags: ["视频教程", "Cola", "AionUi", "B.AI", "Coding Agent", "免费API", "AI 自动化办公"],
+    tags: ["视频教程", "AionUi", "B.AI", "Coding Agent", "免费API", "AI 自动化办公"],
     productSlugs: [],
     videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
     videoMeta: "B 站：AI 自动化办公实战绿皮书合集",
@@ -1141,7 +1141,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第05集-AionUi接入BAI配置与模型对比指南.md",
       description: "包含 AionUi 表单配置、B.AI 免费模型清单与 Coding Agent 选型对比完整文档。",
       fileName: "第05集-AionUi接入BAI配置与模型对比指南.md",
-      url: "/downloads/cola/第05集-AionUi接入BAI配置与模型对比指南.md",
+      url: "/downloads/codex/第05集-AionUi接入BAI配置与模型对比指南.md",
     }],
     body: [
       "学员课件：本文档汇总了在开源 AI 客户端 AionUi 中接入 B.AI 大模型服务的完整配置参数、免费模型 ID 清单，以及主流 Coding + Agent 模型的能力对比与选型指南。",
@@ -1423,7 +1423,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第01集-Codex外挂Gemini反向代理配置指南.md",
       description: "包含代理安装启动、Provider/Profile 配置、一键切换脚本与常见问题排查。",
       fileName: "第01集-Codex外挂Gemini反向代理配置指南.md",
-      url: "/downloads/cola/第01集-Codex外挂Gemini反向代理配置指南.md",
+      url: "/downloads/codex/第01集-Codex外挂Gemini反向代理配置指南.md",
     }],
     body: [
       "这套玩法最大的意义，不只是“换一个模型”，而是把 Codex 变成一个可以自由连接不同顶尖模型的前端工作台。",
@@ -1464,7 +1464,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第04集-AI海报转可编辑PSD操作与图层说明.md",
       description: "包含 55 个图层架构、字体匹配表、无字底图补绘与自动化驱动 Prompt。",
       fileName: "第04集-AI海报转可编辑PSD操作与图层说明.md",
-      url: "/downloads/cola/第04集-AI海报转可编辑PSD操作与图层说明.md",
+      url: "/downloads/codex/第04集-AI海报转可编辑PSD操作与图层说明.md",
     }],
     body: [
       "实测一套全新的 AI 设计工作流：AI 不再只给出一张扁平的位图，而是直接输出具备原生图层、可编辑文字、保留样式效果的 PSD 源工程。",
@@ -1503,7 +1503,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第07集-四视图生成可编辑Blender高达使用指南.md",
       description: "包含部件拆解清单、18 根骨骼 Pose Mode 调整技巧与 Blender 脚本使用说明。",
       fileName: "第07集-四视图生成可编辑Blender高达使用指南.md",
-      url: "/downloads/cola/第07集-四视图生成可编辑Blender高达使用指南.md",
+      url: "/downloads/codex/第07集-四视图生成可编辑Blender高达使用指南.md",
     }],
     body: [
       "这不是一张简单的 3D 渲染图，而是真正的 Blender 工程源文件：439 个独立网格部件、头部、胸腹、腰裙、四肢、盾牌与武器全部独立成组，并且自带可摆动作的骨骼系统。",
@@ -1542,7 +1542,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第08集-三视图生成Blender豹2坦克指南与图纸分析.md",
       description: "包含坦克三视图几何比例基准、车体/悬挂拆解与 3D 打印 STL 导出指南。",
       fileName: "第08集-三视图生成Blender豹2坦克指南与图纸分析.md",
-      url: "/downloads/cola/第08集-三视图生成Blender豹2坦克指南与图纸分析.md",
+      url: "/downloads/codex/第08集-三视图生成Blender豹2坦克指南与图纸分析.md",
     }],
     body: [
       "上一期我们测试了工业硬表面的经典题材——豹2主战坦克。通过输入正视、俯视、侧视军工三视图，检验大模型在三维正交对齐与机械结构理解上的极限。",
@@ -1581,7 +1581,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第10集-网页动画Prompt横评与Hy4测试说明.md",
       description: "包含动效评测基准 Prompt、三家模型对比横评表与测试结论。",
       fileName: "第10集-网页动画Prompt横评与Hy4测试说明.md",
-      url: "/downloads/cola/第10集-网页动画Prompt横评与Hy4测试说明.md",
+      url: "/downloads/codex/第10集-网页动画Prompt横评与Hy4测试说明.md",
     }],
     body: [
       "代码生成能力不只是刷 LeetCode，写具有复杂数学逻辑、物理碰撞和丝滑视觉动效的前端页面，更能检验大模型对空间、帧率与状态机的综合理解。",
@@ -1616,7 +1616,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第14集-AI办公三足鼎立横评与唐代壁画实测课件.md",
       description: "包含三大产品对比矩阵、DESIGN.md 色彩规范与 STORY.md 大纲范本。",
       fileName: "第14集-AI办公三足鼎立横评与唐代壁画实测课件.md",
-      url: "/downloads/cola/第14集-AI办公三足鼎立横评与唐代壁画实测课件.md",
+      url: "/downloads/codex/第14集-AI办公三足鼎立横评与唐代壁画实测课件.md",
     }],
     body: [
       "随着豆包工作正式发布，国内 AI 自动化办公正式形成腾讯 WorkBuddy、阿里通义千问办公、字节豆包工作“三足鼎立”的竞争格局。",
@@ -1655,7 +1655,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第23集-果蝇大脑连接组数字生命与AI对战指南.md",
       description: "包含 FlyWire 数据集背景、神经元反射电位映射与游戏对战机制解析。",
       fileName: "第23集-果蝇大脑连接组数字生命与AI对战指南.md",
-      url: "/downloads/cola/第23集-果蝇大脑连接组数字生命与AI对战指南.md",
+      url: "/downloads/codex/第23集-果蝇大脑连接组数字生命与AI对战指南.md",
     }],
     body: [
       "这期视频做了一个非常有意思的交叉科学实验：不依赖传统的 LLM 假装扮演，而是把真实果蝇大脑的 13.9 万个神经元突触连接组（Connectome）在电脑中做数字化仿真，并接入游戏环境进行实时对抗。",
@@ -1689,7 +1689,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第22集-AI时代个人性格特质与生产力定位指南.md",
       description: "包含 18 种性格特质与新型 AI 独立工作流匹配对照表。",
       fileName: "第22集-AI时代个人性格特质与生产力定位指南.md",
-      url: "/downloads/cola/第22集-AI时代个人性格特质与生产力定位指南.md",
+      url: "/downloads/codex/第22集-AI时代个人性格特质与生产力定位指南.md",
     }],
     body: [
       "很多人在面临职业转型时往往陷入内耗：试图强迫自己学习不擅长的事物。其实在 AI Agent 时代，工具抹平了繁琐的执行门槛，个人内在最真实、最不费力的特质反而成了最重要的护城河。",
@@ -1723,7 +1723,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第20集-ChatGPT草图精准控制人物姿态与分镜Prompt指南.md",
       description: "包含 Sketch 线条规范、双人交互构图要求与精准提示词模版。",
       fileName: "第20集-ChatGPT草图精准控制人物姿态与分镜Prompt指南.md",
-      url: "/downloads/cola/第20集-ChatGPT草图精准控制人物姿态与分镜Prompt指南.md",
+      url: "/downloads/codex/第20集-ChatGPT草图精准控制人物姿态与分镜Prompt指南.md",
     }],
     body: [
       "在制作 AI 漫剧和人物分镜时，用文字反复描述人物的肢体动作、坐姿、朝向和双手位置极其困难。ChatGPT Image 2.5 的 Sketch 功能打破了纯文本限制。",
@@ -1754,7 +1754,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第19集-ChatGPT一键生成MV九宫格分镜与机位控制模板.md",
       description: "包含 9 宫格景别规划表（远景/全景/特写/POV）与运镜控制提示词。",
       fileName: "第19集-ChatGPT一键生成MV九宫格分镜与机位控制模板.md",
-      url: "/downloads/cola/第19集-ChatGPT一键生成MV九宫格分镜与机位控制模板.md",
+      url: "/downloads/codex/第19集-ChatGPT一键生成MV九宫格分镜与机位控制模板.md",
     }],
     body: [
       "利用一张角色参考图与一张重庆洪崖洞场景图，驱动 ChatGPT Image 2.5 直接输出标准的 3x3 九宫格分镜大图。",
@@ -1813,7 +1813,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第13集-主流AI大模型三国人物画像与能力选型对照表.md",
       description: "包含 10 大顶尖大模型在代码、多模态、长文本与性价比上的精准画像表。",
       fileName: "第13集-主流AI大模型三国人物画像与能力选型对照表.md",
-      url: "/downloads/cola/第13集-主流AI大模型三国人物画像与能力选型对照表.md",
+      url: "/downloads/codex/第13集-主流AI大模型三国人物画像与能力选型对照表.md",
     }],
     body: [
       "面对几十款让人眼花缭乱的大模型，新手常常陷入选择困难。我们把常见模型映射为三国名将：诸葛亮是谋略深远的 Claude 3.5，关羽是全能威震华夏的 GPT-4o，周瑜是百万水军大上下文的 Gemini，赵云是孤勇高性价比的 DeepSeek。",
@@ -1843,7 +1843,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第12集-从Excel到AI智能体：自动化办公演进与思维换代.md",
       description: "包含办公自动化演进史完整演讲大纲与思维进阶要点。",
       fileName: "第12集-从Excel到AI智能体：自动化办公演进与思维换代.md",
-      url: "/downloads/cola/第12集-从Excel到AI智能体：自动化办公演进与思维换代.md",
+      url: "/downloads/codex/第12集-从Excel到AI智能体：自动化办公演进与思维换代.md",
     }],
     body: [
       "很多人以为自动化办公就是学函数和宏命令，但这其实只是“程序化办公”：人负责所有理解和规则铺设，软件只负责计算。",
@@ -1868,20 +1868,20 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     date: "2026-08-26",
     seriesOrder: 210,
     handoutFirst: true,
-    excerpt: "实测神秘黑马 Ox Alpha：支持 1M 超长上下文与视频直接输入，在 Cola 客户端免配环境上手评测。",
-    tags: ["视频教程", "OxAlpha", "免费模型", "1M上下文", "视频分析", "Cola", "AI评测"],
+    excerpt: "实测神秘黑马 Ox Alpha：支持 1M 超长上下文与视频直接输入，免配复杂环境上手评测。",
+    tags: ["视频教程", "OxAlpha", "免费模型", "1M上下文", "视频分析", "AI评测"],
     productSlugs: [],
     videoUrl: "https://www.bilibili.com/video/BV1Cj8t6cEsz/",
     videoMeta: "B 站：Codex 编程实战与前沿评测",
     downloadableResources: [{
       title: "第10集-神秘Ox_Alpha大模型长文本与视频分析实测.md",
-      description: "包含 Ox Alpha 模型参数规格、Cola 客户端配置与长文本评测报告。",
+      description: "包含 Ox Alpha 模型参数规格、模型接入配置与长文本评测报告。",
       fileName: "第10集-神秘Ox_Alpha大模型长文本与视频分析实测.md",
-      url: "/downloads/cola/第10集-神秘Ox_Alpha大模型长文本与视频分析实测.md",
+      url: "/downloads/codex/第10集-神秘Ox_Alpha大模型长文本与视频分析实测.md",
     }],
     body: [
       "神秘的“牛奶模型”Ox Alpha 突然亮相并开启免费预览：直接支持 1M 上下文以及长视频输入，引起了开发者社区的极大关注。",
-      "通过 Cola 客户端接入该模型后，实测其在整段视频时间轴定位、超长技术文档交叉检索上的表现，完全达到甚至超越了部分主流收费模型的水平。"
+      "接入该模型后，实测其在整段视频时间轴定位、超长技术文档交叉检索上的表现，完全达到甚至超越了部分主流收费模型的水平。"
     ],
     sections: [
       {
@@ -1889,7 +1889,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
         paragraphs: ["单次会话可容纳超过 100 万 Token，能够一次性吞下整份项目工程代码库或 1 小时完整视频，并精准回答特定帧细节。"],
       },
       {
-        heading: "Cola 极速接入配置",
+        heading: "极速接入配置",
         paragraphs: ["在客户端选择 OpenRouter 协议节点，填入模型代码 ox/ox-alpha 即可直接调用体验。"],
       },
     ],
@@ -1903,12 +1903,12 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     seriesOrder: 209,
     handoutFirst: true,
     excerpt: "真实新股上市回测：同一只股票、同一个分析框架，对比 Claude Code (Fable 5) 与普通对话模型在量化研报分析上的实质差距。",
-    tags: ["视频教程", "ClaudeCode", "AI炒股", "量化分析", "Cola", "豆包", "真实回测"],
+    tags: ["视频教程", "ClaudeCode", "AI炒股", "量化分析", "豆包", "真实回测"],
     productSlugs: [],
     videoUrl: "https://www.bilibili.com/video/BV1TY8M6mEox/",
     videoMeta: "B 站：Codex 编程实战与前沿评测",
     body: [
-      "同一只新股、同一个量化提问，分别交给 Cola 运行环境中的 Claude Code (Fable 5) 与国内常规对话大模型豆包进行推导预测。",
+      "同一只新股、同一个量化提问，分别交给本地环境中的 Claude Code (Fable 5) 与国内常规对话大模型豆包进行推导预测。",
       "待真实上市股价公布后，回测两者的分析逻辑与定价估值区间，直观展示顶尖代码推理 Agent 在处理结构化财务指标与行业研报时的深层差异。"
     ],
     sections: [
@@ -1947,26 +1947,26 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     ],
   },
   {
-    slug: "video-codex-colaos-trio-workflow",
-    title: "不用折腾Codex、Claude和Gemini了！ColaOS三合一高价值工作流",
+    slug: "video-codex-trio-workflow",
+    title: "不用折腾Codex、Claude和Gemini了！三合一高价值工作流",
     category: "视频教程笔记",
     diaryKind: "video",
     date: "2026-08-23",
     seriesOrder: 207,
     handoutFirst: true,
-    excerpt: "一站式解决环境配置：ColaOS 串联 AI 生图、股票量化分析与自动化编程，开箱即用海外顶尖大模型。",
-    tags: ["视频教程", "ColaOS", "Codex", "ClaudeCode", "Gemini", "AI工作流", "编程环境"],
+    excerpt: "一站式解决环境配置：串联 AI 生图、股票量化分析与自动化编程，开箱即用海外顶尖大模型。",
+    tags: ["视频教程", "Codex", "ClaudeCode", "Gemini", "AI工作流", "编程环境"],
     productSlugs: [],
     videoUrl: "https://www.bilibili.com/video/BV1MrbQ6ME6n/",
     videoMeta: "B 站：Codex 编程实战与前沿评测",
     downloadableResources: [{
-      title: "第07集-ColaOS生图与量化编程三合一工作流指南.md",
-      description: "包含 ColaOS 快速上手命令、三合一模块串联与终端使用指南。",
-      fileName: "第07集-ColaOS生图与量化编程三合一工作流指南.md",
-      url: "/downloads/cola/第07集-ColaOS生图与量化编程三合一工作流指南.md",
+      title: "第07集-生图与量化编程三合一工作流指南.md",
+      description: "包含快速上手命令、三合一模块串联与终端使用指南。",
+      fileName: "第07集-生图与量化编程三合一工作流指南.md",
+      url: "/downloads/codex/第07集-生图与量化编程三合一工作流指南.md",
     }],
     body: [
-      "配置海外顶尖 AI 模型常常伴随繁重的环境依赖、代理冲突和网络报错。ColaOS 将 AI 图像生成、股票量化金融分析以及 Claude Code 自动化编程整合为一体化工作台。",
+      "配置海外顶尖 AI 模型常常伴随繁重的环境依赖、代理冲突和网络报错。本课将 AI 图像生成、股票量化金融分析以及 Claude Code 自动化编程整合为一体化工作流。",
       "开箱即用，让创作者将精力聚焦在业务价值和创意落地，而不是浪费在环境报错排查上。"
     ],
     sections: [
@@ -2021,7 +2021,7 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
       title: "第01集-为什么Markdown是AI时代最重要的文字格式.md",
       description: "包含 Markdown 在 AI 上下文中的低 Token 优势与结构化组织法则。",
       fileName: "第01集-为什么Markdown是AI时代最重要的文字格式.md",
-      url: "/downloads/cola/第01集-为什么Markdown是AI时代最重要的文字格式.md",
+      url: "/downloads/codex/第01集-为什么Markdown是AI时代最重要的文字格式.md",
     }],
     body: [
       "在研发自主笔记产品的过程中，我们深刻认识到：为什么各种专有数据库和复杂的富文本 Word 格式在 AI 时代反而成了负担，而诞生数十年的 Markdown 却越活越年轻。",

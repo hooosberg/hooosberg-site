@@ -274,15 +274,7 @@ const workBuddyGlobal = tool({
 
 const codebuddy = workBuddyCn;
 
-const cola = tool({
-  name: "Cola",
-  description: "Desktop & mobile AI workstation featuring built-in ChatGPT, Claude Code, and top models; full workflow support with domestic Alipay in China.",
-  url: "https://colaos.ai/",
-  country: "cn",
-  tags: ["international models", "Alipay", "ChatGPT", "Claude Code"],
-  badge: "VIP Perk",
-  promoNotice: "Code: HU-U7DSEXZJ (Claim 3-day VIP, Ox models free for limited time)",
-});
+
 
 const cozeAgent = tool({
   name: "Coze",
@@ -547,7 +539,6 @@ const groups: ToolGroup[] = [
     shortLabel: "Coding",
     summary: "AI IDEs, terminal agents, code completion, and agentic engineering tools for real product work.",
     items: [
-      cola,
       codex,
       kimiCode,
       codebuddy,
@@ -685,12 +676,11 @@ const alternativePairs: AlternativePair[] = [
     category: "Coding agent / repository tasks",
     source: codex,
     alternatives: [
-      cola,
       kimiCode,
       codebuddy,
       traeWork,
     ],
-    reason: "Codex is repository-level. Chinese users who need domestic registration and payment with access to leading international models can start with Cola, then compare Kimi Code, WorkBuddy / CodeBuddy, and TRAE Work.",
+    reason: "Codex is repository-level. For domestic workflow choices, evaluate Kimi Code, WorkBuddy / CodeBuddy, and TRAE Work based on whether your focus is codebase tasks or general desktop automation.",
     bestFor: ["repository edits", "automated fixes", "code review"],
   },
   {
@@ -808,15 +798,6 @@ const jsonLd = [
       <button type="button" role="tab" aria-selected="false" data-directory-mode="alternatives">Regional Alternatives</button>
       <button type="button" role="tab" aria-selected="false" data-directory-mode="sanguo">AI Model Three Kingdoms</button>
     </div>
-
-    <a class="directory-cola-sponsor" href="https://colaos.ai/" target="_blank" rel="noreferrer" title="Try top global models on Cola, claim 3-day VIP with referral code">
-      <span class="directory-cola-sponsor__pill">VIP Offer</span>
-      <span class="directory-cola-sponsor__main">
-        <strong>Global Top Models on Cola</strong>
-        <span class="directory-cola-sponsor__sub">Built-in ChatGPT / Claude Code · Code <code>HU-U7DSEXZJ</code> for 3-Day VIP</span>
-      </span>
-      <span class="directory-cola-sponsor__cta">colaos.ai ↗</span>
-    </a>
   </div>
 
   <section class="ai-directory-shell" data-directory-shell data-mode="ranking" data-directory-current={directoryGroups[0].id} data-directory-filtered="false">
