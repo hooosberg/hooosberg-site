@@ -146,7 +146,7 @@ test("English AI guide keeps full workflow categories, regional alternatives, an
   const html = await readFile(enAiNavigationPage, "utf8");
 
   assert.match(html, /data-directory-mode="sanguo"/, "English AI guide should include the model ranking mode in the toggle");
-  assert.match(html, /AI Model Three Kingdoms/, "English AI guide should place the model ranking entry after alternatives");
+  assert.match(html, /AI Model Tier List|AI Model Three Kingdoms/, "English AI guide should place the model ranking entry after alternatives");
 
   for (const label of [
     "OpenAI / ChatGPT Ecosystem",

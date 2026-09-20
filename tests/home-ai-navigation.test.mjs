@@ -73,7 +73,7 @@ test("AI navigation renders as a standalone directory page", async () => {
   assert.doesNotMatch(html, /<section class="ai-directory-hero"|搜索工具、场景或关键词|入库标准/, "AI navigation should remove the repeated long-form header, search, and curation card");
   assert.match(html, /夯级产品榜/, "page should lead with a compact tier-one product ranking");
   assert.match(html, /data-directory-mode="sanguo"/, "AI navigation should include the model ranking mode in the toggle");
-  assert.match(html, /AI模型三国榜/, "AI navigation should place the model ranking entry after regional alternatives");
+  assert.match(html, /AI模型从夯到拉|模型排行榜|AI模型三国榜/, "AI navigation should place the model ranking entry after regional alternatives");
 
   for (const label of ["夯级产品榜", "AI 对话 / 搜索", "AI 编程 / Agent", "AI 图像 / 设计", "国产 AI 工具"]) {
     assert.match(html, new RegExp(label), `${label} should be present`);
@@ -313,16 +313,14 @@ test("AI navigation renders as a standalone directory page", async () => {
   assert.match(html, /search\.value = ""/, "category switches should reset the previous search query");
 });
 
-test("AI model Three Kingdoms ranking is a standalone interactive page", async () => {
+test("AI model Tier List ranking is a standalone interactive page", async () => {
   const modelRankingPage = new URL("../dist/ai-model-sanguo-ranking/index.html", import.meta.url);
   const html = await readFile(modelRankingPage, "utf8");
 
-  assert.match(html, /AI 三国群英谱|AI模型三国榜/, "model ranking page should expose its title");
-  assert.match(html, /六维雷达/, "model ranking page should retain the radar chart");
-  assert.match(html, /杀手锏场景|最强主场/, "model ranking page should retain the killer scenarios deep analysis");
-  assert.match(html, /查看人物图片来源/, "model ranking page should offer the image source link");
-  assert.match(html, /data-sanguo-index="10"/, "model ranking page should allow switching between all 11 listed models");
-  assert.match(html, /https:\/\/www\.gamecity\.com\.tw/, "model ranking page should include official game character URLs");
+  assert.match(html, /AI模型性能排行榜|从夯到拉/, "model ranking page should expose its title");
+  assert.match(html, /tier-root/, "model ranking page should render tier list root");
+  assert.match(html, /神级独一档|夯/, "model ranking page should render the top tier");
+  assert.match(html, /arena\.ai|LMSYS/, "model ranking page should cite arena.ai");
 });
 
 test("AI navigation sidebar tracks the current ranking section", async () => {

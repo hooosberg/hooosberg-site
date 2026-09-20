@@ -1,16 +1,34 @@
 ---
-import AiModelSanguoRanking from "../../components/AiModelSanguoRanking.astro";
+import AiModelTierRanking from "../../components/AiModelTierRanking.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { buildSectionCollectionJsonLd } from "../../utils/structuredData";
 
-const description = "AI模型三国榜：用六维雷达与能力条状图，按真实工作模式理解 Claude、GPT、Gemini、DeepSeek、千问和 Kimi。";
+const description = "AI模型性能排行榜：基于 arena.ai (LMSYS Chatbot Arena) 实测盲测数据，5档战力从夯到拉天梯图，涵盖全能综合、编程代码、文章写作、数理计算与视觉理解。";
 ---
 
-<BaseLayout title="AI模型三国榜｜湖森堡AI" description={description} canonicalPath="/ai-model-sanguo-ranking" mainClass="main--model-ranking" jsonLd={[buildSectionCollectionJsonLd({ locale: "zh-CN", path: "/ai-model-sanguo-ranking", name: "AI模型三国榜", description, topics: ["AI models", "AI model comparison", "AI capability overview"] })]}>
-  <div class="directory-mode-toggle" role="tablist" aria-label="AI 导航模式">
-    <a href="/ai-navigation">分类排行</a>
-    <a href="/ai-navigation?mode=alternatives">国内平替</a>
-    <a class="is-active" href="/ai-model-sanguo-ranking" aria-selected="true">AI模型三国榜</a>
+<BaseLayout 
+  title="AI模型性能排行榜（从夯到拉天梯榜）｜湖森堡AI" 
+  description={description} 
+  canonicalPath="/ai-model-sanguo-ranking" 
+  mainClass="main--ai-directory" 
+  jsonLd={[buildSectionCollectionJsonLd({ locale: "zh-CN", path: "/ai-model-sanguo-ranking", name: "AI模型性能排行榜", description, topics: ["AI models", "AI model comparison", "AI capability overview", "Arena Leaderboard"] })]}
+>
+  <div class="directory-top-bar">
+    <div class="directory-mode-toggle" role="tablist" aria-label="AI 导航模式">
+      <a href="/ai-navigation">分类排行</a>
+      <a href="/ai-navigation?mode=alternatives">国内平替</a>
+      <a class="is-active" href="/ai-model-sanguo-ranking" aria-selected="true">AI模型从夯到拉</a>
+    </div>
   </div>
-  <AiModelSanguoRanking />
+  <div class="tier-outer-container">
+    <AiModelTierRanking />
+  </div>
 </BaseLayout>
+
+<style>
+  .tier-outer-container {
+    width: min(var(--max, 1180px), calc(100% - 48px));
+    margin: 0 auto 64px;
+    box-sizing: border-box;
+  }
+</style>

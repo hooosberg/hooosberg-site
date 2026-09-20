@@ -1,16 +1,35 @@
 ---
-import AiModelSanguoRanking from "../../../components/AiModelSanguoRanking.astro";
+import AiModelTierRanking from "../../../components/AiModelTierRanking.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { buildSectionCollectionJsonLd } from "../../../utils/structuredData";
 
-const description = "AI Model Three Kingdoms: an editorial view of leading AI models through six-axis radar and capability bars.";
+const description = "AI Model Tier List: based on arena.ai (LMSYS Chatbot Arena) blind tests. Comprehensive 5-tier evaluation across coding, writing, reasoning, and vision.";
 ---
 
-<BaseLayout locale="en" title="AI Model Three Kingdoms | Hooosberg" description={description} canonicalPath="/en/ai-model-sanguo-ranking" mainClass="main--model-ranking" jsonLd={[buildSectionCollectionJsonLd({ locale: "en", path: "/en/ai-model-sanguo-ranking", name: "AI Model Three Kingdoms", description, topics: ["AI models", "AI model comparison", "AI capability overview"] })]}>
-  <div class="directory-mode-toggle" role="tablist" aria-label="AI guide mode">
-    <a href="/en/ai-navigation">Workflow Rankings</a>
-    <a href="/en/ai-navigation?mode=alternatives">Regional Alternatives</a>
-    <a class="is-active" href="/en/ai-model-sanguo-ranking" aria-selected="true">AI Model Three Kingdoms</a>
+<BaseLayout 
+  locale="en" 
+  title="AI Model Tier List | Hooosberg" 
+  description={description} 
+  canonicalPath="/en/ai-model-sanguo-ranking" 
+  mainClass="main--ai-directory" 
+  jsonLd={[buildSectionCollectionJsonLd({ locale: "en", path: "/en/ai-model-sanguo-ranking", name: "AI Model Tier List", description, topics: ["AI models", "AI model comparison", "AI capability overview", "Arena Leaderboard"] })]}
+>
+  <div class="directory-top-bar">
+    <div class="directory-mode-toggle" role="tablist" aria-label="AI guide mode">
+      <a href="/en/ai-navigation">Workflow Rankings</a>
+      <a href="/en/ai-navigation?mode=alternatives">Regional Alternatives</a>
+      <a class="is-active" href="/en/ai-model-sanguo-ranking" aria-selected="true">AI Model Tier List</a>
+    </div>
   </div>
-  <AiModelSanguoRanking locale="en" />
+  <div class="tier-outer-container">
+    <AiModelTierRanking locale="en" />
+  </div>
 </BaseLayout>
+
+<style>
+  .tier-outer-container {
+    width: min(var(--max, 1180px), calc(100% - 48px));
+    margin: 0 auto 64px;
+    box-sizing: border-box;
+  }
+</style>

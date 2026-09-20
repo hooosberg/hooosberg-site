@@ -1,0 +1,1523 @@
+---
+import arenaData from "../data/arena-leaderboard.json";
+
+type Props = {
+  locale?: "zh-CN" | "en";
+  embedded?: boolean;
+};
+
+const { locale = "zh-CN", embedded = false } = Astro.props;
+
+// 找到置顶总榜（对应 arena.ai 官方首页面板顶部的 Agent 智能体总榜）
+const overallCat = arenaData.categories.find((c) => c.id === "agent" || c.id === "overall") || arenaData.categories[0];
+// 严格按照 arena.ai 官方首页排布的分项子榜单
+const subCategories = arenaData.categories.filter((c) => c.id !== overallCat?.id);
+
+function formatScore(item: any) {
+  if (!item) return null;
+  if (item.scoreText) return item.scoreText;
+  if (item.rating != null) {
+    if (typeof item.rating === "string" && (item.rating.includes("%") || item.rating.includes("分"))) {
+      return item.rating;
+    }
+    return `${item.rating}分`;
+  }
+  return null;
+}
+
+// 序列化所有分类全量数据供底部下拉菜单秒级切换查阅
+const categoriesDropdownPayload = JSON.stringify(
+  arenaData.categories.map((c) => ({
+    id: c.id,
+    name: c.name,
+    icon: c.icon,
+    tagline: c.tagline,
+    desc: c.desc,
+    isAgent: !!c.isAgent,
+    totalCount: c.totalCount,
+    fullList: c.fullList,
+  }))
+);
+---
+
+<div class:list={["tier-root", { "is-embedded": embedded }]} data-tier-root>
+  <!-- 头部极简标题区（不套框，干净利落） -->
+  <header class="tier-header-clean">
+    <div class="tier-badge-pill">权威实测 · 5档战力</div>
+    <h2 class="tier-main-title">AI模型性能排行榜（从夯到拉天梯榜）</h2>
+    <p class="tier-subtitle">
+      基于全球权威 arena.ai（LMSYS Chatbot Arena）盲测数据 · 中小学生都能看懂的5档战力天梯图
+    </p>
+  </header>
+
+  <!-- 快速跳转条（纯净胶囊直接平铺，无嵌套外框） -->
+  <nav class="tier-quick-nav-flat" aria-label="分项快速跳转">
+    <span class="quick-nav-title">快速跳转：</span>
+    <div class="quick-nav-list">
+      <a href={`#cat-${overallCat.id}`} class="quick-nav-chip">
+        <span>{overallCat.icon}</span>
+        <span>{overallCat.name}</span>
+      </a>
+      {subCategories.map((cat) => (
+        <a href={`#cat-${cat.id}`} class="quick-nav-chip">
+          <span>{cat.icon}</span>
+          <span>{cat.name}</span>
+        </a>
+      ))}
+      <a href="#cat-more-rankings" class="quick-nav-chip quick-nav-chip--more">
+        <span>📑</span>
+        <span>更多榜单下拉</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- 1. 最上面：置顶总榜（全宽居中置顶，对应 arena.ai 官方首页面板顶部的 Agent 智能体总榜） -->
+  <div id="cat-overall" style="position: relative; top: -10px;"></div>
+  <section class="tier-overall-section" id={`cat-${overallCat.id}`}>
+    <div class="tier-section-wrapper">
+      <!-- 头部纯净无右上角按钮，专注于信息展现 -->
+      <div class="tier-cat-head">
+        <div class="tier-head-left">
+          <span class="tier-head-icon">{overallCat.icon}</span>
+          <div>
+            <h3 class="tier-head-title">{overallCat.name} · {overallCat.tagline}</h3>
+            <p class="tier-head-desc">{overallCat.desc}（收录 {overallCat.totalCount} 款主流模型）</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 档梗图天梯 -->
+      <div class="tier-table">
+        <!-- 夯 -->
+        <div class="tier-row tier-row--hang">
+          <div class="tier-label tier-label--hang" style={`background-color: ${overallCat.tiers.hang.bg}; color: ${overallCat.tiers.hang.textColor};`}>
+            <span class="tier-label-text">夯</span>
+          </div>
+          <div class="tier-content">
+            {overallCat.tiers.hang.items.map((item) => (
+              <div
+                class:list={["model-pill", "model-pill--hang", { "model-pill--top10": item.displayRank <= 10 }]}
+                title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+              >
+                <span class="pill-rank">#{item.displayRank}</span>
+                <span class="pill-name">{item.name}</span>
+                <span class="pill-org">{item.organization}</span>
+                {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- 顶级 -->
+        <div class="tier-row tier-row--dingji">
+          <div class="tier-label tier-label--dingji" style={`background-color: ${overallCat.tiers.dingji.bg}; color: ${overallCat.tiers.dingji.textColor};`}>
+            <span class="tier-label-text">顶级</span>
+          </div>
+          <div class="tier-content">
+            {overallCat.tiers.dingji.items.map((item) => (
+              <div
+                class:list={["model-pill", "model-pill--dingji", { "model-pill--top10": item.displayRank <= 10 }]}
+                title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+              >
+                <span class="pill-rank">#{item.displayRank}</span>
+                <span class="pill-name">{item.name}</span>
+                <span class="pill-org">{item.organization}</span>
+                {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- 人上人 -->
+        <div class="tier-row tier-row--renshangren">
+          <div class="tier-label tier-label--renshangren" style={`background-color: ${overallCat.tiers.renshangren.bg}; color: ${overallCat.tiers.renshangren.textColor};`}>
+            <span class="tier-label-text">人上人</span>
+          </div>
+          <div class="tier-content">
+            {overallCat.tiers.renshangren.items.map((item) => (
+              <div
+                class:list={["model-pill", "model-pill--renshangren", { "model-pill--top10": item.displayRank <= 10 }]}
+                title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+              >
+                <span class="pill-rank">#{item.displayRank}</span>
+                <span class="pill-name">{item.name}</span>
+                <span class="pill-org">{item.organization}</span>
+                {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- NPC -->
+        <div class="tier-row tier-row--npc">
+          <div class="tier-label tier-label--npc" style={`background-color: ${overallCat.tiers.npc.bg}; color: ${overallCat.tiers.npc.textColor};`}>
+            <span class="tier-label-text">NPC</span>
+          </div>
+          <div class="tier-content">
+            {overallCat.tiers.npc.items.map((item) => (
+              <div
+                class:list={["model-pill", "model-pill--npc", { "model-pill--top10": item.displayRank <= 10 }]}
+                title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+              >
+                <span class="pill-rank">#{item.displayRank}</span>
+                <span class="pill-name">{item.name}</span>
+                <span class="pill-org">{item.organization}</span>
+                {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- 拉完了 -->
+        <div class="tier-row tier-row--lawanle">
+          <div class="tier-label tier-label--lawanle" style={`background-color: ${overallCat.tiers.lawanle.bg}; color: ${overallCat.tiers.lawanle.textColor};`}>
+            <span class="tier-label-text">拉完了</span>
+          </div>
+          <div class="tier-content">
+            {overallCat.tiers.lawanle.items.map((item) => (
+              <div
+                class:list={["model-pill", "model-pill--lawanle", { "model-pill--top10": item.displayRank <= 10 }]}
+                title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+              >
+                <span class="pill-rank">#{item.displayRank}</span>
+                <span class="pill-name">{item.name}</span>
+                <span class="pill-org">{item.organization}</span>
+                {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片底部明细展开按钮 -->
+      <div class="tier-card-footer">
+        <button
+          type="button"
+          class="tier-expand-trigger"
+          data-toggle-table={overallCat.id}
+          data-cat-name={overallCat.name}
+          aria-expanded="false"
+        >
+          <span class="expand-icon">▼</span>
+          <span class="expand-text">展开 {overallCat.name} 完整明细 (TOP 50)</span>
+        </button>
+      </div>
+
+      <!-- 详细名单抽屉 (TOP 50) -->
+      <div class="tier-detail-drawer" data-drawer-for={overallCat.id} hidden>
+        <div class="tier-drawer-head">
+          <h4 class="tier-drawer-title">{overallCat.name} · 详细排行榜 (TOP 50)</h4>
+          <span class="tier-drawer-hint">实测盲测 Elo 胜率综合算法排序</span>
+        </div>
+        <div class="tier-table-wrapper">
+          <table class="tier-full-table">
+            <thead>
+              <tr>
+                <th style="width: 70px;">排名</th>
+                <th>模型名称</th>
+                <th style="width: 130px;">研发机构</th>
+                <th style="width: 110px;">Elo评分 / 战力</th>
+                <th style="width: 80px;">链接</th>
+              </tr>
+            </thead>
+            <tbody>
+              {overallCat.fullList.map((item, rowIdx) => (
+                <tr class:list={[{ "is-top3": rowIdx < 3 }]}>
+                  <td class="td-rank">
+                    <span class:list={["rank-num", `rank-num--${rowIdx + 1}`]}>
+                      {rowIdx === 0 ? "🥇 1" : rowIdx === 1 ? "🥈 2" : rowIdx === 2 ? "🥉 3" : rowIdx + 1}
+                    </span>
+                  </td>
+                  <td class="td-name"><strong>{item.name}</strong></td>
+                  <td class="td-org">{item.organization}</td>
+                  <td class="td-rating">
+                    {item.rating ? (
+                      <span class="rating-badge">{item.rating}</span>
+                    ) : (
+                      <span class="rating-rank-badge">第 {item.rank} 名</span>
+                    )}
+                  </td>
+                  <td class="td-link">
+                    {item.url ? (
+                      <a href={item.url} target="_blank" rel="noopener noreferrer" class="link-btn">官网 ↗</a>
+                    ) : (
+                      <span class="link-none">-</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 下面左右两侧各一个榜单，依次往下排 (双列网格) -->
+  <div class="tier-subcategories-grid">
+    {subCategories.map((cat) => (
+      <section class="tier-sub-card" id={`cat-${cat.id}`}>
+        <!-- 头部纯净无右上角按钮，专注于信息展现 -->
+        <div class="tier-cat-head tier-cat-head--compact">
+          <div class="tier-head-left">
+            <span class="tier-sub-icon">{cat.icon}</span>
+            <div>
+              <h4 class="tier-sub-name">{cat.name}</h4>
+              <p class="tier-sub-tagline">{cat.tagline} · {cat.desc}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 分项 5 档天梯 -->
+        <div class="tier-table tier-table--compact">
+          <!-- 夯 -->
+          <div class="tier-row tier-row--hang">
+            <div class="tier-label tier-label--hang" style={`background-color: ${cat.tiers.hang.bg}; color: ${cat.tiers.hang.textColor};`}>
+              <span class="tier-label-text">夯</span>
+            </div>
+            <div class="tier-content">
+              {cat.tiers.hang.items.slice(0, 3).map((item) => (
+                <div
+                  class:list={["model-pill", "model-pill--hang", { "model-pill--top10": item.displayRank <= 10 }]}
+                  title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+                >
+                  <span class="pill-rank">#{item.displayRank}</span>
+                  <span class="pill-name">{item.name}</span>
+                  <span class="pill-org">{item.organization}</span>
+                  {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- 顶级 (确保不空档) -->
+          <div class="tier-row tier-row--dingji">
+            <div class="tier-label tier-label--dingji" style={`background-color: ${cat.tiers.dingji.bg}; color: ${cat.tiers.dingji.textColor};`}>
+              <span class="tier-label-text">顶级</span>
+            </div>
+            <div class="tier-content">
+              {cat.tiers.dingji.items.slice(0, 4).map((item) => (
+                <div
+                  class:list={["model-pill", "model-pill--dingji", { "model-pill--top10": item.displayRank <= 10 }]}
+                  title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+                >
+                  <span class="pill-rank">#{item.displayRank}</span>
+                  <span class="pill-name">{item.name}</span>
+                  <span class="pill-org">{item.organization}</span>
+                  {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- 人上人 -->
+          <div class="tier-row tier-row--renshangren">
+            <div class="tier-label tier-label--renshangren" style={`background-color: ${cat.tiers.renshangren.bg}; color: ${cat.tiers.renshangren.textColor};`}>
+              <span class="tier-label-text">人上人</span>
+            </div>
+            <div class="tier-content">
+              {cat.tiers.renshangren.items.slice(0, 5).map((item) => (
+                <div
+                  class:list={["model-pill", "model-pill--renshangren", { "model-pill--top10": item.displayRank <= 10 }]}
+                  title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+                >
+                  <span class="pill-rank">#{item.displayRank}</span>
+                  <span class="pill-name">{item.name}</span>
+                  <span class="pill-org">{item.organization}</span>
+                  {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- NPC -->
+          <div class="tier-row tier-row--npc">
+            <div class="tier-label tier-label--npc" style={`background-color: ${cat.tiers.npc.bg}; color: ${cat.tiers.npc.textColor};`}>
+              <span class="tier-label-text">NPC</span>
+            </div>
+            <div class="tier-content">
+              {cat.tiers.npc.items.slice(0, 6).map((item) => (
+                <div
+                  class:list={["model-pill", "model-pill--npc", { "model-pill--top10": item.displayRank <= 10 }]}
+                  title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+                >
+                  <span class="pill-rank">#{item.displayRank}</span>
+                  <span class="pill-name">{item.name}</span>
+                  <span class="pill-org">{item.organization}</span>
+                  {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- 拉完了 -->
+          <div class="tier-row tier-row--lawanle">
+            <div class="tier-label tier-label--lawanle" style={`background-color: ${cat.tiers.lawanle.bg}; color: ${cat.tiers.lawanle.textColor};`}>
+              <span class="tier-label-text">拉完了</span>
+            </div>
+            <div class="tier-content">
+              {cat.tiers.lawanle.items.slice(0, 6).map((item) => (
+                <div
+                  class:list={["model-pill", "model-pill--lawanle", { "model-pill--top10": item.displayRank <= 10 }]}
+                  title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+                >
+                  <span class="pill-rank">#{item.displayRank}</span>
+                  <span class="pill-name">{item.name}</span>
+                  <span class="pill-org">{item.organization}</span>
+                  {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- 卡片底部明细展开按钮 -->
+        <div class="tier-card-footer">
+          <button
+            type="button"
+            class="tier-expand-trigger"
+            data-toggle-table={cat.id}
+            data-cat-name={cat.name}
+            aria-expanded="false"
+          >
+            <span class="expand-icon">▼</span>
+            <span class="expand-text">展开 {cat.name} 明细 (TOP {cat.fullList.length > 50 ? 50 : cat.fullList.length})</span>
+          </button>
+        </div>
+
+        <!-- 详细名单抽屉 (TOP 50) -->
+        <div class="tier-detail-drawer" data-drawer-for={cat.id} hidden>
+          <div class="tier-drawer-head">
+            <h5 class="tier-drawer-title">{cat.name} · 详细排名 (TOP 50)</h5>
+            <span class="tier-drawer-hint">arena.ai 实测排位</span>
+          </div>
+          <div class="tier-table-wrapper">
+            <table class="tier-full-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px;">排名</th>
+                  <th>模型</th>
+                  <th style="width: 110px;">机构</th>
+                  <th style="width: 90px;">评分/战力</th>
+                  <th style="width: 65px;">官网</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cat.fullList.map((item, rowIdx) => (
+                  <tr class:list={[{ "is-top3": rowIdx < 3 }]}>
+                    <td class="td-rank">
+                      <span class:list={["rank-num", `rank-num--${rowIdx + 1}`]}>
+                        {rowIdx === 0 ? "🥇 1" : rowIdx === 1 ? "🥈 2" : rowIdx === 2 ? "🥉 3" : rowIdx + 1}
+                      </span>
+                    </td>
+                    <td class="td-name"><strong>{item.name}</strong></td>
+                    <td class="td-org">{item.organization}</td>
+                    <td class="td-rating">
+                      {formatScore(item) ? (
+                        <span class="rating-badge">{formatScore(item)}</span>
+                      ) : (
+                        <span class="rating-rank-badge">第 {item.rank} 名</span>
+                      )}
+                    </td>
+                    <td class="td-link">
+                      {item.url ? (
+                        <a href={item.url} target="_blank" rel="noopener noreferrer" class="link-btn">↗</a>
+                      ) : (
+                        <span class="link-none">-</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <!-- 3. 排行榜最后头：下拉菜单与更多榜单总览 (支持选择任意分类展开查阅) -->
+  <section class="tier-bottom-dropdown-section" id="cat-more-rankings">
+    <div class="bottom-dropdown-card">
+      <div class="bottom-dropdown-header">
+        <div class="dropdown-header-main">
+          <span class="dropdown-header-icon">📑</span>
+          <div>
+            <h4 class="dropdown-header-title">更多榜单与全量明细速查</h4>
+            <p class="dropdown-header-desc">从下拉菜单选择任意分类，一键展开查阅该分项完整的实测排行榜数据</p>
+          </div>
+        </div>
+
+        <div class="dropdown-interactive-bar">
+          <div class="dropdown-select-wrapper">
+            <select class="ranking-dropdown-select" id="rankingDropdownSelect" aria-label="选择榜单分类">
+              <option value={overallCat.id} selected>{overallCat.icon} {overallCat.name} (TOP {overallCat.fullList.length > 50 ? 50 : overallCat.fullList.length})</option>
+              {subCategories.map((cat) => (
+                <option value={cat.id}>{cat.icon} {cat.name} (TOP {cat.fullList.length > 50 ? 50 : cat.fullList.length})</option>
+              ))}
+            </select>
+          </div>
+          <button type="button" class="dropdown-trigger-btn" id="rankingDropdownTriggerBtn" aria-expanded="false">
+            <span class="dropdown-btn-arrow">▼</span>
+            <span class="dropdown-btn-text">展开查看此榜单</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 下拉选中的榜单抽屉展示区 -->
+      <div class="bottom-dropdown-drawer" id="rankingDropdownDrawer" hidden>
+        <div class="bottom-drawer-header">
+          <div class="bottom-drawer-title-wrap">
+            <h5 class="bottom-drawer-title" id="bottomDrawerTitle">{overallCat.icon} {overallCat.name} · 详细排行榜</h5>
+            <span class="bottom-drawer-hint" id="bottomDrawerHint">{overallCat.tagline} · {overallCat.desc}</span>
+          </div>
+          <div class="bottom-drawer-actions">
+            <a href={`#cat-${overallCat.id}`} class="bottom-drawer-jump-link" id="bottomDrawerJumpLink">直达上方天梯图 ↑</a>
+            <button type="button" class="bottom-drawer-close-btn" id="bottomDrawerCloseBtn">收起 ▲</button>
+          </div>
+        </div>
+        <div class="tier-table-wrapper" id="bottomDrawerTableWrap">
+          <!-- 客户端 JS 会实时渲染当前所选榜单的完整表格 -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 底部数据引用与时间 (浅色灰色小字体，纯净不占视觉焦点) -->
+  <footer class="tier-footer-note">
+    <span>数据源自权威竞技场盲测</span>
+    <a href={arenaData.sourceUrl} target="_blank" rel="noopener noreferrer" class="footer-source-link">
+      {arenaData.sourceName} ↗
+    </a>
+    <span class="footer-dot">·</span>
+    <span>最近数据同步：{arenaData.updatedDateText}</span>
+  </footer>
+</div>
+
+<!-- 注入前端下拉菜单与榜单切换所需的 JSON 数据 -->
+<script type="application/json" id="rankingAllCategoriesData" set:html={categoriesDropdownPayload}></script>
+
+<script>
+  function setupTierInteractions() {
+    const root = document.querySelector("[data-tier-root]");
+    if (!root) return;
+
+    // 1. 各卡片底部的“展开/收起明细”按钮
+    const expandTriggers = root.querySelectorAll(".tier-expand-trigger");
+    expandTriggers.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const catId = btn.getAttribute("data-toggle-table");
+        const catName = btn.getAttribute("data-cat-name") || "榜单";
+        if (!catId) return;
+
+        const drawer = root.querySelector(`[data-drawer-for="${catId}"]`);
+        if (!drawer) return;
+
+        const isHidden = drawer.hidden;
+        drawer.hidden = !isHidden;
+        btn.setAttribute("aria-expanded", String(isHidden));
+
+        const iconEl = btn.querySelector(".expand-icon");
+        const textEl = btn.querySelector(".expand-text");
+
+        if (isHidden) {
+          btn.classList.add("is-expanded");
+          if (iconEl) iconEl.textContent = "▲";
+          if (textEl) textEl.textContent = `收起 ${catName} 明细`;
+        } else {
+          btn.classList.remove("is-expanded");
+          if (iconEl) iconEl.textContent = "▼";
+          if (textEl) textEl.textContent = `展开 ${catName} 明细 (TOP 50)`;
+        }
+      });
+    });
+
+    // 2. 页面最后头的下拉菜单选择器交互
+    const selectEl = root.querySelector("#rankingDropdownSelect") as HTMLSelectElement | null;
+    const triggerBtn = root.querySelector("#rankingDropdownTriggerBtn") as HTMLButtonElement | null;
+    const drawerEl = root.querySelector("#rankingDropdownDrawer") as HTMLElement | null;
+    const titleEl = root.querySelector("#bottomDrawerTitle") as HTMLElement | null;
+    const hintEl = root.querySelector("#bottomDrawerHint") as HTMLElement | null;
+    const jumpLink = root.querySelector("#bottomDrawerJumpLink") as HTMLAnchorElement | null;
+    const closeBtn = root.querySelector("#bottomDrawerCloseBtn") as HTMLButtonElement | null;
+    const tableWrap = root.querySelector("#bottomDrawerTableWrap") as HTMLElement | null;
+
+    const dataScript = document.getElementById("rankingAllCategoriesData");
+    let categoriesList: Array<any> = [];
+    if (dataScript && dataScript.textContent) {
+      try {
+        categoriesList = JSON.parse(dataScript.textContent);
+      } catch (err) {
+        console.error("Failed to parse categories data", err);
+      }
+    }
+
+    function renderBottomCategoryTable(catId: string) {
+      if (!tableWrap) return;
+      const cat = categoriesList.find((c) => c.id === catId) || categoriesList[0];
+      if (!cat) return;
+
+      if (titleEl) {
+        titleEl.textContent = `${cat.icon} ${cat.name} · 详细排行榜 (TOP ${cat.fullList.length > 50 ? 50 : cat.fullList.length})`;
+      }
+      if (hintEl) {
+        hintEl.textContent = `${cat.tagline} · ${cat.desc}`;
+      }
+      if (jumpLink) {
+        jumpLink.href = `#cat-${cat.id}`;
+        jumpLink.textContent = `直达上方「${cat.name}」天梯图 ↑`;
+      }
+
+      const scoreColTitle = cat.isAgent ? "胜率 / 综合得分" : "Elo评分 / 战力";
+      let html = `
+        <table class="tier-full-table">
+          <thead>
+            <tr>
+              <th style="width: 70px;">排名</th>
+              <th>模型名称</th>
+              <th style="width: 130px;">研发机构</th>
+              <th style="width: 110px;">${scoreColTitle}</th>
+              <th style="width: 80px;">链接</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      cat.fullList.forEach((item: any, rowIdx: number) => {
+        const isTop3 = rowIdx < 3;
+        const medal = rowIdx === 0 ? "🥇 1" : rowIdx === 1 ? "🥈 2" : rowIdx === 2 ? "🥉 3" : rowIdx + 1;
+        const scoreVal = item.scoreText || (item.rating != null ? (String(item.rating).includes("%") || String(item.rating).includes("分") ? item.rating : `${item.rating}分`) : null);
+        const ratingHtml = scoreVal
+          ? `<span class="rating-badge">${scoreVal}</span>`
+          : `<span class="rating-rank-badge">第 ${item.rank} 名</span>`;
+        const linkHtml = item.url
+          ? `<a href="${item.url}" target="_blank" rel="noopener noreferrer" class="link-btn">官网 ↗</a>`
+          : `<span class="link-none">-</span>`;
+
+        html += `
+          <tr class="${isTop3 ? "is-top3" : ""}">
+            <td class="td-rank"><span class="rank-num rank-num--${rowIdx + 1}">${medal}</span></td>
+            <td class="td-name"><strong>${item.name}</strong></td>
+            <td class="td-org">${item.organization || "-"}</td>
+            <td class="td-rating">${ratingHtml}</td>
+            <td class="td-link">${linkHtml}</td>
+          </tr>
+        `;
+      });
+
+      html += `
+          </tbody>
+        </table>
+      `;
+
+      tableWrap.innerHTML = html;
+    }
+
+    function toggleBottomDrawer(show?: boolean) {
+      if (!drawerEl || !triggerBtn || !selectEl) return;
+      const shouldShow = typeof show === "boolean" ? show : drawerEl.hidden;
+      drawerEl.hidden = !shouldShow;
+      triggerBtn.setAttribute("aria-expanded", String(shouldShow));
+
+      const arrowEl = triggerBtn.querySelector(".dropdown-btn-arrow");
+      const textEl = triggerBtn.querySelector(".dropdown-btn-text");
+
+      if (shouldShow) {
+        triggerBtn.classList.add("is-active");
+        if (arrowEl) arrowEl.textContent = "▲";
+        if (textEl) textEl.textContent = "收起榜单明细";
+        renderBottomCategoryTable(selectEl.value || categoriesList[0]?.id || "agent");
+      } else {
+        triggerBtn.classList.remove("is-active");
+        if (arrowEl) arrowEl.textContent = "▼";
+        if (textEl) textEl.textContent = "展开查看此榜单";
+      }
+    }
+
+    if (triggerBtn) {
+      triggerBtn.addEventListener("click", () => toggleBottomDrawer());
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => toggleBottomDrawer(false));
+    }
+
+    if (selectEl) {
+      selectEl.addEventListener("change", () => {
+        if (drawerEl && !drawerEl.hidden) {
+          renderBottomCategoryTable(selectEl.value);
+        }
+      });
+    }
+
+    // 3. 平滑锚点跳转处理
+    const quickLinks = root.querySelectorAll(".quick-nav-chip");
+    quickLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const href = link.getAttribute("href");
+        if (href && href.startsWith("#")) {
+          e.preventDefault();
+          const targetEl = root.querySelector(href);
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupTierInteractions);
+  } else {
+    setupTierInteractions();
+  }
+</script>
+
+<style>
+  /* 整体容器 */
+  .tier-root {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    font-family: inherit;
+    color: var(--text, #111318);
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  /* 头部极简标题（彻底去掉卡片框，纯净现代） */
+  .tier-header-clean {
+    text-align: center;
+    padding: 6px 0 20px;
+    margin-bottom: 12px;
+  }
+
+  .tier-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #ef4444, #f97316);
+    padding: 3px 12px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+
+  .tier-main-title {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0 0 8px;
+    color: var(--text, #111318);
+    letter-spacing: -0.5px;
+  }
+
+  .tier-subtitle {
+    font-size: 13px;
+    color: var(--muted, #68707d);
+    margin: 0;
+  }
+
+  /* 快速跳转条（扁平无框胶囊设计） */
+  .tier-quick-nav-flat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    padding: 0 4px;
+  }
+
+  .quick-nav-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted, #68707d);
+    white-space: nowrap;
+  }
+
+  .quick-nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .quick-nav-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--surface-soft, #f1f5f9);
+    color: var(--text, #334155);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s ease;
+    border: 1px solid var(--line, rgba(16, 24, 40, 0.08));
+  }
+
+  .quick-nav-chip:hover {
+    background: var(--surface-solid, #ffffff);
+    color: var(--accent, #2563eb);
+    border-color: var(--accent, #2563eb);
+    transform: translateY(-1px);
+  }
+
+  .quick-nav-chip--more {
+    background: rgba(37, 99, 235, 0.06);
+    color: var(--accent, #2563eb);
+    border-color: rgba(37, 99, 235, 0.2);
+  }
+
+  /* 1. 综合总榜卡片（全宽居中置顶） */
+  .tier-overall-section {
+    margin-bottom: 28px;
+    width: 100%;
+  }
+
+  .tier-section-wrapper {
+    background: var(--surface-solid, #ffffff);
+    border: 1px solid var(--line, rgba(16, 24, 40, 0.12));
+    border-radius: 12px;
+    padding: 18px 20px 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
+  }
+
+  /* 2. 双列网格 (左右两侧各一个，两两成对往下排) */
+  .tier-subcategories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 960px) {
+    .tier-subcategories-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tier-sub-card {
+    background: var(--surface-solid, #ffffff);
+    border: 1px solid var(--line, rgba(16, 24, 40, 0.12));
+    border-radius: 12px;
+    padding: 16px 16px 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  /* 卡片头部（纯净左侧标题布局，无右上角突兀按钮） */
+  .tier-cat-head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .tier-cat-head--compact {
+    margin-bottom: 10px;
+  }
+
+  .tier-head-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .tier-head-icon {
+    font-size: 26px;
+    line-height: 1;
+  }
+
+  .tier-sub-icon {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .tier-head-title {
+    font-size: 16px;
+    font-weight: 800;
+    margin: 0;
+    color: var(--text, #111318);
+  }
+
+  .tier-head-desc {
+    font-size: 12px;
+    color: var(--muted, #68707d);
+    margin: 2px 0 0;
+  }
+
+  .tier-sub-name {
+    font-size: 15px;
+    font-weight: 800;
+    margin: 0;
+    color: var(--text, #111318);
+  }
+
+  .tier-sub-tagline {
+    font-size: 11px;
+    color: var(--muted, #68707d);
+    margin: 2px 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 440px;
+  }
+
+  /* 卡片底部“展开明细”操作区 (替代原来放头部的设计，体验更自然) */
+  .tier-card-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--line, rgba(16, 24, 40, 0.08));
+  }
+
+  .tier-expand-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 999px;
+    background: var(--surface-soft, #f8fafc);
+    border: 1px solid var(--line, rgba(16, 24, 40, 0.12));
+    color: var(--text, #334155);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .tier-expand-trigger:hover {
+    background: var(--surface-solid, #ffffff);
+    color: var(--accent, #2563eb);
+    border-color: var(--accent, #2563eb);
+    box-shadow: 0 1px 4px rgba(37, 99, 235, 0.12);
+  }
+
+  .tier-expand-trigger.is-expanded {
+    background: rgba(37, 99, 235, 0.08);
+    color: var(--accent, #2563eb);
+    border-color: var(--accent, #2563eb);
+  }
+
+  .expand-icon {
+    font-size: 10px;
+    transition: transform 0.2s ease;
+  }
+
+  /* 天梯表格核心 (黑粗框风格，还原梗图) */
+  .tier-table {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #000000;
+    background-color: #000000;
+    gap: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .tier-table--compact {
+    border-width: 1.5px;
+    gap: 1.5px;
+  }
+
+  /* 梯队单行 */
+  .tier-row {
+    display: flex;
+    align-items: stretch;
+    min-height: 44px;
+    background-color: #1e293b;
+    box-sizing: border-box;
+  }
+
+  .tier-table--compact .tier-row {
+    min-height: 40px;
+  }
+
+  /* 左侧分档标签 */
+  .tier-label {
+    width: 72px;
+    min-width: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+    box-sizing: border-box;
+    border-right: 2px solid #000000;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .tier-table--compact .tier-label {
+    width: 62px;
+    min-width: 62px;
+    border-right-width: 1.5px;
+  }
+
+  .tier-label-text {
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+    line-height: 1.15;
+  }
+
+  .tier-table--compact .tier-label-text {
+    font-size: 15px;
+  }
+
+  /* 右侧内容容器 (灰色底衬托药丸) */
+  .tier-content {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 8px;
+    background-color: #e5e7eb;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  :global([data-theme="dark"]) .tier-content {
+    background-color: #27272a;
+  }
+
+  /* 模型胶囊药丸 */
+  .model-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #ffffff;
+    border-radius: 4px;
+    padding: 3px 7px;
+    font-size: 11px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    cursor: default;
+    box-sizing: border-box;
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  :global([data-theme="dark"]) .model-pill {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+  }
+
+  .model-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+  }
+
+  .pill-rank {
+    font-size: 10px;
+    font-weight: 800;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 1px 5px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  :global([data-theme="dark"]) .pill-rank {
+    background: #27272a;
+    color: #a1a1aa;
+  }
+
+  .model-pill--hang .pill-rank {
+    background: #fee2e2;
+    color: #dc2626;
+  }
+
+  .model-pill--dingji .pill-rank {
+    background: #fef3c7;
+    color: #d97706;
+  }
+
+  /* 模型名字显示策略：放开原有的硬性截断限制，靠前模型全显，靠后模型根据位置弹性自适应 */
+  .pill-name {
+    font-weight: 700;
+    letter-spacing: -0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 260px;
+    flex-shrink: 1;
+    color: #0f172a;
+  }
+
+  :global([data-theme="dark"]) .pill-name {
+    color: #f4f4f5;
+  }
+
+  /* 夯、顶级、以及排名前10位的模型：名字100%完全展示，绝不出现省略号截断 */
+  .model-pill--hang .pill-name,
+  .model-pill--dingji .pill-name,
+  .model-pill--top10 .pill-name {
+    max-width: none !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    flex-shrink: 0;
+  }
+
+  .pill-org {
+    font-size: 10px;
+    color: #6b7280;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 1px 4px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  :global([data-theme="dark"]) .pill-org {
+    color: #a1a1aa;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .pill-score {
+    font-size: 10px;
+    font-weight: 700;
+    color: #2563eb;
+    margin-left: 2px;
+    flex-shrink: 0;
+  }
+
+  :global([data-theme="dark"]) .pill-score {
+    color: #60a5fa;
+  }
+
+  /* 各卡片内详细名单抽屉 */
+  .tier-detail-drawer {
+    margin-top: 12px;
+    background: var(--surface-soft, #f8fafc);
+    border: 1px solid var(--line, rgba(16, 24, 40, 0.12));
+    border-radius: 8px;
+    padding: 12px;
+    max-height: 420px;
+    overflow-y: auto;
+  }
+
+  .tier-drawer-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+
+  .tier-drawer-title {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text, #111318);
+  }
+
+  .tier-drawer-hint {
+    font-size: 11px;
+    color: var(--muted, #68707d);
+  }
+
+  .tier-table-wrapper {
+    overflow-x: auto;
+  }
+
+  :global(.tier-full-table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  :global(.tier-full-table th),
+  :global(.tier-full-table td) {
+    padding: 7px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--line, rgba(16, 24, 40, 0.08));
+    color: var(--text, #111318);
+  }
+
+  :global(.tier-full-table th) {
+    background: var(--surface-solid, #ffffff);
+    color: var(--muted, #68707d);
+    font-weight: 600;
+    font-size: 11px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  :global(.tier-full-table tr:hover) {
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  :global([data-theme="dark"] .tier-full-table tr:hover) {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  :global(.tier-full-table tr.is-top3) {
+    background: rgba(254, 243, 199, 0.25);
+  }
+
+  :global([data-theme="dark"] .tier-full-table tr.is-top3) {
+    background: rgba(234, 179, 8, 0.12);
+  }
+
+  :global(.td-rank) {
+    font-weight: 700;
+  }
+
+  :global(.rank-num) {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text, #334155);
+  }
+
+  :global(.rank-num--1) {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  :global(.rank-num--2) {
+    background: #f1f5f9;
+    color: #334155;
+  }
+
+  :global(.rank-num--3) {
+    background: #ffedd5;
+    color: #9a3412;
+  }
+
+  :global([data-theme="dark"] .rank-num--1) {
+    background: rgba(234, 179, 8, 0.2);
+    color: #fde047;
+  }
+
+  :global([data-theme="dark"] .rank-num--2) {
+    background: rgba(148, 163, 184, 0.2);
+    color: #cbd5e1;
+  }
+
+  :global([data-theme="dark"] .rank-num--3) {
+    background: rgba(249, 115, 22, 0.2);
+    color: #fdba74;
+  }
+
+  :global(.rating-badge) {
+    display: inline-block;
+    font-weight: 700;
+    color: var(--accent, #2563eb);
+    background: rgba(37, 99, 235, 0.08);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+
+  :global(.rating-rank-badge) {
+    font-size: 11px;
+    color: var(--muted, #68707d);
+  }
+
+  :global(.link-btn) {
+    color: var(--accent, #2563eb);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 11px;
+  }
+
+  :global(.link-btn:hover) {
+    text-decoration: underline;
+  }
+
+  :global(.link-none) {
+    color: var(--muted-2, #94a3b8);
+  }
+
+  /* 3. 排行榜最后头：下拉菜单与更多榜单总览卡片 */
+  .tier-bottom-dropdown-section {
+    margin-top: 28px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .bottom-dropdown-card {
+    background: var(--surface-solid, #ffffff);
+    border: 1px solid var(--line, rgba(16, 24, 40, 0.12));
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
+  }
+
+  .bottom-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .dropdown-header-main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .dropdown-header-icon {
+    font-size: 26px;
+    line-height: 1;
+  }
+
+  .dropdown-header-title {
+    font-size: 16px;
+    font-weight: 800;
+    margin: 0;
+    color: var(--text, #111318);
+  }
+
+  .dropdown-header-desc {
+    font-size: 12px;
+    color: var(--muted, #68707d);
+    margin: 2px 0 0;
+  }
+
+  .dropdown-interactive-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .dropdown-select-wrapper {
+    position: relative;
+  }
+
+  .ranking-dropdown-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background: var(--surface-soft, #f8fafc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2368707d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;
+    border: 1px solid var(--line, rgba(16, 24, 40, 0.14));
+    border-radius: 8px;
+    padding: 8px 36px 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text, #111318);
+    cursor: pointer;
+    min-width: 260px;
+    outline: none;
+    transition: all 0.15s ease;
+  }
+
+  .ranking-dropdown-select:focus {
+    border-color: var(--accent, #2563eb);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  }
+
+  .dropdown-trigger-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    background: var(--text, #111827);
+    color: var(--surface-solid, #ffffff);
+    border: none;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  :global([data-theme="dark"]) .dropdown-trigger-btn {
+    background: #2563eb;
+    color: #ffffff;
+  }
+
+  .dropdown-trigger-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+  }
+
+  .dropdown-trigger-btn.is-active {
+    background: #dc2626;
+    color: #ffffff;
+  }
+
+  .dropdown-btn-arrow {
+    font-size: 10px;
+  }
+
+  /* 下拉抽屉内容 */
+  .bottom-dropdown-drawer {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line, rgba(16, 24, 40, 0.1));
+  }
+
+  .bottom-drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .bottom-drawer-title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .bottom-drawer-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text, #111318);
+  }
+
+  .bottom-drawer-hint {
+    font-size: 12px;
+    color: var(--muted, #68707d);
+  }
+
+  .bottom-drawer-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bottom-drawer-jump-link {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent, #2563eb);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--surface-soft, #f1f5f9);
+  }
+
+  .bottom-drawer-jump-link:hover {
+    text-decoration: underline;
+  }
+
+  .bottom-drawer-close-btn {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted, #68707d);
+    background: transparent;
+    border: 1px solid var(--line, rgba(16, 24, 40, 0.12));
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+  }
+
+  .bottom-drawer-close-btn:hover {
+    color: var(--text, #111318);
+    background: var(--surface-soft, #f1f5f9);
+  }
+
+  /* 底部数据引用与时间 (浅色灰色小字体，纯净不占视觉焦点) */
+  .tier-footer-note {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line, rgba(16, 24, 40, 0.08));
+    font-size: 12px;
+    color: var(--muted-2, #8b93a1);
+  }
+
+  .footer-source-link {
+    color: var(--muted, #68707d);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .footer-source-link:hover {
+    color: var(--accent, #2563eb);
+    text-decoration: underline;
+  }
+
+  .footer-dot {
+    opacity: 0.6;
+  }
+
+  /* 移动端紧凑适配 */
+  @media (max-width: 640px) {
+    .tier-main-title {
+      font-size: 20px;
+    }
+
+    .tier-label {
+      width: 56px;
+      min-width: 56px;
+    }
+
+    .tier-label-text {
+      font-size: 15px;
+    }
+
+    .tier-content {
+      padding: 5px;
+      gap: 4px;
+    }
+
+    .model-pill {
+      padding: 2px 6px;
+      font-size: 11px;
+      gap: 4px;
+    }
+
+    .pill-org {
+      display: none;
+    }
+
+    .pill-name {
+      max-width: 140px;
+    }
+
+    .model-pill--hang .pill-name,
+    .model-pill--dingji .pill-name,
+    .model-pill--top10 .pill-name {
+      max-width: 210px !important;
+    }
+
+    .ranking-dropdown-select {
+      min-width: 100%;
+      width: 100%;
+    }
+
+    .dropdown-interactive-bar {
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .dropdown-trigger-btn {
+      justify-content: center;
+    }
+
+    .tier-footer-note {
+      flex-direction: column;
+      gap: 4px;
+    }
+  }
+</style>
