@@ -31,4 +31,11 @@ const description = "AI模型性能排行榜：基于 arena.ai (LMSYS Chatbot Ar
     margin: 0 auto 64px;
     box-sizing: border-box;
   }
+
+  @media (max-width: 640px) {
+    .tier-outer-container {
+      width: min(var(--max, 1180px), calc(100% - 24px));
+      margin: 0 auto 40px;
+    }
+  }
 </style>

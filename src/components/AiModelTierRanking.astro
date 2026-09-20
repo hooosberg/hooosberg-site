@@ -79,7 +79,7 @@ const categoriesDropdownPayload = JSON.stringify(
       <div class="tier-cat-head">
         <div class="tier-head-left">
           <span class="tier-head-icon">{overallCat.icon}</span>
-          <div>
+          <div class="tier-head-text">
             <h3 class="tier-head-title">{overallCat.name} · {overallCat.tagline}</h3>
             <p class="tier-head-desc">{overallCat.desc}（收录 {overallCat.totalCount} 款主流模型）</p>
           </div>
@@ -261,7 +261,7 @@ const categoriesDropdownPayload = JSON.stringify(
         <div class="tier-cat-head tier-cat-head--compact">
           <div class="tier-head-left">
             <span class="tier-sub-icon">{cat.icon}</span>
-            <div>
+            <div class="tier-head-text">
               <h4 class="tier-sub-name">{cat.name}</h4>
               <p class="tier-sub-tagline">{cat.tagline} · {cat.desc}</p>
             </div>
@@ -442,7 +442,7 @@ const categoriesDropdownPayload = JSON.stringify(
       <div class="bottom-dropdown-header">
         <div class="dropdown-header-main">
           <span class="dropdown-header-icon">📑</span>
-          <div>
+          <div class="tier-head-text">
             <h4 class="dropdown-header-title">更多榜单与全量明细速查</h4>
             <p class="dropdown-header-desc">从下拉菜单选择任意分类，一键展开查阅该分项完整的实测排行榜数据</p>
           </div>
@@ -816,7 +816,7 @@ const categoriesDropdownPayload = JSON.stringify(
   /* 卡片头部（纯净左侧标题布局，无右上角突兀按钮） */
   .tier-cat-head {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 12px;
   }
 
@@ -826,49 +826,68 @@ const categoriesDropdownPayload = JSON.stringify(
 
   .tier-head-left {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
     min-width: 0;
+    flex: 1;
+  }
+
+  .tier-head-text {
+    min-width: 0;
+    flex: 1;
   }
 
   .tier-head-icon {
     font-size: 26px;
-    line-height: 1;
+    line-height: 1.1;
+    flex-shrink: 0;
+    margin-top: 1px;
   }
 
   .tier-sub-icon {
     font-size: 20px;
-    line-height: 1;
+    line-height: 1.1;
+    flex-shrink: 0;
+    margin-top: 2px;
   }
 
   .tier-head-title {
     font-size: 16px;
     font-weight: 800;
     margin: 0;
+    line-height: 1.35;
     color: var(--text, #111318);
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .tier-head-desc {
     font-size: 12px;
+    line-height: 1.5;
     color: var(--muted, #68707d);
-    margin: 2px 0 0;
+    margin: 3px 0 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .tier-sub-name {
     font-size: 15px;
     font-weight: 800;
     margin: 0;
+    line-height: 1.35;
     color: var(--text, #111318);
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .tier-sub-tagline {
-    font-size: 11px;
+    font-size: 12px;
+    line-height: 1.5;
     color: var(--muted, #68707d);
-    margin: 2px 0 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 440px;
+    margin: 3px 0 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
   }
 
   /* 卡片底部“展开明细”操作区 (替代原来放头部的设计，体验更自然) */
@@ -1273,26 +1292,36 @@ const categoriesDropdownPayload = JSON.stringify(
 
   .dropdown-header-main {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
+    min-width: 0;
+    flex: 1;
   }
 
   .dropdown-header-icon {
     font-size: 26px;
-    line-height: 1;
+    line-height: 1.1;
+    flex-shrink: 0;
+    margin-top: 1px;
   }
 
   .dropdown-header-title {
     font-size: 16px;
     font-weight: 800;
     margin: 0;
+    line-height: 1.35;
     color: var(--text, #111318);
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .dropdown-header-desc {
     font-size: 12px;
+    line-height: 1.5;
     color: var(--muted, #68707d);
-    margin: 2px 0 0;
+    margin: 3px 0 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .dropdown-interactive-bar {
@@ -1466,24 +1495,81 @@ const categoriesDropdownPayload = JSON.stringify(
       font-size: 20px;
     }
 
-    .tier-label {
-      width: 56px;
-      min-width: 56px;
+    .tier-subtitle {
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 0 4px;
     }
 
-    .tier-label-text {
+    .tier-quick-nav-flat {
+      gap: 5px;
+      margin-bottom: 16px;
+      padding: 0;
+    }
+
+    .quick-nav-chip {
+      padding: 3px 8px;
+      font-size: 11px;
+    }
+
+    .tier-section-wrapper {
+      padding: 14px 12px 10px;
+    }
+
+    .tier-sub-card {
+      padding: 14px 12px 10px;
+    }
+
+    .bottom-dropdown-card {
+      padding: 14px 12px;
+    }
+
+    .tier-head-title {
       font-size: 15px;
     }
 
+    .tier-head-desc {
+      font-size: 11.5px;
+      line-height: 1.45;
+    }
+
+    .tier-sub-name {
+      font-size: 14px;
+    }
+
+    .tier-sub-tagline {
+      font-size: 11.5px;
+      line-height: 1.45;
+    }
+
+    .tier-label {
+      width: 52px;
+      min-width: 52px;
+    }
+
+    .tier-table--compact .tier-label {
+      width: 48px;
+      min-width: 48px;
+    }
+
+    .tier-label-text {
+      font-size: 14px;
+    }
+
+    .tier-table--compact .tier-label-text {
+      font-size: 13px;
+    }
+
     .tier-content {
-      padding: 5px;
-      gap: 4px;
+      padding: 4px;
+      gap: 3px;
     }
 
     .model-pill {
-      padding: 2px 6px;
+      padding: 2px 5px;
       font-size: 11px;
-      gap: 4px;
+      gap: 3px;
+      max-width: 100%;
     }
 
     .pill-org {
@@ -1491,13 +1577,17 @@ const categoriesDropdownPayload = JSON.stringify(
     }
 
     .pill-name {
-      max-width: 140px;
+      max-width: 130px;
     }
 
     .model-pill--hang .pill-name,
     .model-pill--dingji .pill-name,
     .model-pill--top10 .pill-name {
-      max-width: 210px !important;
+      max-width: calc(100vw - 160px) !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+      flex-shrink: 1 !important;
     }
 
     .ranking-dropdown-select {
@@ -1513,11 +1603,13 @@ const categoriesDropdownPayload = JSON.stringify(
 
     .dropdown-trigger-btn {
       justify-content: center;
+      width: 100%;
     }
 
     .tier-footer-note {
       flex-direction: column;
       gap: 4px;
+      text-align: center;
     }
   }
 </style>
