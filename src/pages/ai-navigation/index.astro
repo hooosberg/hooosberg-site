@@ -275,16 +275,26 @@ const workBuddyGlobal = tool({
   actionLabel: "前往海外官网 (workbuddy.ai)",
 });
 
-const workBuddy = workBuddyCn;
-
 const qwenWork = tool({
   name: "阿里 千问办公",
-  description: "阿里巴巴的一站式 AI 办公平台，覆盖网页与桌面端，并接入钉钉生态；一句话可完成数据分析、PPT、视频、网页等任务，面向个人与企业工作流。",
+  description: "阿里巴巴的一站式 AI 办公协同平台（qwenwork.cn），覆盖网页与桌面端并深度整合钉钉生态；擅长长文档处理、表格分析、公文撰写与企业审批流。与侧重全网搜索和多模态通用问答的“千问”互为独立产品。",
   url: "https://qwenwork.cn/",
   country: "cn",
+  iconText: "办",
   tags: ["AI 办公", "钉钉", "企业协作"],
-  badge: "国产办公 #3",
-  actionLabel: "前往使用",
+  badge: "办公协同",
+  actionLabel: "前往千问办公",
+});
+
+const qianwen = tool({
+  name: "阿里 千问",
+  description: "阿里巴巴通用旗舰 AI 助手（qianwen.com）：涵盖全网实时搜索、多模态图文理解与通义大模型底座；不同于侧重钉钉协同/企业办公流的“千问办公”，千问更适合全能日常对话与专业问答。",
+  url: "https://www.qianwen.com/",
+  country: "cn",
+  iconText: "问",
+  tags: ["通用助手", "全网搜索", "阿里通义", "多模态"],
+  badge: "通用 AI 助手",
+  actionLabel: "前往千问官网",
 });
 
 const traeWorkOffice = tool({
@@ -377,6 +387,7 @@ const groups: ToolGroup[] = [
       workBuddyGlobal,
       doubaoWork,
       qwenWork,
+      qianwen,
       traeWorkOffice,
       kimiWork,
       feishuOffice,
