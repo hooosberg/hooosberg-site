@@ -47,16 +47,7 @@
               "votes": "10,372 局实测",
               "license": "Proprietary",
               "contextLength": null
-            }
-          ]
-        },
-        "dingji": {
-          "key": "dingji",
-          "title": "顶级",
-          "bg": "#f6c648",
-          "textColor": "#1f1d18",
-          "desc": "第一梯队主力 · 性能彪悍",
-          "items": [
+            },
             {
               "rank": 3,
               "displayRank": 3,
@@ -72,7 +63,16 @@
               "contextLength": null,
               "forecastKey": "opus55",
               "forecastBasis": "约等于 Opus 5 的升级版，整体更接近 Fable 5.1；预测位于两款实测顶级模型之后。"
-            },
+            }
+          ]
+        },
+        "dingji": {
+          "key": "dingji",
+          "title": "顶级",
+          "bg": "#f6c648",
+          "textColor": "#1f1d18",
+          "desc": "第一梯队主力 · 性能彪悍",
+          "items": [
             {
               "rank": 4,
               "displayRank": 4,
