@@ -25,6 +25,10 @@ function formatScore(item: any) {
   return null;
 }
 
+function forecastClass(item: any) {
+  return item?.forecastKey ? `model-pill--forecast-${item.forecastKey}` : "";
+}
+
 // 序列化所有分类全量数据供底部下拉菜单秒级切换查阅
 const categoriesDropdownPayload = JSON.stringify(
   arenaData.categories.map((c) => ({
@@ -43,12 +47,21 @@ const categoriesDropdownPayload = JSON.stringify(
 <div class:list={["tier-root", { "is-embedded": embedded }]} data-tier-root>
   <!-- 头部极简标题区（不套框，干净利落） -->
   <header class="tier-header-clean">
-    <div class="tier-badge-pill">权威实测 · 5档战力</div>
+    <div class="tier-badge-pill">Arena 实测 + 新品预测 · 5档战力</div>
     <h2 class="tier-main-title">AI模型性能排行榜（从夯到拉天梯榜）</h2>
     <p class="tier-subtitle">
-      基于全球权威 arena.ai（LMSYS Chatbot Arena）盲测数据 · 中小学生都能看懂的5档战力天梯图
+      原有模型按 Agent Arena 盲测排名；三款新模型暂按公开基准预测，Arena 还没有足够实测样本。
     </p>
   </header>
+
+  <aside class="tier-forecast-note" aria-label="新模型预测说明">
+    <div class="tier-forecast-legend">
+      <span class="tier-forecast-key tier-forecast-key--opus55"><i></i>Claude Opus 5.5</span>
+      <span class="tier-forecast-key tier-forecast-key--gpt6sol"><i></i>GPT 6 Sol</span>
+      <span class="tier-forecast-key tier-forecast-key--gpt6luna"><i></i>GPT 6 Luna</span>
+    </div>
+    <p>彩色分数是编辑预测，不是 Arena 实测；参考公开基准与任务成本，见 <a href="https://www.anthropic.com/claude/opus" target="_blank" rel="noopener noreferrer">Anthropic 评测</a>、<a href="https://openai.com/index/introducing-gpt-6-sol-and-luna/" target="_blank" rel="noopener noreferrer">OpenAI 评测</a>，待 Arena 累积盲测后再校正。</p>
+  </aside>
 
   <!-- 快速跳转条（纯净胶囊直接平铺，无嵌套外框） -->
   <nav class="tier-quick-nav-flat" aria-label="分项快速跳转">
@@ -96,13 +109,14 @@ const categoriesDropdownPayload = JSON.stringify(
           <div class="tier-content">
             {overallCat.tiers.hang.items.map((item) => (
               <div
-                class:list={["model-pill", "model-pill--hang", { "model-pill--top10": item.displayRank <= 10 }]}
-                title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+                class:list={["model-pill", "model-pill--hang", forecastClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
+                title={item.forecastBasis || `${item.name} (${item.organization}) - #${item.displayRank}`}
               >
                 <span class="pill-rank">#{item.displayRank}</span>
                 <span class="pill-name">{item.name}</span>
                 <span class="pill-org">{item.organization}</span>
-                {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+                {item.forecastKey && <span class="pill-forecast-badge">预测</span>}
+                {formatScore(item) && <span class:list={["pill-score", { "pill-score--forecast": !!item.forecastKey }]}>{formatScore(item)}</span>}
               </div>
             ))}
           </div>
@@ -116,13 +130,14 @@ const categoriesDropdownPayload = JSON.stringify(
           <div class="tier-content">
             {overallCat.tiers.dingji.items.map((item) => (
               <div
-                class:list={["model-pill", "model-pill--dingji", { "model-pill--top10": item.displayRank <= 10 }]}
-                title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+                class:list={["model-pill", "model-pill--dingji", forecastClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
+                title={item.forecastBasis || `${item.name} (${item.organization}) - #${item.displayRank}`}
               >
                 <span class="pill-rank">#{item.displayRank}</span>
                 <span class="pill-name">{item.name}</span>
                 <span class="pill-org">{item.organization}</span>
-                {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+                {item.forecastKey && <span class="pill-forecast-badge">预测</span>}
+                {formatScore(item) && <span class:list={["pill-score", { "pill-score--forecast": !!item.forecastKey }]}>{formatScore(item)}</span>}
               </div>
             ))}
           </div>
@@ -136,13 +151,14 @@ const categoriesDropdownPayload = JSON.stringify(
           <div class="tier-content">
             {overallCat.tiers.renshangren.items.map((item) => (
               <div
-                class:list={["model-pill", "model-pill--renshangren", { "model-pill--top10": item.displayRank <= 10 }]}
-                title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+                class:list={["model-pill", "model-pill--renshangren", forecastClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
+                title={item.forecastBasis || `${item.name} (${item.organization}) - #${item.displayRank}`}
               >
                 <span class="pill-rank">#{item.displayRank}</span>
                 <span class="pill-name">{item.name}</span>
                 <span class="pill-org">{item.organization}</span>
-                {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+                {item.forecastKey && <span class="pill-forecast-badge">预测</span>}
+                {formatScore(item) && <span class:list={["pill-score", { "pill-score--forecast": !!item.forecastKey }]}>{formatScore(item)}</span>}
               </div>
             ))}
           </div>
@@ -207,7 +223,7 @@ const categoriesDropdownPayload = JSON.stringify(
       <div class="tier-detail-drawer" data-drawer-for={overallCat.id} hidden>
         <div class="tier-drawer-head">
           <h4 class="tier-drawer-title">{overallCat.name} · 详细排行榜 (TOP 50)</h4>
-          <span class="tier-drawer-hint">实测盲测 Elo 胜率综合算法排序</span>
+          <span class="tier-drawer-hint">Arena 记录为实测；新模型彩色条目为公开基准预测</span>
         </div>
         <div class="tier-table-wrapper">
           <table class="tier-full-table">
@@ -216,19 +232,22 @@ const categoriesDropdownPayload = JSON.stringify(
                 <th style="width: 70px;">排名</th>
                 <th>模型名称</th>
                 <th style="width: 130px;">研发机构</th>
-                <th style="width: 110px;">Elo评分 / 战力</th>
+                <th style="width: 110px;">净提升 / 预测分</th>
                 <th style="width: 80px;">链接</th>
               </tr>
             </thead>
             <tbody>
               {overallCat.fullList.map((item, rowIdx) => (
-                <tr class:list={[{ "is-top3": rowIdx < 3 }]}>
+                <tr class:list={[{ "is-top3": rowIdx < 3 }, item.forecastKey ? `is-forecast is-forecast--${item.forecastKey}` : ""]}>
                   <td class="td-rank">
                     <span class:list={["rank-num", `rank-num--${rowIdx + 1}`]}>
                       {rowIdx === 0 ? "🥇 1" : rowIdx === 1 ? "🥈 2" : rowIdx === 2 ? "🥉 3" : rowIdx + 1}
                     </span>
                   </td>
-                  <td class="td-name"><strong>{item.name}</strong></td>
+                  <td class="td-name">
+                    <strong>{item.name}</strong>
+                    {item.forecastKey && <span class:list={["table-forecast-badge", `table-forecast-badge--${item.forecastKey}`]} title={item.forecastBasis}>预测</span>}
+                  </td>
                   <td class="td-org">{item.organization}</td>
                   <td class="td-rating">
                     {item.rating ? (
@@ -485,12 +504,13 @@ const categoriesDropdownPayload = JSON.stringify(
 
   <!-- 底部数据引用与时间 (浅色灰色小字体，纯净不占视觉焦点) -->
   <footer class="tier-footer-note">
-    <span>数据源自权威竞技场盲测</span>
+    <span>Arena 条目为盲测实录；彩色新模型为预测</span>
     <a href={arenaData.sourceUrl} target="_blank" rel="noopener noreferrer" class="footer-source-link">
       {arenaData.sourceName} ↗
     </a>
     <span class="footer-dot">·</span>
-    <span>最近数据同步：{arenaData.updatedDateText}</span>
+    <span>Arena 数据：{arenaData.updatedDateText}</span>
+    {arenaData.forecastUpdatedAt && <span>· 预测更新：{arenaData.forecastUpdatedAt}</span>}
   </footer>
 </div>
 
@@ -586,6 +606,10 @@ const categoriesDropdownPayload = JSON.stringify(
       cat.fullList.forEach((item: any, rowIdx: number) => {
         const isTop3 = rowIdx < 3;
         const medal = rowIdx === 0 ? "🥇 1" : rowIdx === 1 ? "🥈 2" : rowIdx === 2 ? "🥉 3" : rowIdx + 1;
+        const forecastRowClass = item.forecastKey ? `is-forecast is-forecast--${item.forecastKey}` : "";
+        const forecastBadge = item.forecastKey
+          ? `<span class="table-forecast-badge table-forecast-badge--${item.forecastKey}">预测</span>`
+          : "";
         const scoreVal = item.scoreText || (item.rating != null ? (String(item.rating).includes("%") || String(item.rating).includes("分") ? item.rating : `${item.rating}分`) : null);
         const ratingHtml = scoreVal
           ? `<span class="rating-badge">${scoreVal}</span>`
@@ -595,9 +619,9 @@ const categoriesDropdownPayload = JSON.stringify(
           : `<span class="link-none">-</span>`;
 
         html += `
-          <tr class="${isTop3 ? "is-top3" : ""}">
+          <tr class="${isTop3 ? "is-top3" : ""} ${forecastRowClass}">
             <td class="td-rank"><span class="rank-num rank-num--${rowIdx + 1}">${medal}</span></td>
-            <td class="td-name"><strong>${item.name}</strong></td>
+            <td class="td-name"><strong>${item.name}</strong>${forecastBadge}</td>
             <td class="td-org">${item.organization || "-"}</td>
             <td class="td-rating">${ratingHtml}</td>
             <td class="td-link">${linkHtml}</td>
@@ -718,6 +742,62 @@ const categoriesDropdownPayload = JSON.stringify(
     color: var(--muted, #68707d);
     margin: 0;
   }
+
+  .tier-forecast-note {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 18px;
+    flex-wrap: wrap;
+    margin: 10px 0 18px;
+    padding: 9px 12px;
+    border: 1px solid var(--line, rgba(16, 24, 40, 0.1));
+    border-radius: 8px;
+    background: var(--surface-soft, #f8fafc);
+  }
+
+  .tier-forecast-legend {
+    display: flex;
+    align-items: center;
+    gap: 7px 12px;
+    flex-wrap: wrap;
+  }
+
+  .tier-forecast-key {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 750;
+    white-space: nowrap;
+  }
+
+  .tier-forecast-key i {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .tier-forecast-key--opus55 { color: #7137bd; }
+  .tier-forecast-key--gpt6sol { color: #087c67; }
+  .tier-forecast-key--gpt6luna { color: #2867c7; }
+
+  .tier-forecast-note p {
+    margin: 0;
+    color: var(--muted, #68707d);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .tier-forecast-note a {
+    color: var(--accent, #2563eb);
+    font-weight: 650;
+    text-decoration: none;
+  }
+
+  .tier-forecast-note a:hover { text-decoration: underline; }
 
   /* 快速跳转条（扁平无框胶囊设计） */
   .tier-quick-nav-flat {
@@ -1042,6 +1122,62 @@ const categoriesDropdownPayload = JSON.stringify(
     z-index: 2;
   }
 
+  .model-pill--forecast-opus55 {
+    background: #f3eaff;
+    border: 1px solid #9b6bd2;
+  }
+
+  .model-pill--forecast-gpt6sol {
+    background: #e8f7f2;
+    border: 1px solid #4fa994;
+  }
+
+  .model-pill--forecast-gpt6luna {
+    background: #eaf2ff;
+    border: 1px solid #6b95d7;
+  }
+
+  .model-pill--forecast-opus55 .pill-name { color: #5c2999; }
+  .model-pill--forecast-gpt6sol .pill-name { color: #086b5a; }
+  .model-pill--forecast-gpt6luna .pill-name { color: #2459a9; }
+  .model-pill--forecast-opus55 .pill-rank,
+  .model-pill--forecast-opus55 .pill-score { color: #5c2999; }
+  .model-pill--forecast-gpt6sol .pill-rank,
+  .model-pill--forecast-gpt6sol .pill-score { color: #086b5a; }
+  .model-pill--forecast-gpt6luna .pill-rank,
+  .model-pill--forecast-gpt6luna .pill-score { color: #2459a9; }
+
+  :global([data-theme="dark"]) .model-pill--forecast-opus55 { background: #30213e; border-color: #986cc8; }
+  :global([data-theme="dark"]) .model-pill--forecast-gpt6sol { background: #17362f; border-color: #398d79; }
+  :global([data-theme="dark"]) .model-pill--forecast-gpt6luna { background: #1e2e49; border-color: #5981c0; }
+  :global([data-theme="dark"]) .model-pill--forecast-opus55 .pill-name { color: #dec5ff; }
+  :global([data-theme="dark"]) .model-pill--forecast-gpt6sol .pill-name { color: #a5ead7; }
+  :global([data-theme="dark"]) .model-pill--forecast-gpt6luna .pill-name { color: #bbd2ff; }
+
+  .pill-forecast-badge,
+  .table-forecast-badge {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 1px 5px;
+    border-radius: 999px;
+    font-size: 9px;
+    line-height: 1.4;
+    font-weight: 800;
+    color: #7137bd;
+    background: #e9d8ff;
+  }
+
+  .model-pill--forecast-gpt6sol .pill-forecast-badge,
+  .table-forecast-badge--gpt6sol { color: #087c67; background: #cdeee3; }
+  .model-pill--forecast-gpt6luna .pill-forecast-badge,
+  .table-forecast-badge--gpt6luna { color: #2867c7; background: #d4e4ff; }
+  .pill-score--forecast { color: inherit; }
+
+  :global([data-theme="dark"]) .pill-forecast-badge { color: #ead9ff; background: #594173; }
+  :global([data-theme="dark"]) .model-pill--forecast-gpt6sol .pill-forecast-badge { color: #b9f1e2; background: #245647; }
+  :global([data-theme="dark"]) .model-pill--forecast-gpt6luna .pill-forecast-badge { color: #c8dcff; background: #2c4772; }
+
   .pill-rank {
     font-size: 10px;
     font-weight: 800;
@@ -1184,6 +1320,15 @@ const categoriesDropdownPayload = JSON.stringify(
   :global([data-theme="dark"] .tier-full-table tr:hover) {
     background: rgba(255, 255, 255, 0.04);
   }
+
+  :global(.tier-full-table tr.is-forecast--opus55 td) { background: #f8f3ff; }
+  :global(.tier-full-table tr.is-forecast--gpt6sol td) { background: #f0faf7; }
+  :global(.tier-full-table tr.is-forecast--gpt6luna td) { background: #f1f6ff; }
+  :global([data-theme="dark"] .tier-full-table tr.is-forecast--opus55 td) { background: #2c2237; }
+  :global([data-theme="dark"] .tier-full-table tr.is-forecast--gpt6sol td) { background: #1c302b; }
+  :global([data-theme="dark"] .tier-full-table tr.is-forecast--gpt6luna td) { background: #202c40; }
+
+  .table-forecast-badge { margin-left: 6px; vertical-align: middle; }
 
   :global(.tier-full-table tr.is-top3) {
     background: rgba(254, 243, 199, 0.25);
