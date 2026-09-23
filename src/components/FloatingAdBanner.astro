@@ -1,0 +1,257 @@
+---
+import { ExternalLink, Sparkles, X } from "@lucide/astro";
+import type { Locale } from "../utils/i18n";
+
+type Props = {
+  locale?: Locale;
+};
+
+const { locale = "zh-CN" } = Astro.props;
+const promoUrl = "https://accboy7hooosberg.acceboy.com/";
+
+const copy = locale === "en" ? {
+  badge: "Partner",
+  title: "Account Planet",
+  subtitle: "ChatGPT · Claude · Gemini",
+  note: "Global Accounts & Direct Top-up",
+  closeAria: "Dismiss promotional card",
+} : {
+  badge: "推荐",
+  title: "账号星球",
+  subtitle: "ChatGPT · Claude · Gemini",
+  note: "海外独享号 · 会员秒充 · 免外币卡",
+  closeAria: "关闭推广卡片",
+};
+---
+
+<aside class="floating-ad-card" id="floating-ad-card" aria-label="账号星球推荐">
+  <button class="floating-ad-close" id="floating-ad-close" type="button" aria-label={copy.closeAria}>
+    <X size={12} aria-hidden="true" />
+  </button>
+
+  <a
+    class="floating-ad-link"
+    href={promoUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <div class="floating-ad-header">
+      <span class="floating-ad-badge">
+        <Sparkles size={11} aria-hidden="true" />
+        <span>{copy.title}</span>
+      </span>
+      <span class="floating-ad-tag">{copy.badge}</span>
+    </div>
+    <div class="floating-ad-body">
+      <div class="floating-ad-sub">
+        <span>{copy.subtitle}</span>
+        <ExternalLink size={10} aria-hidden="true" class="floating-ad-arrow" />
+      </div>
+      <p class="floating-ad-note">{copy.note}</p>
+    </div>
+  </a>
+</aside>
+
+<script is:inline>
+  (() => {
+    const card = document.getElementById("floating-ad-card");
+    const closeBtn = document.getElementById("floating-ad-close");
+    const storageKey = "hooosberg_ad_dismissed";
+
+    if (!card) return;
+
+    try {
+      if (sessionStorage.getItem(storageKey) === "true") {
+        card.style.display = "none";
+        return;
+      }
+    } catch {
+      // Ignore storage errors in private browsing
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        card.classList.add("is-closing");
+        setTimeout(() => {
+          card.style.display = "none";
+        }, 180);
+        try {
+          sessionStorage.setItem(storageKey, "true");
+        } catch {
+          // Ignore
+        }
+      });
+    }
+  })();
+</script>
+
+<style>
+  /* 
+   * 悬浮推广条：扁平精致长方形（Horizontal Rectangle），极高透明度淡雅设计。
+   * 基于正文内容右侧留白定位，视口宽度不足时自动隐藏，100% 杜绝压住正文。
+   */
+  .floating-ad-card {
+    position: fixed;
+    left: calc(50% + var(--max) / 2 + 16px);
+    bottom: 28px;
+    z-index: 70;
+    width: 196px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--surface-solid) 32%, transparent);
+    backdrop-filter: blur(20px) saturate(135%);
+    -webkit-backdrop-filter: blur(20px) saturate(135%);
+    border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.04),
+      0 1px 3px rgba(0, 0, 0, 0.02);
+    opacity: 0.68;
+    transition:
+      opacity 0.22s ease,
+      background 0.22s ease,
+      border-color 0.22s ease,
+      transform 0.22s ease,
+      box-shadow 0.22s ease;
+    animation: floating-ad-appear 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes floating-ad-appear {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 0.68;
+      transform: translateY(0);
+    }
+  }
+
+  .floating-ad-card.is-closing {
+    opacity: 0 !important;
+    transform: translateY(6px) scale(0.97) !important;
+  }
+
+  .floating-ad-card:hover {
+    opacity: 0.96;
+    background: color-mix(in srgb, var(--surface-solid) 68%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+    box-shadow:
+      0 8px 24px -4px color-mix(in srgb, var(--accent) 12%, rgba(0, 0, 0, 0.08)),
+      0 2px 6px rgba(0, 0, 0, 0.03);
+    transform: translateY(-1px);
+  }
+
+  .floating-ad-close {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 2;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    opacity: 0.45;
+    transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+
+  .floating-ad-close:hover {
+    opacity: 0.95;
+    background: color-mix(in srgb, var(--muted) 16%, transparent);
+    color: var(--text);
+  }
+
+  .floating-ad-link {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 9px 12px 10px;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 12px;
+  }
+
+  .floating-ad-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .floating-ad-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11.5px;
+    font-weight: 780;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .floating-ad-badge svg {
+    color: var(--accent);
+  }
+
+  .floating-ad-tag {
+    font-size: 9.5px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+    line-height: 1.2;
+  }
+
+  .floating-ad-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .floating-ad-sub {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1.3;
+  }
+
+  .floating-ad-arrow {
+    opacity: 0.6;
+    transition: transform 0.15s ease;
+  }
+
+  .floating-ad-card:hover .floating-ad-arrow {
+    transform: translate(1px, -1px);
+    opacity: 1;
+  }
+
+  .floating-ad-note {
+    margin: 0;
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.35;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* 
+   * 彻底杜绝压住正文：
+   * 当视口宽度不足以在右侧容纳卡片时（屏幕宽度 < 1280px），自动隐藏。
+   * 确保只在具备完整留白的大屏/宽屏右侧呈现。
+   */
+  @media (max-width: 1260px) {
+    .floating-ad-card {
+      display: none !important;
+    }
+  }
+</style>

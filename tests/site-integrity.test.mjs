@@ -180,3 +180,33 @@ test("services page keeps consultation CTAs on the contact route", async () => {
   const linksPage = new URL("../dist/links/index.html", import.meta.url);
   await stat(linksPage);
 });
+
+test("Account Planet promotion, pinned tutorial, and floating card rules are verified", async () => {
+  const homeHtml = await readFile(new URL("../dist/index.html", import.meta.url), "utf8");
+  const enHomeHtml = await readFile(new URL("../dist/en/index.html", import.meta.url), "utf8");
+  const navHtml = await readFile(new URL("../dist/ai-navigation/index.html", import.meta.url), "utf8");
+  const blogHtml = await readFile(new URL("../dist/blog/index.html", import.meta.url), "utf8");
+  const articleHtml = await readFile(new URL("../dist/blog/video-codex-account-registration-recharge-guide/index.html", import.meta.url), "utf8");
+
+  // 1. 首页不展示悬浮卡片
+  assert.doesNotMatch(homeHtml, /id="floating-ad-card"/, "homepage must NOT render floating ad card");
+  assert.doesNotMatch(enHomeHtml, /id="floating-ad-card"/, "English homepage must NOT render floating ad card");
+
+  // 2. 导航页和博客/笔记页展示悬浮卡片
+  assert.match(navHtml, /id="floating-ad-card"/, "AI navigation page must render floating ad card");
+  assert.match(blogHtml, /id="floating-ad-card"/, "blog page must render floating ad card");
+  assert.match(articleHtml, /id="floating-ad-card"/, "article detail page must render floating ad card");
+  assert.match(navHtml, /https:\/\/accboy7hooosberg\.acceboy\.com\//, "floating ad card must use the affiliate URL");
+
+  // 3. AI 导航收款/出海财务收录账号星球
+  assert.match(navHtml, /账号星球/, "AI navigation payments-finance must include 账号星球");
+  assert.match(navHtml, /href="https:\/\/accboy7hooosberg\.acceboy\.com\/"/, "AI navigation 账号星球 must link to promo URL");
+
+  // 4. Codex 编程教程板块置顶文章
+  assert.match(blogHtml, /learning-lesson-row--pinned/, "Codex series must render pinned lesson style");
+  assert.match(blogHtml, /video-codex-account-registration-recharge-guide/, "blog index must link to pinned tutorial article");
+
+  // 5. 置顶文章内文与顶部链接
+  assert.match(articleHtml, /账号星球/, "pinned tutorial must introduce 账号星球");
+  assert.match(articleHtml, /https:\/\/accboy7hooosberg\.acceboy\.com\//, "pinned tutorial must include promo URL");
+});

@@ -1407,6 +1407,197 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
 </ol>`,
   },
   {
+    slug: "video-codex-account-registration-recharge-guide",
+    title: "【置顶指南】Codex、Gemini与ChatGPT海外账号如何获取？AI会员自助充值与避坑全流程教学",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-09-23",
+    seriesOrder: 200,
+    handoutFirst: true,
+    excerpt: "解决国内开发者与学习者海外信用卡被拒、无海外手机号、频繁封号等卡点。手把手教你如何安全获取 Gemini、Codex、ChatGPT、Claude 海外账号并实现会员一键自助充值，附专属快速通道与纯净防封技巧。",
+    tags: ["置顶推荐", "海外账号", "AI充值", "Codex", "Gemini", "ChatGPT Plus", "Claude Pro", "账号星球"],
+    productSlugs: [],
+    resourceUrl: "https://accboy7hooosberg.acceboy.com/",
+    resourceMeta: "直达「账号星球」专属选号与充值通道 ↗",
+    body: [
+      "很多想深入学习 AI 编程（如 Codex、Gemini 3.7、Claude Code）或自动化办公的小伙伴，往往不是倒在代码和提示词上，而是直接卡死在第一步：没有海外信用卡充不了会员、没有海外手机号无法注册、刚注册号就被封、或者好不容易充值却被 Stripe 支付网关秒退封禁。",
+      "本期置顶指南针对国内常见卡点，系统拆解 Gemini、Codex、ChatGPT、Claude 的账号获取途径、自助充值方式与防封养号规范，并推荐经长期实测稳定的专属一站式自助平台——账号星球。"
+    ],
+    sections: [
+      {
+        heading: "一、国内开发者使用海外 AI 的三大核心死穴",
+        paragraphs: [
+          "1. 国际信用卡拒付（Stripe 3D 风控）：绝大多数国内发行的 Visa/Mastercard 双币或全币种卡，在 OpenAI / Anthropic 付款时均会被判定为高风险地区或账单地址不匹配，导致 Card Declined 甚至触发账号关联冻结。",
+          "2. 境外手机验证码缺失：主流 AI 服务对虚拟号码平台（如常见的接码网站）实行严格号段黑名单，即使用虚拟号侥幸通过，后续二次验证依然会直接锁死。",
+          "3. 脏 IP 与批量环境风控：使用多人共享的机场数据中心节点注册新号，容易被平台风控系统标记为机器人批量注册，充值后极易遇到 Account Deactivated（账号封禁）且资金无法退回。"
+        ],
+      },
+      {
+        heading: "二、四大主流 AI 工具账号与会员选型指南",
+        paragraphs: [
+          "• Google / Gemini：超长百万级上下文首选，配合 Google AI Studio 与反向代理可无缝外挂给 Codex 编程；需要纯净无污染的原生独享 Google 账号。",
+          "• OpenAI / Codex / ChatGPT Plus & Team：日常主力助手与代码生成标准。Plus 会员提供 GPT-4o、o1/o3 推理模型及视觉 Canvas；Team 工作区具备更宽松的并发上限与企业级隐私保障。",
+          "• Anthropic / Claude Pro / Claude Code：架构设计与复杂代码重构能力顶尖，但风控标准极为苛刻，必须使用纯净住宅环境并建议通过正规安全渠道直充。",
+          "• GitHub / Copilot：配合 Codex、VS Code 等 IDE 实现代码智能补全。"
+        ],
+      },
+      {
+        heading: "三、手把手操作：通过「账号星球」快速获取账号与自助充值",
+        paragraphs: [
+          "第一步：点击本文顶部的专属链接进入「账号星球」平台。",
+          "第二步：根据自身需求选择分类——若无可用账号，直接选购「独享成品号」；若已有自用号只需升级，选择「AI 会员代充/升级直充」。",
+          "第三步：支持国内主流便捷支付方式，订单提交后全自动秒级出单与交付，在后台即可直接查收卡密或账号凭据。",
+          "第四步：拿到账号后第一时间绑定备用邮箱并开启 2FA 双重身份验证，保障账号长期绝对独享安全。"
+        ],
+      },
+      {
+        heading: "四、长期稳定使用防封规范（老玩家经验心得）",
+        paragraphs: [
+          "• 浏览器隔离：建议使用 Chrome 独立个人资料（Profile）或指纹浏览器，避免与国内网站 Cookie 交叉干扰。",
+          "• 节点固定：尽量使用相同国家或固定地区的优质干净节点，避免在短时间内跨国频繁切换 IP。",
+          "• 谨慎多设备同时高频调用：单人单号使用，避免多人共享导致异地 IP 并发撞车触发异常检测。"
+        ],
+      }
+    ],
+    contentHtml: `<div class="account-promo-banner" style="margin: 0 0 32px; padding: 24px; border-radius: 16px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 12%, var(--surface-solid)), var(--surface-solid)); border: 1.5px solid color-mix(in srgb, var(--accent) 45%, var(--border)); box-shadow: 0 4px 20px -4px color-mix(in srgb, var(--accent) 15%, transparent); display: flex; flex-direction: column; gap: 16px;">
+  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+    <div style="display: inline-flex; align-items: center; gap: 8px; font-weight: 800; color: var(--accent); font-size: 15px;">
+      <span style="font-size: 20px;">🚀</span>
+      <span>官方认证专属推荐 · 账号星球</span>
+    </div>
+    <span style="font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 18%, transparent); color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);">
+      海外账号 &amp; AI会员秒级自助充值
+    </span>
+  </div>
+  
+  <div>
+    <h3 style="margin: 0 0 8px; font-size: 18px; font-weight: 800; color: var(--text);">
+      还在为没有海外信用卡、无法注册/充值 AI 会员发愁？
+    </h3>
+    <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: var(--muted);">
+      为彻底解决国内开发者在 <strong>Codex、Gemini、ChatGPT Plus/Team、Claude Pro、Midjourney</strong> 等海外工具上的注册繁琐、支付拒付与封号难题，推荐使用我们的专属合作伙伴——<strong>「账号星球」</strong>：提供一手纯净独享账号，支持国内便捷支付、全天候全自动秒级直充，免外币卡、官方正规代充防封有质保！
+    </p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 4px 0;">
+    <div style="padding: 10px 14px; border-radius: 10px; background: color-mix(in srgb, var(--accent) 6%, var(--surface-solid)); border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border)); font-size: 13.5px;">
+      ✨ <strong>现成独享号</strong>：Gemini / OpenAI / Claude / GitHub
+    </div>
+    <div style="padding: 10px 14px; border-radius: 10px; background: color-mix(in srgb, var(--accent) 6%, var(--surface-solid)); border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border)); font-size: 13.5px;">
+      ⚡ <strong>会员秒充值</strong>：ChatGPT Plus/Team、Claude Pro 一键直充
+    </div>
+    <div style="padding: 10px 14px; border-radius: 10px; background: color-mix(in srgb, var(--accent) 6%, var(--surface-solid)); border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border)); font-size: 13.5px;">
+      🛡️ <strong>安全与质保</strong>：纯净独立注册环境，售后保障不失联
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 4px;">
+    <a class="button button--primary" href="https://accboy7hooosberg.acceboy.com/" target="_blank" rel="noopener noreferrer" style="padding: 10px 22px; font-size: 14.5px; font-weight: 700; border-radius: 999px; text-decoration: none; box-shadow: 0 4px 14px -2px color-mix(in srgb, var(--accent) 35%, transparent);">
+      立即前往「账号星球」选号与自助充值 ↗
+    </a>
+    <span style="font-size: 13px; color: var(--muted);">专属通道 · 自动发卡 · 7×24h 自助服务</span>
+  </div>
+</div>
+
+<h2>一、国内开发者使用海外 AI 的三大核心死穴</h2>
+<p>很多小伙伴在学习我们 Codex 编程教程、外挂 Gemini 或者用 Claude Code 时，常常遇到以下致命卡点：</p>
+<ol>
+  <li><strong>国际信用卡支付拦截（Stripe 3D 风控）</strong>：OpenAI、Anthropic 等主流平台均采用 Stripe 作为底层网关。绝大多数国内 Visa/Mastercard 双币卡在绑定时会被直接判定为「欺诈高风险」或拒付（Card Declined）。市面上的虚拟信用卡不仅开卡费昂贵、月费高，且频遭批量封卡。</li>
+  <li><strong>境外手机号接码失败</strong>：注册 OpenAI 或 Claude 必须要海外实体号码，公开接码平台的虚拟号段早已被各大 AI 官方封禁，不仅收不到验证码，还容易导致后续风控连环封。</li>
+  <li><strong>节点不纯净与环境关联封号</strong>：多人共享的机房梯子节点是封号重灾区。刚辛辛苦苦注册充值好一个号，第二天就被「Account Deactivated」，充值的钱直接打水漂。</li>
+</ol>
+
+<h2>二、主流 AI 账号与会员类型解析：该选哪种？</h2>
+<p>在开工前，先看清楚你真正需要的账号类型：</p>
+<div style="overflow-x: auto; margin: 18px 0;">
+  <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+    <thead>
+      <tr style="border-bottom: 2px solid var(--border); background: color-mix(in srgb, var(--accent) 5%, transparent);">
+        <th style="padding: 10px 14px;">AI 产品 / 会员</th>
+        <th style="padding: 10px 14px;">核心价值与适用场景</th>
+        <th style="padding: 10px 14px;">推荐获取方式</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 10px 14px;"><strong>Google / Gemini</strong></td>
+        <td style="padding: 10px 14px;">拥有 1M/2M 超长上下文，配合 Antigravity 或 CLIProxyAPI 外挂到 Codex/Claude 极度流畅。</td>
+        <td style="padding: 10px 14px;">直接选择原生纯净独享 Google 账号，绑定即用。</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 10px 14px;"><strong>OpenAI / Codex (ChatGPT Plus)</strong></td>
+        <td style="padding: 10px 14px;">日常 Coding、Canvas 协同、Deep Research 深度调研必备，支持 GPT-4o 与高级推理模型。</td>
+        <td style="padding: 10px 14px;">自用老号推荐「会员直充」；全新上手推荐「成品独享 Plus 号」。</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 10px 14px;"><strong>Claude Pro (Anthropic)</strong></td>
+        <td style="padding: 10px 14px;">长文本分析、代码架构设计顶流，配合 Claude Code 命令行编程极度强大。</td>
+        <td style="padding: 10px 14px;">建议通过平台正规代充或独享成品号，严禁乱用野鸡接码。</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 10px 14px;"><strong>ChatGPT Team 工作区</strong></td>
+        <td style="padding: 10px 14px;">比个人 Plus 拥有更高并发频次、更严格的数据隐私保护（不拿数据训练），抗封等级更高。</td>
+        <td style="padding: 10px 14px;">企业与高频重度开发者首选，支持代开独立工作区。</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>三、实战教学：如何通过「账号星球」搞定账号与会员？</h2>
+<p>我们推荐的<strong>「账号星球」</strong>是经过长期检验的专业自动化交付平台，整个操作仅需 3 分钟：</p>
+<ol>
+  <li>
+    <strong>第一步：进入专属通道</strong><br>
+    点击进入 <a href="https://accboy7hooosberg.acceboy.com/" target="_blank" rel="noopener noreferrer"><strong>账号星球专属通道</strong></a>。
+  </li>
+  <li>
+    <strong>第二步：选择你需要的服务</strong><br>
+    <ul>
+      <li><strong>如果你还没有任何海外账号</strong>：点击「成品号专区」，选择 Google (Gemini) 或 OpenAI (ChatGPT) 独享账号，一人一号，带密保和完整所有权。</li>
+      <li><strong>如果你已经有账号但无法充值 Plus / Pro 会员</strong>：点击「会员自助代充专区」，选择对应的月度或季度充值，直接提交升级链接或按照指引完成直充。</li>
+    </ul>
+  </li>
+  <li>
+    <strong>第三步：国内便捷支付与自动发货</strong><br>
+    平台支持国内主流的便捷支付方式，付款后系统全自动即时发货，卡密/账号信息会即刻显示在屏幕上并同步至你的订单中心，省去繁琐的人工沟通等待。
+  </li>
+  <li>
+    <strong>第四步：安全初始化设置（防封必做）</strong><br>
+    <ul>
+      <li>拿到成品账号后，第一时间登录官方网站，修改登录密码并绑定自己的辅助救援邮箱。</li>
+      <li>开启两步验证（2FA / Google Authenticator），确保账号 100% 掌握在自己手中。</li>
+    </ul>
+  </li>
+</ol>
+
+<h2>四、老玩家防封心得：保持账号长治久安的 3 个关键点</h2>
+<p>拿到账号并充值成功后，请务必遵守以下使用规范，保证账号稳定使用不被误伤：</p>
+<div style="display: flex; flex-direction: column; gap: 12px; margin: 16px 0;">
+  <div style="padding: 14px 18px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 5%, var(--surface-solid)); border-left: 4px solid var(--accent);">
+    <strong>1. 浏览器环境隔离（强烈推荐 Chrome Profile）</strong><br>
+    <span style="font-size: 14px; color: var(--muted);">不要在经常登录国内各种网站的普通浏览器窗口中混合登录海外 AI。建议在 Chrome 或 Edge 中「添加新的个人资料（Profile）」，专门用于登录 AI 账号，保证 Cookie 和缓存环境绝对纯净。</span>
+  </div>
+  <div style="padding: 14px 18px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 5%, var(--surface-solid)); border-left: 4px solid var(--accent);">
+    <strong>2. 保持节点地区一致性</strong><br>
+    <span style="font-size: 14px; color: var(--muted);">使用稳定的固定地区节点（如常用美西或新加坡），切忌短时间内（例如几分钟内）在上一个国家提问，下一个问题就切换到另一个大洲的节点，这极易触发系统的异常登录风险告警。</span>
+  </div>
+  <div style="padding: 14px 18px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 5%, var(--surface-solid)); border-left: 4px solid var(--accent);">
+    <strong>3. 与本地编程工具协同（Codex / Claude Code）</strong><br>
+    <span style="font-size: 14px; color: var(--muted);">准备好账号后，就可以无缝配合我们在本专题分享的 Codex 反向代理外挂 Gemini、以及 Claude Code 的终端自动化编程能力，尽情释放 AI 生产力！</span>
+  </div>
+</div>
+
+<div class="article-bottom-cta" style="margin: 36px 0 16px; padding: 22px 24px; border-radius: 14px; background: color-mix(in srgb, var(--accent) 10%, var(--surface-solid)); border: 1.5px solid color-mix(in srgb, var(--accent) 40%, var(--border)); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+  <h3 style="margin: 0; font-size: 17px; font-weight: 800; color: var(--text);">🚀 立即扫清门槛，开启你的 AI 编程与创作之路</h3>
+  <p style="margin: 0; font-size: 14px; color: var(--muted); max-width: 600px;">
+    告别复杂的绑卡折腾与封号焦虑，选号即用、会员秒充，一站式解决所有海外账号需求。
+  </p>
+  <a class="button button--primary" href="https://accboy7hooosberg.acceboy.com/" target="_blank" rel="noopener noreferrer" style="border-radius: 999px; padding: 10px 28px; font-size: 15px; font-weight: 700; text-decoration: none;">
+    进入「账号星球」专属选号与充值通道 ↗
+  </a>
+</div>`,
+  },
+  {
     slug: "video-codex-gemini-proxy",
     title: "Codex外挂Gemini！白嫖Antigravity模型，反向代理全自动配置",
     category: "视频教程笔记",

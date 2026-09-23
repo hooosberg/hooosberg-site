@@ -176,7 +176,7 @@ const productEnglish: Record<string, EnglishProductOverride> = {
     displayName: "WitNote",
     category: "Local Markdown and AI writing workspace",
     tagline: "A local-first Markdown workspace: keep private work on your Mac, or connect your own cloud model when you need more power.",
-    summary: "WitNote 2.0.3 is a native macOS Markdown writing and knowledge workspace rebuilt in Swift, with local folders, format conversion, bilingual reading, local MLX, Ollama, and user-configured API models.",
+    summary: "A native macOS Markdown workspace rebuilt in Swift, featuring local folders, bilingual reading, and local MLX / Ollama support.",
     audience: "Writers and researchers who want control over their Markdown files, privacy boundary, and choice of AI model.",
     platforms: ["macOS", "Native Swift", "Local MLX AI", "Ollama", "Bring-your-own API"],
     status: ["Mac App Store", "2.0.3", "Local-first", "Model choice"],
@@ -187,7 +187,7 @@ const productEnglish: Record<string, EnglishProductOverride> = {
   agentlimb: {
     category: "AI browser-control tool",
     tagline: "A universal web-control base: Claude Code, Codex, plus Tencent WorkBuddy, Qwen Office, TRAE Work, and Kimi Work all drive a real browser.",
-    summary: "AgentLimb is a universal web-control Chrome extension: any command-capable AI terminal — Claude Code, Codex, Cursor, Trae, Windsurf internationally, or Tencent WorkBuddy, Alibaba Qwen Office, ByteDance TRAE Work, and Kimi Work in China — can onboard with one prompt and operate the web through your real browser sessions. Since 0.2.1 (b7) it fully supports both Windows and macOS.",
+    summary: "A universal web-control Chrome extension enabling Codex, Claude Code, and domestic AI agents to drive real browser sessions.",
     audience: "Developers and heavy AI users who need agents to work with real websites, logged-in sessions, and multi-account workflows.",
     platforms: ["Chrome / Edge / Brave / Vivaldi", "MCP", "Windows + macOS", "Local bridge"],
     status: ["Open source", "0.2.1 b7", "Local-first", "Win + Mac"],

@@ -69,9 +69,11 @@ const jsonLd = [
           const article = lesson.articleSlug ? courseArticles.get(lesson.articleSlug) : undefined;
           const displayName = article ? article.title.replace(/^视频教程笔记 · /, "") : lesson.title;
           const href = article ? `/blog/${article.slug}?kind=video` : (lesson.videoUrl || cola.playlistUrl);
-          return <a class="learning-lesson-row" href={href} target={article ? undefined : "_blank"} rel={article ? undefined : "noreferrer"}>
-            <span class="learning-lesson-number">{String(lesson.number).padStart(2, "0")}</span>
+          const isPinned = lesson.isPinned;
+          return <a class={`learning-lesson-row ${isPinned ? "learning-lesson-row--pinned" : ""}`} href={href} target={article ? undefined : "_blank"} rel={article ? undefined : "noreferrer"}>
+            <span class={`learning-lesson-number ${isPinned ? "learning-lesson-number--pinned" : ""}`}>{isPinned ? "置顶" : String(lesson.number).padStart(2, "0")}</span>
             <span class="learning-lesson-copy"><strong>{displayName}</strong><small>{lesson.outcome}</small></span>
+            {isPinned && <span class="learning-pinned-flag">置顶精选</span>}
             {lesson.hasDownload && <span class="learning-download-flag">有下载</span>}
             <ArrowUpRight size={17} aria-hidden="true" />
           </a>;

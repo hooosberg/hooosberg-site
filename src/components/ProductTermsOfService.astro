@@ -10,11 +10,11 @@ const { product } = Astro.props;
 const isSumiMahjong = product.slug === "sumi-mahjong";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
-const updatedDate = isWitNote ? "2026-08-21" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const updatedDate = isWitNote ? "2026-09-23" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const scopeText = product.hideSourceLinks
   ? "The product page, App Store download link, privacy policy, terms, and support contact define the current public product scope."
   : isWitNote
-    ? "The product page, Apple App Store listing, privacy policy, terms, support contact, and public source and notice repository define the current public product scope. WitNote is a local-first macOS application; the website does not create a separate user account or hosted writing workspace."
+    ? "The product page, Apple App Store listing, privacy policy, terms, support contact, and public source and notice repository define the current public product scope. WitNote is a local-first Mac, iPhone, and iPad application; the website does not create a separate user account or hosted writing workspace. Features may differ by device and region."
   : "The product page, download link, source repository, and support contact define the current public product scope.";
 const purchasesText = product.hideSourceLinks
   ? "Downloads, purchases, in-app purchases, refunds, updates, and account-level store records are handled by Apple App Store and Apple StoreKit."
@@ -24,7 +24,7 @@ const purchasesText = product.hideSourceLinks
 const thirdPartyText = product.hideSourceLinks
   ? "The app may use Apple platform services such as App Store, StoreKit, and iCloud/iOS system behavior where applicable. Apple's own terms and policies apply to those services."
   : isWitNote
-    ? "WitNote may use Apple App Store and StoreKit, the MLX runtime, Qwen model files, a user-run local Ollama service, and cloud API endpoints selected by the user. Each third-party service, runtime, model, downloaded asset, or API remains subject to its own license, terms, and privacy policy."
+    ? "WitNote may use Apple App Store and StoreKit, the MLX runtime, Qwen model files, Mac-local Ollama, and user-selected cloud API endpoints where available. Each third-party service, runtime, model, downloaded asset, or API remains subject to its own license, terms, and privacy policy."
   : "Some workflows may involve third-party systems selected by you, such as model APIs, app stores, browser accounts, GitHub, or cloud services. Their own terms and policies apply to those services.";
 ---
 
@@ -67,7 +67,7 @@ const thirdPartyText = product.hideSourceLinks
       ) : isRushi ? (
         <p>Reading state, mala counts, copy-practice works, settings, and local copy-practice unlock state are stored on the device. You are responsible for your device security, backups, iCloud/device settings, and any exports you create. Deleting the app may remove local app data according to iOS behavior.</p>
       ) : isWitNote ? (
-        <p>WitNote stores the selected workspace, Markdown files, imports, exports, settings, and local model files on the Mac. You are responsible for macOS file permissions, device security, backups, and any model files you download from external sources. Removing the app or its local data may remove data that has not been backed up.</p>
+        <p>WitNote stores selected workspaces, Markdown files, imports, exports, settings, and local model files on the Mac, iPhone, or iPad, or in a file location the user chooses. You are responsible for file permissions, device security, backups, and any model files you download from external sources. Removing the app or its local data may remove data that has not been backed up.</p>
       ) : (
         <p>When the product works with local files, local browser sessions, local app data, or local models, you remain responsible for maintaining your own backups and device security.</p>
       )}
@@ -97,7 +97,7 @@ const thirdPartyText = product.hideSourceLinks
         <p>Rushi does not include advertising networks, third-party analytics SDKs, social feeds, cloud accounts, hosted scripture sync, or third-party AI services. Bundled public-domain, open-license, or otherwise openly usable scripture, sound, and copybook source materials, including Liu Gongquan Diamond Sutra and Ouyang Xun Heart Sutra copybook sources where available, remain subject to their source notices and may not be extracted or reused outside the app except as allowed by those source terms.</p>
       )}
       {isWitNote && (
-        <p>WitNote includes or may download MLX-compatible model files, including Qwen3 variants. It can also connect to a local Ollama service and an OpenAI-compatible cloud endpoint chosen by the user. WitNote does not provide, relay, or control those cloud services. The user is responsible for each selected model or API, its cost, output, availability, content policy, privacy policy, and retention practices. The app package exposes third-party notices and bundled model license files. MLX, Qwen, and each downloaded model remain subject to their own licenses, model-use restrictions, and attribution requirements.</p>
+        <p>WitNote includes or may download MLX-compatible model files, including Qwen3 variants. Where available, it can also connect to Mac-local Ollama or a cloud endpoint chosen by the user. WitNote does not provide, relay, or control those cloud services. The user is responsible for each selected model or API, its cost, output, availability, content policy, privacy policy, and retention practices. The Mac and mobile app packages expose third-party notices and bundled model license files. MLX, Qwen, and each downloaded model remain subject to their own licenses, model-use restrictions, and attribution requirements.</p>
       )}
     </section>
 

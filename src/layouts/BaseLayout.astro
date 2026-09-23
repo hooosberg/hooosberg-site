@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import AnalyticsConsent from "../components/AnalyticsConsent.astro";
+import FloatingAdBanner from "../components/FloatingAdBanner.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import {
@@ -50,6 +51,15 @@ const canonicalUrl = absoluteUrl(canonicalPath);
 const imageUrl = absoluteUrl(image);
 const jsonLdItems = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 const htmlLang = localeMeta[locale].htmlLang;
+const showFloatingAd =
+  currentPath === "/ai-navigation" ||
+  currentPath.startsWith("/ai-navigation/") ||
+  currentPath === "/en/ai-navigation" ||
+  currentPath.startsWith("/en/ai-navigation/") ||
+  currentPath === "/blog" ||
+  currentPath.startsWith("/blog/") ||
+  currentPath === "/en/blog" ||
+  currentPath.startsWith("/en/blog/");
 ---
 
 <!doctype html>
@@ -142,6 +152,7 @@ const htmlLang = localeMeta[locale].htmlLang;
       <slot />
     </main>
     <SiteFooter locale={locale} />
+    {showFloatingAd && <FloatingAdBanner locale={locale} />}
     <AnalyticsConsent locale={locale} />
   </body>
 </html>

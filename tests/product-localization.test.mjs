@@ -128,16 +128,14 @@ test("Rushi public pages use main-site URLs and StoreKit copy-practice terms", a
   }
 });
 
-test("product progress timeline stays on catalog while homepage stays compact", async () => {
+test("product catalog and homepage keep a clean layout without heavy progress timeline", async () => {
   const [homeHtml, appsHtml] = await Promise.all([
     readFile(homepage, "utf8"),
     readFile(appsPage, "utf8"),
   ]);
 
   assert.doesNotMatch(homeHtml, /苹果商店上架流程甘特图/, "homepage should not render the heavy progress timeline");
-  assert.match(appsHtml, /苹果商店上架流程甘特图/, "product catalog should keep the progress timeline heading");
-  assert.match(appsHtml, /产品进度同步/, "product catalog timeline should identify the public progress source");
-  assert.match(appsHtml, /已上架/, "product catalog timeline should include the latest Mood Button App Store milestone");
+  assert.doesNotMatch(appsHtml, /苹果商店上架流程甘特图/, "product catalog should not render the heavy progress timeline");
 });
 
 test("Mood Button App Review diary uses the real rejection categories", async () => {

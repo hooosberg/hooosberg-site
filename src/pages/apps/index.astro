@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProductCard from "../../components/ProductCard.astro";
-import ProductProgressTimeline from "../../components/ProductProgressTimeline.astro";
 import { productsByLatest } from "../../data/products";
 import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../utils/structuredData";
 
@@ -35,6 +34,4 @@ const jsonLd = [
       {productsByLatest.map((product) => <ProductCard product={product} />)}
     </div>
   </section>
-
-  <ProductProgressTimeline />
 </BaseLayout>

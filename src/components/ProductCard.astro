@@ -16,7 +16,14 @@ const product = getLocalizedProduct(sourceProduct, locale);
 const isFailureCase = product.caseStudy?.kind === "failure";
 const text = uiText[locale];
 const productHref = toLocalizedPath(`/apps/${product.slug}`, locale);
-const diaryHref = toLocalizedPath(`/apps/${product.slug}/diary`, locale);
+const platformText = product.platforms.slice(0, 2).join(" / ");
+const meaningfulStatus = product.status.find(
+  (s) => !s.toLowerCase().includes("store") && !s.toLowerCase().includes("app store")
+) ?? product.status[0];
+const storeAction = {
+  ...product.primaryAction,
+  label: product.primaryAction.label.replace(/^Mac\s+/i, ""),
+};
 ---
 
 <article class:list={["product-card", compact && "product-card--compact", isFailureCase && "product-card--failure"]} style={`--accent:${product.accent}`}>
@@ -33,15 +40,19 @@ const diaryHref = toLocalizedPath(`/apps/${product.slug}/diary`, locale);
   </div>
   <p class="product-card__summary">{product.summary}</p>
   <div class="product-card__meta">
-    <span>{product.platforms.slice(0, 2).join(" / ")}</span>
-    <span>{product.status[0]}</span>
+    <span>{platformText}</span>
+    {meaningfulStatus && (
+      <>
+        <span class="product-card__meta-sep">·</span>
+        <span>{meaningfulStatus}</span>
+      </>
+    )}
   </div>
   <div class="product-card__actions">
-    <ProductActionButton action={product.primaryAction} text />
-    <a class="text-action product-card__button" href={diaryHref}>
-      <img class="action-icon" src="/icons/platform/article.svg" alt="" loading="lazy" decoding="async" />
-      {text.productDiary}
-      <ArrowRight size={15} aria-hidden="true" />
+    <a class="text-action product-card__button" href={productHref}>
+      <img class="action-icon" src="/icons/platform/web.svg" alt="" loading="lazy" decoding="async" />
+      {locale === "en" ? "Product" : "产品页"}
     </a>
+    <ProductActionButton action={storeAction} text />
   </div>
 </article>

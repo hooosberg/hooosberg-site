@@ -7,6 +7,8 @@ export type LearningLesson = {
   articleSlug?: string;
   hasDownload?: boolean;
   videoUrl?: string;
+  isPinned?: boolean;
+  badge?: string;
 };
 
 export type LearningSeries = {
@@ -116,6 +118,15 @@ export const learningSeries: LearningSeries[] = [
     description: "汇聚真实工业工具实战、ChatGPT 视觉设计工作流与前沿大模型深度评测，均附演示视频与实操课件要点。",
     playlistUrl: colaPlaylistUrl,
     lessons: [
+      // 置顶教学：账号星球与海外AI账号充值全流程指南
+      {
+        number: 25,
+        title: "【置顶指南】Codex、Gemini与ChatGPT海外账号如何获取？AI会员自助充值与避坑全流程教学",
+        outcome: "海外AI账号注册、会员充值、防止封号与纯净环境全套实战教学，附专属快速通道。",
+        articleSlug: "video-codex-account-registration-recharge-guide",
+        isPinned: true,
+        hasDownload: false,
+      },
       // 最新发布倒序排列（编号倒序：最新一课编号最大，与 WorkBuddy 对齐）
       { number: 24, title: "Codex外挂Gemini！白嫖Antigravity模型，反向代理全自动配置", outcome: "通过CLIProxyAPI把Gemini接进Codex走本地反向代理，实现一键切换多模型。", articleSlug: "video-codex-gemini-proxy", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },
       { number: 23, title: "我和13.9万个果蝇神经元玩了一下午游戏", outcome: "将全脑连接组搬进电脑，实测果蝇生物神经元在游戏对抗与智能决策中的表现。", articleSlug: "video-codex-fruitfly-brain", hasDownload: true, videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season" },

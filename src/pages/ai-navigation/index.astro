@@ -73,7 +73,7 @@ const tool = (item: ToolItem): ToolItem => item;
 
 const chatgpt = tool({
   name: "ChatGPT",
-  description: "OpenAI 的通用 AI 助手，也是 Deep Research、Canvas、Projects、语音、图像和 agent 能力的主入口。",
+  description: "OpenAI 旗舰通用 AI 助手，覆盖多模态交互与深度研究。",
   url: "https://chatgpt.com/",
   country: "us",
   icon: icon.openai,
@@ -83,7 +83,7 @@ const chatgpt = tool({
 
 const claude = tool({
   name: "Claude",
-  description: "Anthropic 的通用助手，长文本、写作、代码理解和复杂任务表现稳定。",
+  description: "Anthropic 旗舰助手，擅长长文本、深度写作与代码理解。",
   url: "https://claude.ai/",
   country: "us",
   icon: icon.claude,
@@ -93,7 +93,7 @@ const claude = tool({
 
 const gemini = tool({
   name: "Gemini",
-  description: "Google 生态里的 AI 助手主应用，适合多模态、搜索联动和日常资料处理。",
+  description: "Google 官方全能助手，深度整合搜索与多模态能力。",
   url: "https://gemini.google.com/app",
   country: "us",
   icon: icon.gemini,
@@ -103,7 +103,7 @@ const gemini = tool({
 
 const codex = tool({
   name: "OpenAI Codex",
-  description: "OpenAI 的编程 agent，适合仓库级代码任务、修复、构建和审查。",
+  description: "OpenAI 编程 Agent，专注仓库级代码构建与自动审查。",
   url: "https://chatgpt.com/codex/",
   country: "us",
   icon: icon.openai,
@@ -113,7 +113,7 @@ const codex = tool({
 
 const openaiApiPlatform = tool({
   name: "OpenAI API Platform",
-  description: "OpenAI API、模型、开发文档和应用构建入口，适合把 ChatGPT、Codex 和 agent 能力接进产品。",
+  description: "OpenAI 开发者平台，提供模型 API、开发文档与控制台。",
   url: "https://platform.openai.com/",
   country: "us",
   icon: icon.openai,
@@ -123,7 +123,7 @@ const openaiApiPlatform = tool({
 
 const claudeCode = tool({
   name: "Claude Code",
-  description: "Anthropic 的终端编程 agent，适合项目理解、重构、测试和 Git 工作流。",
+  description: "Anthropic 终端编程 Agent，精于工程重构与 Git 工作流。",
   url: "https://claude.ai/code",
   country: "us",
   icon: icon.claude,
@@ -133,7 +133,7 @@ const claudeCode = tool({
 
 const claudeCowork = tool({
   name: "Claude Cowork",
-  description: "Anthropic 面向知识工作的 agentic AI，可在桌面环境里处理文件、应用和多步骤交付任务。",
+  description: "面向桌面协同的 Agent，可自主处理跨应用多步骤交付。",
   url: "https://www.anthropic.com/product/claude-cowork",
   country: "us",
   icon: icon.claude,
@@ -142,7 +142,7 @@ const claudeCowork = tool({
 
 const notebookLm = tool({
   name: "NotebookLM",
-  description: "Google 的资料阅读和研究工具，适合基于材料问答、摘要、音频概览和学习资料整理。",
+  description: "Google 个人知识库，支持多源资料问答与音频摘要。",
   url: "https://notebooklm.google/",
   country: "us",
   icon: icon.gemini,
@@ -151,7 +151,7 @@ const notebookLm = tool({
 
 const googleAiStudio = tool({
   name: "Google AI Studio",
-  description: "Gemini API、模型实验和应用原型入口，适合快速试模型、写提示词和做开发者 demo。",
+  description: "Gemini 开发者原型控制台，支持快速调参试模型与拿 Key。",
   url: "https://aistudio.google.com/",
   country: "us",
   icon: icon.gemini,
@@ -161,7 +161,7 @@ const googleAiStudio = tool({
 
 const googleAntigravity = tool({
   name: "Google Antigravity",
-  description: "Google 的 agent-first 开发平台，适合用 Gemini 驱动多 agent 规划、执行和验证代码任务。",
+  description: "Google Agent-first 研发平台，驱动多智能体规划与验证。",
   url: "https://antigravity.google/",
   country: "us",
   icon: icon.antigravity,
@@ -170,7 +170,7 @@ const googleAntigravity = tool({
 
 const jules = tool({
   name: "Jules",
-  description: "Google 的异步编程 agent，适合把代码任务交给云端 agent 后再回来审查结果。",
+  description: "Google 云端异步编程 Agent，后台自主跑完任务供审查。",
   url: "https://jules.google.com/",
   country: "us",
   icon: icon.gemini,
@@ -179,7 +179,7 @@ const jules = tool({
 
 const kimi = tool({
   name: "Kimi",
-  description: "月之暗面 AI 助手主入口，适合长文档、搜索、PPT、表格和中文资料处理；和 Kimi Work / Kimi Code 分开看。",
+  description: "月之暗面中文助手，擅长长文档精读与深度资料搜索。",
   url: "https://www.kimi.com/",
   country: "cn",
   tags: ["长文档", "搜索", "中文"],
@@ -188,7 +188,7 @@ const kimi = tool({
 
 const kimiWork = tool({
   name: "Kimi Work",
-  description: "月之暗面推出的桌面 AI Agent 方向，面向知识工作、PPT/Excel/PDF、智能体集群和长任务执行，是国内 Desktop Agent 第一梯队新入口。",
+  description: "月之暗面桌面 Agent，自动化处理文档、表格与长任务。",
   url: "https://www.kimi.com/products/kimi-work",
   country: "cn",
   tags: ["桌面 Agent", "办公自动化", "知识工作"],
@@ -197,7 +197,7 @@ const kimiWork = tool({
 
 const kimiCode = tool({
   name: "Kimi Code",
-  description: "Kimi 面向智能体编程的入口，适合仓库理解、代码修改、命令执行和工程任务，是国内 Codex 平替第一梯队候选。",
+  description: "Kimi 智能编程入口，专注仓库工程理解与代码修改。",
   url: "https://www.kimi.com/code",
   country: "cn",
   tags: ["编程", "Agent", "Kimi"],
@@ -206,7 +206,7 @@ const kimiCode = tool({
 
 const doubao = tool({
   name: "豆包",
-  description: "字节跳动旗下大众化 AI 助手，覆盖聊天、图片、音视频和移动端场景。",
+  description: "字节跳动全能 AI 助手，多模态交互与日常问答首选。",
   url: "https://www.doubao.com/",
   country: "cn",
   tags: ["多模态", "移动端", "字节"],
@@ -215,7 +215,7 @@ const doubao = tool({
 
 const qwen = tool({
   name: "通义千问",
-  description: "阿里云通义体系的对话和模型入口，适合中文、办公、代码和开发平台联动。",
+  description: "阿里云通义千问入口，兼顾中文理解、办公与代码辅助。",
   url: "https://chat.qwen.ai/",
   country: "cn",
   tags: ["Qwen", "模型", "中文"],
@@ -224,7 +224,7 @@ const qwen = tool({
 
 const deepseek = tool({
   name: "DeepSeek",
-  description: "国产高关注度模型与对话入口，适合推理、代码、中文问答和低成本 API。",
+  description: "国产开源高推理模型，擅长复杂推理、代码与低成本调用。",
   url: "https://chat.deepseek.com/",
   country: "cn",
   tags: ["推理", "代码", "模型"],
@@ -233,7 +233,7 @@ const deepseek = tool({
 
 const trae = tool({
   name: "TRAE",
-  description: "字节跳动推出的 AI 编程工具，适合 IDE、Web 和移动端开发流程。",
+  description: "字节跳动 AI 原生 IDE，专为开发者定制智能开发流程。",
   url: "https://www.trae.ai/",
   country: "cn",
   icon: icon.trae,
@@ -243,7 +243,7 @@ const trae = tool({
 
 const traeWork = tool({
   name: "TRAE Work",
-  description: "TRAE 的专业 AI 工作助手入口，和 TRAE IDE 分开：更偏 agent 执行、多步骤任务和开发者工作流，适合观察字节的桌面/工作台路线。",
+  description: "字节 TRAE 桌面工作助手，擅长 Agent 执行与多步骤工作流。",
   url: "https://www.trae.ai/work",
   country: "cn",
   icon: icon.trae,
@@ -253,31 +253,29 @@ const traeWork = tool({
 
 const workBuddyCn = tool({
   name: "腾讯 WorkBuddy (国内版)",
-  description: "腾讯推出的全场景 AI 办公工作台（国内版）：一句话下达任务后自主拆解、规划、调用工具并读写本地文件；原生深度打通微信与企业微信生态，支持手机微信远程下发与接收结果。",
+  description: "腾讯桌面 AI 工作台，一句话自主拆解任务、读写本地文件。",
   url: "https://www.workbuddy.cn/events/invite?inviteCode=r6nd1yqp6ugw7",
   country: "cn",
   iconText: "腾",
-  tags: ["🇨🇳 国内版", "微信 / 企微", "腾讯混元", "桌面 Agent"],
-  badge: "🇨🇳 国内版 · 微信直通",
+  tags: ["微信生态", "桌面 Agent"],
+  badge: "微信生态",
   tone: "cn",
-  actionLabel: "前往国内官网 (workbuddy.cn)",
 });
 
 const workBuddyGlobal = tool({
   name: "WorkBuddy (海外国际版)",
-  description: "面向全球用户与跨境开发者的 WorkBuddy 国际版（workbuddy.ai）：支持海外网络环境与国际主流大模型生态，具备桌面自主规划、跨应用调度与长流程多任务自动化能力。",
+  description: "WorkBuddy 国际版，面向海外环境与全球模型生态的桌面 Agent。",
   url: "https://workbuddy.ai/invite?code=7MN7A8F4",
   country: "global",
   iconText: "WB",
-  tags: ["🌐 海外国际版", "全球网络", "国际模型生态", "跨国协作"],
-  badge: "🌐 海外国际版 · 全球生态",
+  tags: ["全球网络", "国际生态"],
+  badge: "全球版",
   tone: "global",
-  actionLabel: "前往海外官网 (workbuddy.ai)",
 });
 
 const qwenWork = tool({
   name: "阿里 千问办公",
-  description: "阿里巴巴的一站式 AI 办公协同平台（qwenwork.cn），覆盖网页与桌面端并深度整合钉钉生态；擅长长文档处理、表格分析、公文撰写与企业审批流。与侧重全网搜索和多模态通用问答的“千问”互为独立产品。",
+  description: "阿里一站式办公平台，深度整合钉钉，精通表格与公文流。",
   url: "https://qwenwork.cn/",
   country: "cn",
   iconText: "办",
@@ -288,7 +286,7 @@ const qwenWork = tool({
 
 const qianwen = tool({
   name: "阿里 千问",
-  description: "阿里巴巴通用旗舰 AI 助手（qianwen.com）：涵盖全网实时搜索、多模态图文理解与通义大模型底座；不同于侧重钉钉协同/企业办公流的“千问办公”，千问更适合全能日常对话与专业问答。",
+  description: "阿里巴巴旗舰全网搜索与多模态通用问答入口。",
   url: "https://www.qianwen.com/",
   country: "cn",
   iconText: "问",
@@ -299,7 +297,7 @@ const qianwen = tool({
 
 const traeWorkOffice = tool({
   name: "字节 TRAE Work",
-  description: "面向专业工作的 AI 工作助手，覆盖桌面、网页和移动端；可理解文档、表格、演示与代码，在同一 Workspace 中自动完成研究、写作、数据分析与交付。",
+  description: "字节桌面工作助手，跨应用打通文档、表格与数据交付。",
   url: "https://www.trae.ai/download",
   country: "cn",
   icon: icon.trae,
@@ -308,10 +306,9 @@ const traeWorkOffice = tool({
   actionLabel: "下载 TRAE Work",
 });
 
-
 const doubaoWork = tool({
   name: "豆包办公",
-  description: "豆包面向工作场景的入口，适合把文档、表格、截图与日常问题放在同一处处理；具体可用能力以当前产品页为准。",
+  description: "豆包工作场景入口，一站式整合文档、表格与截图处理。",
   url: "https://www.doubao.com/work",
   country: "cn",
   tags: ["AI 办公", "文档", "字节"],
@@ -321,7 +318,7 @@ const doubaoWork = tool({
 
 const feishuOffice = tool({
   name: "飞书 AI 工作平台",
-  description: "飞书将云文档、多维表格、会议、业务协同与 AI Agent 结合，更偏团队协作和企业工作流。",
+  description: "飞书协同工作台，深度融合多维表格与企业 AI Agent。",
   url: "https://www.feishu.cn/",
   country: "cn",
   tags: ["团队协作", "AI Agent", "飞书"],
@@ -331,7 +328,7 @@ const feishuOffice = tool({
 
 const wpsAi = tool({
   name: "WPS AI",
-  description: "集成在 WPS 文字、表格、演示和 PDF 中的 AI 办公能力，适合文档起草、PPT、表格和阅读辅助。",
+  description: "WPS 办公套件原生 AI，覆盖文档排版、表格函数与一键做 PPT。",
   url: "https://ai.wps.cn/landing",
   country: "cn",
   tags: ["文档", "PPT", "表格"],
@@ -341,7 +338,7 @@ const wpsAi = tool({
 
 const yuanbao = tool({
   name: "腾讯元宝",
-  description: "腾讯的通用 AI 助手入口，适合问答、资料整理和腾讯生态内的日常 AI 使用；不是 WorkBuddy 的替代品。",
+  description: "腾讯通用助手，联动微信生态，擅长资料整理与搜索。",
   url: "https://yuanbao.tencent.com/",
   country: "cn",
   tags: ["通用助手", "资料整理", "腾讯"],
@@ -351,7 +348,7 @@ const yuanbao = tool({
 
 const cozeAgent = tool({
   name: "扣子 Coze",
-  description: "字节旗下 Agent / 办公自动化平台，适合搭建对话智能体、工作流、AI 写作、PPT、表格和内容生产，不等同于本地桌面 agent。",
+  description: "字节零代码 Agent 搭建平台，可视化编排办公工作流。",
   url: "https://www.coze.cn/",
   country: "cn",
   tags: ["Agent", "工作流", "字节"],
@@ -360,7 +357,7 @@ const cozeAgent = tool({
 
 const qwenAgent = tool({
   name: "通义百炼 Agent",
-  description: "阿里云通义 / 百炼体系里的企业级 Agent 与工作流平台，更适合知识库、客服、流程自动化和企业系统集成。",
+  description: "阿里云百炼平台，专注企业级智能体集成与自动化。",
   url: "https://bailian.console.aliyun.com/",
   country: "cn",
   tags: ["企业 Agent", "工作流", "阿里"],
@@ -369,7 +366,7 @@ const qwenAgent = tool({
 
 const tencentYuanqiAgent = tool({
   name: "腾讯元器 Agent",
-  description: "腾讯的零代码智能体创建与分发平台，偏微信、公众号、应用宝等腾讯生态里的智能体搭建；和元宝聊天入口互补。",
+  description: "腾讯零代码智能体平台，一键分发到微信与公众号生态。",
   url: "https://yuanqi.tencent.com/",
   country: "cn",
   tags: ["智能体", "微信生态", "腾讯"],
@@ -521,6 +518,7 @@ const groups: ToolGroup[] = [
     shortLabel: "收款财务",
     summary: "独立开发者很容易卡在收款、订阅、结算和公司注册；这里放更常见的出海收款与销售基础设施。",
     items: [
+      { name: "账号星球", description: "海外账号与主流 AI 会员秒级自助充值平台，免外币卡直充。", url: "https://accboy7hooosberg.acceboy.com/", country: "global", tags: ["AI会员", "海外账号", "自助充值", "出海必备"], badge: "推荐" },
       { name: "Stripe", description: "主流支付和订阅基础设施，适合 SaaS、订阅制产品和全球信用卡收款。", url: "https://stripe.com/", country: "us", tags: ["支付", "订阅", "SaaS"] },
       { name: "Gumroad", description: "数字产品和知识付费销售平台，适合课程、模板、电子书和小产品售卖。", url: "https://gumroad.com/", country: "us", tags: ["数字产品", "知识付费", "销售"] },
       { name: "Creem", description: "面向软件产品的支付和税务处理平台，适合独立 SaaS 和数字产品。", url: "https://www.creem.io/", country: "global", tags: ["支付", "税务", "SaaS"] },
@@ -950,32 +948,35 @@ const jsonLd = [
                             data-category={group.id}
                             data-search={`${group.title} ${section.title} ${country.name} ${country.access} ${item.name} ${item.description} ${item.tags.join(" ")}`}
                           >
-                            <span class="directory-card__rank">TOP {rank}</span>
-                            <span class="directory-card__icon">
-                              {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : (item.iconText ?? item.name.slice(0, 1))}
-                            </span>
-                            <span class="directory-card__body">
-                              <span class="directory-card__title-row">
-                                <strong>{item.name}</strong>
-                                {item.badge && <em>{item.badge}</em>}
-                              </span>
-                              <span class="directory-card__meta">
+                            <div class="directory-card__top">
+                              <div class="directory-card__identity">
+                                <span class="directory-card__icon">
+                                  {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : (item.iconText ?? item.name.slice(0, 1))}
+                                </span>
+                                <span class="directory-card__title-row">
+                                  <strong>{item.name}</strong>
+                                  {item.badge && <em>{item.badge}</em>}
+                                </span>
+                              </div>
+                              <div class="directory-card__top-right">
+                                <span class="directory-card__rank">TOP {rank}</span>
+                                <ExternalLink class="directory-card__arrow" size={13} aria-hidden="true" />
+                              </div>
+                            </div>
+
+                            <p class="directory-card__desc">{item.description}</p>
+
+                            <div class="directory-card__footer">
+                              <div class="directory-card__country">
                                 <span>{country.flag} {country.name}</span>
                                 <span class={`directory-card__access directory-card__access--${country.tone}`}>{country.access}</span>
-                              </span>
-                              <p>{item.description}</p>
-                              <span class="directory-card__tags">
-                                {item.tags.map((tag) => <span>{tag}</span>)}
-                              </span>
-                              {item.promoNotice && (
-                                <span class="directory-card__promo">
-                                  <span class="directory-card__promo-tag">专属福利</span>
-                                  <span>{item.promoNotice}</span>
-                                </span>
+                              </div>
+                              {item.tags.length > 0 && (
+                                <div class="directory-card__tags">
+                                  {item.tags.slice(0, 2).map((tag) => <span>{tag}</span>)}
+                                </div>
                               )}
-                              {item.actionLabel && <span class="directory-card__action">{item.actionLabel}</span>}
-                            </span>
-                            <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
+                            </div>
                           </a>
                         );
                       })}
@@ -999,32 +1000,35 @@ const jsonLd = [
                       data-category={group.id}
                       data-search={`${group.title} ${country.name} ${country.access} ${item.name} ${item.description} ${item.tags.join(" ")}`}
                     >
-                      <span class="directory-card__rank">TOP {rank}</span>
-                      <span class="directory-card__icon">
-                        {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : (item.iconText ?? item.name.slice(0, 1))}
-                      </span>
-                      <span class="directory-card__body">
-                        <span class="directory-card__title-row">
-                          <strong>{item.name}</strong>
-                          {item.badge && <em>{item.badge}</em>}
-                        </span>
-                        <span class="directory-card__meta">
+                      <div class="directory-card__top">
+                        <div class="directory-card__identity">
+                          <span class="directory-card__icon">
+                            {item.icon ? <img src={item.icon} alt="" loading="lazy" decoding="async" /> : (item.iconText ?? item.name.slice(0, 1))}
+                          </span>
+                          <span class="directory-card__title-row">
+                            <strong>{item.name}</strong>
+                            {item.badge && <em>{item.badge}</em>}
+                          </span>
+                        </div>
+                        <div class="directory-card__top-right">
+                          <span class="directory-card__rank">TOP {rank}</span>
+                          <ExternalLink class="directory-card__arrow" size={13} aria-hidden="true" />
+                        </div>
+                      </div>
+
+                      <p class="directory-card__desc">{item.description}</p>
+
+                      <div class="directory-card__footer">
+                        <div class="directory-card__country">
                           <span>{country.flag} {country.name}</span>
                           <span class={`directory-card__access directory-card__access--${country.tone}`}>{country.access}</span>
-                        </span>
-                        <p>{item.description}</p>
-                        <span class="directory-card__tags">
-                          {item.tags.map((tag) => <span>{tag}</span>)}
-                        </span>
-                        {item.promoNotice && (
-                          <span class="directory-card__promo">
-                            <span class="directory-card__promo-tag">专属福利</span>
-                            <span>{item.promoNotice}</span>
-                          </span>
+                        </div>
+                        {item.tags.length > 0 && (
+                          <div class="directory-card__tags">
+                            {item.tags.slice(0, 2).map((tag) => <span>{tag}</span>)}
+                          </div>
                         )}
-                        {item.actionLabel && <span class="directory-card__action">{item.actionLabel}</span>}
-                      </span>
-                      <ExternalLink class="directory-card__arrow" size={16} aria-hidden="true" />
+                      </div>
                     </a>
                   );
                 })}
