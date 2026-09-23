@@ -45,44 +45,9 @@ const categoriesDropdownPayload = JSON.stringify(
 ---
 
 <div class:list={["tier-root", { "is-embedded": embedded }]} data-tier-root>
-  <!-- 头部极简标题区（不套框，干净利落） -->
   <header class="tier-header-clean">
-    <div class="tier-badge-pill">Arena 实测 + 新品预测 · 5档战力</div>
-    <h2 class="tier-main-title">AI模型性能排行榜（从夯到拉天梯榜）</h2>
-    <p class="tier-subtitle">
-      原有模型按 Agent Arena 盲测排名；三款新模型暂按公开基准预测，Arena 还没有足够实测样本。
-    </p>
+    <h2 class="tier-main-title">模型性能排行榜</h2>
   </header>
-
-  <aside class="tier-forecast-note" aria-label="新模型预测说明">
-    <div class="tier-forecast-legend">
-      <span class="tier-forecast-key tier-forecast-key--opus55"><i></i>Claude Opus 5.5</span>
-      <span class="tier-forecast-key tier-forecast-key--gpt6sol"><i></i>GPT 6 Sol</span>
-      <span class="tier-forecast-key tier-forecast-key--gpt6luna"><i></i>GPT 6 Luna</span>
-    </div>
-    <p>彩色分数是编辑预测，不是 Arena 实测；参考公开基准与任务成本，见 <a href="https://www.anthropic.com/claude/opus" target="_blank" rel="noopener noreferrer">Anthropic 评测</a>、<a href="https://openai.com/index/introducing-gpt-6-sol-and-luna/" target="_blank" rel="noopener noreferrer">OpenAI 评测</a>，待 Arena 累积盲测后再校正。</p>
-  </aside>
-
-  <!-- 快速跳转条（纯净胶囊直接平铺，无嵌套外框） -->
-  <nav class="tier-quick-nav-flat" aria-label="分项快速跳转">
-    <span class="quick-nav-title">快速跳转：</span>
-    <div class="quick-nav-list">
-      <a href={`#cat-${overallCat.id}`} class="quick-nav-chip">
-        <span>{overallCat.icon}</span>
-        <span>{overallCat.name}</span>
-      </a>
-      {subCategories.map((cat) => (
-        <a href={`#cat-${cat.id}`} class="quick-nav-chip">
-          <span>{cat.icon}</span>
-          <span>{cat.name}</span>
-        </a>
-      ))}
-      <a href="#cat-more-rankings" class="quick-nav-chip quick-nav-chip--more">
-        <span>📑</span>
-        <span>更多榜单下拉</span>
-      </a>
-    </div>
-  </nav>
 
   <!-- 1. 最上面：置顶总榜（全宽居中置顶，对应 arena.ai 官方首页面板顶部的 Agent 智能体总榜） -->
   <div id="cat-overall" style="position: relative; top: -10px;"></div>
@@ -673,21 +638,6 @@ const categoriesDropdownPayload = JSON.stringify(
         }
       });
     }
-
-    // 3. 平滑锚点跳转处理
-    const quickLinks = root.querySelectorAll(".quick-nav-chip");
-    quickLinks.forEach((link) => {
-      link.addEventListener("click", (e) => {
-        const href = link.getAttribute("href");
-        if (href && href.startsWith("#")) {
-          e.preventDefault();
-          const targetEl = root.querySelector(href);
-          if (targetEl) {
-            targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-        }
-      });
-    });
   }
 
   if (document.readyState === "loading") {
@@ -709,146 +659,18 @@ const categoriesDropdownPayload = JSON.stringify(
     overflow-x: hidden;
   }
 
-  /* 头部极简标题（彻底去掉卡片框，纯净现代） */
   .tier-header-clean {
     text-align: center;
-    padding: 6px 0 20px;
-    margin-bottom: 12px;
-  }
-
-  .tier-badge-pill {
-    display: inline-flex;
-    align-items: center;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    color: #ffffff;
-    background: linear-gradient(135deg, #ef4444, #f97316);
-    padding: 3px 12px;
-    border-radius: 999px;
-    margin-bottom: 10px;
+    padding: 0;
+    margin-bottom: 18px;
   }
 
   .tier-main-title {
     font-size: 26px;
     font-weight: 800;
-    margin: 0 0 8px;
+    margin: 0;
     color: var(--text, #111318);
     letter-spacing: -0.5px;
-  }
-
-  .tier-subtitle {
-    font-size: 13px;
-    color: var(--muted, #68707d);
-    margin: 0;
-  }
-
-  .tier-forecast-note {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px 18px;
-    flex-wrap: wrap;
-    margin: 10px 0 18px;
-    padding: 9px 12px;
-    border: 1px solid var(--line, rgba(16, 24, 40, 0.1));
-    border-radius: 8px;
-    background: var(--surface-soft, #f8fafc);
-  }
-
-  .tier-forecast-legend {
-    display: flex;
-    align-items: center;
-    gap: 7px 12px;
-    flex-wrap: wrap;
-  }
-
-  .tier-forecast-key {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    font-weight: 750;
-    white-space: nowrap;
-  }
-
-  .tier-forecast-key i {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: currentColor;
-  }
-
-  .tier-forecast-key--opus55 { color: #7137bd; }
-  .tier-forecast-key--gpt6sol { color: #087c67; }
-  .tier-forecast-key--gpt6luna { color: #2867c7; }
-
-  .tier-forecast-note p {
-    margin: 0;
-    color: var(--muted, #68707d);
-    font-size: 11px;
-    line-height: 1.5;
-  }
-
-  .tier-forecast-note a {
-    color: var(--accent, #2563eb);
-    font-weight: 650;
-    text-decoration: none;
-  }
-
-  .tier-forecast-note a:hover { text-decoration: underline; }
-
-  /* 快速跳转条（扁平无框胶囊设计） */
-  .tier-quick-nav-flat {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-    padding: 0 4px;
-  }
-
-  .quick-nav-title {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--muted, #68707d);
-    white-space: nowrap;
-  }
-
-  .quick-nav-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    align-items: center;
-  }
-
-  .quick-nav-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: var(--surface-soft, #f1f5f9);
-    color: var(--text, #334155);
-    font-size: 12px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.15s ease;
-    border: 1px solid var(--line, rgba(16, 24, 40, 0.08));
-  }
-
-  .quick-nav-chip:hover {
-    background: var(--surface-solid, #ffffff);
-    color: var(--accent, #2563eb);
-    border-color: var(--accent, #2563eb);
-    transform: translateY(-1px);
-  }
-
-  .quick-nav-chip--more {
-    background: rgba(37, 99, 235, 0.06);
-    color: var(--accent, #2563eb);
-    border-color: rgba(37, 99, 235, 0.2);
   }
 
   /* 1. 综合总榜卡片（全宽居中置顶） */
@@ -1638,23 +1460,6 @@ const categoriesDropdownPayload = JSON.stringify(
   @media (max-width: 640px) {
     .tier-main-title {
       font-size: 20px;
-    }
-
-    .tier-subtitle {
-      font-size: 12px;
-      line-height: 1.5;
-      padding: 0 4px;
-    }
-
-    .tier-quick-nav-flat {
-      gap: 5px;
-      margin-bottom: 16px;
-      padding: 0;
-    }
-
-    .quick-nav-chip {
-      padding: 3px 8px;
-      font-size: 11px;
     }
 
     .tier-section-wrapper {
