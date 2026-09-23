@@ -10,11 +10,11 @@ const { product } = Astro.props;
 const isSumiMahjong = product.slug === "sumi-mahjong";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
-const updatedDate = isWitNote ? "2026-09-23" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const updatedDate = isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const scopeText = product.hideSourceLinks
   ? "The product page, App Store download link, privacy policy, terms, and support contact define the current public product scope."
   : isWitNote
-    ? "The product page, Apple App Store listing, privacy policy, terms, support contact, and public source and notice repository define the current public product scope. WitNote is a local-first Mac, iPhone, and iPad application; the website does not create a separate user account or hosted writing workspace. Features may differ by device and region."
+    ? "The product page, Apple App Store listing, privacy policy, terms, support contact, and public source and notice repository define the current public product scope. WitNote is a local-first Mac, iPhone, and iPad application. No account is required to use it, and the website does not create a separate user account or hosted writing workspace. Features may differ by device and region."
   : "The product page, download link, source repository, and support contact define the current public product scope.";
 const purchasesText = product.hideSourceLinks
   ? "Downloads, purchases, in-app purchases, refunds, updates, and account-level store records are handled by Apple App Store and Apple StoreKit."
@@ -83,7 +83,7 @@ const thirdPartyText = product.hideSourceLinks
         <p>Core scripture reading, mala counting, and basic quiet practice features are free. The optional non-consumable in-app purchase Copy Practice Unlock unlocks copy-practice features, brush tracing, PDF export, and source-backed calligraphy copybooks through Apple StoreKit. Rushi does not offer auto-renewable subscriptions. Refunds, billing issues, and purchase records are handled by Apple under App Store rules.</p>
       )}
       {isWitNote && (
-        <p>The local Markdown workspace and basic local model experience are available according to the current app build. The optional non-consumable Lifetime purchase unlocks format-conversion features through Apple StoreKit. WitNote does not offer an auto-renewable subscription. Restore Purchases uses Apple's StoreKit flow; refunds, billing issues, and purchase records are handled by Apple under App Store rules.</p>
+        <p>The local Markdown workspace and basic local model experience are available according to the current app build. The optional non-consumable WitNote Pro lifetime purchase, shared across Mac, iPad, and iPhone, unlocks format conversion and export through Apple StoreKit. WitNote does not offer an auto-renewable subscription. Restore Purchases uses Apple's StoreKit flow; refunds, billing issues, and purchase records are handled by Apple under App Store rules.</p>
       )}
     </section>
 

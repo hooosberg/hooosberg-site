@@ -11,7 +11,7 @@ const isMoodButton = product.slug === "mood-button";
 const isSumiMahjong = product.slug === "sumi-mahjong";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
-const updatedDate = isWitNote ? "2026-09-23" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const updatedDate = isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const distributionText = product.hideSourceLinks
   ? `This privacy policy applies to ${product.displayName}. Product delivery for this app happens through the App Store and the linked Hooosberg product website.`
   : isWitNote
@@ -57,7 +57,7 @@ const platformServicesText = product.hideSourceLinks
       <>
         <section>
           <h2>WitNote Data Flow</h2>
-          <p>WitNote is a local-first Markdown writing and knowledge workspace for Mac, iPhone, and iPad. Documents, imports, exports, settings, and model files are handled on the device or in a file location the user selects. WitNote does not require a Hooosberg account, run advertising, or maintain a server-side writing profile.</p>
+          <p>WitNote is a local-first Markdown writing and knowledge workspace for Mac, iPhone, and iPad. No account is required to use WitNote. Documents, imports, exports, settings, and model files are handled on the device or in a file location the user selects. WitNote does not run advertising or track you, and does not maintain a server-side writing profile.</p>
           <div class="privacy-list">
             <div class="privacy-row"><strong>Local files and folders</strong><span>Mac uses the files and folders the user chooses through macOS file access. iPhone and iPad use app storage and files the user opens through the system file picker. The user remains responsible for backups, permissions, and imported or exported content.</span></div>
             <div class="privacy-row"><strong>Local AI inference</strong><span>On supported physical devices, the built-in MLX model processes prompts and responses locally. The local model does not send document text to a hosted AI service.</span></div>
@@ -81,7 +81,7 @@ const platformServicesText = product.hideSourceLinks
 
         <section>
           <h2>In-App Purchases</h2>
-          <p>The optional Lifetime purchase for format-conversion features is handled by Apple App Store and StoreKit. WitNote uses StoreKit to verify the purchase and restore it on a user's Apple account. Hooosberg does not receive the user's Apple ID, payment method, billing address, or App Store credentials. Refunds, billing questions, and account-level purchase records are handled by Apple.</p>
+          <p>The optional WitNote Pro lifetime purchase, shared across Mac, iPad, and iPhone, unlocks format conversion and export and is handled by Apple App Store and StoreKit. WitNote uses StoreKit to verify the purchase and restore it on a user's Apple account. Hooosberg does not receive the user's Apple ID, payment method, billing address, or App Store credentials. Refunds, billing questions, and account-level purchase records are handled by Apple.</p>
         </section>
 
         <section>

@@ -125,7 +125,7 @@ export const expandedProductDiaries: ArticleSeed[] = [
       title: "04 · 模型接入：Ollama、本地模型和云 API 的边界",
       category: "架构实现",
       excerpt: "多模型不是把配置项堆起来，而是给不同隐私、速度和质量需求留出口。",
-      tags: ["Ollama", "模型接入", "OpenAI-compatible"],
+      tags: ["Ollama", "模型接入"],
       order: 4,
       body: [
         "WitNote 的模型接入需要同时服务几类用户：有人只想用本地模型，有人愿意接云 API，有人只需要偶尔改写一段文字。把这些需求放进同一个界面，难点不在调用接口，而在解释边界。",
