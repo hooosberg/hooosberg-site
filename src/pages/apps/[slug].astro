@@ -88,10 +88,13 @@ if (!product.hideSourceLinks && product.website) {
 addAction(product.secondaryAction);
 
 const productJsonLd = [buildProductWebPageJsonLd(product, "zh-CN"), buildProductJsonLd(product, "zh-CN")];
+const pageTitle = product.slug === "witnote"
+  ? "WitNote Markdown 编辑器｜Mac、iPhone、iPad | 湖森堡AI_hooosberg"
+  : `${product.displayName} | 湖森堡AI_hooosberg`;
 ---
 
 <BaseLayout
-  title={`${product.displayName} | 湖森堡AI_hooosberg`}
+  title={pageTitle}
   description={product.summary}
   canonicalPath={`/apps/${product.slug}`}
   image={product.icon ?? "/brand/hooosberg-ai-icon.png"}

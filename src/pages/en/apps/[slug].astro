@@ -57,11 +57,14 @@ if (!product.hideSourceLinks && product.website) {
 addAction(product.secondaryAction);
 
 const productJsonLd = [buildProductWebPageJsonLd(product, "en"), buildProductJsonLd(product, "en")];
+const pageTitle = product.slug === "witnote"
+  ? "WitNote Markdown Editor for Mac, iPhone & iPad | Hooosberg"
+  : `${product.displayName} | Hooosberg`;
 ---
 
 <BaseLayout
   locale="en"
-  title={`${product.displayName} | Hooosberg`}
+  title={pageTitle}
   description={product.summary}
   canonicalPath={`/en/apps/${product.slug}`}
   image={product.icon ?? "/brand/hooosberg-ai-icon.png"}
