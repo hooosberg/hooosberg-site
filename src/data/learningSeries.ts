@@ -39,7 +39,7 @@ export const learningSeries: LearningSeries[] = [
     description: "面向办公新手的 AI 智能体通识 + 真实业务实战 + 自动化方法课。掌握工作区安全、Word保真填报、OCR复核、Excel清洗与业务算薪、群聊台账与专属 Skill 封装。",
     playlistUrl: paidCourseUrl,
     buyUrl: paidCourseUrl,
-    price: "¥199",
+    price: "¥229",
     originalPrice: "¥299",
     lessons: [
       { number: 1, title: "第 01 课：第一次使用办公智能体：安装、登录、界面认识与你的第一个桌面文件", outcome: "官方安全安装登录；口述三款工具差异；认识主界面；跑通桌面写唐诗 Hello World 验证。", articleSlug: "video-paid-lesson1-install-first-file", hasDownload: true },
@@ -157,5 +157,4 @@ export const learningSeries: LearningSeries[] = [
 ];
 
 export const getLearningSeries = (id: LearningSeriesId) => learningSeries.find((series) => series.id === id);
-
 
