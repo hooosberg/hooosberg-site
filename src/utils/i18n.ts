@@ -238,7 +238,7 @@ const productEnglish: Record<string, EnglishProductOverride> = {
     platforms: ["macOS", "Touch Bar", "Swift / AppKit"],
     status: ["Notarized DMG", "Source-available", "Local-first"],
     privacyNote: "No network access, no analytics, no accounts. Only a few preferences (switches, language, long-press duration) are stored on your Mac.",
-    features: ["Persistent Dock on the Touch Bar, in the same order as the system Dock", "Tap to switch (jumps to another desktop when needed), double-tap to hide, long-press to quit, with a \"Closing…\" countdown at the right edge so your finger never hides it", "Recovers after sleep, screen unlock and Control Strip restarts", "Rapid taps stay in order: the last tap wins, and it self-corrects if the system drops a switch or focus is stolen", "English and Simplified Chinese, menu bar settings and an About window"],
+    features: ["Persistent Dock on the Touch Bar, in the same order as the system Dock", "Tap to switch (jumps to another desktop when needed), double-tap to hide, long-press to quit, with a \"Closing…\" countdown at the right edge so your finger never hides it", "Recovers after sleep, screen unlock and Control Strip restarts", "A gear button at the right end hands the Touch Bar back to the system for a moment (brightness, volume) and returns automatically, so a fully dimmed screen never locks you out", "Rapid taps stay in order: the last tap wins, and it self-corrects if the system drops a switch or focus is stolen", "English and Simplified Chinese, menu bar settings and an About window"],
     courseHooks: ["Native Swift on macOS", "AppKit and NSTouchBar", "Managing private-API risk", "Signing, notarization and DMG release"],
   },
   drowsebook: {
