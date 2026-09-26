@@ -320,23 +320,24 @@ export const products: Product[] = [
       "Touch Bar 上常驻显示 Dock：访达、固定的 App、其他正在运行的 App，顺序和系统 Dock 一致",
       "单击切换（窗口在别的桌面时自动切过去），双击隐藏，长按退出",
       "睡眠唤醒、锁屏解锁、控制条进程重启之后自动恢复",
+      "连续快速点击以最后一下为准；切桌面被系统丢掉或焦点被抢走，会自动纠正回你最后点的那个",
       "简体中文与 English，菜单栏设置和“关于”窗口",
     ],
     buildNotes: [
       "和 Claude Code 协作完成：先做私有接口的可行性验证，再写正式代码。",
       "Developer ID 签名并通过 Apple 公证，DMG 在 GitHub Releases 分发；发布前专门检查过二进制里有没有带出本机路径。",
-      "空闲占用是实测数字：CPU 0.0%、空闲唤醒 0 次、内存约 35 MB。",
+      "空闲占用是实测数字：CPU 0.0%、空闲唤醒 0 次、内存约 34 MB。",
     ],
     courseHooks: ["Swift 原生 macOS", "AppKit 与 NSTouchBar", "私有 API 的风险控制", "签名、公证与 DMG 发布"],
     detail: {
       overview: [
         "DockTouchBar 是一个只做一件事的 macOS 小工具：让带 Touch Bar 的 MacBook Pro 在 Touch Bar 上一直显示 Dock 里的 App。单击切换，双击隐藏，长按退出；App 的窗口在别的桌面时，会像点系统 Dock 一样自动切到那个桌面。",
         "它来自一个很具体的不满：Pock 一类的工具都能把 Dock 放到 Touch Bar 上，但小组件、插件越多，日常用起来 Touch Bar 越容易消失或者点了没反应。DockTouchBar 反过来，把范围收得很窄，把稳定放在第一位。",
-        "整个 App 约 1300 行 Swift、9 个文件，没有第三方依赖，体积 1.1 MB。让后台 App 在 Touch Bar 上常驻只能用 Apple 的私有接口，所以它不上 Mac App Store，而是用 Developer ID 签名、经 Apple 公证的 DMG 在 GitHub 分发。",
+        "整个 App 约 1650 行 Swift、9 个文件，没有第三方依赖，体积 1.1 MB。让后台 App 在 Touch Bar 上常驻只能用 Apple 的私有接口，所以它不上 Mac App Store，而是用 Developer ID 签名、经 Apple 公证的 DMG 在 GitHub 分发。",
         "它同时是一个 AI 编程案例：从可行性验证、技术选型、跨桌面切换，到踩坑、签名公证和公开发布，整个过程都完整写在开发日记里。",
       ],
       proofPoints: [
-        { label: "实测占用", value: "CPU 0.0% · 35 MB", note: "M1 MacBook Pro 上开着 Dock 空闲时，连续 5 次采样 CPU 都是 0.0%，空闲唤醒 0 次，物理内存约 35 MB。" },
+        { label: "实测占用", value: "CPU 0.0% · 34 MB", note: "M1 MacBook Pro 上开着 Dock 空闲时，连续 5 次采样 CPU 都是 0.0%；读内核的进程计数器隔 20 秒做差，空闲唤醒新增 0 次；物理内存约 34 MB。" },
         { label: "分发方式", value: "已公证 DMG", note: "Developer ID 签名并通过 Apple 公证；从 DMG 里拖出来的 App 也能通过系统检查。" },
         { label: "实测环境", value: "M1 · macOS 27.0", note: "只在 MacBook Pro 13 英寸（M1）、macOS 27.0 上实测；安装包是通用二进制，Intel 没有在真机上测过。" },
         { label: "许可", value: "个人使用免费", note: "PolyForm Noncommercial 1.0.0：个人和非商业使用免费，商业使用需要另行授权。它是源码可见，不是标准意义上的开源。" },
@@ -345,6 +346,7 @@ export const products: Product[] = [
         { title: "只做一件事", body: "没有小组件，没有插件，菜单里只有几个开关。范围收得窄，才有可能把稳定性做扎实。" },
         { title: "能自己恢复", body: "睡眠唤醒、屏幕解锁、控制条进程重启之后，系统会收回自定义的 Touch Bar。DockTouchBar 监听这些事件并自动重新挂上，不需要手动重开。" },
         { title: "系统更新时安全失败", body: "私有接口都在运行时解析。系统删掉了哪个，对应功能就自动关闭，而不是一启动就崩溃。" },
+        { title: "点得快也不乱", body: "连续快速点击以最后一下为准；切桌面被系统丢掉、或者焦点被别的 App 抢走，会在约两秒内自动纠正回你最后点的那个。你一动键盘、鼠标或触控板，它立刻停手，绝不和你争。" },
       ],
       featureDetails: [
         { title: "单击：切换", body: "没打开的 App 会启动；窗口都在别的桌面时，用辅助功能把窗口提到前面，系统随之切到那个桌面（辅助功能权限可选，没给时照常切换，只是不切桌面）。" },
@@ -355,10 +357,10 @@ export const products: Product[] = [
       principles: [
         { title: "简洁：先判断要不要加", body: "去掉小组件，连 Touch Bar 最右边的收起按钮也去掉了，只保留 Dock 这一个职责。" },
         { title: "优雅：向系统 Dock 看齐", body: "图标顺序、运行小圆点和滚动手感都用系统自带的控件，不自己造轮子；单击不为了等双击而延迟。" },
-        { title: "高效：事件驱动，不轮询", body: "只在 App 启动、退出、前台变化时刷新，只更新变化的部分，图标只栅格化一次。" },
+        { title: "高效：事件驱动，不轮询", body: "只在 App 启动、退出、前台变化时刷新，只更新变化的部分，图标只栅格化一次。切桌面不靠固定的等待时间，而是等系统“切完了”的信号并核对结果，动画慢、关掉动画、机器很忙时都不会出错。" },
       ],
       diaryIntro:
-        "DockTouchBar 的开发日记记录了这个小工具从立项、可行性验证、技术选型、跨桌面切换、踩坑与测试，到签名公证和公开发布的完整过程，也包括没做成的事（比如开着台前调度时无法最小化窗口），以及发布前差点把本机路径一起发出去的教训。",
+        "DockTouchBar 的开发日记记录了这个小工具从立项、可行性验证、技术选型、跨桌面切换、踩坑与测试，到签名公证和公开发布的完整过程，也包括没做成的事（比如开着台前调度时无法最小化窗口）、连点为什么会失效以及怎样改成“看结果”，还有发布前差点把本机路径一起发出去的教训。",
     },
   },
   {
