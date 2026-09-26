@@ -230,6 +230,17 @@ const productEnglish: Record<string, EnglishProductOverride> = {
     features: ["Menu-bar progress ring", "Weekly quota and five-hour windows", "Local history and depletion estimates", "Signed and notarized DMG"],
     courseHooks: ["Codex workflow", "macOS menu-bar tools", "SwiftUI", "Local data"],
   },
+  docktouchbar: {
+    category: "Touch Bar utility · AI coding case study",
+    tagline: "Your Dock on the Touch Bar: simple, elegant, efficient.",
+    summary: "A native macOS utility that does one thing: show your Dock apps on the Touch Bar of a MacBook Pro. Tap to switch, double-tap to hide, long-press to quit. No widgets, no network access, 0.0% CPU when idle.",
+    audience: "MacBook Pro Touch Bar owners who find Touch Bar Dock tools too busy or unreliable over time.",
+    platforms: ["macOS", "Touch Bar", "Swift / AppKit"],
+    status: ["Notarized DMG", "Source-available", "Local-first"],
+    privacyNote: "No network access, no analytics, no accounts. Only a few preferences (switches, language, long-press duration) are stored on your Mac.",
+    features: ["Persistent Dock on the Touch Bar, in the same order as the system Dock", "Tap to switch (jumps to another desktop when needed), double-tap to hide, long-press to quit", "Recovers after sleep, screen unlock and Control Strip restarts", "English and Simplified Chinese, menu bar settings and an About window"],
+    courseHooks: ["Native Swift on macOS", "AppKit and NSTouchBar", "Managing private-API risk", "Signing, notarization and DMG release"],
+  },
   drowsebook: {
     displayName: "DrowseBook",
     category: "Bedtime read-aloud reader",
@@ -808,6 +819,17 @@ const articleTagEn: Record<string, string> = {
   "静心": "quiet focus",
   "预测": "forecasting",
   "验收标准": "acceptance criteria",
+  "简洁": "simplicity",
+  "优雅": "elegance",
+  "踩坑": "pitfalls",
+  "验证": "verification",
+  "许可证": "licensing",
+  "可行性": "feasibility",
+  "私有 API": "private APIs",
+  "选型": "technology choices",
+  "手势": "gestures",
+  "跨桌面": "cross-desktop",
+  "辅助功能": "accessibility",
 };
 
 export function getLocalizedArticleTags(tags: string[], locale: Locale) {
