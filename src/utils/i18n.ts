@@ -268,12 +268,12 @@ const productEnglish: Record<string, EnglishProductOverride> = {
   trekreel: {
     category: "3D trail-story tool",
     tagline: "Turn GPX and KML tracks into cinematic 3D map stories.",
-    summary: "A creator tool for converting GPX/KML routes into cinematic 3D trail stories for hiking, cycling, running, and travel videos.",
+    summary: "Turn GPX / KML / KMZ routes into cinematic 3D map videos: select a region to download satellite imagery, terrain and roads, then design the camera with slide-style keyframes. Built for hiking, cycling, running and travel recaps.",
     audience: "Outdoor creators, cyclists, runners, travelers, and route-story video makers.",
     platforms: ["macOS", "3D", "Maps"],
-    status: ["App Store", "Creator tool", "Local-first"],
-    privacyNote: "Route files are designed to be processed locally first.",
-    features: ["Import GPX and KML tracks", "Create 3D route stories", "Designed for social video and travel recaps", "Multilingual launch assets"],
+    status: ["App Store", "Creator tool", "Local-first", "Free + one-time Pro"],
+    privacyNote: "Route files and projects are processed on your Mac and are not uploaded. When you select a region, map tiles for that area are downloaded from public map services.",
+    features: ["Import GPX, KML and KMZ tracks", "Select a region to download satellite imagery, terrain and roads for offline use", "Design 3D camera moves with slide-style keyframes", "Export 720p–4K video, HD images and 3D-print models"],
     courseHooks: ["Map visualization", "GPX and KML", "Video asset generation"],
   },
   "mood-button": {
@@ -363,6 +363,39 @@ function buildEnglishDetail(product: Product, override: EnglishProductOverride) 
   const publicLinksText = product.hideSourceLinks
     ? "This page keeps the download path, privacy boundary, support contact, and build diary under one domain."
     : "This page keeps the download path, repository, privacy boundary, support contact, and build diary under one domain.";
+
+  if (product.slug === "trekreel") {
+    return {
+      overview: [
+        "TrekReel is a macOS 3D route-storytelling app. Import a GPX, KML or KMZ track, watch the route appear on real satellite imagery and terrain, design the camera like you would build a slide deck, and export the result as a video.",
+        "It is made for hiking, cycling, running and travel creators. You do not need video-editing skills: set a few keyframes along the route and TrekReel generates the smooth, cinematic camera movement between them.",
+        "Map data comes from open public sources (Sentinel-2 imagery, AWS terrain tiles, OpenStreetMap roads). Select a region once, download it to your Mac, and use it offline afterwards. Track files, projects and exported videos stay on your computer.",
+      ],
+      proofPoints: [
+        { label: "Input", value: "GPX / KML / KMZ", note: "After import, TrekReel links a region using the current selection shape (rectangle or circle) and loads the map data." },
+        { label: "Map", value: "Satellite + terrain + roads", note: "Download by region at zoom levels 8–13 and view offline; every data source has fallback servers." },
+        { label: "Export", value: "Video / image / 3D print", note: "The free version exports up to 720p video and monochrome STL; Pro unlocks 1080p, 4K, HD images and full-color OBJ." },
+        { label: "Pricing", value: "Free + one-time purchase", note: "No subscription, no ads, no account." },
+      ],
+      valueProps: [
+        { title: "If you can make slides, you can make a route video", body: "Set keyframes along the route like slides. You control angle, zoom and tilt; TrekReel generates the movement in between." },
+        { title: "Clear data sources", body: "Imagery, terrain and roads come from open public data, credited in the app and on the website with their licenses. Each data type has backup servers and TrekReel switches automatically when one fails." },
+        { title: "Your files stay on your Mac", body: "No account system, no ads, no third-party analytics. Tracks and projects are processed locally; the app only contacts public map services when it downloads map data." },
+      ],
+      featureDetails: [
+        { title: "Import and region download", body: "Supports GPX, KML and KMZ. You can also draw a rectangle or circle on the map to download satellite imagery, terrain, roads and points of interest for offline use." },
+        { title: "Keyframe camera", body: "Place keyframes along the route to control camera angle, zoom and tilt, then preview the animation before exporting." },
+        { title: "Annotations and layers", body: "Annotate the story with lines, polygons and markers, and toggle imagery, roads, points of interest, GPS data and your asset library in Layer Manager." },
+        { title: "Export", body: "Export 720p to 4K video, HD images, 2D route maps, or STL / OBJ models for 3D printing. Save a project file to keep editing later." },
+      ],
+      principles: [
+        { title: "Only credited open data", body: "Default sources are free open data that allow commercial use. TrekReel does not bundle imagery with unclear licensing; custom sources are the user's responsibility." },
+        { title: "Plan for failure", body: "Public servers can be busy or rate-limited. TrekReel retries and switches to fallback servers, and shows missing data on the region card so you can retry later." },
+        { title: "Publishing is part of engineering", body: "Privacy notes, the support page, data-source checks and store metadata are reviewed together for each release so the pages match the app's behavior." },
+      ],
+      diaryIntro: "The TrekReel build diary covers the product from idea, route data, map and camera design, creator tooling, to App Store review, including real lessons such as not using a paywall screenshot as an in-app purchase promotional image.",
+    };
+  }
 
   if (product.slug === "witnote") {
     return {

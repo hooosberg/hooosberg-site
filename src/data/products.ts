@@ -448,22 +448,52 @@ export const products: Product[] = [
     displayName: "TrekReel",
     category: "3D 轨迹故事工具",
     tagline: "把 GPX / KML 轨迹变成电影感 3D 地图故事。",
-    summary: "将 GPX / KML 轨迹转为电影感 3D 路线故事视频，专为户外骑行、跑步与旅行记录打造。",
+    summary: "将 GPX / KML / KMZ 轨迹转为电影感 3D 路线故事视频：框选区域下载卫星影像、地形和道路，用幻灯片式关键帧制作运镜，专为户外徒步、骑行、跑步与旅行记录打造。",
     platforms: ["macOS", "3D", "地图"],
-    status: ["App Store", "创作者工具", "本地优先"],
+    status: ["App Store", "创作者工具", "本地优先", "免费 + Pro 一次买断"],
     audience: "户外、骑行、跑步、旅行和地图视频创作者。",
     primaryAction: { label: "App Store", url: "https://apps.apple.com/us/app/trekreel-3d-map-video-maker/id6758914035?mt=12" },
-    secondaryAction: { label: "GitHub Releases", url: "https://github.com/hooosberg/TrekReel/releases" },
-    repo: "https://github.com/hooosberg/TrekReel",
-    website: "https://hooosberg.github.io/TrekReel/",
+    repo: "https://hooosberg.com/apps/trekreel",
+    website: undefined,
+    hideSourceLinks: true,
     icon: "/product-icons/trekreel.png",
     accent: "#ea580c",
     priority: "P1",
     learnSlug: "trekreel-map-story",
-    privacy: privacyLocal("轨迹文件处理优先在本地完成。"),
-    features: ["导入 GPX / KML 轨迹", "生成 3D 地图路线故事", "面向社交视频和旅行复盘", "支持多语言产品页面和发布素材"],
+    privacy: privacyLocal("轨迹文件和项目在本机处理，不上传。框选区域时，所选范围的地图瓦片会从公开地图服务下载。"),
+    features: ["导入 GPX / KML / KMZ 轨迹", "框选区域下载卫星影像、地形和道路，可离线使用", "幻灯片式关键帧制作 3D 运镜", "导出 720p–4K 视频、高清图片和 3D 打印模型"],
     buildNotes: ["视觉工具、地图数据和视频导出课程案例。"],
     courseHooks: ["地图可视化", "GPX / KML", "视频素材生成"],
+    detail: {
+      overview: [
+        "TrekReel 是一款 macOS 上的 3D 轨迹故事工具：导入 GPX、KML 或 KMZ 轨迹，在真实的卫星影像和地形上生成路线，再用类似做 PPT 的关键帧方式设计镜头，最后导出成视频。",
+        "它面向户外徒步、骑行、跑步和旅行记录的创作者。你不需要学剪辑软件：在路线上设几个关键帧，TrekReel 会在它们之间生成平滑的电影感运镜。",
+        "地图数据来自公开的开放数据源（Sentinel-2 卫星影像、AWS 地形、OpenStreetMap 道路），你框选一个区域后下载到本机，之后可以离线使用。轨迹文件、项目和导出的视频都留在你的电脑上。"
+      ],
+      proofPoints: [
+        { label: "输入", value: "GPX / KML / KMZ", note: "导入后按当前选区形状（矩形或圆形）自动关联区域并加载地图数据。" },
+        { label: "地图", value: "卫星 + 地形 + 道路", note: "框选区域下载，缩放级别 8–13，下载后可离线查看；数据源有多个备用服务器。" },
+        { label: "导出", value: "视频 / 图片 / 3D 打印", note: "免费版最高 720p 视频和单色 STL；Pro 解锁 1080p、4K、高清图片和全彩 OBJ。" },
+        { label: "商业化", value: "免费 + 一次买断", note: "没有订阅，没有广告，没有账号。" }
+      ],
+      valueProps: [
+        { title: "会做 PPT 就能做路线视频", body: "沿路线设置关键帧，就像排幻灯片；镜头角度、缩放和倾斜由你控制，中间的运镜由 TrekReel 自动生成。" },
+        { title: "数据来源清楚", body: "影像、地形和道路都来自公开开放数据，并在应用内和网站上署名与说明许可；每类数据都有备用服务器，下载失败会自动切换。" },
+        { title: "文件留在你的电脑", body: "TrekReel 没有账号系统、广告和第三方统计。轨迹和项目文件在本机处理；只有下载地图时才会访问公开地图服务。" }
+      ],
+      featureDetails: [
+        { title: "导入与区域下载", body: "支持 GPX、KML、KMZ。也可以在地图上框选矩形或圆形区域，下载卫星影像、地形、道路和兴趣点，之后离线使用。" },
+        { title: "关键帧运镜", body: "沿路线设置关键帧，控制相机角度、缩放和倾斜，预览动画后再导出。" },
+        { title: "标注与图层", body: "用线条、多边形和标点标注故事，在图层管理里开关影像、道路、兴趣点、GPS 数据和素材库。" },
+        { title: "导出", body: "导出 720p 至 4K 视频、高清图片、路线平面图，或用于 3D 打印的 STL / OBJ 模型；也可保存项目文件以便继续编辑。" }
+      ],
+      principles: [
+        { title: "只用可署名的开放数据", body: "默认数据源都是免费开放且允许商用的；不内置授权不明的商业影像，自定义源由用户自行确认授权。" },
+        { title: "失败时有备用", body: "公共服务器可能繁忙或限流。TrekReel 会重试并切换备用服务器，并在区域卡片上提示缺失的数据，可以稍后重试。" },
+        { title: "发布是工程的一部分", body: "隐私说明、支持页、数据源验证和商店元数据一起随版本检查，避免页面与应用行为不一致。" }
+      ],
+      diaryIntro: "TrekReel 的开发日记记录了从立项、轨迹数据、地图与相机、创作者工具到 App Store 审核的过程，包括 IAP 审核图不能误传付费墙截图这类真实复盘。"
+    },
   },
   {
     slug: "mood-button",

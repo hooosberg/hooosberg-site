@@ -11,7 +11,8 @@ const isMoodButton = product.slug === "mood-button";
 const isSumiMahjong = product.slug === "sumi-mahjong";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
-const updatedDate = product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const isTrekReel = product.slug === "trekreel";
+const updatedDate = isTrekReel ? "2026-09-30" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const distributionText = product.hideSourceLinks
   ? `This privacy policy applies to ${product.displayName}. Product delivery for this app happens through the App Store and the linked Hooosberg product website.`
   : isWitNote
@@ -127,6 +128,38 @@ const platformServicesText = product.hideSourceLinks
         <section>
           <h2>Export and Deletion</h2>
           <p>Users can export local diary text through app export flows when available and can delete local records in the app. Deleted records are removed from the app's local review, search, and export surfaces. Uninstalling the app removes its sandbox data according to iOS behavior.</p>
+        </section>
+      </>
+    )}
+
+    {isTrekReel && (
+      <>
+        <section>
+          <h2>TrekReel Data Flow</h2>
+          <p>TrekReel has no account system, no advertising SDK and no third-party analytics or tracking. Your track files, projects and exported videos are processed on your Mac and are not uploaded to a Hooosberg server.</p>
+          <div class="privacy-list">
+            <div class="privacy-row"><strong>GPX / KML / KMZ files and projects</strong><span>Opened and stored on your Mac. They are not sent to any server.</span></div>
+            <div class="privacy-row"><strong>Downloaded map regions</strong><span>Satellite imagery, terrain, roads and points of interest for regions you select are cached locally in the app's storage so they work offline.</span></div>
+            <div class="privacy-row"><strong>Exports and auto-save</strong><span>Videos, images, 3D-print files and project files are written only to locations you choose, or to the app's own data folder for auto-save.</span></div>
+            <div class="privacy-row"><strong>Settings</strong><span>Language, theme, data-source and export preferences are stored locally.</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Map Data Requests</h2>
+          <p>When you select a region and download it, or export a high-resolution map image, TrekReel requests map data from public services. Those services receive the request itself: the tile coordinates or bounding box of the area you selected, your IP address, and a User-Agent that identifies the app and its version (for example, TrekReel/1.0.5). Your track files are not part of these requests.</p>
+          <div class="privacy-list">
+            <div class="privacy-row"><strong>Satellite imagery</strong><span>Sentinel-2 Cloudless by EOX IT Services GmbH (tiles.maps.eox.at and its mirrors).</span></div>
+            <div class="privacy-row"><strong>Terrain</strong><span>AWS Terrain Tiles (elevation-tiles-prod on Amazon S3).</span></div>
+            <div class="privacy-row"><strong>Roads and points of interest</strong><span>OpenStreetMap data through public Overpass API servers (overpass-api.de, overpass.openstreetmap.fr, maps.mail.ru and overpass.kumi.systems). TrekReel tries a fallback server when one is busy or unavailable.</span></div>
+            <div class="privacy-row"><strong>Custom sources</strong><span>If you enter a custom tile or Overpass address in Settings, requests go to that address and are governed by that provider's terms and privacy policy.</span></div>
+          </div>
+          <p>Attribution and licenses for these sources are listed on the <a href="/en/apps/trekreel/support/#sources">Guide, Data Sources &amp; Credits</a> page. Downloaded regions can be used offline; you can delete them in the app at any time.</p>
+        </section>
+
+        <section>
+          <h2>In-App Purchases</h2>
+          <p>TrekReel Pro is an optional one-time purchase handled by Apple through the App Store and StoreKit. Hooosberg does not receive your Apple ID, payment method or billing details, and the app only stores whether Pro is unlocked.</p>
         </section>
       </>
     )}
