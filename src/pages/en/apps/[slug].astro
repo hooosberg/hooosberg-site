@@ -104,6 +104,9 @@ const pageTitle = product.slug === "witnote"
           <div>
             <dt>Support</dt>
             <dd>
+              {product.slug === "trekreel" && (
+                <><a href="/en/apps/trekreel/support">Guide & data sources</a>{" · "}</>
+              )}
               <a href={`mailto:zikedece@proton.me?subject=${encodeURIComponent(product.displayName + " support")}`}>
                 Email support
               </a>

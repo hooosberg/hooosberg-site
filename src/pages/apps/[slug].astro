@@ -134,6 +134,9 @@ const pageTitle = product.slug === "witnote"
           <div>
             <dt>支持</dt>
             <dd>
+              {product.slug === "trekreel" && (
+                <><a href="/apps/trekreel/support">使用指南与数据源</a>{" · "}</>
+              )}
               <a href={`mailto:zikedece@proton.me?subject=${encodeURIComponent(product.displayName + " support")}`}>
                 邮件支持
               </a>

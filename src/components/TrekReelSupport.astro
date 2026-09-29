@@ -1,0 +1,218 @@
+---
+type Props = { locale: "zh-CN" | "en" };
+const { locale } = Astro.props;
+const zh = locale === "zh-CN";
+const base = zh ? "" : "/en";
+
+const t = {
+  kicker: zh ? "TrekReel · 支持中心" : "TrekReel · Support",
+  title: zh ? "使用指南、数据源与致谢" : "Guide, Data Sources & Credits",
+  updated: zh ? "最后更新：2026-09-30 · 适用于 TrekReel 1.0.5" : "Last updated: 2026-09-30 · For TrekReel 1.0.5",
+  intro: zh
+    ? "TrekReel 是一款 macOS 上的 3D 轨迹故事工具。这里汇总了上手步骤、快捷键、地图数据来源与备用源、常见问题和第三方致谢。"
+    : "TrekReel is a macOS 3D route-storytelling app. This page covers getting started, shortcuts, where map data comes from (and its fallbacks), FAQ, and third-party credits.",
+  toc: zh
+    ? [["#quick-start", "快速上手"], ["#shortcuts", "快捷键"], ["#data-sources", "地图数据源"], ["#custom-sources", "自定义数据源"], ["#faq", "常见问题"], ["#sources", "致谢与许可"], ["#contact", "联系我们"]]
+    : [["#quick-start", "Quick start"], ["#shortcuts", "Shortcuts"], ["#data-sources", "Map data"], ["#custom-sources", "Custom sources"], ["#faq", "FAQ"], ["#sources", "Credits"], ["#contact", "Contact"]],
+};
+
+const steps = zh
+  ? [
+      ["导入轨迹", "点击顶部工具栏的「导入」（或按 ⌘I），选择 GPX / KML / KMZ 文件。TrekReel 会按当前选区形状（矩形或圆形）自动关联区域，并加载卫星影像、地形与道路数据。"],
+      ["框选并下载区域", "点击顶部工具栏第一个「选区」按钮，在地图上拖出矩形或圆形范围，起个名字后确认，即可下载该区域的卫星影像、地形、道路和兴趣点，之后可离线使用。"],
+      ["调整图层与环境", "在左侧「图层管理」里开关影像/地形、道路、兴趣点、GPS 数据和素材库；在设置里调整光照、天空等环境效果。"],
+      ["设定运镜与标注", "用顶部工具栏的「线条」「多边形」「标点」绘制路线与标注，用「镜头」在关键位置设置相机关键帧，形成平滑的镜头路径。"],
+      ["预览与导出", "按播放键预览动画。满意后点击「导出」生成视频（⇧⌘E），也可导出高清图片、3D 打印文件（STL / OBJ，⇧⌘G）或项目文件（⇧⌘S）。免费版导出功能有限，升级 Pro 后解锁全部导出。"],
+    ]
+  : [
+      ["Import a track", "Click Import in the top toolbar (or press ⌘I) and choose a GPX / KML / KMZ file. TrekReel links a region using the current selection shape (rectangle or circle) and loads imagery, terrain and roads."],
+      ["Select & download a region", "Click the first toolbar button, Region, and drag a rectangle or circle on the map. Name it and confirm to download imagery, terrain, roads and points of interest for offline use."],
+      ["Adjust layers & environment", "Use Layer Manager on the left to toggle imagery/terrain, roads, points of interest, GPS data and the asset library. Tune lighting and sky in Settings."],
+      ["Set camera & annotations", "Draw routes and annotations with Line, Polygon and Marker in the top toolbar, and use Camera to place keyframes for a smooth camera path."],
+      ["Preview & export", "Press play to preview. When you are happy, click Export to render a video (⇧⌘E). You can also export HD images, 3D-print files (STL / OBJ, ⇧⌘G) or a project file (⇧⌘S). The free version limits exports; TrekReel Pro unlocks all of them."],
+    ];
+
+const shortcuts = zh
+  ? [["新建项目", "⌘N"], ["导入 GPS 轨迹", "⌘I"], ["导入项目", "⌘O"], ["导出视频", "⇧⌘E"], ["3D 打印导出", "⇧⌘G"], ["导出项目", "⇧⌘S"], ["打开设置", "⌘,"], ["查看快捷键", "⌘/"], ["显示/隐藏左侧栏", "⌘1"], ["显示/隐藏时间轴", "⌘2"], ["显示/隐藏顶部工具栏", "⌘6"], ["激活道路工具", "⌘4"], ["激活多边形工具", "⌘5"], ["显示/隐藏导出预览", "⇧⌘P"]]
+  : [["New project", "⌘N"], ["Import GPS track", "⌘I"], ["Import project", "⌘O"], ["Export video", "⇧⌘E"], ["3D print export", "⇧⌘G"], ["Export project", "⇧⌘S"], ["Open Settings", "⌘,"], ["Show shortcuts", "⌘/"], ["Toggle left sidebar", "⌘1"], ["Toggle timeline", "⌘2"], ["Toggle top toolbar", "⌘6"], ["Road tool", "⌘4"], ["Polygon tool", "⌘5"], ["Toggle export preview", "⇧⌘P"]];
+
+const dataRows = zh
+  ? [
+      ["卫星影像", "Sentinel-2 Cloudless（EOX）", "a.tiles.maps.eox.at", "b.tiles.maps.eox.at、tiles.maps.eox.at"],
+      ["地形（DEM）", "AWS Terrain Tiles", "s3.amazonaws.com/elevation-tiles-prod", "elevation-tiles-prod.s3.amazonaws.com"],
+      ["道路与兴趣点", "OpenStreetMap（Overpass API）", "overpass-api.de", "overpass.kumi.systems、overpass.openstreetmap.fr、maps.mail.ru"],
+    ]
+  : [
+      ["Imagery", "Sentinel-2 Cloudless (EOX)", "a.tiles.maps.eox.at", "b.tiles.maps.eox.at, tiles.maps.eox.at"],
+      ["Terrain (DEM)", "AWS Terrain Tiles", "s3.amazonaws.com/elevation-tiles-prod", "elevation-tiles-prod.s3.amazonaws.com"],
+      ["Roads & POIs", "OpenStreetMap (Overpass API)", "overpass-api.de", "overpass.kumi.systems, overpass.openstreetmap.fr, maps.mail.ru"],
+    ];
+const dataHead = zh ? ["类型", "数据", "主服务器", "备用服务器"] : ["Type", "Data", "Primary", "Fallbacks"];
+
+const faq = zh
+  ? [
+      ["下载区域后提示「道路和兴趣点不可用」怎么办？", "道路和兴趣点来自公共的 OpenStreetMap Overpass 服务器，高峰期可能繁忙或限流。TrekReel 会依次尝试多个服务器；如果仍然失败，影像和地形仍会正常加载，稍后点击「已下载区域」卡片上的刷新按钮即可重试。"],
+      ["下载好的区域可以离线使用吗？", "可以。区域数据下载到本机后，离线也能查看；只有下载和刷新数据时需要联网。"],
+      ["支持哪些轨迹文件？", "GPX、KML、KMZ。"],
+      ["应用窗口找不到了？", "点击 Dock 图标，或使用菜单栏「窗口 → 显示主窗口」。"],
+      ["导出失败或提示无法保存？", "请在保存对话框中选择你有写入权限的文件夹。TrekReel 遵循 macOS 沙盒规则，只能写入你主动选择的位置。"],
+      ["如何恢复已购买的 Pro？", "在升级 Pro 的弹窗中点击「恢复购买」，需登录购买时使用的 Apple ID。"],
+    ]
+  : [
+      ["A region says roads and points of interest are unavailable. What now?", "Roads and points of interest come from public OpenStreetMap Overpass servers, which can be busy or rate-limited. TrekReel tries several servers in turn. If all fail, imagery and terrain still load; tap the refresh button on the downloaded-region card later to retry."],
+      ["Can downloaded regions be used offline?", "Yes. Once a region is downloaded it works offline. A network connection is only needed to download or refresh data."],
+      ["Which track files are supported?", "GPX, KML and KMZ."],
+      ["I can't find the app window.", "Click the Dock icon, or use the menu Window → Show Main Window."],
+      ["Export fails or cannot save.", "Choose a folder you have write access to in the save dialog. TrekReel follows the macOS sandbox and can only write to locations you pick."],
+      ["How do I restore my Pro purchase?", "Click Restore Purchase in the upgrade dialog, signed in with the Apple ID used to buy."],
+    ];
+
+const credits = zh
+  ? [
+      ["卫星影像", "Sentinel-2 Cloudless © EOX IT Services GmbH（CC BY 4.0），包含经修改的 Copernicus Sentinel 数据（2016/2017）。", "https://s2maps.eu"],
+      ["地形数据", "Terrain Tiles（AWS 托管，原 Mapzen），整合 USGS、SRTM、ETOPO1 等公共领域或开放许可数据。", "https://github.com/tilezen/joerd/blob/master/docs/attribution.md"],
+      ["道路与兴趣点", "© OpenStreetMap contributors，遵循 ODbL 开放数据库许可。", "https://www.openstreetmap.org/copyright"],
+      ["地图渲染", "MapLibre GL JS，3-Clause BSD 许可。", "https://maplibre.org"],
+    ]
+  : [
+      ["Imagery", "Sentinel-2 Cloudless © EOX IT Services GmbH (CC BY 4.0). Contains modified Copernicus Sentinel data (2016/2017).", "https://s2maps.eu"],
+      ["Terrain", "Terrain Tiles hosted on AWS (formerly Mapzen), aggregated from USGS, SRTM, ETOPO1 and other public-domain or openly licensed sources.", "https://github.com/tilezen/joerd/blob/master/docs/attribution.md"],
+      ["Roads & POIs", "© OpenStreetMap contributors, licensed under the ODbL.", "https://www.openstreetmap.org/copyright"],
+      ["Map rendering", "MapLibre GL JS, 3-Clause BSD license.", "https://maplibre.org"],
+    ];
+---
+
+<section class="legal-page trekreel-support">
+  <p class="hero-kicker">{t.kicker}</p>
+  <h1>{t.title}</h1>
+  <p class="legal-page__updated">{t.updated}</p>
+  <p>{t.intro}</p>
+
+  <nav class="trekreel-support__toc" aria-label={zh ? "本页目录" : "On this page"}>
+    {t.toc.map(([href, label]) => <a href={href}>{label}</a>)}
+  </nav>
+
+  <h2 id="quick-start">{zh ? "快速上手：5 步做出路线故事" : "Quick start: build a route story in 5 steps"}</h2>
+  <ol class="trekreel-support__steps">
+    {steps.map(([title, body]) => (
+      <li><strong>{title}</strong><span>{body}</span></li>
+    ))}
+  </ol>
+
+  <h2 id="shortcuts">{zh ? "常用快捷键" : "Keyboard shortcuts"}</h2>
+  <div class="trekreel-support__table">
+    <table>
+      <thead><tr><th>{zh ? "功能" : "Action"}</th><th>{zh ? "按键" : "Keys"}</th></tr></thead>
+      <tbody>{shortcuts.map(([a, k]) => <tr><td>{a}</td><td><kbd>{k}</kbd></td></tr>)}</tbody>
+    </table>
+  </div>
+
+  <h2 id="data-sources">{zh ? "地图数据源与备用源" : "Map data sources and fallbacks"}</h2>
+  <p>
+    {zh
+      ? "TrekReel 默认使用下面这些免费开放的数据源。主服务器不可用时，会自动切换到备用服务器，让下载更稳定。区域下载的缩放级别为 8–13。"
+      : "TrekReel uses the free, open sources below by default. If the primary server is unavailable it switches to a fallback automatically to keep downloads reliable. Region downloads cover zoom levels 8–13."}
+  </p>
+  <div class="trekreel-support__table">
+    <table>
+      <thead><tr>{dataHead.map((h) => <th>{h}</th>)}</tr></thead>
+      <tbody>{dataRows.map((row) => <tr>{row.map((c) => <td>{c}</td>)}</tr>)}</tbody>
+    </table>
+  </div>
+
+  <h2 id="custom-sources">{zh ? "自定义数据源" : "Custom data sources"}</h2>
+  <ul>
+    <li>{zh ? "打开设置（⌘,）→「数据源」，在卫星影像、地形或道路下拉菜单里选择「自定义」。" : "Open Settings (⌘,) → Data Sources and choose Custom under Imagery, Terrain or Roads."}</li>
+    <li>{zh ? "影像与地形填入标准 XYZ 瓦片地址，必须包含 {z}、{x}、{y} 占位符；道路填入 Overpass API 地址。" : "For imagery and terrain, enter a standard XYZ tile URL that contains the {z}, {x} and {y} placeholders. For roads, enter an Overpass API URL."}</li>
+    <li>{zh ? "自定义地址由你自行负责：请确认你拥有该数据源的使用与商业授权，并遵守其服务条款。TrekReel 不提供也不推荐受限的商业影像地址。" : "Custom URLs are your responsibility: make sure you are licensed to use the source (including commercially) and follow its terms. TrekReel does not provide or recommend restricted commercial imagery URLs."}</li>
+  </ul>
+
+  <h2 id="faq">{zh ? "常见问题" : "FAQ"}</h2>
+  <div class="trekreel-support__faq">
+    {faq.map(([q, a]) => (
+      <details><summary>{q}</summary><p>{a}</p></details>
+    ))}
+  </div>
+
+  <h2 id="sources">{zh ? "致谢与许可" : "Credits & licenses"}</h2>
+  <p>{zh ? "TrekReel 建立在以下优秀的开放数据与开源项目之上：" : "TrekReel is built on the following open data and open-source projects:"}</p>
+  <ul>
+    {credits.map(([name, text, url]) => (
+      <li><strong>{name}：</strong>{text} <a href={url} target="_blank" rel="noreferrer">{zh ? "了解更多" : "Learn more"}</a></li>
+    ))}
+  </ul>
+
+  <h2 id="contact">{zh ? "联系我们" : "Contact us"}</h2>
+  <p>
+    {zh ? "问题或建议请发送邮件至 " : "For questions or feedback, email "}
+    <a href="mailto:zikedece@proton.me?subject=TrekReel%20support">zikedece@proton.me</a>。
+  </p>
+  <p>
+    <a href={`${base}/apps/trekreel`}>{zh ? "返回产品页" : "Back to product page"}</a> ·
+    <a href={`${base}/privacy/trekreel`}>{zh ? "隐私政策" : "Privacy Policy"}</a> ·
+    <a href={`${base}/terms/trekreel`}>{zh ? "服务条款" : "Terms of Service"}</a>
+  </p>
+</section>
+
+<style>
+  .trekreel-support__toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin: 24px 0 8px;
+  }
+  .trekreel-support h2 {
+    scroll-margin-top: 90px;
+  }
+  .trekreel-support__steps {
+    display: grid;
+    gap: 14px;
+    padding-left: 22px;
+  }
+  .trekreel-support__steps li {
+    display: grid;
+    gap: 4px;
+  }
+  .trekreel-support__steps strong {
+    color: var(--text, inherit);
+  }
+  .trekreel-support__table {
+    overflow-x: auto;
+  }
+  .trekreel-support table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .trekreel-support th,
+  .trekreel-support td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+    color: var(--muted);
+  }
+  .trekreel-support th {
+    color: inherit;
+    white-space: nowrap;
+  }
+  .trekreel-support kbd {
+    font-family: inherit;
+    padding: 2px 8px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface-soft);
+    white-space: nowrap;
+  }
+  .trekreel-support__faq details {
+    border-bottom: 1px solid var(--line);
+    padding: 12px 0;
+  }
+  .trekreel-support__faq summary {
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .trekreel-support__faq p {
+    margin: 8px 0 0;
+  }
+</style>
