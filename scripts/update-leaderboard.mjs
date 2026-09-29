@@ -41,7 +41,7 @@ function parseScore(scoreText, rating) {
 }
 
 /**
- * 标准化重新排序某个分类的所有榜单和天梯档位
+ * 标准化重新排序某个分类的所有榜单和天梯档位（保证编号绝对连续且分数严格降序）
  */
 export function rebalanceCategory(cat) {
   if (!cat || !cat.fullList) return;
@@ -49,7 +49,7 @@ export function rebalanceCategory(cat) {
   // 1. fullList 按分数降序排列
   cat.fullList.sort((a, b) => parseScore(b.scoreText, b.rating) - parseScore(a.scoreText, a.rating));
 
-  // 2. 重新标定 rank 与 displayRank
+  // 2. 重新连续标定 rank 与 displayRank
   cat.fullList.forEach((item, index) => {
     item.rank = index + 1;
     item.displayRank = index + 1;
@@ -57,32 +57,23 @@ export function rebalanceCategory(cat) {
 
   cat.totalCount = cat.fullList.length;
 
-  // 3. 同步 tiers 内部的数据
+  // 3. 按照各 tier 原有容量，从严格排序的 fullList 进行顺序切片，从根源杜绝编号倒挂或跳号
   if (cat.tiers) {
     const tierKeys = ["hang", "dingji", "renshangren", "npc", "lawanle"];
+    const tierCounts = {};
     tierKeys.forEach((key) => {
-      const tier = cat.tiers[key];
-      if (tier && Array.isArray(tier.items)) {
-        // 同步 fullList 的最新数据
-        tier.items.forEach((item) => {
-          const matched = cat.fullList.find(
-            (m) => m.name.toLowerCase() === item.name.toLowerCase()
-          );
-          if (matched) {
-            item.rank = matched.rank;
-            item.displayRank = matched.displayRank;
-            item.scoreText = matched.scoreText;
-            item.rating = matched.rating;
-            if (matched.isNewThisWeek !== undefined) {
-              item.isNewThisWeek = matched.isNewThisWeek;
-            }
-            if (matched.forecastKey !== undefined) {
-              item.forecastKey = matched.forecastKey;
-            }
-          }
-        });
-        // 档位内排序
-        tier.items.sort((a, b) => a.rank - b.rank);
+      tierCounts[key] = (cat.tiers[key] && Array.isArray(cat.tiers[key].items))
+        ? cat.tiers[key].items.length
+        : 0;
+    });
+
+    let cursor = 0;
+    tierKeys.forEach((key) => {
+      if (cat.tiers[key]) {
+        const count = tierCounts[key] || 0;
+        const sliceItems = cat.fullList.slice(cursor, cursor + count);
+        cat.tiers[key].items = sliceItems.map((item) => ({ ...item }));
+        cursor += count;
       }
     });
   }

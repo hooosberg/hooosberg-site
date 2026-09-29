@@ -16,5 +16,5 @@
 
 ### 3. 一键更新自动化工具
 - 运行 `node scripts/update-leaderboard.mjs --check` 即可自动执行所有 12 个分类的重排与连续校验。
-- 详尽 SOP 请查阅 [AI_MODEL_LEADERBOARD_SOP.md](./AI_MODEL_LEADERBOARD_SOP.md)。
+- 详尽 SOP 请查阅 [docs/AI_MODEL_LEADERBOARD_SOP.md](./docs/AI_MODEL_LEADERBOARD_SOP.md)。
 - 每次更新完毕后，务必检查本地开发服务器并向用户输出更新明细表与访问链接。

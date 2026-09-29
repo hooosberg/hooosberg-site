@@ -6352,7 +6352,7 @@ main.main--ai-directory {
 }
 
 .contact-qr-card--wechat .contact-qr-card__image {
-  aspect-ratio: 966 / 1518;
+  aspect-ratio: 1;
   object-fit: contain;
 }
 

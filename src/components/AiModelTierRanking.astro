@@ -337,7 +337,7 @@ const categoriesDropdownPayload = JSON.stringify(
               <span class="tier-label-text">夯</span>
             </div>
             <div class="tier-content">
-              {cat.tiers.hang.items.slice(0, 3).map((item) => {
+              {cat.tiers.hang.items.map((item) => {
                 const om = orgMeta(item.organization);
                 return (
                   <div
@@ -362,7 +362,7 @@ const categoriesDropdownPayload = JSON.stringify(
               <span class="tier-label-text">顶级</span>
             </div>
             <div class="tier-content">
-              {cat.tiers.dingji.items.slice(0, 4).map((item) => {
+              {cat.tiers.dingji.items.map((item) => {
                 const om = orgMeta(item.organization);
                 return (
                   <div
@@ -387,7 +387,7 @@ const categoriesDropdownPayload = JSON.stringify(
               <span class="tier-label-text">人上人</span>
             </div>
             <div class="tier-content">
-              {cat.tiers.renshangren.items.slice(0, 5).map((item) => {
+              {cat.tiers.renshangren.items.map((item) => {
                 const om = orgMeta(item.organization);
                 return (
                   <div
@@ -412,7 +412,7 @@ const categoriesDropdownPayload = JSON.stringify(
               <span class="tier-label-text">NPC</span>
             </div>
             <div class="tier-content">
-              {cat.tiers.npc.items.slice(0, 6).map((item) => {
+              {cat.tiers.npc.items.map((item) => {
                 const om = orgMeta(item.organization);
                 return (
                   <div
@@ -437,7 +437,7 @@ const categoriesDropdownPayload = JSON.stringify(
               <span class="tier-label-text">拉完了</span>
             </div>
             <div class="tier-content">
-              {cat.tiers.lawanle.items.slice(0, 6).map((item) => {
+              {cat.tiers.lawanle.items.map((item) => {
                 const om = orgMeta(item.organization);
                 return (
                   <div
