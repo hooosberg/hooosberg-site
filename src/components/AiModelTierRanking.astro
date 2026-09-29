@@ -29,6 +29,63 @@ function forecastClass(item: any) {
   return item?.forecastKey ? `model-pill--forecast-${item.forecastKey}` : "";
 }
 
+function newClass(item: any) {
+  return item?.isNewThisWeek ? "model-pill--new-this-week" : "";
+}
+
+// 去掉模型名称中的档位后缀，让pill更精简
+function simplifyName(name: string): string {
+  if (!name) return "";
+  return name
+    .replace(/\s*\((Max|High|xHigh|Low\+|Low|Medium|preview|Lite|Turbo|Mini|Standard|Vision|Extended|Ultra)\)/gi, "")
+    .replace(/-(max|high|xhigh|medium|low)$/i, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+// 公司 → 颜色映射（用于 org 徽标）
+const ORG_COLOR: Record<string, { bg: string; text: string; label: string }> = {
+  "Anthropic":         { bg: "#fde8d8", text: "#c2410c", label: "Anthropic" },
+  "OpenAI":            { bg: "#d1fae5", text: "#065f46", label: "OpenAI"    },
+  "Google":            { bg: "#dbeafe", text: "#1e40af", label: "Google"    },
+  "Meta":              { bg: "#ede9fe", text: "#5b21b6", label: "Meta"      },
+  "DeepSeek":          { bg: "#e0f2fe", text: "#0369a1", label: "DeepSeek"  },
+  "Alibaba":           { bg: "#fee2e2", text: "#991b1b", label: "Alibaba"   },
+  "Alibaba-ATH":       { bg: "#fee2e2", text: "#991b1b", label: "阿里ATH"   },
+  "Moonshot":          { bg: "#fef3c7", text: "#92400e", label: "Kimi"      },
+  "Z.ai":              { bg: "#ccfbf1", text: "#0f766e", label: "Z.ai"      },
+  "SpaceXAI":          { bg: "#f1f5f9", text: "#334155", label: "xAI"       },
+  "Tencent":           { bg: "#cffafe", text: "#0e7490", label: "腾讯"      },
+  "Bytedance":         { bg: "#e0f2fe", text: "#0284c7", label: "字节"      },
+  "Baidu":             { bg: "#e0e7ff", text: "#4338ca", label: "百度"      },
+  "KlingAI":           { bg: "#fff7ed", text: "#ea580c", label: "快手"      },
+  "Runway":            { bg: "#f3e8ff", text: "#7e22ce", label: "Runway"    },
+  "Pika":              { bg: "#fdf4ff", text: "#a21caf", label: "Pika"      },
+  "Black Forest Labs": { bg: "#f1f5f9", text: "#0f172a", label: "BFL"       },
+  "Ideogram":          { bg: "#fce7f3", text: "#be185d", label: "Ideogram"  },
+  "Luma AI":           { bg: "#fae8ff", text: "#86198f", label: "Luma"      },
+  "Shengshu":          { bg: "#fef3c7", text: "#b45309", label: "生数"      },
+  "Perplexity AI":     { bg: "#ecfdf5", text: "#047857", label: "Perplexity"},
+  "Microsoft AI":      { bg: "#eff6ff", text: "#1d4ed8", label: "微软"      },
+  "Mistral":           { bg: "#f5f3ff", text: "#6d28d9", label: "Mistral"   },
+  "MiniMax":           { bg: "#fff1f2", text: "#be123c", label: "MiniMax"   },
+  "Xiaomi":            { bg: "#fef9c3", text: "#713f12", label: "小米"      },
+  "Thinky":            { bg: "#f0fdf4", text: "#166534", label: "Thinky"    },
+  "Upstage":           { bg: "#fff7ed", text: "#9a3412", label: "Upstage"   },
+  "AI Lab":            { bg: "#f1f5f9", text: "#475569", label: "AILab"     },
+  "Recraft":           { bg: "#fef2f2", text: "#dc2626", label: "Recraft"   },
+  "Genmo AI":          { bg: "#f0fdfa", text: "#0d9488", label: "Genmo"     },
+  "HiDream":           { bg: "#fdf2f8", text: "#db2777", label: "HiDream"   },
+  "Diffbot":           { bg: "#f8fafc", text: "#475569", label: "Diffbot"   },
+  "Kandinsky":         { bg: "#fdf4ff", text: "#c026d3", label: "Kandinsky" },
+  "Krea":              { bg: "#f5f5f4", text: "#292524", label: "Krea"      },
+  "Reve":              { bg: "#fefce8", text: "#ca8a04", label: "Reve"      },
+  "Nvidia":            { bg: "#ecfdf5", text: "#059669", label: "英伟达"    },
+};
+function orgMeta(org: string) {
+  return ORG_COLOR[org] ?? { bg: "#f1f5f9", text: "#475569", label: org || "AI" };
+}
+
 // 序列化所有分类全量数据供底部下拉菜单秒级切换查阅
 const categoriesDropdownPayload = JSON.stringify(
   arenaData.categories.map((c) => ({
@@ -72,18 +129,22 @@ const categoriesDropdownPayload = JSON.stringify(
             <span class="tier-label-text">夯</span>
           </div>
           <div class="tier-content">
-            {overallCat.tiers.hang.items.map((item) => (
+            {overallCat.tiers.hang.items.map((item) => {
+              const om = orgMeta(item.organization);
+              return (
               <div
-                class:list={["model-pill", "model-pill--hang", forecastClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
+                class:list={["model-pill", "model-pill--hang", forecastClass(item), newClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
                 title={item.forecastBasis || `${item.name} (${item.organization}) - #${item.displayRank}`}
               >
                 <span class="pill-rank">#{item.displayRank}</span>
-                <span class="pill-name">{item.name}</span>
-                <span class="pill-org">{item.organization}</span>
+                <span class="pill-name">{simplifyName(item.name)}</span>
+                <span class="pill-org-badge" style={`background:${om.bg};color:${om.text}`}>{om.label}</span>
                 {item.forecastKey && <span class="pill-forecast-badge">预测</span>}
                 {formatScore(item) && <span class:list={["pill-score", { "pill-score--forecast": !!item.forecastKey }]}>{formatScore(item)}</span>}
+                {item.isNewThisWeek && <span class="pill-new-badge">本周新</span>}
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
 
@@ -93,18 +154,22 @@ const categoriesDropdownPayload = JSON.stringify(
             <span class="tier-label-text">顶级</span>
           </div>
           <div class="tier-content">
-            {overallCat.tiers.dingji.items.map((item) => (
+            {overallCat.tiers.dingji.items.map((item) => {
+              const om = orgMeta(item.organization);
+              return (
               <div
-                class:list={["model-pill", "model-pill--dingji", forecastClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
+                class:list={["model-pill", "model-pill--dingji", forecastClass(item), newClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
                 title={item.forecastBasis || `${item.name} (${item.organization}) - #${item.displayRank}`}
               >
                 <span class="pill-rank">#{item.displayRank}</span>
-                <span class="pill-name">{item.name}</span>
-                <span class="pill-org">{item.organization}</span>
+                <span class="pill-name">{simplifyName(item.name)}</span>
+                <span class="pill-org-badge" style={`background:${om.bg};color:${om.text}`}>{om.label}</span>
                 {item.forecastKey && <span class="pill-forecast-badge">预测</span>}
                 {formatScore(item) && <span class:list={["pill-score", { "pill-score--forecast": !!item.forecastKey }]}>{formatScore(item)}</span>}
+                {item.isNewThisWeek && <span class="pill-new-badge">本周新</span>}
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
 
@@ -114,18 +179,22 @@ const categoriesDropdownPayload = JSON.stringify(
             <span class="tier-label-text">人上人</span>
           </div>
           <div class="tier-content">
-            {overallCat.tiers.renshangren.items.map((item) => (
+            {overallCat.tiers.renshangren.items.map((item) => {
+              const om = orgMeta(item.organization);
+              return (
               <div
-                class:list={["model-pill", "model-pill--renshangren", forecastClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
+                class:list={["model-pill", "model-pill--renshangren", forecastClass(item), newClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
                 title={item.forecastBasis || `${item.name} (${item.organization}) - #${item.displayRank}`}
               >
                 <span class="pill-rank">#{item.displayRank}</span>
-                <span class="pill-name">{item.name}</span>
-                <span class="pill-org">{item.organization}</span>
+                <span class="pill-name">{simplifyName(item.name)}</span>
+                <span class="pill-org-badge" style={`background:${om.bg};color:${om.text}`}>{om.label}</span>
                 {item.forecastKey && <span class="pill-forecast-badge">预测</span>}
                 {formatScore(item) && <span class:list={["pill-score", { "pill-score--forecast": !!item.forecastKey }]}>{formatScore(item)}</span>}
+                {item.isNewThisWeek && <span class="pill-new-badge">本周新</span>}
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
 
@@ -135,17 +204,21 @@ const categoriesDropdownPayload = JSON.stringify(
             <span class="tier-label-text">NPC</span>
           </div>
           <div class="tier-content">
-            {overallCat.tiers.npc.items.map((item) => (
+            {overallCat.tiers.npc.items.map((item) => {
+              const om = orgMeta(item.organization);
+              return (
               <div
-                class:list={["model-pill", "model-pill--npc", { "model-pill--top10": item.displayRank <= 10 }]}
+                class:list={["model-pill", "model-pill--npc", newClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
                 title={`${item.name} (${item.organization}) - #${item.displayRank}`}
               >
                 <span class="pill-rank">#{item.displayRank}</span>
-                <span class="pill-name">{item.name}</span>
-                <span class="pill-org">{item.organization}</span>
+                <span class="pill-name">{simplifyName(item.name)}</span>
+                <span class="pill-org-badge" style={`background:${om.bg};color:${om.text}`}>{om.label}</span>
                 {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+                {item.isNewThisWeek && <span class="pill-new-badge">本周新</span>}
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
 
@@ -155,17 +228,21 @@ const categoriesDropdownPayload = JSON.stringify(
             <span class="tier-label-text">拉完了</span>
           </div>
           <div class="tier-content">
-            {overallCat.tiers.lawanle.items.map((item) => (
+            {overallCat.tiers.lawanle.items.map((item) => {
+              const om = orgMeta(item.organization);
+              return (
               <div
-                class:list={["model-pill", "model-pill--lawanle", { "model-pill--top10": item.displayRank <= 10 }]}
+                class:list={["model-pill", "model-pill--lawanle", newClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
                 title={`${item.name} (${item.organization}) - #${item.displayRank}`}
               >
                 <span class="pill-rank">#{item.displayRank}</span>
-                <span class="pill-name">{item.name}</span>
-                <span class="pill-org">{item.organization}</span>
+                <span class="pill-name">{simplifyName(item.name)}</span>
+                <span class="pill-org-badge" style={`background:${om.bg};color:${om.text}`}>{om.label}</span>
                 {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+                {item.isNewThisWeek && <span class="pill-new-badge">本周新</span>}
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
       </div>
@@ -260,17 +337,22 @@ const categoriesDropdownPayload = JSON.stringify(
               <span class="tier-label-text">夯</span>
             </div>
             <div class="tier-content">
-              {cat.tiers.hang.items.slice(0, 3).map((item) => (
-                <div
-                  class:list={["model-pill", "model-pill--hang", { "model-pill--top10": item.displayRank <= 10 }]}
-                  title={`${item.name} (${item.organization}) - #${item.displayRank}`}
-                >
-                  <span class="pill-rank">#{item.displayRank}</span>
-                  <span class="pill-name">{item.name}</span>
-                  <span class="pill-org">{item.organization}</span>
-                  {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
-                </div>
-              ))}
+              {cat.tiers.hang.items.slice(0, 3).map((item) => {
+                const om = orgMeta(item.organization);
+                return (
+                  <div
+                    class:list={["model-pill", "model-pill--hang", forecastClass(item), newClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
+                    title={item.forecastBasis || `${item.name} (${item.organization}) - #${item.displayRank}`}
+                  >
+                    <span class="pill-rank">#{item.displayRank}</span>
+                    <span class="pill-name">{simplifyName(item.name)}</span>
+                    <span class="pill-org-badge" style={`background:${om.bg};color:${om.text}`}>{om.label}</span>
+                    {item.forecastKey && <span class="pill-forecast-badge">预测</span>}
+                    {formatScore(item) && <span class:list={["pill-score", { "pill-score--forecast": !!item.forecastKey }]}>{formatScore(item)}</span>}
+                    {item.isNewThisWeek && <span class="pill-new-badge">本周新</span>}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -280,17 +362,22 @@ const categoriesDropdownPayload = JSON.stringify(
               <span class="tier-label-text">顶级</span>
             </div>
             <div class="tier-content">
-              {cat.tiers.dingji.items.slice(0, 4).map((item) => (
-                <div
-                  class:list={["model-pill", "model-pill--dingji", { "model-pill--top10": item.displayRank <= 10 }]}
-                  title={`${item.name} (${item.organization}) - #${item.displayRank}`}
-                >
-                  <span class="pill-rank">#{item.displayRank}</span>
-                  <span class="pill-name">{item.name}</span>
-                  <span class="pill-org">{item.organization}</span>
-                  {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
-                </div>
-              ))}
+              {cat.tiers.dingji.items.slice(0, 4).map((item) => {
+                const om = orgMeta(item.organization);
+                return (
+                  <div
+                    class:list={["model-pill", "model-pill--dingji", forecastClass(item), newClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
+                    title={item.forecastBasis || `${item.name} (${item.organization}) - #${item.displayRank}`}
+                  >
+                    <span class="pill-rank">#{item.displayRank}</span>
+                    <span class="pill-name">{simplifyName(item.name)}</span>
+                    <span class="pill-org-badge" style={`background:${om.bg};color:${om.text}`}>{om.label}</span>
+                    {item.forecastKey && <span class="pill-forecast-badge">预测</span>}
+                    {formatScore(item) && <span class:list={["pill-score", { "pill-score--forecast": !!item.forecastKey }]}>{formatScore(item)}</span>}
+                    {item.isNewThisWeek && <span class="pill-new-badge">本周新</span>}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -300,17 +387,22 @@ const categoriesDropdownPayload = JSON.stringify(
               <span class="tier-label-text">人上人</span>
             </div>
             <div class="tier-content">
-              {cat.tiers.renshangren.items.slice(0, 5).map((item) => (
-                <div
-                  class:list={["model-pill", "model-pill--renshangren", { "model-pill--top10": item.displayRank <= 10 }]}
-                  title={`${item.name} (${item.organization}) - #${item.displayRank}`}
-                >
-                  <span class="pill-rank">#{item.displayRank}</span>
-                  <span class="pill-name">{item.name}</span>
-                  <span class="pill-org">{item.organization}</span>
-                  {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
-                </div>
-              ))}
+              {cat.tiers.renshangren.items.slice(0, 5).map((item) => {
+                const om = orgMeta(item.organization);
+                return (
+                  <div
+                    class:list={["model-pill", "model-pill--renshangren", forecastClass(item), newClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
+                    title={item.forecastBasis || `${item.name} (${item.organization}) - #${item.displayRank}`}
+                  >
+                    <span class="pill-rank">#{item.displayRank}</span>
+                    <span class="pill-name">{simplifyName(item.name)}</span>
+                    <span class="pill-org-badge" style={`background:${om.bg};color:${om.text}`}>{om.label}</span>
+                    {item.forecastKey && <span class="pill-forecast-badge">预测</span>}
+                    {formatScore(item) && <span class:list={["pill-score", { "pill-score--forecast": !!item.forecastKey }]}>{formatScore(item)}</span>}
+                    {item.isNewThisWeek && <span class="pill-new-badge">本周新</span>}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -320,17 +412,22 @@ const categoriesDropdownPayload = JSON.stringify(
               <span class="tier-label-text">NPC</span>
             </div>
             <div class="tier-content">
-              {cat.tiers.npc.items.slice(0, 6).map((item) => (
-                <div
-                  class:list={["model-pill", "model-pill--npc", { "model-pill--top10": item.displayRank <= 10 }]}
-                  title={`${item.name} (${item.organization}) - #${item.displayRank}`}
-                >
-                  <span class="pill-rank">#{item.displayRank}</span>
-                  <span class="pill-name">{item.name}</span>
-                  <span class="pill-org">{item.organization}</span>
-                  {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
-                </div>
-              ))}
+              {cat.tiers.npc.items.slice(0, 6).map((item) => {
+                const om = orgMeta(item.organization);
+                return (
+                  <div
+                    class:list={["model-pill", "model-pill--npc", forecastClass(item), newClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
+                    title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+                  >
+                    <span class="pill-rank">#{item.displayRank}</span>
+                    <span class="pill-name">{simplifyName(item.name)}</span>
+                    <span class="pill-org-badge" style={`background:${om.bg};color:${om.text}`}>{om.label}</span>
+                    {item.forecastKey && <span class="pill-forecast-badge">预测</span>}
+                    {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+                    {item.isNewThisWeek && <span class="pill-new-badge">本周新</span>}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
@@ -340,17 +437,22 @@ const categoriesDropdownPayload = JSON.stringify(
               <span class="tier-label-text">拉完了</span>
             </div>
             <div class="tier-content">
-              {cat.tiers.lawanle.items.slice(0, 6).map((item) => (
-                <div
-                  class:list={["model-pill", "model-pill--lawanle", { "model-pill--top10": item.displayRank <= 10 }]}
-                  title={`${item.name} (${item.organization}) - #${item.displayRank}`}
-                >
-                  <span class="pill-rank">#{item.displayRank}</span>
-                  <span class="pill-name">{item.name}</span>
-                  <span class="pill-org">{item.organization}</span>
-                  {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
-                </div>
-              ))}
+              {cat.tiers.lawanle.items.slice(0, 6).map((item) => {
+                const om = orgMeta(item.organization);
+                return (
+                  <div
+                    class:list={["model-pill", "model-pill--lawanle", forecastClass(item), newClass(item), { "model-pill--top10": item.displayRank <= 10 }]}
+                    title={`${item.name} (${item.organization}) - #${item.displayRank}`}
+                  >
+                    <span class="pill-rank">#{item.displayRank}</span>
+                    <span class="pill-name">{simplifyName(item.name)}</span>
+                    <span class="pill-org-badge" style={`background:${om.bg};color:${om.text}`}>{om.label}</span>
+                    {item.forecastKey && <span class="pill-forecast-badge">预测</span>}
+                    {formatScore(item) && <span class="pill-score">{formatScore(item)}</span>}
+                    {item.isNewThisWeek && <span class="pill-new-badge">本周新</span>}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -394,7 +496,11 @@ const categoriesDropdownPayload = JSON.stringify(
                         {rowIdx === 0 ? "🥇 1" : rowIdx === 1 ? "🥈 2" : rowIdx === 2 ? "🥉 3" : rowIdx + 1}
                       </span>
                     </td>
-                    <td class="td-name"><strong>{item.name}</strong></td>
+                    <td class="td-name">
+                      <strong>{item.name}</strong>
+                      {item.isNewThisWeek && <span class="pill-new-badge" style="margin-left: 6px;">本周新</span>}
+                      {item.forecastKey && <span class:list={["table-forecast-badge", `table-forecast-badge--${item.forecastKey}`]} title={item.forecastBasis}>预测</span>}
+                    </td>
                     <td class="td-org">{item.organization}</td>
                     <td class="td-rating">
                       {formatScore(item) ? (
@@ -575,6 +681,9 @@ const categoriesDropdownPayload = JSON.stringify(
         const forecastBadge = item.forecastKey
           ? `<span class="table-forecast-badge table-forecast-badge--${item.forecastKey}">预测</span>`
           : "";
+        const newBadge = item.isNewThisWeek
+          ? `<span class="pill-new-badge" style="margin-left: 6px;">本周新</span>`
+          : "";
         const scoreVal = item.scoreText || (item.rating != null ? (String(item.rating).includes("%") || String(item.rating).includes("分") ? item.rating : `${item.rating}分`) : null);
         const ratingHtml = scoreVal
           ? `<span class="rating-badge">${scoreVal}</span>`
@@ -586,7 +695,7 @@ const categoriesDropdownPayload = JSON.stringify(
         html += `
           <tr class="${isTop3 ? "is-top3" : ""} ${forecastRowClass}">
             <td class="td-rank"><span class="rank-num rank-num--${rowIdx + 1}">${medal}</span></td>
-            <td class="td-name"><strong>${item.name}</strong>${forecastBadge}</td>
+            <td class="td-name"><strong>${item.name}</strong>${newBadge}${forecastBadge}</td>
             <td class="td-org">${item.organization || "-"}</td>
             <td class="td-rating">${ratingHtml}</td>
             <td class="td-link">${linkHtml}</td>
@@ -944,37 +1053,54 @@ const categoriesDropdownPayload = JSON.stringify(
     z-index: 2;
   }
 
-  .model-pill--forecast-opus55 {
-    background: #f3eaff;
-    border: 1px solid #9b6bd2;
+  /* ===== 旧 forecast 模型：取消彩色 pill 背景，仅保留"预测"角标区分 ===== */
+  .model-pill--forecast-opus55,
+  .model-pill--forecast-gpt6sol,
+  .model-pill--forecast-gpt6luna,
+  .model-pill--forecast-sonnet55 {
+    background: #ffffff;
+    border: 1px solid rgba(16, 24, 40, 0.12);
   }
 
-  .model-pill--forecast-gpt6sol {
-    background: #e8f7f2;
-    border: 1px solid #4fa994;
+  :global([data-theme="dark"]) .model-pill--forecast-opus55,
+  :global([data-theme="dark"]) .model-pill--forecast-gpt6sol,
+  :global([data-theme="dark"]) .model-pill--forecast-gpt6luna,
+  :global([data-theme="dark"]) .model-pill--forecast-sonnet55 {
+    background: #18181b;
+    border-color: #3f3f46;
   }
 
-  .model-pill--forecast-gpt6luna {
-    background: #eaf2ff;
-    border: 1px solid #6b95d7;
+  /* ===== 本周新模型：浅橙/暖黄背景 + 右上角"本周新"角标 ===== */
+  .model-pill--new-this-week {
+    background: #fff8ed;
+    border: 1px solid #f59e0b;
+    position: relative;
   }
 
-  .model-pill--forecast-opus55 .pill-name { color: #5c2999; }
-  .model-pill--forecast-gpt6sol .pill-name { color: #086b5a; }
-  .model-pill--forecast-gpt6luna .pill-name { color: #2459a9; }
-  .model-pill--forecast-opus55 .pill-rank,
-  .model-pill--forecast-opus55 .pill-score { color: #5c2999; }
-  .model-pill--forecast-gpt6sol .pill-rank,
-  .model-pill--forecast-gpt6sol .pill-score { color: #086b5a; }
-  .model-pill--forecast-gpt6luna .pill-rank,
-  .model-pill--forecast-gpt6luna .pill-score { color: #2459a9; }
+  :global([data-theme="dark"]) .model-pill--new-this-week {
+    background: #2d2112;
+    border-color: #b45309;
+  }
 
-  :global([data-theme="dark"]) .model-pill--forecast-opus55 { background: #30213e; border-color: #986cc8; }
-  :global([data-theme="dark"]) .model-pill--forecast-gpt6sol { background: #17362f; border-color: #398d79; }
-  :global([data-theme="dark"]) .model-pill--forecast-gpt6luna { background: #1e2e49; border-color: #5981c0; }
-  :global([data-theme="dark"]) .model-pill--forecast-opus55 .pill-name { color: #dec5ff; }
-  :global([data-theme="dark"]) .model-pill--forecast-gpt6sol .pill-name { color: #a5ead7; }
-  :global([data-theme="dark"]) .model-pill--forecast-gpt6luna .pill-name { color: #bbd2ff; }
+  /* 本周新角标 */
+  .pill-new-badge {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 1px 5px;
+    border-radius: 999px;
+    font-size: 9px;
+    line-height: 1.4;
+    font-weight: 800;
+    color: #92400e;
+    background: #fde68a;
+    margin-left: 1px;
+  }
+
+  :global([data-theme="dark"]) .pill-new-badge {
+    color: #fde68a;
+    background: #78350f;
+  }
 
   .pill-forecast-badge,
   .table-forecast-badge {
@@ -1051,6 +1177,18 @@ const categoriesDropdownPayload = JSON.stringify(
     flex-shrink: 0;
   }
 
+  /* 公司彩色徽标 */
+  .pill-org-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    white-space: nowrap;
+    letter-spacing: 0.1px;
+  }
+
+  /* 保留旧 pill-org 兼容子分类卡片 */
   .pill-org {
     font-size: 10px;
     color: #6b7280;
@@ -1143,12 +1281,14 @@ const categoriesDropdownPayload = JSON.stringify(
     background: rgba(255, 255, 255, 0.04);
   }
 
-  :global(.tier-full-table tr.is-forecast--opus55 td) { background: #f8f3ff; }
-  :global(.tier-full-table tr.is-forecast--gpt6sol td) { background: #f0faf7; }
-  :global(.tier-full-table tr.is-forecast--gpt6luna td) { background: #f1f6ff; }
-  :global([data-theme="dark"] .tier-full-table tr.is-forecast--opus55 td) { background: #2c2237; }
-  :global([data-theme="dark"] .tier-full-table tr.is-forecast--gpt6sol td) { background: #1c302b; }
-  :global([data-theme="dark"] .tier-full-table tr.is-forecast--gpt6luna td) { background: #202c40; }
+  :global(.tier-full-table tr.is-forecast--opus55 td),
+  :global(.tier-full-table tr.is-forecast--gpt6sol td),
+  :global(.tier-full-table tr.is-forecast--gpt6luna td),
+  :global(.tier-full-table tr.is-forecast--sonnet55 td) { background: inherit; }
+  :global([data-theme="dark"] .tier-full-table tr.is-forecast--opus55 td),
+  :global([data-theme="dark"] .tier-full-table tr.is-forecast--gpt6sol td),
+  :global([data-theme="dark"] .tier-full-table tr.is-forecast--gpt6luna td),
+  :global([data-theme="dark"] .tier-full-table tr.is-forecast--sonnet55 td) { background: inherit; }
 
   .table-forecast-badge { margin-left: 6px; vertical-align: middle; }
 
