@@ -19,6 +19,7 @@ import {
   Zap,
 } from "@lucide/astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import StudioAbout from "../../components/StudioAbout.astro";
 import { getLocalizedSocialLinks } from "../../utils/i18n";
 import { buildHomeJsonLd } from "../../utils/structuredData";
 
@@ -652,5 +653,6 @@ const faqs = [
         </a>
       ))}
     </div>
+    <StudioAbout />
   </section>
 </BaseLayout>

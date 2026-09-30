@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import ProductCard from "../../../components/ProductCard.astro";
+import StudioAbout from "../../../components/StudioAbout.astro";
 import { productsByLatest } from "../../../data/products";
 import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../../utils/structuredData";
 
@@ -42,5 +43,6 @@ const jsonLd = [
     <div class="product-grid product-grid--catalog">
       {productsByLatest.map((product) => <ProductCard product={product} locale="en" />)}
     </div>
+    <StudioAbout id="about" />
   </section>
 </BaseLayout>

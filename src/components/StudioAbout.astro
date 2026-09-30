@@ -1,0 +1,54 @@
+---
+type Props = {
+  compact?: boolean;
+  id?: string;
+};
+
+const { compact = false, id } = Astro.props;
+---
+
+<section class:list={["studio-about", { "studio-about--compact": compact }]} id={id} lang="en" aria-label="About Hooosberg">
+  <h2>About</h2>
+  <p>Hooosberg is an independent software studio operated by Yuanbo Hu.</p>
+  <p>Contact: <a href="mailto:zikedece@proton.me">zikedece@proton.me</a></p>
+</section>
+
+<style>
+  .studio-about {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .studio-about h2 {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .studio-about p {
+    margin: 4px 0 0;
+  }
+
+  .studio-about a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+  }
+
+  .studio-about a:hover {
+    color: var(--text);
+  }
+
+  .studio-about--compact {
+    width: 100%;
+    margin-top: 0;
+    padding-top: 20px;
+    font-size: 13px;
+  }
+</style>
