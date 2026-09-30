@@ -10,7 +10,7 @@ const { locale = "zh-CN", embedded = false } = Astro.props;
 
 // 找到置顶总榜（对应 arena.ai 官方首页面板顶部的 Agent 智能体总榜）
 const overallCat = arenaData.categories.find((c) => c.id === "agent" || c.id === "overall") || arenaData.categories[0];
-// 严格按照 arena.ai 官方首页排布的分项子榜单
+// 严格按照官方首页排布的分项子榜单
 const subCategories = arenaData.categories.filter((c) => c.id !== overallCat?.id);
 
 function formatScore(item: any) {
@@ -265,7 +265,7 @@ const categoriesDropdownPayload = JSON.stringify(
       <div class="tier-detail-drawer" data-drawer-for={overallCat.id} hidden>
         <div class="tier-drawer-head">
           <h4 class="tier-drawer-title">{overallCat.name} · 详细排行榜 (TOP 50)</h4>
-          <span class="tier-drawer-hint">Arena 记录为实测；新模型彩色条目为公开基准预测</span>
+          <span class="tier-drawer-hint">{overallCat.isAgent ? "Arena 记录为实测；新模型彩色条目为公开基准预测" : "基于全球真实盲测盲投对决统计计算出的客观 Elo 综合天梯分"}</span>
         </div>
         <div class="tier-table-wrapper">
           <table class="tier-full-table">
@@ -274,7 +274,7 @@ const categoriesDropdownPayload = JSON.stringify(
                 <th style="width: 70px;">排名</th>
                 <th>模型名称</th>
                 <th style="width: 130px;">研发机构</th>
-                <th style="width: 110px;">净提升 / 预测分</th>
+                <th style="width: 110px;">{overallCat.isAgent ? "净提升 / 胜率" : "天梯评分 (Elo)"}</th>
                 <th style="width: 80px;">链接</th>
               </tr>
             </thead>
