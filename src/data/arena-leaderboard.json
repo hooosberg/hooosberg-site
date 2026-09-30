@@ -23,20 +23,6 @@
             {
               "rank": 1,
               "displayRank": 1,
-              "name": "Claude Fable 5.1 (Max)",
-              "rawName": "contenders/claude-fable-5.1-max-agent",
-              "organization": "Anthropic",
-              "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
-              "scoreText": "14.06%",
-              "rating": "14.06%",
-              "isAgent": true,
-              "votes": "15,125 局实测",
-              "license": "Proprietary",
-              "contextLength": null
-            },
-            {
-              "rank": 2,
-              "displayRank": 2,
               "name": "Gemini 4 Argon",
               "rawName": "gemini-4-argon",
               "organization": "Google",
@@ -51,8 +37,8 @@
               "isNewThisWeek": true
             },
             {
-              "rank": 3,
-              "displayRank": 3,
+              "rank": 2,
+              "displayRank": 2,
               "name": "Claude Opus 5.5 (High)",
               "rawName": "contenders/claude-opus-5.5-high-vertex-agent",
               "organization": "Anthropic",
@@ -64,6 +50,20 @@
               "license": "Proprietary",
               "contextLength": null,
               "isNewThisWeek": true
+            },
+            {
+              "rank": 3,
+              "displayRank": 3,
+              "name": "GPT 6 Astra (Max)",
+              "rawName": "contenders/gpt-6-astra-max-agent",
+              "organization": "OpenAI",
+              "url": "https://openai.com/index/gpt-6-astra/",
+              "scoreText": "10.36%",
+              "rating": "10.36%",
+              "isAgent": true,
+              "votes": "11,547 局实测",
+              "license": "Proprietary",
+              "contextLength": null
             }
           ]
         },
@@ -77,14 +77,14 @@
             {
               "rank": 4,
               "displayRank": 4,
-              "name": "GPT 6 Astra (Max)",
-              "rawName": "contenders/gpt-6-astra-max-agent",
-              "organization": "OpenAI",
-              "url": "https://openai.com/index/gpt-6-astra/",
-              "scoreText": "10.36%",
-              "rating": "10.36%",
+              "name": "Claude Fable 5.1 (Max)",
+              "rawName": "contenders/claude-fable-5.1-max-agent",
+              "organization": "Anthropic",
+              "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
+              "scoreText": "9.80%",
+              "rating": "9.80%",
               "isAgent": true,
-              "votes": "11,547 局实测",
+              "votes": "15,125 局实测",
               "license": "Proprietary",
               "contextLength": null
             },
@@ -95,8 +95,8 @@
               "rawName": "claude-sonnet-5.5-high-agent",
               "organization": "Anthropic",
               "url": "https://www.anthropic.com/news/claude-sonnet-5-5",
-              "scoreText": "10.28%",
-              "rating": "10.28%",
+              "scoreText": "9.75%",
+              "rating": "9.75%",
               "isAgent": true,
               "votes": "编辑预测 · Arena 样本累积中",
               "license": "Proprietary",
@@ -520,20 +520,6 @@
         {
           "rank": 1,
           "displayRank": 1,
-          "name": "Claude Fable 5.1 (Max)",
-          "rawName": "contenders/claude-fable-5.1-max-agent",
-          "organization": "Anthropic",
-          "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
-          "scoreText": "14.06%",
-          "rating": "14.06%",
-          "isAgent": true,
-          "votes": "15,125 局实测",
-          "license": "Proprietary",
-          "contextLength": null
-        },
-        {
-          "rank": 2,
-          "displayRank": 2,
           "name": "Gemini 4 Argon",
           "rawName": "gemini-4-argon",
           "organization": "Google",
@@ -548,8 +534,8 @@
           "isNewThisWeek": true
         },
         {
-          "rank": 3,
-          "displayRank": 3,
+          "rank": 2,
+          "displayRank": 2,
           "name": "Claude Opus 5.5 (High)",
           "rawName": "contenders/claude-opus-5.5-high-vertex-agent",
           "organization": "Anthropic",
@@ -563,8 +549,8 @@
           "isNewThisWeek": true
         },
         {
-          "rank": 4,
-          "displayRank": 4,
+          "rank": 3,
+          "displayRank": 3,
           "name": "GPT 6 Astra (Max)",
           "rawName": "contenders/gpt-6-astra-max-agent",
           "organization": "OpenAI",
@@ -577,14 +563,28 @@
           "contextLength": null
         },
         {
+          "rank": 4,
+          "displayRank": 4,
+          "name": "Claude Fable 5.1 (Max)",
+          "rawName": "contenders/claude-fable-5.1-max-agent",
+          "organization": "Anthropic",
+          "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
+          "scoreText": "9.80%",
+          "rating": "9.80%",
+          "isAgent": true,
+          "votes": "15,125 局实测",
+          "license": "Proprietary",
+          "contextLength": null
+        },
+        {
           "rank": 5,
           "displayRank": 5,
           "name": "Claude Sonnet 5.5 (High)",
           "rawName": "claude-sonnet-5.5-high-agent",
           "organization": "Anthropic",
           "url": "https://www.anthropic.com/news/claude-sonnet-5-5",
-          "scoreText": "10.28%",
-          "rating": "10.28%",
+          "scoreText": "9.75%",
+          "rating": "9.75%",
           "isAgent": true,
           "votes": "编辑预测 · Arena 样本累积中",
           "license": "Proprietary",
