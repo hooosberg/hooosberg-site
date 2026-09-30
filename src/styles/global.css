@@ -45,17 +45,20 @@
 html {
   scroll-behavior: smooth;
   background: var(--bg);
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-width: 320px;
+  width: 100%;
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
   letter-spacing: 0;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 a {
@@ -2653,12 +2656,16 @@ main.main--ai-directory {
 .directory-content [data-directory-view="ranking"] {
   display: grid;
   gap: 38px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .directory-group {
   display: grid;
   gap: 12px;
   scroll-margin-top: 116px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .directory-group__heading {
@@ -2668,6 +2675,8 @@ main.main--ai-directory {
   align-items: end;
   border-bottom: 1px solid var(--line);
   padding-bottom: 12px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .directory-group__heading p {
@@ -2701,16 +2710,22 @@ main.main--ai-directory {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 9px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .directory-subgroup-list {
   display: grid;
   gap: 28px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .directory-subgroup {
   display: grid;
   gap: 12px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .directory-subgroup__heading {
@@ -2718,6 +2733,8 @@ main.main--ai-directory {
   gap: 6px;
   border-top: 1px solid var(--line);
   padding-top: 18px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .directory-subgroup:first-child .directory-subgroup__heading {
@@ -2756,6 +2773,8 @@ main.main--ai-directory {
   backdrop-filter: blur(18px);
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
   box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .directory-card:hover {
@@ -2892,10 +2911,10 @@ main.main--ai-directory {
 .directory-card__country {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 5px;
   color: var(--muted-2);
   font-weight: 700;
-  white-space: nowrap;
 }
 
 .directory-card__country span,
@@ -3795,6 +3814,8 @@ main.main--ai-directory {
   justify-content: space-between;
   padding: 16px;
   box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
   transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
 }
 
@@ -3919,7 +3940,9 @@ main.main--ai-directory {
   font-size: 11.5px;
   font-weight: 500;
   white-space: nowrap;
-  flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .product-card__meta-sep {
@@ -3934,7 +3957,7 @@ main.main--ai-directory {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: auto;
   pointer-events: auto;
@@ -6642,16 +6665,21 @@ main.main--ai-directory {
   .home-directory-card-grid,
   .platform-card-grid,
   .product-diary-index {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    max-width: 100%;
   }
 
   .ai-directory-shell {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    max-width: 100%;
   }
 
   .directory-content {
     grid-column: 1;
     min-width: 0;
+    max-width: 100%;
   }
 
   .ai-directory-shell[data-mode="alternatives"] .directory-sidebar {
@@ -6682,7 +6710,9 @@ main.main--ai-directory {
 
   .directory-group__heading,
   .directory-card-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    max-width: 100%;
   }
 
   .alternative-pair {
@@ -6809,10 +6839,19 @@ main.main--ai-directory {
   .nav-links {
     grid-area: nav;
     justify-self: stretch;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
     gap: 8px;
     width: 100%;
     padding-bottom: 1px;
     font-size: 12px;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
   }
 
   .nav-links a {
@@ -7189,33 +7228,41 @@ main.main--ai-directory {
     top: calc(var(--mobile-header-stick) + var(--directory-sticky-gap));
     z-index: 70;
     width: 100%;
+    max-width: 100%;
     margin-top: 18px;
     border-color: color-mix(in srgb, var(--line) 72%, transparent);
     background: color-mix(in srgb, var(--bg-strong) 86%, transparent);
     box-shadow:
       0 1px 0 color-mix(in srgb, var(--line-soft) 80%, transparent),
       0 14px 30px color-mix(in srgb, var(--bg) 74%, transparent);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px;
+    box-sizing: border-box;
   }
 
-  .directory-mode-toggle button {
-    flex: 1 1 0;
-    min-width: 0;
-    overflow: hidden;
-    padding: 0 10px;
-    font-size: 12px;
-    text-overflow: ellipsis;
+  .directory-mode-toggle::-webkit-scrollbar {
+    display: none;
   }
 
+  .directory-mode-toggle button,
   .directory-mode-toggle a {
-    flex: 1 1 0;
+    flex: 1 0 auto;
     min-width: 0;
     overflow: hidden;
-    padding: 0 10px;
+    padding: 0 11px;
     font-size: 12px;
+    height: 34px;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
   }
 
   .ai-directory-shell {
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    max-width: 100%;
     gap: 20px;
     padding: 24px 0 68px;
   }
@@ -7251,17 +7298,27 @@ main.main--ai-directory {
 
   .directory-content {
     gap: 34px;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .directory-group {
     scroll-margin-top: calc(var(--mobile-header-stick) + var(--directory-sticky-gap) + var(--directory-mode-stick-height) + var(--directory-sidebar-stick-height) + 24px);
+    min-width: 0;
+    max-width: 100%;
   }
 
   .directory-card {
-    grid-template-columns: 54px 34px minmax(0, 1fr);
-    gap: 9px;
     min-height: auto;
-    padding: 14px;
+    padding: 12px 12px 10px;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .directory-card__footer {
+    flex-wrap: wrap;
+    gap: 6px;
   }
 
   .directory-card__icon {

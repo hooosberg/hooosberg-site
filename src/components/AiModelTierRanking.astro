@@ -1662,18 +1662,23 @@ const categoriesDropdownPayload = JSON.stringify(
       max-width: 100%;
     }
 
+    .pill-org-badge,
     .pill-org {
-      display: none;
+      display: none !important;
     }
 
     .pill-name {
-      max-width: 130px;
+      max-width: calc(100vw - 160px) !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+      flex-shrink: 1 !important;
     }
 
     .model-pill--hang .pill-name,
     .model-pill--dingji .pill-name,
     .model-pill--top10 .pill-name {
-      max-width: calc(100vw - 160px) !important;
+      max-width: calc(100vw - 150px) !important;
       overflow: hidden !important;
       text-overflow: ellipsis !important;
       white-space: nowrap !important;
