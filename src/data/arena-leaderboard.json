@@ -37,6 +37,22 @@
             {
               "rank": 2,
               "displayRank": 2,
+              "name": "Gemini 4 Argon",
+              "rawName": "gemini-4-argon",
+              "organization": "Google",
+              "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+              "scoreText": "12.50%",
+              "rating": "12.50%",
+              "isAgent": true,
+              "votes": "13项基准全球#1",
+              "forecastBasis": "DeepMind官方19项基准实测：DeepSWE 77.9%全球#1、长文本84.2%断层碾压、法律金融Agent全线登顶",
+              "contextLength": 1000000,
+              "license": "Proprietary",
+              "isNewThisWeek": true
+            },
+            {
+              "rank": 3,
+              "displayRank": 3,
               "name": "Claude Opus 5.5 (High)",
               "rawName": "contenders/claude-opus-5.5-high-vertex-agent",
               "organization": "Anthropic",
@@ -47,21 +63,6 @@
               "votes": "6,030 局实测",
               "license": "Proprietary",
               "contextLength": null,
-              "isNewThisWeek": true
-            },
-            {
-              "rank": 3,
-              "displayRank": 3,
-              "name": "Gemini 4 Argon",
-              "rawName": "gemini-4-argon",
-              "organization": "Google",
-              "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
-              "scoreText": "11.20%",
-              "rating": "11.20%",
-              "isAgent": true,
-              "votes": "DeepSWE 77.9% 全球#1 实测",
-              "license": "Proprietary",
-              "contextLength": 1000000,
               "isNewThisWeek": true
             }
           ]
@@ -533,6 +534,22 @@
         {
           "rank": 2,
           "displayRank": 2,
+          "name": "Gemini 4 Argon",
+          "rawName": "gemini-4-argon",
+          "organization": "Google",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+          "scoreText": "12.50%",
+          "rating": "12.50%",
+          "isAgent": true,
+          "votes": "13项基准全球#1",
+          "forecastBasis": "DeepMind官方19项基准实测：DeepSWE 77.9%全球#1、长文本84.2%断层碾压、法律金融Agent全线登顶",
+          "contextLength": 1000000,
+          "license": "Proprietary",
+          "isNewThisWeek": true
+        },
+        {
+          "rank": 3,
+          "displayRank": 3,
           "name": "Claude Opus 5.5 (High)",
           "rawName": "contenders/claude-opus-5.5-high-vertex-agent",
           "organization": "Anthropic",
@@ -543,21 +560,6 @@
           "votes": "6,030 局实测",
           "license": "Proprietary",
           "contextLength": null,
-          "isNewThisWeek": true
-        },
-        {
-          "rank": 3,
-          "displayRank": 3,
-          "name": "Gemini 4 Argon",
-          "rawName": "gemini-4-argon",
-          "organization": "Google",
-          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
-          "scoreText": "11.20%",
-          "rating": "11.20%",
-          "isAgent": true,
-          "votes": "DeepSWE 77.9% 全球#1 实测",
-          "license": "Proprietary",
-          "contextLength": 1000000,
           "isNewThisWeek": true
         },
         {
@@ -2516,14 +2518,14 @@
             {
               "rank": 3,
               "displayRank": 3,
-              "name": "Claude Sonnet 5.5",
-              "rawName": "Claude Sonnet 5.5",
-              "organization": "Anthropic",
-              "url": "https://www.anthropic.com/news/claude-sonnet-5-5",
-              "scoreText": "1762分",
-              "rating": 1762,
+              "name": "Gemini 4 Argon",
+              "rawName": "gemini-4-argon",
+              "organization": "Google",
+              "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+              "scoreText": "1795分",
+              "rating": 1795,
               "isAgent": false,
-              "votes": "8,920 票",
+              "votes": "DeepSWE 77.9% 全球#1",
               "contextLength": 1000000,
               "license": "Proprietary",
               "isNewThisWeek": true
@@ -2540,6 +2542,21 @@
             {
               "rank": 4,
               "displayRank": 4,
+              "name": "Claude Sonnet 5.5",
+              "rawName": "Claude Sonnet 5.5",
+              "organization": "Anthropic",
+              "url": "https://www.anthropic.com/news/claude-sonnet-5-5",
+              "scoreText": "1762分",
+              "rating": 1762,
+              "isAgent": false,
+              "votes": "8,920 票",
+              "contextLength": 1000000,
+              "license": "Proprietary",
+              "isNewThisWeek": true
+            },
+            {
+              "rank": 5,
+              "displayRank": 5,
               "name": "GPT 6.1 Sol",
               "rawName": "gpt-6.1-sol-max",
               "organization": "OpenAI",
@@ -2552,8 +2569,8 @@
               "isNewThisWeek": true
             },
             {
-              "rank": 5,
-              "displayRank": 5,
+              "rank": 6,
+              "displayRank": 6,
               "name": "claude-fable-5.1-max",
               "rawName": "claude-fable-5.1-max",
               "organization": "Anthropic",
@@ -2566,8 +2583,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 6,
-              "displayRank": 6,
+              "rank": 7,
+              "displayRank": 7,
               "name": "claude-opus-5-max",
               "rawName": "claude-opus-5-max",
               "organization": "Anthropic",
@@ -2577,20 +2594,6 @@
               "isAgent": false,
               "votes": "12,087 票",
               "contextLength": 1000000,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 7,
-              "displayRank": 7,
-              "name": "qwen3.8-max-0902",
-              "rawName": "qwen3.8-max-0902",
-              "organization": "Alibaba",
-              "url": "https://www.qianwenai.com/models/qwen3.8-max-0902",
-              "scoreText": "1681分",
-              "rating": 1681,
-              "isAgent": false,
-              "votes": "2,262 票",
-              "contextLength": null,
               "license": "Proprietary"
             }
           ]
@@ -2605,17 +2608,16 @@
             {
               "rank": 8,
               "displayRank": 8,
-              "name": "Gemini 4 Argon",
-              "rawName": "gemini-4-argon-high",
-              "organization": "Google",
-              "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
-              "scoreText": "1679分",
-              "rating": 1679,
+              "name": "qwen3.8-max-0902",
+              "rawName": "qwen3.8-max-0902",
+              "organization": "Alibaba",
+              "url": "https://www.qianwenai.com/models/qwen3.8-max-0902",
+              "scoreText": "1681分",
+              "rating": 1681,
               "isAgent": false,
-              "votes": "2,184 票",
-              "contextLength": 1000000,
-              "license": "Proprietary",
-              "isNewThisWeek": true
+              "votes": "2,262 票",
+              "contextLength": null,
+              "license": "Proprietary"
             },
             {
               "rank": 9,
@@ -3009,6 +3011,21 @@
         {
           "rank": 3,
           "displayRank": 3,
+          "name": "Gemini 4 Argon",
+          "rawName": "gemini-4-argon",
+          "organization": "Google",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+          "scoreText": "1795分",
+          "rating": 1795,
+          "isAgent": false,
+          "votes": "DeepSWE 77.9% 全球#1",
+          "contextLength": 1000000,
+          "license": "Proprietary",
+          "isNewThisWeek": true
+        },
+        {
+          "rank": 4,
+          "displayRank": 4,
           "name": "Claude Sonnet 5.5",
           "rawName": "Claude Sonnet 5.5",
           "organization": "Anthropic",
@@ -3022,8 +3039,8 @@
           "isNewThisWeek": true
         },
         {
-          "rank": 4,
-          "displayRank": 4,
+          "rank": 5,
+          "displayRank": 5,
           "name": "GPT 6.1 Sol",
           "rawName": "gpt-6.1-sol-max",
           "organization": "OpenAI",
@@ -3036,8 +3053,8 @@
           "isNewThisWeek": true
         },
         {
-          "rank": 5,
-          "displayRank": 5,
+          "rank": 6,
+          "displayRank": 6,
           "name": "claude-fable-5.1-max",
           "rawName": "claude-fable-5.1-max",
           "organization": "Anthropic",
@@ -3050,8 +3067,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 6,
-          "displayRank": 6,
+          "rank": 7,
+          "displayRank": 7,
           "name": "claude-opus-5-max",
           "rawName": "claude-opus-5-max",
           "organization": "Anthropic",
@@ -3064,8 +3081,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 7,
-          "displayRank": 7,
+          "rank": 8,
+          "displayRank": 8,
           "name": "qwen3.8-max-0902",
           "rawName": "qwen3.8-max-0902",
           "organization": "Alibaba",
@@ -3076,21 +3093,6 @@
           "votes": "2,262 票",
           "contextLength": null,
           "license": "Proprietary"
-        },
-        {
-          "rank": 8,
-          "displayRank": 8,
-          "name": "Gemini 4 Argon",
-          "rawName": "gemini-4-argon-high",
-          "organization": "Google",
-          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
-          "scoreText": "1679分",
-          "rating": 1679,
-          "isAgent": false,
-          "votes": "2,184 票",
-          "contextLength": 1000000,
-          "license": "Proprietary",
-          "isNewThisWeek": true
         },
         {
           "rank": 9,
@@ -3775,7 +3777,7 @@
       "desc": "考核大模型的“眼睛”，看懂复杂照片、图表、界面截图并深入推理解析的能力",
       "icon": "👁️",
       "isAgent": false,
-      "totalCount": 50,
+      "totalCount": 51,
       "tiers": {
         "hang": {
           "key": "hang",
@@ -3787,6 +3789,21 @@
             {
               "rank": 1,
               "displayRank": 1,
+              "name": "Gemini 4 Argon",
+              "rawName": "gemini-4-argon",
+              "organization": "Google",
+              "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+              "scoreText": "1325分",
+              "rating": 1325,
+              "isAgent": false,
+              "votes": "Chartography & LVBench #1",
+              "contextLength": 1000000,
+              "license": "Proprietary",
+              "isNewThisWeek": true
+            },
+            {
+              "rank": 2,
+              "displayRank": 2,
               "name": "claude-fable-5-high",
               "rawName": "claude-fable-5-high",
               "organization": "Anthropic",
@@ -3799,8 +3816,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 2,
-              "displayRank": 2,
+              "rank": 3,
+              "displayRank": 3,
               "name": "qwen3.8-max",
               "rawName": "qwen3.8-max",
               "organization": "Alibaba",
@@ -3809,20 +3826,6 @@
               "rating": 1302,
               "isAgent": false,
               "votes": "8,665 票",
-              "contextLength": 1000000,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 3,
-              "displayRank": 3,
-              "name": "claude-opus-4-7-high",
-              "rawName": "claude-opus-4-7-high",
-              "organization": "Anthropic",
-              "url": "https://www.anthropic.com/news/claude-opus-4-7",
-              "scoreText": "1301分",
-              "rating": 1301,
-              "isAgent": false,
-              "votes": "21,092 票",
               "contextLength": 1000000,
               "license": "Proprietary"
             }
@@ -3838,6 +3841,20 @@
             {
               "rank": 4,
               "displayRank": 4,
+              "name": "claude-opus-4-7-high",
+              "rawName": "claude-opus-4-7-high",
+              "organization": "Anthropic",
+              "url": "https://www.anthropic.com/news/claude-opus-4-7",
+              "scoreText": "1301分",
+              "rating": 1301,
+              "isAgent": false,
+              "votes": "21,092 票",
+              "contextLength": 1000000,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 5,
+              "displayRank": 5,
               "name": "claude-opus-4-7",
               "rawName": "claude-opus-4-7",
               "organization": "Anthropic",
@@ -3850,8 +3867,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 5,
-              "displayRank": 5,
+              "rank": 6,
+              "displayRank": 6,
               "name": "claude-opus-4-6-high",
               "rawName": "claude-opus-4-6-high",
               "organization": "Anthropic",
@@ -3864,8 +3881,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 6,
-              "displayRank": 6,
+              "rank": 7,
+              "displayRank": 7,
               "name": "muse-spark-1.3-max",
               "rawName": "muse-spark-1.3-max",
               "organization": "Meta",
@@ -3874,20 +3891,6 @@
               "rating": 1294,
               "isAgent": false,
               "votes": "1,804 票",
-              "contextLength": null,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 7,
-              "displayRank": 7,
-              "name": "muse-spark",
-              "rawName": "muse-spark",
-              "organization": "Meta",
-              "url": "https://ai.meta.com/blog/introducing-muse-spark-msl/",
-              "scoreText": "1294分",
-              "rating": 1294,
-              "isAgent": false,
-              "votes": "5,572 票",
               "contextLength": null,
               "license": "Proprietary"
             }
@@ -3903,6 +3906,20 @@
             {
               "rank": 8,
               "displayRank": 8,
+              "name": "muse-spark",
+              "rawName": "muse-spark",
+              "organization": "Meta",
+              "url": "https://ai.meta.com/blog/introducing-muse-spark-msl/",
+              "scoreText": "1294分",
+              "rating": 1294,
+              "isAgent": false,
+              "votes": "5,572 票",
+              "contextLength": null,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 9,
+              "displayRank": 9,
               "name": "claude-opus-4-6",
               "rawName": "claude-opus-4-6",
               "organization": "Anthropic",
@@ -3915,8 +3932,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 9,
-              "displayRank": 9,
+              "rank": 10,
+              "displayRank": 10,
               "name": "muse-spark-1.2 (xHigh)",
               "rawName": "muse-spark-1.2 (xHigh)",
               "organization": "Meta",
@@ -3929,8 +3946,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 10,
-              "displayRank": 10,
+              "rank": 11,
+              "displayRank": 11,
               "name": "claude-opus-5-high",
               "rawName": "claude-opus-5-high",
               "organization": "Anthropic",
@@ -3943,8 +3960,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 11,
-              "displayRank": 11,
+              "rank": 12,
+              "displayRank": 12,
               "name": "claude-fable-5.1-max",
               "rawName": "claude-fable-5.1-max",
               "organization": "Anthropic",
@@ -3957,8 +3974,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 12,
-              "displayRank": 12,
+              "rank": 13,
+              "displayRank": 13,
               "name": "gemini-3-pro",
               "rawName": "gemini-3-pro",
               "organization": "Google",
@@ -3971,8 +3988,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 13,
-              "displayRank": 13,
+              "rank": 14,
+              "displayRank": 14,
               "name": "gpt-5.5",
               "rawName": "gpt-5.5",
               "organization": "OpenAI",
@@ -3982,20 +3999,6 @@
               "isAgent": false,
               "votes": "23,423 票",
               "contextLength": 1050000,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 14,
-              "displayRank": 14,
-              "name": "gpt-5.6-sol-xhigh",
-              "rawName": "gpt-5.6-sol-xhigh",
-              "organization": "OpenAI",
-              "url": "https://openai.com/index/gpt-5-6/",
-              "scoreText": "1286分",
-              "rating": 1286,
-              "isAgent": false,
-              "votes": "7,729 票",
-              "contextLength": null,
               "license": "Proprietary"
             }
           ]
@@ -4010,6 +4013,20 @@
             {
               "rank": 15,
               "displayRank": 15,
+              "name": "gpt-5.6-sol-xhigh",
+              "rawName": "gpt-5.6-sol-xhigh",
+              "organization": "OpenAI",
+              "url": "https://openai.com/index/gpt-5-6/",
+              "scoreText": "1286分",
+              "rating": 1286,
+              "isAgent": false,
+              "votes": "7,729 票",
+              "contextLength": null,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 16,
+              "displayRank": 16,
               "name": "gpt-5.4-high",
               "rawName": "gpt-5.4-high",
               "organization": "OpenAI",
@@ -4022,8 +4039,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 16,
-              "displayRank": 16,
+              "rank": 17,
+              "displayRank": 17,
               "name": "gpt-6-astra-max",
               "rawName": "gpt-6-astra-max",
               "organization": "OpenAI",
@@ -4036,8 +4053,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 17,
-              "displayRank": 17,
+              "rank": 18,
+              "displayRank": 18,
               "name": "gemini-3.5-flash-high",
               "rawName": "gemini-3.5-flash-high",
               "organization": "Google",
@@ -4050,8 +4067,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 18,
-              "displayRank": 18,
+              "rank": 19,
+              "displayRank": 19,
               "name": "claude-opus-4-8-high",
               "rawName": "claude-opus-4-8-high",
               "organization": "Anthropic",
@@ -4064,8 +4081,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 19,
-              "displayRank": 19,
+              "rank": 20,
+              "displayRank": 20,
               "name": "gpt-5.5-high",
               "rawName": "gpt-5.5-high",
               "organization": "OpenAI",
@@ -4078,8 +4095,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 20,
-              "displayRank": 20,
+              "rank": 21,
+              "displayRank": 21,
               "name": "gemini-3.5-flash-medium",
               "rawName": "gemini-3.5-flash-medium",
               "organization": "Google",
@@ -4092,8 +4109,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 21,
-              "displayRank": 21,
+              "rank": 22,
+              "displayRank": 22,
               "name": "gemini-3.6-flash-high",
               "rawName": "gemini-3.6-flash-high",
               "organization": "Google",
@@ -4106,8 +4123,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 22,
-              "displayRank": 22,
+              "rank": 23,
+              "displayRank": 23,
               "name": "muse-spark-1.1",
               "rawName": "muse-spark-1.1",
               "organization": "Meta",
@@ -4117,20 +4134,6 @@
               "isAgent": false,
               "votes": "8,447 票",
               "contextLength": 1048576,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 23,
-              "displayRank": 23,
-              "name": "gpt-5.4",
-              "rawName": "gpt-5.4",
-              "organization": "OpenAI",
-              "url": "https://platform.openai.com/docs/models/gpt-5.4",
-              "scoreText": "1280分",
-              "rating": 1280,
-              "isAgent": false,
-              "votes": "21,188 票",
-              "contextLength": 1050000,
               "license": "Proprietary"
             }
           ]
@@ -4145,6 +4148,20 @@
             {
               "rank": 24,
               "displayRank": 24,
+              "name": "gpt-5.4",
+              "rawName": "gpt-5.4",
+              "organization": "OpenAI",
+              "url": "https://platform.openai.com/docs/models/gpt-5.4",
+              "scoreText": "1280分",
+              "rating": 1280,
+              "isAgent": false,
+              "votes": "21,188 票",
+              "contextLength": 1050000,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 25,
+              "displayRank": 25,
               "name": "grok-4.5",
               "rawName": "grok-4.5",
               "organization": "SpaceXAI",
@@ -4157,8 +4174,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 25,
-              "displayRank": 25,
+              "rank": 26,
+              "displayRank": 26,
               "name": "claude-opus-4-8",
               "rawName": "claude-opus-4-8",
               "organization": "Anthropic",
@@ -4171,8 +4188,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 26,
-              "displayRank": 26,
+              "rank": 27,
+              "displayRank": 27,
               "name": "gemini-3.1-pro-preview",
               "rawName": "gemini-3.1-pro-preview",
               "organization": "Google",
@@ -4185,8 +4202,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 27,
-              "displayRank": 27,
+              "rank": 28,
+              "displayRank": 28,
               "name": "gpt-5.2-chat-latest-20260210",
               "rawName": "gpt-5.2-chat-latest-20260210",
               "organization": "OpenAI",
@@ -4199,8 +4216,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 28,
-              "displayRank": 28,
+              "rank": 29,
+              "displayRank": 29,
               "name": "gpt-5.5-instant",
               "rawName": "gpt-5.5-instant",
               "organization": "OpenAI",
@@ -4213,8 +4230,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 29,
-              "displayRank": 29,
+              "rank": 30,
+              "displayRank": 30,
               "name": "claude-sonnet-4-6",
               "rawName": "claude-sonnet-4-6",
               "organization": "Anthropic",
@@ -4227,8 +4244,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 30,
-              "displayRank": 30,
+              "rank": 31,
+              "displayRank": 31,
               "name": "glm-5.3-flash",
               "rawName": "glm-5.3-flash",
               "organization": "Z.ai",
@@ -4241,8 +4258,8 @@
               "license": "MIT"
             },
             {
-              "rank": 31,
-              "displayRank": 31,
+              "rank": 32,
+              "displayRank": 32,
               "name": "gemini-3-flash",
               "rawName": "gemini-3-flash",
               "organization": "Google",
@@ -4253,20 +4270,6 @@
               "votes": "36,679 票",
               "contextLength": 1048576,
               "license": "Proprietary"
-            },
-            {
-              "rank": 32,
-              "displayRank": 32,
-              "name": "gpt-5.6-terra-xhigh",
-              "rawName": "gpt-5.6-terra-xhigh",
-              "organization": "OpenAI",
-              "url": "https://openai.com/index/gpt-5-6/",
-              "scoreText": "1267分",
-              "rating": 1267,
-              "isAgent": false,
-              "votes": "7,726 票",
-              "contextLength": null,
-              "license": "Proprietary"
             }
           ]
         }
@@ -4275,6 +4278,21 @@
         {
           "rank": 1,
           "displayRank": 1,
+          "name": "Gemini 4 Argon",
+          "rawName": "gemini-4-argon",
+          "organization": "Google",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+          "scoreText": "1325分",
+          "rating": 1325,
+          "isAgent": false,
+          "votes": "Chartography & LVBench #1",
+          "contextLength": 1000000,
+          "license": "Proprietary",
+          "isNewThisWeek": true
+        },
+        {
+          "rank": 2,
+          "displayRank": 2,
           "name": "claude-fable-5-high",
           "rawName": "claude-fable-5-high",
           "organization": "Anthropic",
@@ -4287,8 +4305,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 2,
-          "displayRank": 2,
+          "rank": 3,
+          "displayRank": 3,
           "name": "qwen3.8-max",
           "rawName": "qwen3.8-max",
           "organization": "Alibaba",
@@ -4301,8 +4319,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 3,
-          "displayRank": 3,
+          "rank": 4,
+          "displayRank": 4,
           "name": "claude-opus-4-7-high",
           "rawName": "claude-opus-4-7-high",
           "organization": "Anthropic",
@@ -4315,8 +4333,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 4,
-          "displayRank": 4,
+          "rank": 5,
+          "displayRank": 5,
           "name": "claude-opus-4-7",
           "rawName": "claude-opus-4-7",
           "organization": "Anthropic",
@@ -4329,8 +4347,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 5,
-          "displayRank": 5,
+          "rank": 6,
+          "displayRank": 6,
           "name": "claude-opus-4-6-high",
           "rawName": "claude-opus-4-6-high",
           "organization": "Anthropic",
@@ -4343,8 +4361,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 6,
-          "displayRank": 6,
+          "rank": 7,
+          "displayRank": 7,
           "name": "muse-spark-1.3-max",
           "rawName": "muse-spark-1.3-max",
           "organization": "Meta",
@@ -4357,8 +4375,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 7,
-          "displayRank": 7,
+          "rank": 8,
+          "displayRank": 8,
           "name": "muse-spark",
           "rawName": "muse-spark",
           "organization": "Meta",
@@ -4371,8 +4389,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 8,
-          "displayRank": 8,
+          "rank": 9,
+          "displayRank": 9,
           "name": "claude-opus-4-6",
           "rawName": "claude-opus-4-6",
           "organization": "Anthropic",
@@ -4385,8 +4403,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 9,
-          "displayRank": 9,
+          "rank": 10,
+          "displayRank": 10,
           "name": "muse-spark-1.2 (xHigh)",
           "rawName": "muse-spark-1.2 (xHigh)",
           "organization": "Meta",
@@ -4399,8 +4417,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 10,
-          "displayRank": 10,
+          "rank": 11,
+          "displayRank": 11,
           "name": "claude-opus-5-high",
           "rawName": "claude-opus-5-high",
           "organization": "Anthropic",
@@ -4413,8 +4431,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 11,
-          "displayRank": 11,
+          "rank": 12,
+          "displayRank": 12,
           "name": "claude-fable-5.1-max",
           "rawName": "claude-fable-5.1-max",
           "organization": "Anthropic",
@@ -4427,8 +4445,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 12,
-          "displayRank": 12,
+          "rank": 13,
+          "displayRank": 13,
           "name": "gemini-3-pro",
           "rawName": "gemini-3-pro",
           "organization": "Google",
@@ -4441,8 +4459,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 13,
-          "displayRank": 13,
+          "rank": 14,
+          "displayRank": 14,
           "name": "gpt-5.5",
           "rawName": "gpt-5.5",
           "organization": "OpenAI",
@@ -4455,8 +4473,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 14,
-          "displayRank": 14,
+          "rank": 15,
+          "displayRank": 15,
           "name": "gpt-5.6-sol-xhigh",
           "rawName": "gpt-5.6-sol-xhigh",
           "organization": "OpenAI",
@@ -4469,8 +4487,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 15,
-          "displayRank": 15,
+          "rank": 16,
+          "displayRank": 16,
           "name": "gpt-5.4-high",
           "rawName": "gpt-5.4-high",
           "organization": "OpenAI",
@@ -4483,8 +4501,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 16,
-          "displayRank": 16,
+          "rank": 17,
+          "displayRank": 17,
           "name": "gpt-6-astra-max",
           "rawName": "gpt-6-astra-max",
           "organization": "OpenAI",
@@ -4497,8 +4515,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 17,
-          "displayRank": 17,
+          "rank": 18,
+          "displayRank": 18,
           "name": "gemini-3.5-flash-high",
           "rawName": "gemini-3.5-flash-high",
           "organization": "Google",
@@ -4511,8 +4529,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 18,
-          "displayRank": 18,
+          "rank": 19,
+          "displayRank": 19,
           "name": "claude-opus-4-8-high",
           "rawName": "claude-opus-4-8-high",
           "organization": "Anthropic",
@@ -4525,8 +4543,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 19,
-          "displayRank": 19,
+          "rank": 20,
+          "displayRank": 20,
           "name": "gpt-5.5-high",
           "rawName": "gpt-5.5-high",
           "organization": "OpenAI",
@@ -4539,8 +4557,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 20,
-          "displayRank": 20,
+          "rank": 21,
+          "displayRank": 21,
           "name": "gemini-3.5-flash-medium",
           "rawName": "gemini-3.5-flash-medium",
           "organization": "Google",
@@ -4553,8 +4571,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 21,
-          "displayRank": 21,
+          "rank": 22,
+          "displayRank": 22,
           "name": "gemini-3.6-flash-high",
           "rawName": "gemini-3.6-flash-high",
           "organization": "Google",
@@ -4567,8 +4585,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 22,
-          "displayRank": 22,
+          "rank": 23,
+          "displayRank": 23,
           "name": "muse-spark-1.1",
           "rawName": "muse-spark-1.1",
           "organization": "Meta",
@@ -4581,8 +4599,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 23,
-          "displayRank": 23,
+          "rank": 24,
+          "displayRank": 24,
           "name": "gpt-5.4",
           "rawName": "gpt-5.4",
           "organization": "OpenAI",
@@ -4595,8 +4613,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 24,
-          "displayRank": 24,
+          "rank": 25,
+          "displayRank": 25,
           "name": "grok-4.5",
           "rawName": "grok-4.5",
           "organization": "SpaceXAI",
@@ -4609,8 +4627,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 25,
-          "displayRank": 25,
+          "rank": 26,
+          "displayRank": 26,
           "name": "claude-opus-4-8",
           "rawName": "claude-opus-4-8",
           "organization": "Anthropic",
@@ -4623,8 +4641,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 26,
-          "displayRank": 26,
+          "rank": 27,
+          "displayRank": 27,
           "name": "gemini-3.1-pro-preview",
           "rawName": "gemini-3.1-pro-preview",
           "organization": "Google",
@@ -4637,8 +4655,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 27,
-          "displayRank": 27,
+          "rank": 28,
+          "displayRank": 28,
           "name": "gpt-5.2-chat-latest-20260210",
           "rawName": "gpt-5.2-chat-latest-20260210",
           "organization": "OpenAI",
@@ -4651,8 +4669,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 28,
-          "displayRank": 28,
+          "rank": 29,
+          "displayRank": 29,
           "name": "gpt-5.5-instant",
           "rawName": "gpt-5.5-instant",
           "organization": "OpenAI",
@@ -4665,8 +4683,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 29,
-          "displayRank": 29,
+          "rank": 30,
+          "displayRank": 30,
           "name": "claude-sonnet-4-6",
           "rawName": "claude-sonnet-4-6",
           "organization": "Anthropic",
@@ -4679,8 +4697,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 30,
-          "displayRank": 30,
+          "rank": 31,
+          "displayRank": 31,
           "name": "glm-5.3-flash",
           "rawName": "glm-5.3-flash",
           "organization": "Z.ai",
@@ -4693,8 +4711,8 @@
           "license": "MIT"
         },
         {
-          "rank": 31,
-          "displayRank": 31,
+          "rank": 32,
+          "displayRank": 32,
           "name": "gemini-3-flash",
           "rawName": "gemini-3-flash",
           "organization": "Google",
@@ -4707,8 +4725,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 32,
-          "displayRank": 32,
+          "rank": 33,
+          "displayRank": 33,
           "name": "gpt-5.6-terra-xhigh",
           "rawName": "gpt-5.6-terra-xhigh",
           "organization": "OpenAI",
@@ -4721,8 +4739,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 33,
-          "displayRank": 33,
+          "rank": 34,
+          "displayRank": 34,
           "name": "claude-sonnet-5-high",
           "rawName": "claude-sonnet-5-high",
           "organization": "Anthropic",
@@ -4735,8 +4753,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 34,
-          "displayRank": 34,
+          "rank": 35,
+          "displayRank": 35,
           "name": "gemini-3.5-flash-lite",
           "rawName": "gemini-3.5-flash-lite",
           "organization": "Google",
@@ -4749,8 +4767,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 35,
-          "displayRank": 35,
+          "rank": 36,
+          "displayRank": 36,
           "name": "grok-4.6-high",
           "rawName": "grok-4.6-high",
           "organization": "SpaceXAI",
@@ -4763,8 +4781,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 36,
-          "displayRank": 36,
+          "rank": 37,
+          "displayRank": 37,
           "name": "qwen3.7-plus",
           "rawName": "qwen3.7-plus",
           "organization": "Alibaba",
@@ -4777,8 +4795,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 37,
-          "displayRank": 37,
+          "rank": 38,
+          "displayRank": 38,
           "name": "kimi-k2.6",
           "rawName": "kimi-k2.6",
           "organization": "Moonshot",
@@ -4791,8 +4809,8 @@
           "license": "Modified MIT"
         },
         {
-          "rank": 38,
-          "displayRank": 38,
+          "rank": 39,
+          "displayRank": 39,
           "name": "gemma-4-31b",
           "rawName": "gemma-4-31b",
           "organization": "Google",
@@ -4805,8 +4823,8 @@
           "license": "Apache 2.0"
         },
         {
-          "rank": 39,
-          "displayRank": 39,
+          "rank": 40,
+          "displayRank": 40,
           "name": "gemini-3-flash (thinking-minimal)",
           "rawName": "gemini-3-flash (thinking-minimal)",
           "organization": "Google",
@@ -4819,8 +4837,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 40,
-          "displayRank": 40,
+          "rank": 41,
+          "displayRank": 41,
           "name": "gpt-5.6-luna-xhigh",
           "rawName": "gpt-5.6-luna-xhigh",
           "organization": "OpenAI",
@@ -4833,8 +4851,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 41,
-          "displayRank": 41,
+          "rank": 42,
+          "displayRank": 42,
           "name": "dola-seed-2.0-pro",
           "rawName": "dola-seed-2.0-pro",
           "organization": "Bytedance",
@@ -4847,8 +4865,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 42,
-          "displayRank": 42,
+          "rank": 43,
+          "displayRank": 43,
           "name": "grok-4.20-beta-0309-reasoning",
           "rawName": "grok-4.20-beta-0309-reasoning",
           "organization": "SpaceXAI",
@@ -4861,8 +4879,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 43,
-          "displayRank": 43,
+          "rank": 44,
+          "displayRank": 44,
           "name": "gpt-5.4-mini-high",
           "rawName": "gpt-5.4-mini-high",
           "organization": "OpenAI",
@@ -4875,8 +4893,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 44,
-          "displayRank": 44,
+          "rank": 45,
+          "displayRank": 45,
           "name": "grok-4.20-multi-agent-beta-0309",
           "rawName": "grok-4.20-multi-agent-beta-0309",
           "organization": "SpaceXAI",
@@ -4889,8 +4907,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 45,
-          "displayRank": 45,
+          "rank": 46,
+          "displayRank": 46,
           "name": "gpt-5.1-high",
           "rawName": "gpt-5.1-high",
           "organization": "OpenAI",
@@ -4903,8 +4921,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 46,
-          "displayRank": 46,
+          "rank": 47,
+          "displayRank": 47,
           "name": "kimi-k2.5-thinking",
           "rawName": "kimi-k2.5-thinking",
           "organization": "Moonshot",
@@ -4917,8 +4935,8 @@
           "license": "Modified MIT"
         },
         {
-          "rank": 47,
-          "displayRank": 47,
+          "rank": 48,
+          "displayRank": 48,
           "name": "qwen3.5-397b-a17b",
           "rawName": "qwen3.5-397b-a17b",
           "organization": "Alibaba",
@@ -4931,8 +4949,8 @@
           "license": "Apache 2.0"
         },
         {
-          "rank": 48,
-          "displayRank": 48,
+          "rank": 49,
+          "displayRank": 49,
           "name": "gemini-2.5-pro",
           "rawName": "gemini-2.5-pro",
           "organization": "Google",
@@ -4945,8 +4963,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 49,
-          "displayRank": 49,
+          "rank": 50,
+          "displayRank": 50,
           "name": "qwen3.8-27b",
           "rawName": "qwen3.8-27b",
           "organization": "Alibaba",
@@ -4959,8 +4977,8 @@
           "license": "Apache 2.0"
         },
         {
-          "rank": 50,
-          "displayRank": 50,
+          "rank": 51,
+          "displayRank": 51,
           "name": "gpt-5.2-high",
           "rawName": "gpt-5.2-high",
           "organization": "OpenAI",
@@ -4981,7 +4999,7 @@
       "desc": "考核超长文档阅读记忆力，快速速读万字长文、专业论文与长财报并精准提炼总结",
       "icon": "📚",
       "isAgent": false,
-      "totalCount": 44,
+      "totalCount": 45,
       "tiers": {
         "hang": {
           "key": "hang",
@@ -4993,6 +5011,21 @@
             {
               "rank": 1,
               "displayRank": 1,
+              "name": "Gemini 4 Argon",
+              "rawName": "gemini-4-argon",
+              "organization": "Google",
+              "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+              "scoreText": "1532分",
+              "rating": 1532,
+              "isAgent": false,
+              "votes": "1M GraphWalks 84.2% #1",
+              "contextLength": 1000000,
+              "license": "Proprietary",
+              "isNewThisWeek": true
+            },
+            {
+              "rank": 2,
+              "displayRank": 2,
               "name": "claude-opus-5-high",
               "rawName": "claude-opus-5-high",
               "organization": "Anthropic",
@@ -5005,8 +5038,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 2,
-              "displayRank": 2,
+              "rank": 3,
+              "displayRank": 3,
               "name": "claude-fable-5.1-max",
               "rawName": "claude-fable-5.1-max",
               "organization": "Anthropic",
@@ -5015,20 +5048,6 @@
               "rating": 1513,
               "isAgent": false,
               "votes": "1,403 票",
-              "contextLength": 1000000,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 3,
-              "displayRank": 3,
-              "name": "claude-opus-4-6-high",
-              "rawName": "claude-opus-4-6-high",
-              "organization": "Anthropic",
-              "url": "https://www.anthropic.com/news/claude-opus-4-6",
-              "scoreText": "1507分",
-              "rating": 1507,
-              "isAgent": false,
-              "votes": "27,929 票",
               "contextLength": 1000000,
               "license": "Proprietary"
             }
@@ -5044,6 +5063,20 @@
             {
               "rank": 4,
               "displayRank": 4,
+              "name": "claude-opus-4-6-high",
+              "rawName": "claude-opus-4-6-high",
+              "organization": "Anthropic",
+              "url": "https://www.anthropic.com/news/claude-opus-4-6",
+              "scoreText": "1507分",
+              "rating": 1507,
+              "isAgent": false,
+              "votes": "27,929 票",
+              "contextLength": 1000000,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 5,
+              "displayRank": 5,
               "name": "claude-opus-4-6",
               "rawName": "claude-opus-4-6",
               "organization": "Anthropic",
@@ -5056,8 +5089,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 5,
-              "displayRank": 5,
+              "rank": 6,
+              "displayRank": 6,
               "name": "claude-fable-5-high",
               "rawName": "claude-fable-5-high",
               "organization": "Anthropic",
@@ -5070,8 +5103,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 6,
-              "displayRank": 6,
+              "rank": 7,
+              "displayRank": 7,
               "name": "claude-opus-4-7",
               "rawName": "claude-opus-4-7",
               "organization": "Anthropic",
@@ -5080,20 +5113,6 @@
               "rating": 1495,
               "isAgent": false,
               "votes": "22,192 票",
-              "contextLength": 1000000,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 7,
-              "displayRank": 7,
-              "name": "claude-opus-4-7-high",
-              "rawName": "claude-opus-4-7-high",
-              "organization": "Anthropic",
-              "url": "https://www.anthropic.com/news/claude-opus-4-7",
-              "scoreText": "1495分",
-              "rating": 1495,
-              "isAgent": false,
-              "votes": "21,957 票",
               "contextLength": 1000000,
               "license": "Proprietary"
             }
@@ -5109,6 +5128,20 @@
             {
               "rank": 8,
               "displayRank": 8,
+              "name": "claude-opus-4-7-high",
+              "rawName": "claude-opus-4-7-high",
+              "organization": "Anthropic",
+              "url": "https://www.anthropic.com/news/claude-opus-4-7",
+              "scoreText": "1495分",
+              "rating": 1495,
+              "isAgent": false,
+              "votes": "21,957 票",
+              "contextLength": 1000000,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 9,
+              "displayRank": 9,
               "name": "gpt-5.5",
               "rawName": "gpt-5.5",
               "organization": "OpenAI",
@@ -5121,8 +5154,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 9,
-              "displayRank": 9,
+              "rank": 10,
+              "displayRank": 10,
               "name": "gpt-5.5-high",
               "rawName": "gpt-5.5-high",
               "organization": "OpenAI",
@@ -5135,8 +5168,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 10,
-              "displayRank": 10,
+              "rank": 11,
+              "displayRank": 11,
               "name": "gpt-5.6-sol-xhigh",
               "rawName": "gpt-5.6-sol-xhigh",
               "organization": "OpenAI",
@@ -5149,8 +5182,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 11,
-              "displayRank": 11,
+              "rank": 12,
+              "displayRank": 12,
               "name": "claude-sonnet-4-6",
               "rawName": "claude-sonnet-4-6",
               "organization": "Anthropic",
@@ -5163,8 +5196,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 12,
-              "displayRank": 12,
+              "rank": 13,
+              "displayRank": 13,
               "name": "claude-opus-4-8-high",
               "rawName": "claude-opus-4-8-high",
               "organization": "Anthropic",
@@ -5177,8 +5210,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 13,
-              "displayRank": 13,
+              "rank": 14,
+              "displayRank": 14,
               "name": "gpt-5.6-terra-xhigh",
               "rawName": "gpt-5.6-terra-xhigh",
               "organization": "OpenAI",
@@ -5188,20 +5221,6 @@
               "isAgent": false,
               "votes": "5,787 票",
               "contextLength": null,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 14,
-              "displayRank": 14,
-              "name": "gpt-5.4",
-              "rawName": "gpt-5.4",
-              "organization": "OpenAI",
-              "url": "https://platform.openai.com/docs/models/gpt-5.4",
-              "scoreText": "1471分",
-              "rating": 1471,
-              "isAgent": false,
-              "votes": "33,331 票",
-              "contextLength": 1050000,
               "license": "Proprietary"
             }
           ]
@@ -5216,6 +5235,20 @@
             {
               "rank": 15,
               "displayRank": 15,
+              "name": "gpt-5.4",
+              "rawName": "gpt-5.4",
+              "organization": "OpenAI",
+              "url": "https://platform.openai.com/docs/models/gpt-5.4",
+              "scoreText": "1471分",
+              "rating": 1471,
+              "isAgent": false,
+              "votes": "33,331 票",
+              "contextLength": 1050000,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 16,
+              "displayRank": 16,
               "name": "muse-spark-1.3-max",
               "rawName": "muse-spark-1.3-max",
               "organization": "Meta",
@@ -5228,8 +5261,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 16,
-              "displayRank": 16,
+              "rank": 17,
+              "displayRank": 17,
               "name": "gpt-6-astra-max",
               "rawName": "gpt-6-astra-max",
               "organization": "OpenAI",
@@ -5242,8 +5275,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 17,
-              "displayRank": 17,
+              "rank": 18,
+              "displayRank": 18,
               "name": "claude-sonnet-5-high",
               "rawName": "claude-sonnet-5-high",
               "organization": "Anthropic",
@@ -5256,8 +5289,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 18,
-              "displayRank": 18,
+              "rank": 19,
+              "displayRank": 19,
               "name": "muse-spark-1.1",
               "rawName": "muse-spark-1.1",
               "organization": "Meta",
@@ -5270,8 +5303,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 19,
-              "displayRank": 19,
+              "rank": 20,
+              "displayRank": 20,
               "name": "claude-opus-4-8",
               "rawName": "claude-opus-4-8",
               "organization": "Anthropic",
@@ -5284,8 +5317,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 20,
-              "displayRank": 20,
+              "rank": 21,
+              "displayRank": 21,
               "name": "gemini-3.5-flash-medium",
               "rawName": "gemini-3.5-flash-medium",
               "organization": "Google",
@@ -5298,8 +5331,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 21,
-              "displayRank": 21,
+              "rank": 22,
+              "displayRank": 22,
               "name": "claude-opus-4-5-20251101",
               "rawName": "claude-opus-4-5-20251101",
               "organization": "Anthropic",
@@ -5312,8 +5345,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 22,
-              "displayRank": 22,
+              "rank": 23,
+              "displayRank": 23,
               "name": "gemini-3.5-flash-high",
               "rawName": "gemini-3.5-flash-high",
               "organization": "Google",
@@ -5323,20 +5356,6 @@
               "isAgent": false,
               "votes": "4,061 票",
               "contextLength": 1048576,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 23,
-              "displayRank": 23,
-              "name": "gpt-5.6-luna-xhigh",
-              "rawName": "gpt-5.6-luna-xhigh",
-              "organization": "OpenAI",
-              "url": "https://openai.com/index/gpt-5-6/",
-              "scoreText": "1457分",
-              "rating": 1457,
-              "isAgent": false,
-              "votes": "5,766 票",
-              "contextLength": null,
               "license": "Proprietary"
             }
           ]
@@ -5351,6 +5370,20 @@
             {
               "rank": 24,
               "displayRank": 24,
+              "name": "gpt-5.6-luna-xhigh",
+              "rawName": "gpt-5.6-luna-xhigh",
+              "organization": "OpenAI",
+              "url": "https://openai.com/index/gpt-5-6/",
+              "scoreText": "1457分",
+              "rating": 1457,
+              "isAgent": false,
+              "votes": "5,766 票",
+              "contextLength": null,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 25,
+              "displayRank": 25,
               "name": "gemini-3.6-flash-high",
               "rawName": "gemini-3.6-flash-high",
               "organization": "Google",
@@ -5363,8 +5396,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 25,
-              "displayRank": 25,
+              "rank": 26,
+              "displayRank": 26,
               "name": "grok-4.6-high",
               "rawName": "grok-4.6-high",
               "organization": "SpaceXAI",
@@ -5377,8 +5410,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 26,
-              "displayRank": 26,
+              "rank": 27,
+              "displayRank": 27,
               "name": "grok-4.5",
               "rawName": "grok-4.5",
               "organization": "SpaceXAI",
@@ -5391,8 +5424,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 27,
-              "displayRank": 27,
+              "rank": 28,
+              "displayRank": 28,
               "name": "kimi-k2.6",
               "rawName": "kimi-k2.6",
               "organization": "Moonshot",
@@ -5405,8 +5438,8 @@
               "license": "Modified MIT"
             },
             {
-              "rank": 28,
-              "displayRank": 28,
+              "rank": 29,
+              "displayRank": 29,
               "name": "claude-sonnet-4-5-20250929",
               "rawName": "claude-sonnet-4-5-20250929",
               "organization": "Anthropic",
@@ -5419,8 +5452,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 29,
-              "displayRank": 29,
+              "rank": 30,
+              "displayRank": 30,
               "name": "muse-spark",
               "rawName": "muse-spark",
               "organization": "Meta",
@@ -5433,8 +5466,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 30,
-              "displayRank": 30,
+              "rank": 31,
+              "displayRank": 31,
               "name": "qwen3.7-plus",
               "rawName": "qwen3.7-plus",
               "organization": "Alibaba",
@@ -5447,8 +5480,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 31,
-              "displayRank": 31,
+              "rank": 32,
+              "displayRank": 32,
               "name": "gemini-3.1-pro-preview",
               "rawName": "gemini-3.1-pro-preview",
               "organization": "Google",
@@ -5459,20 +5492,6 @@
               "votes": "49,457 票",
               "contextLength": 1048576,
               "license": "Proprietary"
-            },
-            {
-              "rank": 32,
-              "displayRank": 32,
-              "name": "minimax-m3",
-              "rawName": "minimax-m3",
-              "organization": "MiniMax",
-              "url": "https://www.minimax.io/models/text/m3",
-              "scoreText": "1435分",
-              "rating": 1435,
-              "isAgent": false,
-              "votes": "6,314 票",
-              "contextLength": 524288,
-              "license": "MiniMax Community License"
             }
           ]
         }
@@ -5481,6 +5500,21 @@
         {
           "rank": 1,
           "displayRank": 1,
+          "name": "Gemini 4 Argon",
+          "rawName": "gemini-4-argon",
+          "organization": "Google",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+          "scoreText": "1532分",
+          "rating": 1532,
+          "isAgent": false,
+          "votes": "1M GraphWalks 84.2% #1",
+          "contextLength": 1000000,
+          "license": "Proprietary",
+          "isNewThisWeek": true
+        },
+        {
+          "rank": 2,
+          "displayRank": 2,
           "name": "claude-opus-5-high",
           "rawName": "claude-opus-5-high",
           "organization": "Anthropic",
@@ -5493,8 +5527,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 2,
-          "displayRank": 2,
+          "rank": 3,
+          "displayRank": 3,
           "name": "claude-fable-5.1-max",
           "rawName": "claude-fable-5.1-max",
           "organization": "Anthropic",
@@ -5507,8 +5541,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 3,
-          "displayRank": 3,
+          "rank": 4,
+          "displayRank": 4,
           "name": "claude-opus-4-6-high",
           "rawName": "claude-opus-4-6-high",
           "organization": "Anthropic",
@@ -5521,8 +5555,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 4,
-          "displayRank": 4,
+          "rank": 5,
+          "displayRank": 5,
           "name": "claude-opus-4-6",
           "rawName": "claude-opus-4-6",
           "organization": "Anthropic",
@@ -5535,8 +5569,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 5,
-          "displayRank": 5,
+          "rank": 6,
+          "displayRank": 6,
           "name": "claude-fable-5-high",
           "rawName": "claude-fable-5-high",
           "organization": "Anthropic",
@@ -5549,8 +5583,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 6,
-          "displayRank": 6,
+          "rank": 7,
+          "displayRank": 7,
           "name": "claude-opus-4-7",
           "rawName": "claude-opus-4-7",
           "organization": "Anthropic",
@@ -5563,8 +5597,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 7,
-          "displayRank": 7,
+          "rank": 8,
+          "displayRank": 8,
           "name": "claude-opus-4-7-high",
           "rawName": "claude-opus-4-7-high",
           "organization": "Anthropic",
@@ -5577,8 +5611,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 8,
-          "displayRank": 8,
+          "rank": 9,
+          "displayRank": 9,
           "name": "gpt-5.5",
           "rawName": "gpt-5.5",
           "organization": "OpenAI",
@@ -5591,8 +5625,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 9,
-          "displayRank": 9,
+          "rank": 10,
+          "displayRank": 10,
           "name": "gpt-5.5-high",
           "rawName": "gpt-5.5-high",
           "organization": "OpenAI",
@@ -5605,8 +5639,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 10,
-          "displayRank": 10,
+          "rank": 11,
+          "displayRank": 11,
           "name": "gpt-5.6-sol-xhigh",
           "rawName": "gpt-5.6-sol-xhigh",
           "organization": "OpenAI",
@@ -5619,8 +5653,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 11,
-          "displayRank": 11,
+          "rank": 12,
+          "displayRank": 12,
           "name": "claude-sonnet-4-6",
           "rawName": "claude-sonnet-4-6",
           "organization": "Anthropic",
@@ -5633,8 +5667,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 12,
-          "displayRank": 12,
+          "rank": 13,
+          "displayRank": 13,
           "name": "claude-opus-4-8-high",
           "rawName": "claude-opus-4-8-high",
           "organization": "Anthropic",
@@ -5647,8 +5681,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 13,
-          "displayRank": 13,
+          "rank": 14,
+          "displayRank": 14,
           "name": "gpt-5.6-terra-xhigh",
           "rawName": "gpt-5.6-terra-xhigh",
           "organization": "OpenAI",
@@ -5661,8 +5695,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 14,
-          "displayRank": 14,
+          "rank": 15,
+          "displayRank": 15,
           "name": "gpt-5.4",
           "rawName": "gpt-5.4",
           "organization": "OpenAI",
@@ -5675,8 +5709,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 15,
-          "displayRank": 15,
+          "rank": 16,
+          "displayRank": 16,
           "name": "muse-spark-1.3-max",
           "rawName": "muse-spark-1.3-max",
           "organization": "Meta",
@@ -5689,8 +5723,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 16,
-          "displayRank": 16,
+          "rank": 17,
+          "displayRank": 17,
           "name": "gpt-6-astra-max",
           "rawName": "gpt-6-astra-max",
           "organization": "OpenAI",
@@ -5703,8 +5737,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 17,
-          "displayRank": 17,
+          "rank": 18,
+          "displayRank": 18,
           "name": "claude-sonnet-5-high",
           "rawName": "claude-sonnet-5-high",
           "organization": "Anthropic",
@@ -5717,8 +5751,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 18,
-          "displayRank": 18,
+          "rank": 19,
+          "displayRank": 19,
           "name": "muse-spark-1.1",
           "rawName": "muse-spark-1.1",
           "organization": "Meta",
@@ -5731,8 +5765,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 19,
-          "displayRank": 19,
+          "rank": 20,
+          "displayRank": 20,
           "name": "claude-opus-4-8",
           "rawName": "claude-opus-4-8",
           "organization": "Anthropic",
@@ -5745,8 +5779,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 20,
-          "displayRank": 20,
+          "rank": 21,
+          "displayRank": 21,
           "name": "gemini-3.5-flash-medium",
           "rawName": "gemini-3.5-flash-medium",
           "organization": "Google",
@@ -5759,8 +5793,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 21,
-          "displayRank": 21,
+          "rank": 22,
+          "displayRank": 22,
           "name": "claude-opus-4-5-20251101",
           "rawName": "claude-opus-4-5-20251101",
           "organization": "Anthropic",
@@ -5773,8 +5807,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 22,
-          "displayRank": 22,
+          "rank": 23,
+          "displayRank": 23,
           "name": "gemini-3.5-flash-high",
           "rawName": "gemini-3.5-flash-high",
           "organization": "Google",
@@ -5787,8 +5821,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 23,
-          "displayRank": 23,
+          "rank": 24,
+          "displayRank": 24,
           "name": "gpt-5.6-luna-xhigh",
           "rawName": "gpt-5.6-luna-xhigh",
           "organization": "OpenAI",
@@ -5801,8 +5835,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 24,
-          "displayRank": 24,
+          "rank": 25,
+          "displayRank": 25,
           "name": "gemini-3.6-flash-high",
           "rawName": "gemini-3.6-flash-high",
           "organization": "Google",
@@ -5815,8 +5849,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 25,
-          "displayRank": 25,
+          "rank": 26,
+          "displayRank": 26,
           "name": "grok-4.6-high",
           "rawName": "grok-4.6-high",
           "organization": "SpaceXAI",
@@ -5829,8 +5863,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 26,
-          "displayRank": 26,
+          "rank": 27,
+          "displayRank": 27,
           "name": "grok-4.5",
           "rawName": "grok-4.5",
           "organization": "SpaceXAI",
@@ -5843,8 +5877,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 27,
-          "displayRank": 27,
+          "rank": 28,
+          "displayRank": 28,
           "name": "kimi-k2.6",
           "rawName": "kimi-k2.6",
           "organization": "Moonshot",
@@ -5857,8 +5891,8 @@
           "license": "Modified MIT"
         },
         {
-          "rank": 28,
-          "displayRank": 28,
+          "rank": 29,
+          "displayRank": 29,
           "name": "claude-sonnet-4-5-20250929",
           "rawName": "claude-sonnet-4-5-20250929",
           "organization": "Anthropic",
@@ -5871,8 +5905,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 29,
-          "displayRank": 29,
+          "rank": 30,
+          "displayRank": 30,
           "name": "muse-spark",
           "rawName": "muse-spark",
           "organization": "Meta",
@@ -5885,8 +5919,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 30,
-          "displayRank": 30,
+          "rank": 31,
+          "displayRank": 31,
           "name": "qwen3.7-plus",
           "rawName": "qwen3.7-plus",
           "organization": "Alibaba",
@@ -5899,8 +5933,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 31,
-          "displayRank": 31,
+          "rank": 32,
+          "displayRank": 32,
           "name": "gemini-3.1-pro-preview",
           "rawName": "gemini-3.1-pro-preview",
           "organization": "Google",
@@ -5913,8 +5947,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 32,
-          "displayRank": 32,
+          "rank": 33,
+          "displayRank": 33,
           "name": "minimax-m3",
           "rawName": "minimax-m3",
           "organization": "MiniMax",
@@ -5927,8 +5961,8 @@
           "license": "MiniMax Community License"
         },
         {
-          "rank": 33,
-          "displayRank": 33,
+          "rank": 34,
+          "displayRank": 34,
           "name": "gemini-3-pro",
           "rawName": "gemini-3-pro",
           "organization": "Google",
@@ -5941,8 +5975,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 34,
-          "displayRank": 34,
+          "rank": 35,
+          "displayRank": 35,
           "name": "kimi-k2.5-thinking",
           "rawName": "kimi-k2.5-thinking",
           "organization": "Moonshot",
@@ -5955,8 +5989,8 @@
           "license": "Modified MIT"
         },
         {
-          "rank": 35,
-          "displayRank": 35,
+          "rank": 36,
+          "displayRank": 36,
           "name": "gemma-4-31b",
           "rawName": "gemma-4-31b",
           "organization": "Google",
@@ -5969,8 +6003,8 @@
           "license": "Apache 2.0"
         },
         {
-          "rank": 36,
-          "displayRank": 36,
+          "rank": 37,
+          "displayRank": 37,
           "name": "gemini-2.5-pro",
           "rawName": "gemini-2.5-pro",
           "organization": "Google",
@@ -5983,8 +6017,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 37,
-          "displayRank": 37,
+          "rank": 38,
+          "displayRank": 38,
           "name": "claude-haiku-4-5-20251001",
           "rawName": "claude-haiku-4-5-20251001",
           "organization": "Anthropic",
@@ -5997,8 +6031,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 38,
-          "displayRank": 38,
+          "rank": 39,
+          "displayRank": 39,
           "name": "grok-4.20-beta-0309-reasoning",
           "rawName": "grok-4.20-beta-0309-reasoning",
           "organization": "SpaceXAI",
@@ -6011,8 +6045,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 39,
-          "displayRank": 39,
+          "rank": 40,
+          "displayRank": 40,
           "name": "glm-5v-turbo",
           "rawName": "glm-5v-turbo",
           "organization": "Z.ai",
@@ -6025,8 +6059,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 40,
-          "displayRank": 40,
+          "rank": 41,
+          "displayRank": 41,
           "name": "gemini-3-flash",
           "rawName": "gemini-3-flash",
           "organization": "Google",
@@ -6039,8 +6073,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 41,
-          "displayRank": 41,
+          "rank": 42,
+          "displayRank": 42,
           "name": "gpt-5.2-high",
           "rawName": "gpt-5.2-high",
           "organization": "OpenAI",
@@ -6053,8 +6087,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 42,
-          "displayRank": 42,
+          "rank": 43,
+          "displayRank": 43,
           "name": "gpt-5.1",
           "rawName": "gpt-5.1",
           "organization": "OpenAI",
@@ -6067,8 +6101,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 43,
-          "displayRank": 43,
+          "rank": 44,
+          "displayRank": 44,
           "name": "gpt-5.5-instant",
           "rawName": "gpt-5.5-instant",
           "organization": "OpenAI",
@@ -6081,8 +6115,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 44,
-          "displayRank": 44,
+          "rank": 45,
+          "displayRank": 45,
           "name": "gpt-5.2",
           "rawName": "gpt-5.2",
           "organization": "OpenAI",
@@ -8515,7 +8549,7 @@
       "desc": "考核看设计图直接还原代码的能力，给一张UI设计图就能自动生成完整的前端网页代码",
       "icon": "🖼️",
       "isAgent": false,
-      "totalCount": 50,
+      "totalCount": 51,
       "tiers": {
         "hang": {
           "key": "hang",
@@ -8541,6 +8575,21 @@
             {
               "rank": 2,
               "displayRank": 2,
+              "name": "Gemini 4 Argon",
+              "rawName": "gemini-4-argon",
+              "organization": "Google",
+              "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+              "scoreText": "1722分",
+              "rating": 1722,
+              "isAgent": false,
+              "votes": "Vibe Code 91.9% #1",
+              "contextLength": 1000000,
+              "license": "Proprietary",
+              "isNewThisWeek": true
+            },
+            {
+              "rank": 3,
+              "displayRank": 3,
               "name": "claude-fable-5.1-max",
               "rawName": "claude-fable-5.1-max",
               "organization": "Anthropic",
@@ -8549,20 +8598,6 @@
               "rating": 1710,
               "isAgent": false,
               "votes": "964 票",
-              "contextLength": 1000000,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 3,
-              "displayRank": 3,
-              "name": "claude-opus-5-max",
-              "rawName": "claude-opus-5-max",
-              "organization": "Anthropic",
-              "url": "https://www.anthropic.com/news/claude-opus-5",
-              "scoreText": "1665分",
-              "rating": 1665,
-              "isAgent": false,
-              "votes": "2,490 票",
               "contextLength": 1000000,
               "license": "Proprietary"
             }
@@ -8578,6 +8613,20 @@
             {
               "rank": 4,
               "displayRank": 4,
+              "name": "claude-opus-5-max",
+              "rawName": "claude-opus-5-max",
+              "organization": "Anthropic",
+              "url": "https://www.anthropic.com/news/claude-opus-5",
+              "scoreText": "1665分",
+              "rating": 1665,
+              "isAgent": false,
+              "votes": "2,490 票",
+              "contextLength": 1000000,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 5,
+              "displayRank": 5,
               "name": "muse-spark-1.3-max",
               "rawName": "muse-spark-1.3-max",
               "organization": "Meta",
@@ -8590,8 +8639,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 5,
-              "displayRank": 5,
+              "rank": 6,
+              "displayRank": 6,
               "name": "qwen3.8-max-0902",
               "rawName": "qwen3.8-max-0902",
               "organization": "Alibaba",
@@ -8604,8 +8653,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 6,
-              "displayRank": 6,
+              "rank": 7,
+              "displayRank": 7,
               "name": "claude-fable-5-high",
               "rawName": "claude-fable-5-high",
               "organization": "Anthropic",
@@ -8614,20 +8663,6 @@
               "rating": 1623,
               "isAgent": false,
               "votes": "3,806 票",
-              "contextLength": 1000000,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 7,
-              "displayRank": 7,
-              "name": "qwen3.8-max",
-              "rawName": "qwen3.8-max",
-              "organization": "Alibaba",
-              "url": "https://www.qwencloud.com/models/qwen3.8-max",
-              "scoreText": "1618分",
-              "rating": 1618,
-              "isAgent": false,
-              "votes": "2,468 票",
               "contextLength": 1000000,
               "license": "Proprietary"
             }
@@ -8643,6 +8678,20 @@
             {
               "rank": 8,
               "displayRank": 8,
+              "name": "qwen3.8-max",
+              "rawName": "qwen3.8-max",
+              "organization": "Alibaba",
+              "url": "https://www.qwencloud.com/models/qwen3.8-max",
+              "scoreText": "1618分",
+              "rating": 1618,
+              "isAgent": false,
+              "votes": "2,468 票",
+              "contextLength": 1000000,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 9,
+              "displayRank": 9,
               "name": "gpt-5.6-sol-xhigh (codex-harness)",
               "rawName": "gpt-5.6-sol-xhigh (codex-harness)",
               "organization": "OpenAI",
@@ -8655,8 +8704,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 9,
-              "displayRank": 9,
+              "rank": 10,
+              "displayRank": 10,
               "name": "grok-4.6-high",
               "rawName": "grok-4.6-high",
               "organization": "SpaceXAI",
@@ -8669,8 +8718,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 10,
-              "displayRank": 10,
+              "rank": 11,
+              "displayRank": 11,
               "name": "glm-5.3-flash",
               "rawName": "glm-5.3-flash",
               "organization": "Z.ai",
@@ -8683,8 +8732,8 @@
               "license": "MIT"
             },
             {
-              "rank": 11,
-              "displayRank": 11,
+              "rank": 12,
+              "displayRank": 12,
               "name": "qwen3.8-27b",
               "rawName": "qwen3.8-27b",
               "organization": "Alibaba",
@@ -8697,8 +8746,8 @@
               "license": "Apache 2.0"
             },
             {
-              "rank": 12,
-              "displayRank": 12,
+              "rank": 13,
+              "displayRank": 13,
               "name": "kimi-k3-max",
               "rawName": "kimi-k3-max",
               "organization": "Moonshot",
@@ -8711,8 +8760,8 @@
               "license": "Kimi K3 license"
             },
             {
-              "rank": 13,
-              "displayRank": 13,
+              "rank": 14,
+              "displayRank": 14,
               "name": "claude-opus-4-7-high",
               "rawName": "claude-opus-4-7-high",
               "organization": "Anthropic",
@@ -8721,20 +8770,6 @@
               "rating": 1576,
               "isAgent": false,
               "votes": "6,401 票",
-              "contextLength": 1000000,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 14,
-              "displayRank": 14,
-              "name": "claude-opus-4-7",
-              "rawName": "claude-opus-4-7",
-              "organization": "Anthropic",
-              "url": "https://www.anthropic.com/news/claude-opus-4-7",
-              "scoreText": "1564分",
-              "rating": 1564,
-              "isAgent": false,
-              "votes": "6,843 票",
               "contextLength": 1000000,
               "license": "Proprietary"
             }
@@ -8750,6 +8785,20 @@
             {
               "rank": 15,
               "displayRank": 15,
+              "name": "claude-opus-4-7",
+              "rawName": "claude-opus-4-7",
+              "organization": "Anthropic",
+              "url": "https://www.anthropic.com/news/claude-opus-4-7",
+              "scoreText": "1564分",
+              "rating": 1564,
+              "isAgent": false,
+              "votes": "6,843 票",
+              "contextLength": 1000000,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 16,
+              "displayRank": 16,
               "name": "grok-4.5",
               "rawName": "grok-4.5",
               "organization": "SpaceXAI",
@@ -8762,8 +8811,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 16,
-              "displayRank": 16,
+              "rank": 17,
+              "displayRank": 17,
               "name": "gemini-3.6-flash-high",
               "rawName": "gemini-3.6-flash-high",
               "organization": "Google",
@@ -8776,8 +8825,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 17,
-              "displayRank": 17,
+              "rank": 18,
+              "displayRank": 18,
               "name": "claude-sonnet-5-high",
               "rawName": "claude-sonnet-5-high",
               "organization": "Anthropic",
@@ -8790,8 +8839,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 18,
-              "displayRank": 18,
+              "rank": 19,
+              "displayRank": 19,
               "name": "claude-opus-4-6",
               "rawName": "claude-opus-4-6",
               "organization": "Anthropic",
@@ -8804,8 +8853,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 19,
-              "displayRank": 19,
+              "rank": 20,
+              "displayRank": 20,
               "name": "claude-opus-4-6-high",
               "rawName": "claude-opus-4-6-high",
               "organization": "Anthropic",
@@ -8818,8 +8867,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 20,
-              "displayRank": 20,
+              "rank": 21,
+              "displayRank": 21,
               "name": "muse-spark-1.1",
               "rawName": "muse-spark-1.1",
               "organization": "Meta",
@@ -8832,8 +8881,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 21,
-              "displayRank": 21,
+              "rank": 22,
+              "displayRank": 22,
               "name": "gpt-5.6-terra-xhigh (codex-harness)",
               "rawName": "gpt-5.6-terra-xhigh (codex-harness)",
               "organization": "OpenAI",
@@ -8846,8 +8895,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 22,
-              "displayRank": 22,
+              "rank": 23,
+              "displayRank": 23,
               "name": "gpt-5.5-xhigh (codex-harness)",
               "rawName": "gpt-5.5-xhigh (codex-harness)",
               "organization": "OpenAI",
@@ -8857,20 +8906,6 @@
               "isAgent": false,
               "votes": "6,375 票",
               "contextLength": null,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 23,
-              "displayRank": 23,
-              "name": "claude-sonnet-4-6",
-              "rawName": "claude-sonnet-4-6",
-              "organization": "Anthropic",
-              "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
-              "scoreText": "1530分",
-              "rating": 1530,
-              "isAgent": false,
-              "votes": "7,726 票",
-              "contextLength": 1000000,
               "license": "Proprietary"
             }
           ]
@@ -8885,6 +8920,20 @@
             {
               "rank": 24,
               "displayRank": 24,
+              "name": "claude-sonnet-4-6",
+              "rawName": "claude-sonnet-4-6",
+              "organization": "Anthropic",
+              "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+              "scoreText": "1530分",
+              "rating": 1530,
+              "isAgent": false,
+              "votes": "7,726 票",
+              "contextLength": 1000000,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 25,
+              "displayRank": 25,
               "name": "kimi-k2.6",
               "rawName": "kimi-k2.6",
               "organization": "Moonshot",
@@ -8897,8 +8946,8 @@
               "license": "Modified MIT"
             },
             {
-              "rank": 25,
-              "displayRank": 25,
+              "rank": 26,
+              "displayRank": 26,
               "name": "gpt-5.5-high (codex-harness)",
               "rawName": "gpt-5.5-high (codex-harness)",
               "organization": "OpenAI",
@@ -8911,8 +8960,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 26,
-              "displayRank": 26,
+              "rank": 27,
+              "displayRank": 27,
               "name": "kimi-k2.7-code",
               "rawName": "kimi-k2.7-code",
               "organization": "Moonshot",
@@ -8925,8 +8974,8 @@
               "license": "Modified MIT"
             },
             {
-              "rank": 27,
-              "displayRank": 27,
+              "rank": 28,
+              "displayRank": 28,
               "name": "seed-2.1-pro-preview",
               "rawName": "seed-2.1-pro-preview",
               "organization": "Bytedance",
@@ -8939,8 +8988,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 28,
-              "displayRank": 28,
+              "rank": 29,
+              "displayRank": 29,
               "name": "gpt-5.6-luna-xhigh (codex-harness)",
               "rawName": "gpt-5.6-luna-xhigh (codex-harness)",
               "organization": "OpenAI",
@@ -8953,8 +9002,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 29,
-              "displayRank": 29,
+              "rank": 30,
+              "displayRank": 30,
               "name": "gpt-5.5 (codex-harness)",
               "rawName": "gpt-5.5 (codex-harness)",
               "organization": "OpenAI",
@@ -8967,8 +9016,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 30,
-              "displayRank": 30,
+              "rank": 31,
+              "displayRank": 31,
               "name": "gemini-3.5-flash-medium",
               "rawName": "gemini-3.5-flash-medium",
               "organization": "Google",
@@ -8981,8 +9030,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 31,
-              "displayRank": 31,
+              "rank": 32,
+              "displayRank": 32,
               "name": "gemini-3.5-flash-high",
               "rawName": "gemini-3.5-flash-high",
               "organization": "Google",
@@ -8991,20 +9040,6 @@
               "rating": 1497,
               "isAgent": false,
               "votes": "1,855 票",
-              "contextLength": 1048576,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 32,
-              "displayRank": 32,
-              "name": "gemini-3.1-pro-preview",
-              "rawName": "gemini-3.1-pro-preview",
-              "organization": "Google",
-              "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/",
-              "scoreText": "1478分",
-              "rating": 1478,
-              "isAgent": false,
-              "votes": "7,615 票",
               "contextLength": 1048576,
               "license": "Proprietary"
             }
@@ -9029,6 +9064,21 @@
         {
           "rank": 2,
           "displayRank": 2,
+          "name": "Gemini 4 Argon",
+          "rawName": "gemini-4-argon",
+          "organization": "Google",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+          "scoreText": "1722分",
+          "rating": 1722,
+          "isAgent": false,
+          "votes": "Vibe Code 91.9% #1",
+          "contextLength": 1000000,
+          "license": "Proprietary",
+          "isNewThisWeek": true
+        },
+        {
+          "rank": 3,
+          "displayRank": 3,
           "name": "claude-fable-5.1-max",
           "rawName": "claude-fable-5.1-max",
           "organization": "Anthropic",
@@ -9041,8 +9091,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 3,
-          "displayRank": 3,
+          "rank": 4,
+          "displayRank": 4,
           "name": "claude-opus-5-max",
           "rawName": "claude-opus-5-max",
           "organization": "Anthropic",
@@ -9055,8 +9105,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 4,
-          "displayRank": 4,
+          "rank": 5,
+          "displayRank": 5,
           "name": "muse-spark-1.3-max",
           "rawName": "muse-spark-1.3-max",
           "organization": "Meta",
@@ -9069,8 +9119,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 5,
-          "displayRank": 5,
+          "rank": 6,
+          "displayRank": 6,
           "name": "qwen3.8-max-0902",
           "rawName": "qwen3.8-max-0902",
           "organization": "Alibaba",
@@ -9083,8 +9133,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 6,
-          "displayRank": 6,
+          "rank": 7,
+          "displayRank": 7,
           "name": "claude-fable-5-high",
           "rawName": "claude-fable-5-high",
           "organization": "Anthropic",
@@ -9097,8 +9147,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 7,
-          "displayRank": 7,
+          "rank": 8,
+          "displayRank": 8,
           "name": "qwen3.8-max",
           "rawName": "qwen3.8-max",
           "organization": "Alibaba",
@@ -9111,8 +9161,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 8,
-          "displayRank": 8,
+          "rank": 9,
+          "displayRank": 9,
           "name": "gpt-5.6-sol-xhigh (codex-harness)",
           "rawName": "gpt-5.6-sol-xhigh (codex-harness)",
           "organization": "OpenAI",
@@ -9125,8 +9175,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 9,
-          "displayRank": 9,
+          "rank": 10,
+          "displayRank": 10,
           "name": "grok-4.6-high",
           "rawName": "grok-4.6-high",
           "organization": "SpaceXAI",
@@ -9139,8 +9189,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 10,
-          "displayRank": 10,
+          "rank": 11,
+          "displayRank": 11,
           "name": "glm-5.3-flash",
           "rawName": "glm-5.3-flash",
           "organization": "Z.ai",
@@ -9153,8 +9203,8 @@
           "license": "MIT"
         },
         {
-          "rank": 11,
-          "displayRank": 11,
+          "rank": 12,
+          "displayRank": 12,
           "name": "qwen3.8-27b",
           "rawName": "qwen3.8-27b",
           "organization": "Alibaba",
@@ -9167,8 +9217,8 @@
           "license": "Apache 2.0"
         },
         {
-          "rank": 12,
-          "displayRank": 12,
+          "rank": 13,
+          "displayRank": 13,
           "name": "kimi-k3-max",
           "rawName": "kimi-k3-max",
           "organization": "Moonshot",
@@ -9181,8 +9231,8 @@
           "license": "Kimi K3 license"
         },
         {
-          "rank": 13,
-          "displayRank": 13,
+          "rank": 14,
+          "displayRank": 14,
           "name": "claude-opus-4-7-high",
           "rawName": "claude-opus-4-7-high",
           "organization": "Anthropic",
@@ -9195,8 +9245,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 14,
-          "displayRank": 14,
+          "rank": 15,
+          "displayRank": 15,
           "name": "claude-opus-4-7",
           "rawName": "claude-opus-4-7",
           "organization": "Anthropic",
@@ -9209,8 +9259,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 15,
-          "displayRank": 15,
+          "rank": 16,
+          "displayRank": 16,
           "name": "grok-4.5",
           "rawName": "grok-4.5",
           "organization": "SpaceXAI",
@@ -9223,8 +9273,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 16,
-          "displayRank": 16,
+          "rank": 17,
+          "displayRank": 17,
           "name": "gemini-3.6-flash-high",
           "rawName": "gemini-3.6-flash-high",
           "organization": "Google",
@@ -9237,8 +9287,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 17,
-          "displayRank": 17,
+          "rank": 18,
+          "displayRank": 18,
           "name": "claude-sonnet-5-high",
           "rawName": "claude-sonnet-5-high",
           "organization": "Anthropic",
@@ -9251,8 +9301,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 18,
-          "displayRank": 18,
+          "rank": 19,
+          "displayRank": 19,
           "name": "claude-opus-4-6",
           "rawName": "claude-opus-4-6",
           "organization": "Anthropic",
@@ -9265,8 +9315,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 19,
-          "displayRank": 19,
+          "rank": 20,
+          "displayRank": 20,
           "name": "claude-opus-4-6-high",
           "rawName": "claude-opus-4-6-high",
           "organization": "Anthropic",
@@ -9279,8 +9329,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 20,
-          "displayRank": 20,
+          "rank": 21,
+          "displayRank": 21,
           "name": "muse-spark-1.1",
           "rawName": "muse-spark-1.1",
           "organization": "Meta",
@@ -9293,8 +9343,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 21,
-          "displayRank": 21,
+          "rank": 22,
+          "displayRank": 22,
           "name": "gpt-5.6-terra-xhigh (codex-harness)",
           "rawName": "gpt-5.6-terra-xhigh (codex-harness)",
           "organization": "OpenAI",
@@ -9307,8 +9357,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 22,
-          "displayRank": 22,
+          "rank": 23,
+          "displayRank": 23,
           "name": "gpt-5.5-xhigh (codex-harness)",
           "rawName": "gpt-5.5-xhigh (codex-harness)",
           "organization": "OpenAI",
@@ -9321,8 +9371,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 23,
-          "displayRank": 23,
+          "rank": 24,
+          "displayRank": 24,
           "name": "claude-sonnet-4-6",
           "rawName": "claude-sonnet-4-6",
           "organization": "Anthropic",
@@ -9335,8 +9385,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 24,
-          "displayRank": 24,
+          "rank": 25,
+          "displayRank": 25,
           "name": "kimi-k2.6",
           "rawName": "kimi-k2.6",
           "organization": "Moonshot",
@@ -9349,8 +9399,8 @@
           "license": "Modified MIT"
         },
         {
-          "rank": 25,
-          "displayRank": 25,
+          "rank": 26,
+          "displayRank": 26,
           "name": "gpt-5.5-high (codex-harness)",
           "rawName": "gpt-5.5-high (codex-harness)",
           "organization": "OpenAI",
@@ -9363,8 +9413,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 26,
-          "displayRank": 26,
+          "rank": 27,
+          "displayRank": 27,
           "name": "kimi-k2.7-code",
           "rawName": "kimi-k2.7-code",
           "organization": "Moonshot",
@@ -9377,8 +9427,8 @@
           "license": "Modified MIT"
         },
         {
-          "rank": 27,
-          "displayRank": 27,
+          "rank": 28,
+          "displayRank": 28,
           "name": "seed-2.1-pro-preview",
           "rawName": "seed-2.1-pro-preview",
           "organization": "Bytedance",
@@ -9391,8 +9441,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 28,
-          "displayRank": 28,
+          "rank": 29,
+          "displayRank": 29,
           "name": "gpt-5.6-luna-xhigh (codex-harness)",
           "rawName": "gpt-5.6-luna-xhigh (codex-harness)",
           "organization": "OpenAI",
@@ -9405,8 +9455,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 29,
-          "displayRank": 29,
+          "rank": 30,
+          "displayRank": 30,
           "name": "gpt-5.5 (codex-harness)",
           "rawName": "gpt-5.5 (codex-harness)",
           "organization": "OpenAI",
@@ -9419,8 +9469,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 30,
-          "displayRank": 30,
+          "rank": 31,
+          "displayRank": 31,
           "name": "gemini-3.5-flash-medium",
           "rawName": "gemini-3.5-flash-medium",
           "organization": "Google",
@@ -9433,8 +9483,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 31,
-          "displayRank": 31,
+          "rank": 32,
+          "displayRank": 32,
           "name": "gemini-3.5-flash-high",
           "rawName": "gemini-3.5-flash-high",
           "organization": "Google",
@@ -9447,8 +9497,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 32,
-          "displayRank": 32,
+          "rank": 33,
+          "displayRank": 33,
           "name": "gemini-3.1-pro-preview",
           "rawName": "gemini-3.1-pro-preview",
           "organization": "Google",
@@ -9461,8 +9511,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 33,
-          "displayRank": 33,
+          "rank": 34,
+          "displayRank": 34,
           "name": "minimax-m3",
           "rawName": "minimax-m3",
           "organization": "MiniMax",
@@ -9475,8 +9525,8 @@
           "license": "MiniMax Community License"
         },
         {
-          "rank": 34,
-          "displayRank": 34,
+          "rank": 35,
+          "displayRank": 35,
           "name": "qwen3.6-plus",
           "rawName": "qwen3.6-plus",
           "organization": "Alibaba",
@@ -9489,8 +9539,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 35,
-          "displayRank": 35,
+          "rank": 36,
+          "displayRank": 36,
           "name": "gemini-3-flash",
           "rawName": "gemini-3-flash",
           "organization": "Google",
@@ -9503,8 +9553,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 36,
-          "displayRank": 36,
+          "rank": 37,
+          "displayRank": 37,
           "name": "gemini-3.5-flash-lite",
           "rawName": "gemini-3.5-flash-lite",
           "organization": "Google",
@@ -9517,8 +9567,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 37,
-          "displayRank": 37,
+          "rank": 38,
+          "displayRank": 38,
           "name": "gemini-3-pro",
           "rawName": "gemini-3-pro",
           "organization": "Google",
@@ -9531,8 +9581,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 38,
-          "displayRank": 38,
+          "rank": 39,
+          "displayRank": 39,
           "name": "gpt-5.4",
           "rawName": "gpt-5.4",
           "organization": "OpenAI",
@@ -9545,8 +9595,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 39,
-          "displayRank": 39,
+          "rank": 40,
+          "displayRank": 40,
           "name": "gpt-5.3-codex (codex-harness)",
           "rawName": "gpt-5.3-codex (codex-harness)",
           "organization": "OpenAI",
@@ -9559,8 +9609,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 40,
-          "displayRank": 40,
+          "rank": 41,
+          "displayRank": 41,
           "name": "kimi-k2.5-thinking",
           "rawName": "kimi-k2.5-thinking",
           "organization": "Moonshot",
@@ -9573,8 +9623,8 @@
           "license": "Modified MIT"
         },
         {
-          "rank": 41,
-          "displayRank": 41,
+          "rank": 42,
+          "displayRank": 42,
           "name": "gemini-3-flash (thinking-minimal)",
           "rawName": "gemini-3-flash (thinking-minimal)",
           "organization": "Google",
@@ -9587,8 +9637,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 42,
-          "displayRank": 42,
+          "rank": 43,
+          "displayRank": 43,
           "name": "glm-5v-turbo",
           "rawName": "glm-5v-turbo",
           "organization": "Z.ai",
@@ -9601,8 +9651,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 43,
-          "displayRank": 43,
+          "rank": 44,
+          "displayRank": 44,
           "name": "gpt-5.1-high",
           "rawName": "gpt-5.1-high",
           "organization": "OpenAI",
@@ -9615,8 +9665,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 44,
-          "displayRank": 44,
+          "rank": 45,
+          "displayRank": 45,
           "name": "kimi-k2.5-instant",
           "rawName": "kimi-k2.5-instant",
           "organization": "Moonshot",
@@ -9629,8 +9679,8 @@
           "license": "Modified MIT"
         },
         {
-          "rank": 45,
-          "displayRank": 45,
+          "rank": 46,
+          "displayRank": 46,
           "name": "Inkling Small",
           "rawName": "Inkling Small",
           "organization": "Thinky",
@@ -9643,8 +9693,8 @@
           "license": "Apache 2.0"
         },
         {
-          "rank": 46,
-          "displayRank": 46,
+          "rank": 47,
+          "displayRank": 47,
           "name": "grok-4.3",
           "rawName": "grok-4.3",
           "organization": "SpaceXAI",
@@ -9657,8 +9707,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 47,
-          "displayRank": 47,
+          "rank": 48,
+          "displayRank": 48,
           "name": "mistral-large-3",
           "rawName": "mistral-large-3",
           "organization": "Mistral",
@@ -9671,8 +9721,8 @@
           "license": "Apache 2.0"
         },
         {
-          "rank": 48,
-          "displayRank": 48,
+          "rank": 49,
+          "displayRank": 49,
           "name": "gpt-5.1",
           "rawName": "gpt-5.1",
           "organization": "OpenAI",
@@ -9685,8 +9735,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 49,
-          "displayRank": 49,
+          "rank": 50,
+          "displayRank": 50,
           "name": "gemini-3.1-flash-lite-preview",
           "rawName": "gemini-3.1-flash-lite-preview",
           "organization": "Google",
@@ -9699,8 +9749,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 50,
-          "displayRank": 50,
+          "rank": 51,
+          "displayRank": 51,
           "name": "gemini-2.5-pro",
           "rawName": "gemini-2.5-pro",
           "organization": "Google",
@@ -9721,7 +9771,7 @@
       "desc": "考核全网实时搜索与精准溯源能力，快速搜集多方权威资料并给出真实靠谱解答",
       "icon": "🔍",
       "isAgent": false,
-      "totalCount": 34,
+      "totalCount": 35,
       "tiers": {
         "hang": {
           "key": "hang",
@@ -9733,6 +9783,21 @@
             {
               "rank": 1,
               "displayRank": 1,
+              "name": "Gemini 4 Argon",
+              "rawName": "gemini-4-argon",
+              "organization": "Google",
+              "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+              "scoreText": "1268分",
+              "rating": 1268,
+              "isAgent": false,
+              "votes": "Knowledge Agent 19.6% #1",
+              "contextLength": 1000000,
+              "license": "Proprietary",
+              "isNewThisWeek": true
+            },
+            {
+              "rank": 2,
+              "displayRank": 2,
               "name": "gpt-5.6-sol-xhigh",
               "rawName": "gpt-5.6-sol-xhigh",
               "organization": "OpenAI",
@@ -9745,8 +9810,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 2,
-              "displayRank": 2,
+              "rank": 3,
+              "displayRank": 3,
               "name": "claude-opus-4-6-search",
               "rawName": "claude-opus-4-6-search",
               "organization": "Anthropic",
@@ -9756,20 +9821,6 @@
               "isAgent": false,
               "votes": "134,699 票",
               "contextLength": 1000000,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 3,
-              "displayRank": 3,
-              "name": "gpt-5.5-search",
-              "rawName": "gpt-5.5-search",
-              "organization": "OpenAI",
-              "url": "https://openai.com/index/introducing-gpt-5-5/",
-              "scoreText": "1242分",
-              "rating": 1242,
-              "isAgent": false,
-              "votes": "89,873 票",
-              "contextLength": 1050000,
               "license": "Proprietary"
             }
           ]
@@ -9784,6 +9835,20 @@
             {
               "rank": 4,
               "displayRank": 4,
+              "name": "gpt-5.5-search",
+              "rawName": "gpt-5.5-search",
+              "organization": "OpenAI",
+              "url": "https://openai.com/index/introducing-gpt-5-5/",
+              "scoreText": "1242分",
+              "rating": 1242,
+              "isAgent": false,
+              "votes": "89,873 票",
+              "contextLength": 1050000,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 5,
+              "displayRank": 5,
               "name": "claude-opus-4-7",
               "rawName": "claude-opus-4-7",
               "organization": "Anthropic",
@@ -9796,8 +9861,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 5,
-              "displayRank": 5,
+              "rank": 6,
+              "displayRank": 6,
               "name": "claude-fable-5-high",
               "rawName": "claude-fable-5-high",
               "organization": "Anthropic",
@@ -9810,8 +9875,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 6,
-              "displayRank": 6,
+              "rank": 7,
+              "displayRank": 7,
               "name": "ernie-5.1",
               "rawName": "ernie-5.1",
               "organization": "Baidu",
@@ -9821,20 +9886,6 @@
               "isAgent": false,
               "votes": "3,788 票",
               "contextLength": 119000,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 7,
-              "displayRank": 7,
-              "name": "claude-sonnet-4-6-search",
-              "rawName": "claude-sonnet-4-6-search",
-              "organization": "Anthropic",
-              "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
-              "scoreText": "1221分",
-              "rating": 1221,
-              "isAgent": false,
-              "votes": "134,905 票",
-              "contextLength": 1000000,
               "license": "Proprietary"
             }
           ]
@@ -9849,6 +9900,20 @@
             {
               "rank": 8,
               "displayRank": 8,
+              "name": "claude-sonnet-4-6-search",
+              "rawName": "claude-sonnet-4-6-search",
+              "organization": "Anthropic",
+              "url": "https://www.anthropic.com/news/claude-sonnet-4-6",
+              "scoreText": "1221分",
+              "rating": 1221,
+              "isAgent": false,
+              "votes": "134,905 票",
+              "contextLength": 1000000,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 9,
+              "displayRank": 9,
               "name": "grok-4.5",
               "rawName": "grok-4.5",
               "organization": "SpaceXAI",
@@ -9861,8 +9926,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 9,
-              "displayRank": 9,
+              "rank": 10,
+              "displayRank": 10,
               "name": "gemini-3.1-pro-grounding",
               "rawName": "gemini-3.1-pro-grounding",
               "organization": "Google",
@@ -9875,8 +9940,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 10,
-              "displayRank": 10,
+              "rank": 11,
+              "displayRank": 11,
               "name": "gemini-3-pro-grounding",
               "rawName": "gemini-3-pro-grounding",
               "organization": "Google",
@@ -9889,8 +9954,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 11,
-              "displayRank": 11,
+              "rank": 12,
+              "displayRank": 12,
               "name": "gpt-5.2-search",
               "rawName": "gpt-5.2-search",
               "organization": "OpenAI",
@@ -9903,8 +9968,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 12,
-              "displayRank": 12,
+              "rank": 13,
+              "displayRank": 13,
               "name": "claude-opus-4-8",
               "rawName": "claude-opus-4-8",
               "organization": "Anthropic",
@@ -9917,8 +9982,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 13,
-              "displayRank": 13,
+              "rank": 14,
+              "displayRank": 14,
               "name": "grok-4.20-multi-agent-beta-0309",
               "rawName": "grok-4.20-multi-agent-beta-0309",
               "organization": "SpaceXAI",
@@ -9928,20 +9993,6 @@
               "isAgent": false,
               "votes": "109,553 票",
               "contextLength": 1000000,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 14,
-              "displayRank": 14,
-              "name": "gpt-5.1-search",
-              "rawName": "gpt-5.1-search",
-              "organization": "OpenAI",
-              "url": "https://openai.com/index/gpt-5-1/",
-              "scoreText": "1199分",
-              "rating": 1199,
-              "isAgent": false,
-              "votes": "59,909 票",
-              "contextLength": 400000,
               "license": "Proprietary"
             }
           ]
@@ -9956,6 +10007,20 @@
             {
               "rank": 15,
               "displayRank": 15,
+              "name": "gpt-5.1-search",
+              "rawName": "gpt-5.1-search",
+              "organization": "OpenAI",
+              "url": "https://openai.com/index/gpt-5-1/",
+              "scoreText": "1199分",
+              "rating": 1199,
+              "isAgent": false,
+              "votes": "59,909 票",
+              "contextLength": 400000,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 16,
+              "displayRank": 16,
               "name": "gemini-3-flash-grounding",
               "rawName": "gemini-3-flash-grounding",
               "organization": "Google",
@@ -9968,8 +10033,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 16,
-              "displayRank": 16,
+              "rank": 17,
+              "displayRank": 17,
               "name": "gpt-5.4-search",
               "rawName": "gpt-5.4-search",
               "organization": "OpenAI",
@@ -9982,8 +10047,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 17,
-              "displayRank": 17,
+              "rank": 18,
+              "displayRank": 18,
               "name": "claude-sonnet-5-search",
               "rawName": "claude-sonnet-5-search",
               "organization": "Anthropic",
@@ -9996,8 +10061,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 18,
-              "displayRank": 18,
+              "rank": 19,
+              "displayRank": 19,
               "name": "grok-4.20-beta1",
               "rawName": "grok-4.20-beta1",
               "organization": "SpaceXAI",
@@ -10010,8 +10075,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 19,
-              "displayRank": 19,
+              "rank": 20,
+              "displayRank": 20,
               "name": "claude-opus-4-5-search",
               "rawName": "claude-opus-4-5-search",
               "organization": "Anthropic",
@@ -10024,8 +10089,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 20,
-              "displayRank": 20,
+              "rank": 21,
+              "displayRank": 21,
               "name": "gpt-5.2-search-non-reasoning",
               "rawName": "gpt-5.2-search-non-reasoning",
               "organization": "OpenAI",
@@ -10038,8 +10103,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 21,
-              "displayRank": 21,
+              "rank": 22,
+              "displayRank": 22,
               "name": "grok-4-1-fast-search",
               "rawName": "grok-4-1-fast-search",
               "organization": "SpaceXAI",
@@ -10052,8 +10117,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 22,
-              "displayRank": 22,
+              "rank": 23,
+              "displayRank": 23,
               "name": "grok-4-fast-search",
               "rawName": "grok-4-fast-search",
               "organization": "SpaceXAI",
@@ -10063,20 +10128,6 @@
               "isAgent": false,
               "votes": "41,794 票",
               "contextLength": 2000000,
-              "license": "Proprietary"
-            },
-            {
-              "rank": 23,
-              "displayRank": 23,
-              "name": "grok-4.3",
-              "rawName": "grok-4.3",
-              "organization": "SpaceXAI",
-              "url": "https://docs.x.ai/developers/models/grok-4.3",
-              "scoreText": "1165分",
-              "rating": 1165,
-              "isAgent": false,
-              "votes": "91,483 票",
-              "contextLength": 1000000,
               "license": "Proprietary"
             }
           ]
@@ -10091,6 +10142,20 @@
             {
               "rank": 24,
               "displayRank": 24,
+              "name": "grok-4.3",
+              "rawName": "grok-4.3",
+              "organization": "SpaceXAI",
+              "url": "https://docs.x.ai/developers/models/grok-4.3",
+              "scoreText": "1165分",
+              "rating": 1165,
+              "isAgent": false,
+              "votes": "91,483 票",
+              "contextLength": 1000000,
+              "license": "Proprietary"
+            },
+            {
+              "rank": 25,
+              "displayRank": 25,
               "name": "claude-sonnet-4-5-search",
               "rawName": "claude-sonnet-4-5-search",
               "organization": "Anthropic",
@@ -10103,8 +10168,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 25,
-              "displayRank": 25,
+              "rank": 26,
+              "displayRank": 26,
               "name": "claude-opus-4-1-search",
               "rawName": "claude-opus-4-1-search",
               "organization": "Anthropic",
@@ -10117,8 +10182,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 26,
-              "displayRank": 26,
+              "rank": 27,
+              "displayRank": 27,
               "name": "o3-search",
               "rawName": "o3-search",
               "organization": "OpenAI",
@@ -10131,8 +10196,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 27,
-              "displayRank": 27,
+              "rank": 28,
+              "displayRank": 28,
               "name": "gemini-2.5-pro-grounding",
               "rawName": "gemini-2.5-pro-grounding",
               "organization": "Google",
@@ -10145,8 +10210,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 28,
-              "displayRank": 28,
+              "rank": 29,
+              "displayRank": 29,
               "name": "grok-4-search",
               "rawName": "grok-4-search",
               "organization": "SpaceXAI",
@@ -10159,8 +10224,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 29,
-              "displayRank": 29,
+              "rank": 30,
+              "displayRank": 30,
               "name": "ppl-sonar-reasoning-pro-high",
               "rawName": "ppl-sonar-reasoning-pro-high",
               "organization": "Perplexity AI",
@@ -10173,8 +10238,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 30,
-              "displayRank": 30,
+              "rank": 31,
+              "displayRank": 31,
               "name": "gpt-5-search",
               "rawName": "gpt-5-search",
               "organization": "OpenAI",
@@ -10187,8 +10252,8 @@
               "license": "Proprietary"
             },
             {
-              "rank": 31,
-              "displayRank": 31,
+              "rank": 32,
+              "displayRank": 32,
               "name": "ppl-sonar-pro-high",
               "rawName": "ppl-sonar-pro-high",
               "organization": "Perplexity AI",
@@ -10199,20 +10264,6 @@
               "votes": "28,519 票",
               "contextLength": 127072,
               "license": "Proprietary"
-            },
-            {
-              "rank": 32,
-              "displayRank": 32,
-              "name": "claude-opus-4-search",
-              "rawName": "claude-opus-4-search",
-              "organization": "Anthropic",
-              "url": "https://www.anthropic.com/news/claude-opus-4-1",
-              "scoreText": "1126分",
-              "rating": 1126,
-              "isAgent": false,
-              "votes": "31,037 票",
-              "contextLength": 200000,
-              "license": "Proprietary"
             }
           ]
         }
@@ -10221,6 +10272,21 @@
         {
           "rank": 1,
           "displayRank": 1,
+          "name": "Gemini 4 Argon",
+          "rawName": "gemini-4-argon",
+          "organization": "Google",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+          "scoreText": "1268分",
+          "rating": 1268,
+          "isAgent": false,
+          "votes": "Knowledge Agent 19.6% #1",
+          "contextLength": 1000000,
+          "license": "Proprietary",
+          "isNewThisWeek": true
+        },
+        {
+          "rank": 2,
+          "displayRank": 2,
           "name": "gpt-5.6-sol-xhigh",
           "rawName": "gpt-5.6-sol-xhigh",
           "organization": "OpenAI",
@@ -10233,8 +10299,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 2,
-          "displayRank": 2,
+          "rank": 3,
+          "displayRank": 3,
           "name": "claude-opus-4-6-search",
           "rawName": "claude-opus-4-6-search",
           "organization": "Anthropic",
@@ -10247,8 +10313,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 3,
-          "displayRank": 3,
+          "rank": 4,
+          "displayRank": 4,
           "name": "gpt-5.5-search",
           "rawName": "gpt-5.5-search",
           "organization": "OpenAI",
@@ -10261,8 +10327,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 4,
-          "displayRank": 4,
+          "rank": 5,
+          "displayRank": 5,
           "name": "claude-opus-4-7",
           "rawName": "claude-opus-4-7",
           "organization": "Anthropic",
@@ -10275,8 +10341,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 5,
-          "displayRank": 5,
+          "rank": 6,
+          "displayRank": 6,
           "name": "claude-fable-5-high",
           "rawName": "claude-fable-5-high",
           "organization": "Anthropic",
@@ -10289,8 +10355,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 6,
-          "displayRank": 6,
+          "rank": 7,
+          "displayRank": 7,
           "name": "ernie-5.1",
           "rawName": "ernie-5.1",
           "organization": "Baidu",
@@ -10303,8 +10369,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 7,
-          "displayRank": 7,
+          "rank": 8,
+          "displayRank": 8,
           "name": "claude-sonnet-4-6-search",
           "rawName": "claude-sonnet-4-6-search",
           "organization": "Anthropic",
@@ -10317,8 +10383,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 8,
-          "displayRank": 8,
+          "rank": 9,
+          "displayRank": 9,
           "name": "grok-4.5",
           "rawName": "grok-4.5",
           "organization": "SpaceXAI",
@@ -10331,8 +10397,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 9,
-          "displayRank": 9,
+          "rank": 10,
+          "displayRank": 10,
           "name": "gemini-3.1-pro-grounding",
           "rawName": "gemini-3.1-pro-grounding",
           "organization": "Google",
@@ -10345,8 +10411,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 10,
-          "displayRank": 10,
+          "rank": 11,
+          "displayRank": 11,
           "name": "gemini-3-pro-grounding",
           "rawName": "gemini-3-pro-grounding",
           "organization": "Google",
@@ -10359,8 +10425,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 11,
-          "displayRank": 11,
+          "rank": 12,
+          "displayRank": 12,
           "name": "gpt-5.2-search",
           "rawName": "gpt-5.2-search",
           "organization": "OpenAI",
@@ -10373,8 +10439,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 12,
-          "displayRank": 12,
+          "rank": 13,
+          "displayRank": 13,
           "name": "claude-opus-4-8",
           "rawName": "claude-opus-4-8",
           "organization": "Anthropic",
@@ -10387,8 +10453,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 13,
-          "displayRank": 13,
+          "rank": 14,
+          "displayRank": 14,
           "name": "grok-4.20-multi-agent-beta-0309",
           "rawName": "grok-4.20-multi-agent-beta-0309",
           "organization": "SpaceXAI",
@@ -10401,8 +10467,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 14,
-          "displayRank": 14,
+          "rank": 15,
+          "displayRank": 15,
           "name": "gpt-5.1-search",
           "rawName": "gpt-5.1-search",
           "organization": "OpenAI",
@@ -10415,8 +10481,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 15,
-          "displayRank": 15,
+          "rank": 16,
+          "displayRank": 16,
           "name": "gemini-3-flash-grounding",
           "rawName": "gemini-3-flash-grounding",
           "organization": "Google",
@@ -10429,8 +10495,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 16,
-          "displayRank": 16,
+          "rank": 17,
+          "displayRank": 17,
           "name": "gpt-5.4-search",
           "rawName": "gpt-5.4-search",
           "organization": "OpenAI",
@@ -10443,8 +10509,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 17,
-          "displayRank": 17,
+          "rank": 18,
+          "displayRank": 18,
           "name": "claude-sonnet-5-search",
           "rawName": "claude-sonnet-5-search",
           "organization": "Anthropic",
@@ -10457,8 +10523,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 18,
-          "displayRank": 18,
+          "rank": 19,
+          "displayRank": 19,
           "name": "grok-4.20-beta1",
           "rawName": "grok-4.20-beta1",
           "organization": "SpaceXAI",
@@ -10471,8 +10537,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 19,
-          "displayRank": 19,
+          "rank": 20,
+          "displayRank": 20,
           "name": "claude-opus-4-5-search",
           "rawName": "claude-opus-4-5-search",
           "organization": "Anthropic",
@@ -10485,8 +10551,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 20,
-          "displayRank": 20,
+          "rank": 21,
+          "displayRank": 21,
           "name": "gpt-5.2-search-non-reasoning",
           "rawName": "gpt-5.2-search-non-reasoning",
           "organization": "OpenAI",
@@ -10499,8 +10565,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 21,
-          "displayRank": 21,
+          "rank": 22,
+          "displayRank": 22,
           "name": "grok-4-1-fast-search",
           "rawName": "grok-4-1-fast-search",
           "organization": "SpaceXAI",
@@ -10513,8 +10579,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 22,
-          "displayRank": 22,
+          "rank": 23,
+          "displayRank": 23,
           "name": "grok-4-fast-search",
           "rawName": "grok-4-fast-search",
           "organization": "SpaceXAI",
@@ -10527,8 +10593,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 23,
-          "displayRank": 23,
+          "rank": 24,
+          "displayRank": 24,
           "name": "grok-4.3",
           "rawName": "grok-4.3",
           "organization": "SpaceXAI",
@@ -10541,8 +10607,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 24,
-          "displayRank": 24,
+          "rank": 25,
+          "displayRank": 25,
           "name": "claude-sonnet-4-5-search",
           "rawName": "claude-sonnet-4-5-search",
           "organization": "Anthropic",
@@ -10555,8 +10621,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 25,
-          "displayRank": 25,
+          "rank": 26,
+          "displayRank": 26,
           "name": "claude-opus-4-1-search",
           "rawName": "claude-opus-4-1-search",
           "organization": "Anthropic",
@@ -10569,8 +10635,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 26,
-          "displayRank": 26,
+          "rank": 27,
+          "displayRank": 27,
           "name": "o3-search",
           "rawName": "o3-search",
           "organization": "OpenAI",
@@ -10583,8 +10649,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 27,
-          "displayRank": 27,
+          "rank": 28,
+          "displayRank": 28,
           "name": "gemini-2.5-pro-grounding",
           "rawName": "gemini-2.5-pro-grounding",
           "organization": "Google",
@@ -10597,8 +10663,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 28,
-          "displayRank": 28,
+          "rank": 29,
+          "displayRank": 29,
           "name": "grok-4-search",
           "rawName": "grok-4-search",
           "organization": "SpaceXAI",
@@ -10611,8 +10677,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 29,
-          "displayRank": 29,
+          "rank": 30,
+          "displayRank": 30,
           "name": "ppl-sonar-reasoning-pro-high",
           "rawName": "ppl-sonar-reasoning-pro-high",
           "organization": "Perplexity AI",
@@ -10625,8 +10691,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 30,
-          "displayRank": 30,
+          "rank": 31,
+          "displayRank": 31,
           "name": "gpt-5-search",
           "rawName": "gpt-5-search",
           "organization": "OpenAI",
@@ -10639,8 +10705,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 31,
-          "displayRank": 31,
+          "rank": 32,
+          "displayRank": 32,
           "name": "ppl-sonar-pro-high",
           "rawName": "ppl-sonar-pro-high",
           "organization": "Perplexity AI",
@@ -10653,8 +10719,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 32,
-          "displayRank": 32,
+          "rank": 33,
+          "displayRank": 33,
           "name": "claude-opus-4-search",
           "rawName": "claude-opus-4-search",
           "organization": "Anthropic",
@@ -10667,8 +10733,8 @@
           "license": "Proprietary"
         },
         {
-          "rank": 33,
-          "displayRank": 33,
+          "rank": 34,
+          "displayRank": 34,
           "name": "diffbot-small-xl",
           "rawName": "diffbot-small-xl",
           "organization": "Diffbot",
@@ -10681,8 +10747,8 @@
           "license": "Apache 2.0"
         },
         {
-          "rank": 34,
-          "displayRank": 34,
+          "rank": 35,
+          "displayRank": 35,
           "name": "api-gpt-4o-search",
           "rawName": "api-gpt-4o-search",
           "organization": "OpenAI",
