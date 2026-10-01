@@ -75,6 +75,59 @@ const privacyLocal = (note: string) => ({
 
 export const products: Product[] = [
   {
+    slug: "leantake",
+    name: "LeanTake",
+    displayName: "恰录 LeanTake",
+    category: "Mac 录屏工具",
+    tagline: "录完即完成的 Mac 录屏：不用剪辑，停下就是能直接播放的视频。",
+    summary: "为讲课、教程和演示设计的 Mac 录屏软件。屏幕、窗口、区域任选，麦克风与系统声音同录，可暂停，可用画笔和放大镜圈点重点；停止后直接得到视频文件，不需要导出，不需要账号，全部在本机处理。",
+    platforms: ["macOS", "录屏", "讲课"],
+    status: ["Mac App Store 筹备中", "免费 + 一次买断 Pro", "无账号", "不联网"],
+    audience: "要录课程、教程、软件演示的老师、培训师和内容创作者——想要一个打开就能录、录完就能发的工具，而不是一个视频编辑器。",
+    primaryAction: { label: "即将登陆 Mac App Store", disabled: true },
+    repo: "",
+    website: undefined,
+    hideSourceLinks: true,
+    icon: "/product-icons/leantake.png",
+    accent: "#f97316",
+    priority: "P1",
+    learnSlug: "leantake-mac-recorder",
+    privacy: privacyLocal("录制内容、设置和日志都只保存在你的 Mac 上；软件不联网、不收集数据、不接广告和第三方统计；付费解锁通过 Apple StoreKit 完成。"),
+    features: ["屏幕 / 窗口 / 区域三种录制范围", "麦克风 + 系统声音，实时电平", "暂停 / 继续，自适应暂停", "画笔与放大镜，录制当下圈点重点", "摄像头可画进录屏，只出一个文件", "全局快捷键、配置方案、提词器（Pro）"],
+    buildNotes: ["“录完即完成”：不做时间线和剪辑，停止就是成片。", "免费版即可完整录制：720p / 1080p，画笔、放大镜免费；高画质、全部光标、摄像头单独文件、提词器、配置方案为 Pro。", "全部在本机处理，不联网。"],
+    courseHooks: ["ScreenCaptureKit", "macOS 沙盒", "StoreKit 2", "Mac App Store 上架"],
+    detail: {
+      overview: [
+        "恰录 LeanTake 是一款为讲课和教程设计的 Mac 录屏软件。打开就能录，选好屏幕、窗口或一块区域，按下录制；停止后你得到的就是一个能直接播放、直接发给学生的视频文件，不需要再导出一次。",
+        "它刻意不做视频编辑器：没有时间线、没有剪辑、没有自动字幕和云端账号。讲课时需要的事——暂停一下喝口水、在屏幕上圈一下重点、把鼠标附近放大给学生看——都在录制当下完成。",
+        "所有录制内容都在你的 Mac 上处理。恰录不联网、不收集数据，也没有广告。免费版就能完整录制；更高的画质、更多光标样式等增值功能通过一次性买断（Pro）解锁，没有订阅。",
+      ],
+      proofPoints: [
+        { label: "范围", value: "屏幕 / 窗口 / 区域", note: "三种录制范围；Display 可选屏。" },
+        { label: "声音", value: "麦克风 + 系统声音", note: "两条声音可分别调节，实时电平，临时静音。" },
+        { label: "隐私", value: "全部本机处理", note: "不联网、无账号、无广告、无第三方统计。" },
+        { label: "价格", value: "免费 + 一次买断", note: "免费版可完整录制；Pro 为一次性买断，不订阅。" },
+      ],
+      valueProps: [
+        { title: "录完就是成片", body: "停止录制就得到可直接播放的视频文件。不需要导出、不需要剪辑，也不会因为忘了导出而丢内容。" },
+        { title: "讲课要用的都在录制当下", body: "暂停 / 继续、画笔圈点、鼠标周围放大、摄像头小窗画进画面——这些都是边讲边用，成片里直接带着。" },
+        { title: "你的内容留在你的 Mac 上", body: "不联网、无账号。录制文件、设置和日志都在本机；软件只在你主动点击时才会打开外部链接。" },
+      ],
+      featureDetails: [
+        { title: "可靠的暂停", body: "暂停时画面与声音的时间线保持连贯，长时间暂停也不会让成片错位。" },
+        { title: "画笔与放大镜", body: "录制中随手圈点；鼠标周围的区域可以放大成全屏，带惯性地跟随。画笔和放大镜免费使用。" },
+        { title: "摄像头", body: "可以把摄像头小窗直接画进录屏（只出一个文件），形状和大小可调；Pro 还可以把摄像头单独存成一个文件。" },
+        { title: "光标", body: "成片里的光标可以是系统光标，也可以是手套 / 爪子造型，点击时会转动。免费版使用棉线手套，更多款式为 Pro。" },
+      ],
+      principles: [
+        { title: "核心体验永远免费", body: "录制、声音、暂停、画笔、放大镜都免费，不限时长、不加水印。付费只解锁更高画质和增值功能。" },
+        { title: "录制中绝不打断", body: "收费提示只会出现在录制之前或设置里，录制过程中不会弹出任何付费窗口。" },
+        { title: "不做后期", body: "不做时间线、剪辑、字幕和云端账号，保持“录完即完成”。" },
+      ],
+      diaryIntro: "恰录的开发日记会陆续整理：从为什么不做视频编辑器，到暂停时间线、录屏管线、沙盒适配和上架合规。",
+    },
+  },
+  {
     slug: "witnote",
     name: "WitNote",
     displayName: "WitNote 智简笔记",
@@ -763,7 +816,9 @@ export const products: Product[] = [
 
 export const featuredProducts = products.filter((product) => product.priority === "P0");
 
+// 展示顺序：**新上线 / 新加的 App 一律放在最前面**（首页“最新产品”取前 6 个，产品列表页按这个顺序排）。
 const latestProductSlugs = [
+  "leantake",
   "docktouchbar",
   "mood-button",
   "sumi-mahjong",

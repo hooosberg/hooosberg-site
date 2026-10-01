@@ -8,9 +8,10 @@ type Props = {
 
 const { product } = Astro.props;
 const isSumiMahjong = product.slug === "sumi-mahjong";
+const isLeanTake = product.slug === "leantake";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
-const updatedDate = product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const updatedDate = isLeanTake ? "2026-10-02" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const scopeText = product.hideSourceLinks
   ? "The product page, App Store download link, privacy policy, terms, and support contact define the current public product scope."
   : isWitNote
@@ -48,7 +49,9 @@ const thirdPartyText = product.hideSourceLinks
 
     <section>
       <h2>Use of the Product</h2>
-      {isSumiMahjong ? (
+      {isLeanTake ? (
+        <p>LeanTake is a screen recorder for Mac. You are responsible for what you record and for having the right to record it: obtain consent from people who appear or speak in your recording, and respect the copyright, confidentiality, and platform rules that apply to the content on your screen and in your system audio. Do not use LeanTake to record in ways that violate applicable law or the rights of others. Do not reverse engineer the app, or extract or redistribute its artwork, sounds, icons, or other bundled assets.</p>
+      ) : isSumiMahjong ? (
         <p>Sumi Mahjong is a casual tile matching game. Do not misuse the app, reverse engineer it, extract or redistribute its artwork, audio, icons, screenshots, code, or other bundled assets, or use it in ways that violate applicable law, platform rules, or third-party rights.</p>
       ) : isRushi ? (
         <p>Rushi is a personal scripture reading, mala counting, and copy-practice utility. It is not a religious service, publication service, donation service, medical or mental-health service, or promise of blessing, merit, salvation, or any spiritual outcome. Do not misuse the app, reverse engineer it, extract or redistribute bundled scripture, sound, calligraphy, copybook images, icons, screenshots, code, or other bundled assets outside their own source licenses, or use it in ways that violate applicable law, platform rules, or third-party rights.</p>
@@ -62,7 +65,9 @@ const thirdPartyText = product.hideSourceLinks
     <section>
       <h2>User Content and Local Data</h2>
       <p>{product.privacy.note}</p>
-      {isSumiMahjong ? (
+      {isLeanTake ? (
+        <p>LeanTake saves recordings to the folder you choose on your Mac, and keeps settings, profiles, and a local diagnostic log on your Mac. You are responsible for device security, backups, and the files you create. Deleting the app does not delete recordings you saved to your own folders.</p>
+      ) : isSumiMahjong ? (
         <p>Game progress, best times, settings, and local theme unlock state are stored on the device. You are responsible for your device security, backups, and iOS settings. Deleting the app may remove local app data according to iOS behavior.</p>
       ) : isRushi ? (
         <p>Reading state, mala counts, copy-practice works, settings, and local copy-practice unlock state are stored on the device. You are responsible for your device security, backups, iCloud/device settings, and any exports you create. Deleting the app may remove local app data according to iOS behavior.</p>
@@ -76,6 +81,9 @@ const thirdPartyText = product.hideSourceLinks
     <section>
       <h2>Downloads, Purchases, and Updates</h2>
       <p>{purchasesText}</p>
+      {isLeanTake && (
+        <p>LeanTake is free to use for recording, with no time limit and no watermark. The optional non-consumable in-app purchase LeanTake Pro unlocks higher video quality and frame rates, additional cursor styles, saving the camera as a separate file, the teleprompter, and saved configuration profiles. LeanTake does not offer auto-renewable subscriptions. Pricing is shown in the app and on the App Store before you buy. Refunds, billing issues, and purchase records are handled by Apple under Apple's own terms.</p>
+      )}
       {isSumiMahjong && (
         <p>The core game is playable for free. The optional non-consumable in-app purchase Unlock All Themes unlocks premium visual themes through Apple StoreKit. Sumi Mahjong does not offer auto-renewable subscriptions. Refunds, billing issues, and purchase records are handled by Apple under App Store rules.</p>
       )}
@@ -90,6 +98,9 @@ const thirdPartyText = product.hideSourceLinks
     <section>
       <h2>Third-Party Services</h2>
       <p>{thirdPartyText}</p>
+      {isLeanTake && (
+        <p>LeanTake does not include advertising networks, third-party analytics SDKs, cloud accounts, or third-party AI services. It uses Apple platform services such as ScreenCaptureKit, AVFoundation, App Store, and StoreKit, which remain subject to Apple's own terms and policies.</p>
+      )}
       {isSumiMahjong && (
         <p>Sumi Mahjong does not include advertising networks, third-party analytics SDKs, social feeds, cloud saves, or third-party AI services. Some bundled art or audio may include licensed or credited materials; those materials remain subject to their respective rights and may not be extracted or reused outside the app.</p>
       )}

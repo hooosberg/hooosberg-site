@@ -137,8 +137,11 @@ const pageTitle = product.slug === "witnote"
               {product.slug === "trekreel" && (
                 <><a href="/apps/trekreel/support">使用指南与数据源</a>{" · "}</>
               )}
+              {product.slug === "leantake" && (
+                <><a href="/apps/leantake/guide">使用说明</a>{" · "}</>
+              )}
               <a href={`mailto:zikedece@proton.me?subject=${encodeURIComponent(product.displayName + " support")}`}>
-                邮件支持
+                zikedece@proton.me
               </a>
             </dd>
           </div>
@@ -261,7 +264,7 @@ const pageTitle = product.slug === "witnote"
         </a>
         <a href={`mailto:zikedece@proton.me?subject=${encodeURIComponent(product.displayName + " support")}`}>
           <LifeBuoy size={16} aria-hidden="true" />
-          邮件支持
+          zikedece@proton.me
         </a>
       </div>
     </section>

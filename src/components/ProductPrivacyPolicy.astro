@@ -9,10 +9,11 @@ type Props = {
 const { product } = Astro.props;
 const isMoodButton = product.slug === "mood-button";
 const isSumiMahjong = product.slug === "sumi-mahjong";
+const isLeanTake = product.slug === "leantake";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
 const isTrekReel = product.slug === "trekreel";
-const updatedDate = isTrekReel ? "2026-09-30" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const updatedDate = isLeanTake ? "2026-10-02" : isTrekReel ? "2026-09-30" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const distributionText = product.hideSourceLinks
   ? `This privacy policy applies to ${product.displayName}. Product delivery for this app happens through the App Store and the linked Hooosberg product website.`
   : isWitNote
@@ -160,6 +161,38 @@ const platformServicesText = product.hideSourceLinks
         <section>
           <h2>In-App Purchases</h2>
           <p>TrekReel Pro is an optional one-time purchase handled by Apple through the App Store and StoreKit. Hooosberg does not receive your Apple ID, payment method or billing details, and the app only stores whether Pro is unlocked.</p>
+        </section>
+      </>
+    )}
+
+    {isLeanTake && (
+      <>
+        <section>
+          <h2>LeanTake Data Flow</h2>
+          <p>LeanTake is a screen recorder for Mac. It has no account system, no advertising SDK, no third-party analytics SDK, and no Hooosberg server. The app does not connect to the internet to record, save, or play your videos.</p>
+          <div class="privacy-list">
+            <div class="privacy-row"><strong>Screen and system audio</strong><span>Captured only while you record, using macOS screen recording and system audio permissions that you grant. The recording is written to the folder you choose on your Mac and is not uploaded.</span></div>
+            <div class="privacy-row"><strong>Microphone</strong><span>Used only when you turn the microphone on, to record your voice into the video file. Not uploaded.</span></div>
+            <div class="privacy-row"><strong>Camera</strong><span>Used only when you turn the camera on, either drawn into the recording or saved as a separate file on your Mac. Not uploaded.</span></div>
+            <div class="privacy-row"><strong>Settings and profiles</strong><span>Preferences, hotkeys, saved configuration profiles, and the teleprompter text are stored locally on your Mac. Profiles are plain files you can copy or delete.</span></div>
+            <div class="privacy-row"><strong>Diagnostic log</strong><span>A small local log file is kept on your Mac to help troubleshoot recording problems. It is not sent anywhere. You can delete it at any time.</span></div>
+            <div class="privacy-row"><strong>Permissions</strong><span>You can review or revoke screen recording, microphone, camera, and system audio access at any time in macOS System Settings &gt; Privacy &amp; Security.</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>In-App Purchases</h2>
+          <p>The optional non-consumable purchase LeanTake Pro is handled by Apple App Store and StoreKit. Hooosberg does not receive the user's Apple ID, payment method, billing address, App Store account credentials, or full purchase history. Restore Purchases uses Apple's StoreKit flow.</p>
+        </section>
+
+        <section>
+          <h2>Network and External Links</h2>
+          <p>LeanTake does not make network requests of its own. When you click a link in the app, such as the product website, this privacy policy, or the support contact, your default browser or mail app opens and handles that request under its own policies.</p>
+        </section>
+
+        <section>
+          <h2>Deletion and Retention</h2>
+          <p>Because LeanTake does not create a Hooosberg account or server profile, there is no server-side data for Hooosberg to delete. Recordings, settings, profiles, and the diagnostic log can be removed by deleting the files or the app on your Mac. Apple may retain purchase, refund, crash, or store activity records under Apple's own policies.</p>
         </section>
       </>
     )}
