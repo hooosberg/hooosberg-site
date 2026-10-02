@@ -9,45 +9,45 @@ const t = {
   title: zh ? "使用说明" : "User guide",
   updated: zh ? "最后更新：2026-10-02 · 适用于 恰录 LeanTake 1.0" : "Last updated: 2026-10-02 · For LeanTake 1.0",
   intro: zh
-    ? "恰录是一款为讲课和教程设计的 Mac 录屏软件：选好范围、按下录制，停止后直接得到一个能播放的视频文件，不需要导出，也不需要剪辑。这里是上手步骤、快捷键、免费与 Pro 的区别和常见问题。"
+    ? "恰录是一款为讲课和教程设计的 Mac 录屏软件：选好范围、按下录制，停止后直接得到一个能播放的视频文件，不需要导出，也不需要剪辑。这里用最简单的话告诉你怎么用，还有快捷键、免费和 Pro 的区别、常见问题。"
     : "LeanTake is a Mac screen recorder for lessons and tutorials: pick what to record, press Record, and when you stop you already have a playable video. No export step, no editing. This page covers getting started, shortcuts, what is free and what is Pro, and FAQ.",
   toc: zh
-    ? [["#quick-start", "快速上手"], ["#recording", "录制中怎么用"], ["#shortcuts", "快捷键"], ["#free-pro", "免费与 Pro"], ["#permissions", "权限"], ["#faq", "常见问题"], ["#contact", "联系我们"]]
+    ? [["#quick-start", "5 步录出视频"], ["#recording", "录的时候怎么用"], ["#shortcuts", "快捷键"], ["#free-pro", "免费与 Pro"], ["#permissions", "权限"], ["#faq", "常见问题"], ["#contact", "联系我们"]]
     : [["#quick-start", "Quick start"], ["#recording", "While recording"], ["#shortcuts", "Shortcuts"], ["#free-pro", "Free vs Pro"], ["#permissions", "Permissions"], ["#faq", "FAQ"], ["#contact", "Contact"]],
 };
 
 const steps = zh
   ? [
-      ["选择录制范围", "工具条最左边三个按钮：录制屏幕、录制窗口、录制区域。选“窗口”或“区域”后，按提示点选窗口或拖出一块范围。有多块屏幕时，点“录制屏幕”可以选哪一块。"],
-      ["打开你要录的声音和画面", "工具条上有摄像头、麦克风、系统声音三个格子。点一下打开菜单选择设备或开关；麦克风和系统声音格子里有实时电平，说话或放声音时能看到跳动。"],
-      ["按下“录制”", "默认有 3 秒倒计时（可在设置里关闭）。录制开始后，工具条不会出现在成片里。"],
-      ["边讲边用画笔和放大镜", "点画笔在屏幕上圈点；点放大镜把鼠标周围放大成全屏。需要休息就点暂停，回来再继续。"],
-      ["停止，得到成片", "点停止（或按快捷键），确认后几秒内保存完成。点“在访达中显示”就能看到文件，直接播放、直接发给别人。"],
+      ["选要录哪里", "工具条最左边有三个按钮：录整个屏幕、录一个窗口、录一小块区域。选“窗口”或“区域”以后，照提示点一下窗口，或者用鼠标拖出一个框。有两块屏幕的话，点“录制屏幕”选一块。"],
+      ["想录声音就打开它", "“麦克风”能录你说话；“系统声音”能录电脑自己放出来的声音，比如视频和音乐。点一下，选一个设备。下面的小灯在跳，就是它听得见。"],
+      ["想让别人看到你，就开摄像头", "点“摄像头”选一个。屏幕上会出现一个小窗，里面是你，录出来的视频里也会有。"],
+      ["点蓝色的“录制”", "屏幕中间会数 3、2、1，然后就开始录了。工具条不会被录进视频里。"],
+      ["点“停止”，视频就做好了", "几秒钟后保存完成。点“在访达中显示”就能找到它。它是一个 .mov 文件，双击就能播放，也能直接发给别人。不用再导出，也不用等。"],
     ]
   : [
-      ["Choose what to record", "The first three buttons on the toolbar are Display, Window and Area. For Window or Area, follow the prompt to click a window or drag a region. With several screens, click Display to choose one."],
-      ["Turn on the sound and picture you want", "The toolbar has Camera, Microphone and System Audio. Click one to open its menu to choose a device or switch it on or off. Microphone and System Audio show live level meters."],
-      ["Press Record", "There is a 3-second countdown by default (you can turn it off in Settings). The toolbar never appears in the recording."],
-      ["Use the pen and magnifier as you talk", "Click the pen to draw on screen; click the magnifier to zoom the area around your cursor to full screen. Pause when you need a break and resume when you are back."],
-      ["Stop and you are done", "Click Stop (or use the shortcut) and confirm. The file is saved within seconds. Click Show in Finder to find it, play it, share it."],
+      ["Choose what to record", "The three buttons on the far left are: record the whole screen, one window, or a small area. For Window or Area, follow the prompt: click a window, or drag a box with the mouse. With two screens, click Display to pick one."],
+      ["Turn on the sound you want", "Microphone records your voice. System Audio records sound your Mac plays itself, like videos and music. Click one and pick a device. If the little lights below it jump, it can hear."],
+      ["Turn on the camera to be seen", "Click Camera and pick one. A small window with you in it appears on screen, and it will be in the video too."],
+      ["Press the blue Record button", "The middle of the screen counts 3, 2, 1, then recording starts. The toolbar is never recorded into the video."],
+      ["Press Stop and your video is ready", "It is saved in a few seconds. Click Show in Finder to find it. It is a .mov file: double-click to play, or send it to anyone. No export, no waiting."],
     ];
 
 const recording = zh
   ? [
-      ["暂停 / 继续", "暂停期间不录内容，成片里画面和声音接得上。长时间暂停也没问题。"],
-      ["画笔", "点一下开关；长按画笔按钮可以换工具（铅笔、直线、箭头、矩形、圆圈、橡皮），旁边的小圆点选颜色。关闭画笔会清空笔迹。"],
-      ["放大镜", "点一下开关；长按可以选放大区域的大小（小 / 中 / 大）。鼠标在放大框里随便动，框不动；顶到边才会带着框走。"],
-      ["麦克风 / 系统声音", "录制中也能调电平、临时静音、选择录制时让喇叭出声还是只录不放。录制开始时没开的声音，要停止后再开。"],
-      ["摄像头", "可以把摄像头小窗直接画进录屏（只出一个文件）；Pro 还可以把摄像头单独存成一个文件。录制中可以隐藏或显示摄像头画面。"],
-      ["重新录制 / 取消", "工具条上有“重新录制”和“取消录制”，都会先让你确认，避免误点。"],
+      ["暂停、停止、重录、取消", "工具条最左边四个按钮。暂停：想喝口水，点一下，回来再点继续。停止：录完了。重录：这段不要，马上重新来。取消：这段不要，也不录了。重录和取消都会先问你一声。"],
+      ["画笔", "点一下，就能在屏幕上画，讲到哪画到哪。旁边的小圆点可以换颜色。再点一下画笔，画的东西就消失了。长按画笔，还能换成直线、箭头、方框等（这些是 Pro）。"],
+      ["放大镜", "点一下，鼠标周围的一小块会放大到整个屏幕，让大家看清小字。你在放大的框里随便动，画面不抖；动到边上才会跟着走。长按能选放大多少。"],
+      ["摄像头小窗", "用鼠标拖着它走，靠近屏幕角落会自动吸住。想暂时不看自己，点“摄像头”选“隐藏摄像头画面”（视频里的你还在）。"],
+      ["临时不想被听到", "点一下“麦克风”选“临时静音”，或者按快捷键。再按一下就恢复。"],
+      ["录的时候看不见它们", "工具条、菜单、提词器、设置窗口，都不会被录进视频。"],
     ]
   : [
-      ["Pause / Resume", "Nothing is recorded while paused, and picture and sound line up in the final video. Long pauses are fine."],
-      ["Pen", "Click to toggle; long-press the pen button to change tool (pencil, line, arrow, rectangle, circle, eraser) and use the dot beside it to pick a colour. Turning the pen off clears the drawing."],
-      ["Magnifier", "Click to toggle; long-press to choose the zoom area size (small / medium / large). Move freely inside the zoom box and it stays put; it only moves when you reach its edge."],
-      ["Microphone / System audio", "While recording you can still adjust levels, mute temporarily, and choose whether the speakers stay audible. A sound source that was off at the start can be turned on after you stop."],
-      ["Camera", "You can draw the camera window into the recording (a single file); Pro can also save the camera as a separate file. You can hide or show the camera window while recording."],
-      ["Restart / Cancel", "The toolbar has Restart and Cancel recording; both ask you to confirm first."],
+      ["Pause, Stop, Restart, Cancel", "The four buttons at the left of the toolbar. Pause: need a sip of water? Click it, then click again to continue. Stop: you are done. Restart: throw this take away and start again right now. Cancel: throw it away and stop. Restart and Cancel ask you first."],
+      ["Pen", "Click it to draw on the screen while you talk. The little dot beside it changes the colour. Click the pen again and the drawing disappears. Long-press the pen to switch to line, arrow, rectangle and more (those are Pro)."],
+      ["Magnifier", "Click it and the small area around your mouse grows to fill the screen, so everyone can read tiny text. Move around freely inside the zoom box and the picture stays steady; it only follows you when you reach the edge. Long-press to choose how much to zoom."],
+      ["Camera window", "Drag it with the mouse; it snaps to a corner when you get close. To stop looking at yourself for a while, open Camera and choose Hide camera window (you are still in the video)."],
+      ["Do not want to be heard for a moment", "Click Microphone and choose Temporary mute, or press the shortcut. Press again to turn it back on."],
+      ["You cannot see them in the video", "The toolbar, menus, teleprompter and settings window are never recorded into the video."],
     ];
 
 const shortcuts = zh
@@ -61,7 +61,7 @@ const freePro = zh
       ["输出分辨率", "720p / 1080p", "更高分辨率"],
       ["画质与帧率", "低画质，24 帧", "更高画质、30 / 60 帧、自定义码率"],
       ["摄像头", "画进录屏", "单独保存成文件，更多尺寸和帧率"],
-      ["光标", "棉线手套", "全部手套 / 爪子款式、系统光标"],
+      ["光标", "棉线手套", "全部手套 / 爪子款式（含以后新增的光标主题）、系统光标"],
       ["提词器、配置方案", "—", "Pro"],
     ]
   : [
@@ -70,7 +70,7 @@ const freePro = zh
       ["Output resolution", "720p / 1080p", "Higher resolutions"],
       ["Quality and frame rate", "Low quality, 24 fps", "Higher quality, 30 / 60 fps, custom bitrate"],
       ["Camera", "Drawn into the recording", "Saved as a separate file, more sizes and frame rates"],
-      ["Cursor", "Cotton glove", "All glove / paw styles, system cursor"],
+      ["Cursor", "Cotton glove", "All glove / paw styles (including future cursor themes), system cursor"],
       ["Teleprompter, configuration profiles", "—", "Pro"],
     ];
 
@@ -121,12 +121,12 @@ const faq = zh
     {t.toc.map(([href, label]) => <a href={href}>{label}</a>)}
   </nav>
 
-  <h2 id="quick-start">{zh ? "快速上手：5 步录出第一个视频" : "Quick start: your first recording in 5 steps"}</h2>
+  <h2 id="quick-start">{zh ? "5 步录出你的第一个视频" : "Quick start: your first recording in 5 steps"}</h2>
   <ol class="trekreel-support__steps">
     {steps.map(([title, body]) => <li><strong>{title}</strong><span>{body}</span></li>)}
   </ol>
 
-  <h2 id="recording">{zh ? "录制中怎么用" : "While recording"}</h2>
+  <h2 id="recording">{zh ? "录的时候怎么用" : "While recording"}</h2>
   <ul>
     {recording.map(([title, body]) => <li><strong>{title}：</strong>{body}</li>)}
   </ul>
