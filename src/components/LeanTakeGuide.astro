@@ -7,13 +7,13 @@ const base = zh ? "" : "/en";
 const t = {
   kicker: zh ? "恰录 LeanTake · 使用说明" : "LeanTake · User guide",
   title: zh ? "使用说明" : "User guide",
-  updated: zh ? "最后更新：2026-10-02 · 适用于 恰录 LeanTake 1.0" : "Last updated: 2026-10-02 · For LeanTake 1.0",
+  updated: zh ? "最后更新：2026-10-03 · 适用于 恰录 LeanTake 1.0" : "Last updated: 2026-10-03 · For LeanTake 1.0",
   intro: zh
     ? "恰录是一款为讲课和教程设计的 Mac 录屏软件：选好范围、按下录制，停止后直接得到一个能播放的视频文件，不需要导出，也不需要剪辑。这里用最简单的话告诉你怎么用，还有快捷键、免费和 Pro 的区别、常见问题。"
     : "LeanTake is a Mac screen recorder for lessons and tutorials: pick what to record, press Record, and when you stop you already have a playable video. No export step, no editing. This page covers getting started, shortcuts, what is free and what is Pro, and FAQ.",
   toc: zh
-    ? [["#quick-start", "5 步录出视频"], ["#recording", "录的时候怎么用"], ["#shortcuts", "快捷键"], ["#free-pro", "免费与 Pro"], ["#permissions", "权限"], ["#faq", "常见问题"], ["#contact", "联系我们"]]
-    : [["#quick-start", "Quick start"], ["#recording", "While recording"], ["#shortcuts", "Shortcuts"], ["#free-pro", "Free vs Pro"], ["#permissions", "Permissions"], ["#faq", "FAQ"], ["#contact", "Contact"]],
+    ? [["#quick-start", "5 步录出视频"], ["#recording", "录的时候怎么用"], ["#teleprompter", "提词器"], ["#shortcuts", "快捷键"], ["#free-pro", "免费与 Pro"], ["#permissions", "权限"], ["#faq", "常见问题"], ["#contact", "联系我们"]]
+    : [["#quick-start", "Quick start"], ["#recording", "While recording"], ["#teleprompter", "Teleprompter"], ["#shortcuts", "Shortcuts"], ["#free-pro", "Free vs Pro"], ["#permissions", "Permissions"], ["#faq", "FAQ"], ["#contact", "Contact"]],
 };
 
 const steps = zh
@@ -34,16 +34,18 @@ const steps = zh
 
 const recording = zh
   ? [
-      ["暂停、停止、重录、取消", "工具条最左边四个按钮。暂停：想喝口水，点一下，回来再点继续。停止：录完了。重录：这段不要，马上重新来。取消：这段不要，也不录了。重录和取消都会先问你一声。"],
-      ["画笔", "点一下，就能在屏幕上画，讲到哪画到哪。旁边的小圆点可以换颜色。再点一下画笔，画的东西就消失了。长按画笔，还能换成直线、箭头、方框等（这些是 Pro）。"],
+      ["暂停、停止、重录、取消", "工具条最左边四个按钮。暂停：想喝口水，点一下，回来再点继续。停止：录完了。重录：这段不要，马上重新来。取消：这段不要，也不录了。重录和取消都会先问你一声（弹窗里按回车或 Esc 都是“继续录制”，不会误删）。"],
+      ["极简工具条", "想让工具条更小，点最左边的收缩按钮，它会变成一条更短的横条：只留下时间、暂停、停止，以及麦克风和系统声音的图标与竖向电平。再点一下最左边的按钮就展开回来。你的选择会被记住，也可以在 设置 › 通用 里切换。极简模式下，画笔、放大镜、提词器、重录和取消都可以用快捷键。"],
+      ["画笔", "点一下，就能在屏幕上画，讲到哪画到哪。旁边的小圆点可以换颜色。再点一下画笔，画的东西就消失了。长按画笔，还能换成直线、箭头、方框、圆圈和橡皮（这些是 Pro，免费版是铅笔）。"],
       ["放大镜", "点一下，鼠标周围的一小块会放大到整个屏幕，让大家看清小字。你在放大的框里随便动，画面不抖；动到边上才会跟着走。长按能选放大多少。"],
       ["摄像头小窗", "用鼠标拖着它走，靠近屏幕角落会自动吸住。想暂时不看自己，点“摄像头”选“隐藏摄像头画面”（视频里的你还在）。"],
       ["临时不想被听到", "点一下“麦克风”选“临时静音”，或者按快捷键。再按一下就恢复。"],
       ["录的时候看不见它们", "工具条、菜单、提词器、设置窗口，都不会被录进视频。"],
     ]
   : [
-      ["Pause, Stop, Restart, Cancel", "The four buttons at the left of the toolbar. Pause: need a sip of water? Click it, then click again to continue. Stop: you are done. Restart: throw this take away and start again right now. Cancel: throw it away and stop. Restart and Cancel ask you first."],
-      ["Pen", "Click it to draw on the screen while you talk. The little dot beside it changes the colour. Click the pen again and the drawing disappears. Long-press the pen to switch to line, arrow, rectangle and more (those are Pro)."],
+      ["Pause, Stop, Restart, Cancel", "The four buttons at the left of the toolbar. Pause: need a sip of water? Click it, then click again to continue. Stop: you are done. Restart: throw this take away and start again right now. Cancel: throw it away and stop. Restart and Cancel ask you first (Return or Esc in the dialog means keep recording, so nothing is lost by accident)."],
+      ["Compact toolbar", "Click the collapse button at the far left to shrink the toolbar into a shorter strip: just the time, pause, stop, and the microphone and system audio icons with vertical meters. Click the far-left button again to expand. Your choice is remembered and can also be switched in Settings › General. In compact mode the pen, magnifier, teleprompter, restart and cancel are still available by shortcut."],
+      ["Pen", "Click it to draw on the screen while you talk. The little dot beside it changes the colour. Click the pen again and the drawing disappears. Long-press the pen to switch to line, arrow, rectangle, circle and eraser (those are Pro; the free version has the pencil)."],
       ["Magnifier", "Click it and the small area around your mouse grows to fill the screen, so everyone can read tiny text. Move around freely inside the zoom box and the picture stays steady; it only follows you when you reach the edge. Long-press to choose how much to zoom."],
       ["Camera window", "Drag it with the mouse; it snaps to a corner when you get close. To stop looking at yourself for a while, open Camera and choose Hide camera window (you are still in the video)."],
       ["Do not want to be heard for a moment", "Click Microphone and choose Temporary mute, or press the shortcut. Press again to turn it back on."],
@@ -51,27 +53,29 @@ const recording = zh
     ];
 
 const shortcuts = zh
-  ? [["开始录制", "⌃⌥R"], ["暂停 / 继续", "⌃⌥P"], ["停止录制", "⌃⌥S"], ["麦克风静音", "⌃⌥M"], ["显示 / 隐藏工具条", "⌃⌥H"], ["开关放大镜", "⌃⌥F"], ["放大区域变大 / 变小", "⌃⌥] / ⌃⌥["], ["开关画笔", "⌃⌥D"], ["重新录制", "⌃⌥N"], ["取消录制", "⌃⌥C"]]
-  : [["Start recording", "⌃⌥R"], ["Pause / Resume", "⌃⌥P"], ["Stop recording", "⌃⌥S"], ["Mute microphone", "⌃⌥M"], ["Show / hide toolbar", "⌃⌥H"], ["Toggle magnifier", "⌃⌥F"], ["Zoom area larger / smaller", "⌃⌥] / ⌃⌥["], ["Toggle pen", "⌃⌥D"], ["Restart recording", "⌃⌥N"], ["Cancel recording", "⌃⌥C"]];
+  ? [["开始录制", "⌃⌥R"], ["暂停 / 继续", "⌃⌥P"], ["停止录制", "⌃⌥S"], ["麦克风静音", "⌃⌥M"], ["显示 / 隐藏工具条", "⌃⌥H"], ["开关放大镜", "⌃⌥F"], ["放大区域变大 / 变小", "⌃⌥] / ⌃⌥["], ["开关画笔", "⌃⌥D"], ["显示 / 隐藏提词器（Pro）", "⌃⌥T"], ["重新录制", "⌃⌥N"], ["取消录制", "⌃⌥C"]]
+  : [["Start recording", "⌃⌥R"], ["Pause / Resume", "⌃⌥P"], ["Stop recording", "⌃⌥S"], ["Mute microphone", "⌃⌥M"], ["Show / hide toolbar", "⌃⌥H"], ["Toggle magnifier", "⌃⌥F"], ["Zoom area larger / smaller", "⌃⌥] / ⌃⌥["], ["Toggle pen", "⌃⌥D"], ["Show / hide teleprompter (Pro)", "⌃⌥T"], ["Restart recording", "⌃⌥N"], ["Cancel recording", "⌃⌥C"]];
 
 const freePro = zh
   ? [
       ["录制范围、麦克风、系统声音、暂停、停止即得文件", "免费", "—"],
-      ["画笔（全部颜色和工具）、放大镜", "免费", "—"],
-      ["输出分辨率", "720p / 1080p", "更高分辨率"],
-      ["画质与帧率", "低画质，24 帧", "更高画质、30 / 60 帧、自定义码率"],
-      ["摄像头", "画进录屏", "单独保存成文件，更多尺寸和帧率"],
+      ["放大镜；画笔（铅笔、12 种颜色、粗细）", "免费", "—"],
+      ["画笔工具：直线、箭头、方框、圆圈、橡皮", "—", "Pro"],
+      ["输出分辨率", "720p / 1080p", "1440p、原始分辨率"],
+      ["画质与帧率", "低 / 中 / 高画质，24 / 30 帧", "60 帧、自定义码率"],
+      ["摄像头", "画进录屏（圆形，720p，15 帧）", "单独保存成文件，更多形状、分辨率和帧率"],
       ["光标", "棉线手套", "全部手套 / 爪子款式（含以后新增的光标主题）、系统光标"],
-      ["提词器、配置方案", "—", "Pro"],
+      ["提词器、配置方案（存多套设置，一键切换）", "—", "Pro"],
     ]
   : [
       ["Display / window / area, microphone, system audio, pause, instant file on stop", "Free", "—"],
-      ["Pen (all colours and tools) and magnifier", "Free", "—"],
-      ["Output resolution", "720p / 1080p", "Higher resolutions"],
-      ["Quality and frame rate", "Low quality, 24 fps", "Higher quality, 30 / 60 fps, custom bitrate"],
-      ["Camera", "Drawn into the recording", "Saved as a separate file, more sizes and frame rates"],
+      ["Magnifier; pen (pencil, 12 colours, stroke width)", "Free", "—"],
+      ["Pen tools: line, arrow, rectangle, circle, eraser", "—", "Pro"],
+      ["Output resolution", "720p / 1080p", "1440p, native resolution"],
+      ["Quality and frame rate", "Low / medium / high quality, 24 / 30 fps", "60 fps, custom bitrate"],
+      ["Camera", "Drawn into the recording (circle, 720p, 15 fps)", "Saved as a separate file, more shapes, resolutions and frame rates"],
       ["Cursor", "Cotton glove", "All glove / paw styles (including future cursor themes), system cursor"],
-      ["Teleprompter, configuration profiles", "—", "Pro"],
+      ["Teleprompter, configuration profiles (save several setups, switch in one click)", "—", "Pro"],
     ];
 
 const permissions = zh
@@ -97,6 +101,8 @@ const faq = zh
       ["iPhone 能当摄像头吗？", "可以。连续互通相机在摄像头菜单里会出现 iPhone；它走无线连接，偶尔会掉线，掉线后在摄像头菜单里重新选择即可。"],
       ["录制中电脑意外重启或软件崩溃，文件还在吗？", "恰录每隔几秒保存一个片段，意外中断后通常能播放到最后几秒之前的内容。"],
       ["怎么购买 Pro？怎么恢复购买？", "在设置里点带 PRO 标记的选项，或打开“账户”页，可以购买或恢复购买。购买通过 Apple 完成，一次性买断，不订阅。"],
+      ["怎么存一套自己的设置？", "在 设置 › 通用 最下面点“存为新配置…”，起个名字就行（Pro）。里面包含画面、光标、放大、画笔、摄像头样式、倒计时、极简工具条、提词器样式、快捷键和声音设置，但不包含保存位置和具体的麦克风、摄像头设备。以后一键载入，也可以设一份为默认，每次打开自动用它。"],
+      ["画质选低、中、高有什么区别？", "它们对应的是常见视频网站在 1080p 下的画质水平：低约 3 Mbps，中约 6 Mbps，高约 12 Mbps。画面基本不动的讲课，实际文件会小很多。设置 › 录制 里会实时显示 10 分钟大概多大。"],
       ["恰录会上传我的录制吗？", "不会。恰录不联网，录制内容、设置和日志都只保存在你的 Mac 上。详见隐私政策。"],
     ]
   : [
@@ -107,6 +113,8 @@ const faq = zh
       ["Can I use my iPhone as a camera?", "Yes. Continuity Camera shows your iPhone in the Camera menu. It is wireless and may occasionally drop; choose it again in the Camera menu to reconnect."],
       ["What if my Mac restarts or the app crashes mid-recording?", "LeanTake saves a fragment every few seconds, so an interrupted recording can usually be played up to the last few seconds."],
       ["How do I buy Pro or restore a purchase?", "Click any option marked PRO in Settings, or open the Account page, to buy or restore. Purchases go through Apple, one-time, no subscription."],
+      ["How do I save my own setup?", "At the bottom of Settings › General, click Save as new profile… and give it a name (Pro). A profile holds picture, cursor, magnifier, pen, camera style, countdown, compact toolbar, teleprompter style, shortcuts and audio settings, but not the save folder or specific microphone and camera devices. Load it in one click, or set one as the default so it loads every time you open the app."],
+      ["What do Low, Medium and High quality mean?", "They match typical video-site quality at 1080p: Low is about 3 Mbps, Medium about 6 Mbps, High about 12 Mbps. Mostly still lessons come out much smaller. Settings › Recording shows the estimated size for 10 minutes live."],
       ["Does LeanTake upload my recordings?", "No. LeanTake does not connect to the internet; recordings, settings and logs stay on your Mac. See the privacy policy."],
     ];
 ---
@@ -131,8 +139,11 @@ const faq = zh
     {recording.map(([title, body]) => <li><strong>{title}：</strong>{body}</li>)}
   </ul>
 
+  <h2 id="teleprompter">{zh ? "提词器（Pro）" : "Teleprompter (Pro)"}</h2>
+  <p>{zh ? "把讲稿粘贴进去，点播放，文字会自己往上滚，你边看边讲。提词器不会被录进视频。按 ⌃⌥T 显示或隐藏，录制前、录制中、极简工具条下都能用；可以在 设置 › 快捷键 里改键位。" : "Paste your script and press play: the text scrolls up while you read along. The teleprompter is never recorded into the video. Press ⌃⌥T to show or hide it before or during recording, including in compact mode; change the key in Settings › Shortcuts."}</p>
+
   <h2 id="shortcuts">{zh ? "默认快捷键" : "Default shortcuts"}</h2>
-  <p>{zh ? "全部是全局快捷键（在任何软件里都能按），可以在 设置 › 快捷键 里自定义；与其他软件冲突时会有提示。" : "All shortcuts are global (they work in any app) and can be changed in Settings › Shortcuts; conflicts are flagged."}</p>
+  <p>{zh ? "全部是全局快捷键（在任何软件里都能按），可以在 设置 › 快捷键 里自定义（自定义的键必须带 ⌘ 或 ⌃）；与其他软件冲突时会有提示。长按画笔按钮可选画笔工具，长按放大镜按钮可选放大范围。" : "All shortcuts are global (they work in any app) and can be changed in Settings › Shortcuts (custom keys must include ⌘ or ⌃); conflicts are flagged. Long-press the pen button to choose a tool, and the magnifier button to choose the zoom size."}</p>
   <div class="trekreel-support__table">
     <table>
       <thead><tr><th>{zh ? "功能" : "Action"}</th><th>{zh ? "按键" : "Keys"}</th></tr></thead>
@@ -141,7 +152,7 @@ const faq = zh
   </div>
 
   <h2 id="free-pro">{zh ? "免费与 Pro" : "Free vs Pro"}</h2>
-  <p>{zh ? "免费版就能完整录制，不限时长、没有水印。Pro 是一次性买断（不订阅），解锁更高画质等增值功能。收费提示只出现在录制之前或设置里，录制过程中不会被打断。" : "The free version records fully, with no time limit and no watermark. Pro is a one-time purchase (no subscription) that unlocks higher quality and extras. Purchase prompts only appear before recording or in Settings, never during a recording."}</p>
+  <p>{zh ? "免费版就能完整录制，不限时长、没有水印。Pro 是一次性买断（不订阅），解锁更高分辨率、帧率等增值功能。" : "The free version records fully, with no time limit and no watermark. Pro is a one-time purchase (no subscription) that unlocks higher resolutions, frame rates and extras."}</p>
   <div class="trekreel-support__table">
     <table>
       <thead><tr><th>{zh ? "功能" : "Feature"}</th><th>{zh ? "免费" : "Free"}</th><th>Pro</th></tr></thead>
