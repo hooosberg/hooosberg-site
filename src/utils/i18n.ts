@@ -149,6 +149,8 @@ const productActionLabelMap: Record<string, string> = {
   "旧产品页": "Legacy page",
   "开发日记": "Build diary",
   "下载 DMG": "Download DMG",
+  "下载纯净版": "Download Standard",
+  "下载 Vibe 版": "Download Vibe",
   "即将上架": "Coming soon",
   "即将登陆 Mac App Store": "Coming to the Mac App Store",
   "App Store 即将上架": "App Store coming soon",
@@ -234,12 +236,12 @@ const productEnglish: Record<string, EnglishProductOverride> = {
   docktouchbar: {
     category: "Touch Bar utility · AI coding case study",
     tagline: "Your Dock on the Touch Bar: simple, elegant, efficient.",
-    summary: "A native macOS utility that does one thing: show your Dock apps on the Touch Bar of a MacBook Pro. Tap to switch, double-tap to hide, long-press to quit. No widgets, no network access, 0.0% CPU when idle.",
+    summary: "A native macOS utility that does one thing: show your Dock apps on the Touch Bar of a MacBook Pro. Tap to switch, double-tap to hide, long-press to quit. No widgets, no network access, 0.0% CPU when idle. Two editions: Standard is just the Dock; Vibe includes everything and also shows live working / done status on the icon of the app your AI coding agent runs in.",
     audience: "MacBook Pro Touch Bar owners who find Touch Bar Dock tools too busy or unreliable over time.",
     platforms: ["macOS", "Touch Bar", "Swift / AppKit"],
     status: ["Notarized DMG", "Source-available", "Local-first"],
     privacyNote: "No network access, no analytics, no accounts. Only a few preferences (switches, language, long-press duration and style, centered-window size) are stored on your Mac.",
-    features: ["Persistent Dock on the Touch Bar, in the same order as the system Dock", "Tap to switch (jumps to another desktop when needed), double-tap to hide, long-press to quit, with a \"Closing…\" countdown at the right edge so your finger never hides it, over a little pixel-art scene in four seasons where a tiny character runs along the progress bar and, at the end, a gust of petals or snow sweeps by; long-press looks at the app first (just the current window when it is in front with several, Finder is hidden), and if the app is waiting for you or does not close, the Touch Bar switches to it and says so", "Recovers after sleep, screen unlock and Control Strip restarts", "Two white 8-bit pixel buttons at the right: a coffee cup with rising steam hides the Dock for a moment and hands the Touch Bar back to the system (brightness, volume) — it returns on its own after 10–60 s, so a fully dimmed screen never locks you out — and, at the far right, a button that centers the frontmost window, then maximizes it on the next tap and centers it again after that", "Rapid taps stay in order: the last tap wins, and it self-corrects if the system drops a switch or focus is stolen", "English and Simplified Chinese, menu bar settings and an About window"],
+    features: ["Persistent Dock on the Touch Bar, in the same order as the system Dock", "Tap to switch (jumps to another desktop when needed), double-tap to hide, long-press to quit, with a \"Closing…\" countdown at the right edge so your finger never hides it, over a little pixel-art scene in four seasons where a tiny character runs along the progress bar and, at the end, a gust of petals or snow sweeps by; long-press looks at the app first (just the current window when it is in front with several, Finder is hidden), and if the app is waiting for you or does not close, the Touch Bar switches to it and says so", "Recovers after sleep, screen unlock and Control Strip restarts", "Two white 8-bit pixel buttons at the right: a coffee cup with rising steam hides the Dock for a moment and hands the Touch Bar back to the system (brightness, volume) — it returns on its own after 10–60 s, so a fully dimmed screen never locks you out — and, at the far right, a button that centers the frontmost window, then maximizes it on the next tap and centers it again after that", "Rapid taps stay in order: the last tap wins, and it self-corrects if the system drops a switch or focus is stolen", "English and Simplified Chinese, menu bar settings and an About window", "Vibe edition (a separate app that includes all of the above): live status on the icon of the app your AI coding agent runs in (Claude Code, Codex, Qoder, WorkBuddy, Antigravity, Qwen Work, Doubao…): a pixel-art screen with falling digits while it works, OK when it is done. Copy one prompt, paste it to the agent, and it pairs itself; any agent that can run a command on your Mac works, not just these"],
     courseHooks: ["Native Swift on macOS", "AppKit and NSTouchBar", "Managing private-API risk", "Signing, notarization and DMG release"],
   },
   drowsebook: {
@@ -564,6 +566,7 @@ export function getLocalizedProduct(product: Product, locale: Locale): Product {
     platforms: override.platforms ?? product.platforms,
     status: override.status ?? product.status,
     primaryAction: localizeAction(product.primaryAction, locale) ?? product.primaryAction,
+    extraActions: product.extraActions?.map((action) => localizeAction(action, locale) ?? action),
     secondaryAction: localizeAction(product.secondaryAction, locale),
     privacy: {
       ...product.privacy,

@@ -42,6 +42,7 @@ const addAction = (action?: ProductAction) => {
 };
 
 addAction(product.primaryAction);
+product.extraActions?.forEach(addAction);
 
 if (!product.hideSourceLinks) {
   addAction({ label: "GitHub", url: product.repo, icon: "/icons/social/github.svg" });

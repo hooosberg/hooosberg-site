@@ -10,6 +10,8 @@ export type Product = {
   audience: string;
   primaryAction: ProductAction;
   secondaryAction?: ProductAction;
+  /** 主按钮之后紧挨着显示的其他下载入口（比如同一个产品的另一个版本）。 */
+  extraActions?: ProductAction[];
   repo: string;
   website?: string;
   hideSourceLinks?: boolean;
@@ -356,11 +358,12 @@ export const products: Product[] = [
     displayName: "DockTouchBar",
     category: "Touch Bar 工具 · AI 编程案例",
     tagline: "把 Dock 放到 Touch Bar 上：简洁、优雅、高效。",
-    summary: "只做一件事的 macOS 原生小工具：在带 Touch Bar 的 MacBook Pro 上显示 Dock 里的 App，单击切换、双击隐藏、长按退出。没有小组件，不联网，空闲时 CPU 占用 0.0%。",
+    summary: "只做一件事的 macOS 原生小工具：在带 Touch Bar 的 MacBook Pro 上显示 Dock 里的 App，单击切换、双击隐藏、长按退出。没有小组件，不联网，空闲时 CPU 占用 0.0%。有两个版本：纯净版只做 Dock；Vibe 版包含全部功能，并在 AI 编程智能体所在 App 的图标上显示工作中和做完的实时状态。",
     platforms: ["macOS", "Touch Bar", "Swift / AppKit"],
     status: ["已公证 DMG", "源码可见", "本地优先"],
     audience: "在用带 Touch Bar 的 MacBook Pro，又嫌 Touch Bar 上的 Dock 工具功能太杂、用久了不稳定的人。",
-    primaryAction: { label: "下载 DMG", url: "https://github.com/hooosberg/DockTouchBar/releases/latest" },
+    primaryAction: { label: "下载纯净版", url: "https://github.com/hooosberg/DockTouchBar/releases/latest" },
+    extraActions: [{ label: "下载 Vibe 版", url: "https://github.com/hooosberg/DockTouchBar/releases/tag/vibe-v1.0" }],
     secondaryAction: { label: "GitHub", url: "https://github.com/hooosberg/DockTouchBar" },
     repo: "https://github.com/hooosberg/DockTouchBar",
     website: undefined,
@@ -376,6 +379,7 @@ export const products: Product[] = [
       "右侧有两个白色 8 位像素风的小按钮：咖啡杯（杯口有蒸汽）点一下暂时隐藏 Dock、把 Touch Bar 还给系统（亮度、音量），10–60 秒后自动恢复，屏幕被调到全黑也不会把你锁在外面；最右边是窗口居中 / 最大化按钮：先居中，再点一下最大化，再点回到居中，你自己拖过或换了 App 就先居中，图标跟着窗口现在的样子变",
       "连续快速点击以最后一下为准；切桌面被系统丢掉或焦点被抢走，会自动纠正回你最后点的那个",
       "简体中文与 English，菜单栏设置和“关于”窗口",
+      "Vibe 版（独立的 App，包含以上全部功能）：在 Claude Code、Codex、Qoder、WorkBuddy、Antigravity、千问办公、豆包等 AI 编程智能体所在 App 的图标上显示实时状态，工作时是像素风屏幕加字符雨，做完显示 OK；复制一段提示词粘贴给智能体，它自己完成配对，任何能在你的 Mac 上执行命令的智能体都可以，不限于这几个",
     ],
     buildNotes: [
       "和 Claude Code 协作完成：先做私有接口的可行性验证，再写正式代码。",
@@ -389,6 +393,7 @@ export const products: Product[] = [
         "它来自一个很具体的不满：Pock 一类的工具都能把 Dock 放到 Touch Bar 上，但小组件、插件越多，日常用起来 Touch Bar 越容易消失或者点了没反应。DockTouchBar 反过来，把范围收得很窄，把稳定放在第一位。",
         "整个 App 约 4200 行 Swift、15 个文件（不少是像素画的数据），没有第三方依赖，体积 1.7 MB。让后台 App 在 Touch Bar 上常驻只能用 Apple 的私有接口，所以它不上 Mac App Store，而是用 Developer ID 签名、经 Apple 公证的 DMG 在 GitHub 分发。",
         "它同时是一个 AI 编程案例：从可行性验证、技术选型、跨桌面切换，到踩坑、签名公证和公开发布，整个过程都完整写在开发日记里。",
+        "DockTouchBar 有两个版本，是两个独立的 App。纯净版只做 Dock；Vibe 版包含纯净版的全部功能，另外在 AI 编程智能体所在 App 的图标上显示实时状态。拿不准就先用纯净版；两个版本都会占用 Touch Bar，一次只运行一个。",
       ],
       proofPoints: [
         { label: "实测占用", value: "CPU 0.0% · 32 MB", note: "M1 MacBook Pro 上开着 Dock 空闲时，连续 5 次采样 CPU 都是 0.0%；读内核的进程计数器隔 20 秒做差，1.10 上测了三次，空闲唤醒和中断唤醒每次新增都是 0 次；物理内存约 32 MB。咖啡杯上的蒸汽由系统的渲染进程绘制，不是 App 本身在动。" },
@@ -403,6 +408,8 @@ export const products: Product[] = [
         { title: "点得快也不乱", body: "连续快速点击以最后一下为准；切桌面被系统丢掉、或者焦点被别的 App 抢走，会在约两秒内自动纠正回你最后点的那个。你一动键盘、鼠标或触控板，它立刻停手，绝不和你争。" },
       ],
       featureDetails: [
+        { title: "两个版本，下载哪个", body: "纯净版（DockTouchBar）：只做 Dock，适合所有有 Touch Bar 的 Mac 用户，在 GitHub Releases 的最新发布里下载。Vibe 版（DockTouchBar Vibe）：包含纯净版的全部功能，另外显示 AI 智能体的实时状态，适合用 AI 编程智能体的人，在它自己的 vibe-v1.0 发布里下载。GitHub 的发布侧栏只能显示一个“Latest”，所以 Vibe 不在侧栏里，请用本页的“下载 Vibe 版”按钮。" },
+        { title: "Vibe 版：配对智能体", body: "设置 → 配对智能体 → 复制提示词 → 粘贴给你的智能体。它先自检，再用自己的 hook 或一条长期指令规则接进来，改配置前先备份；验证是否通过由 Vibe 自己判定。验证通过后，它所在 App 的图标在它工作时变成像素风屏幕加字符雨，做完显示 OK。App 本身不会修改任何其他工具的配置，也不会把数据发出你的 Mac。" },
         { title: "单击：切换", body: "没打开的 App 会启动；窗口都在别的桌面时，用辅助功能把窗口提到前面，系统随之切到那个桌面（辅助功能权限可选，没给时照常切换，只是不切桌面）。" },
         { title: "双击：隐藏", body: "等同 ⌘H，再点一下就回来。第一下照常切换、不等待，所以单击没有延迟。" },
         { title: "长按：退出", body: "等同 ⌘Q。图标变暗，下方出现红色进度条，走满才退出，中途松手算单击；访达不会被退出，时长可以在菜单里选 1、2、3、5 秒。" },
