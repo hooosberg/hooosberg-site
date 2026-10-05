@@ -1598,6 +1598,96 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
 </div>`,
   },
   {
+    slug: "video-codex-claude-code-registration-guide",
+    title: "Claude Code 国内简易注册订阅教程（免海外卡）",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-10-05",
+    seriesOrder: 200,
+    handoutFirst: true,
+    excerpt: "无需海外信用卡、免海外手机号，手把手教你通过美区 Apple ID 与苹果内购通道轻松订阅 Claude Pro，畅享超高性价比的 Claude 3.7 / 3.5 Sonnet 模型与 Claude Code 编程环境。",
+    tags: ["视频教程", "Claude Code", "Claude Pro", "AI编程", "海外账号", "苹果内购", "免外币卡"],
+    productSlugs: [],
+    videoUrl: "https://www.bilibili.com/video/BV1PiHn6RE7P/",
+    videoMeta: "B 站：Claude Code 国内简易注册订阅教程（免海外卡）",
+    body: [
+      "很多想尝试 Claude Code 或 Claude 3.7 / 3.5 Sonnet 的朋友，最常遇到的拦路虎就是：国内没有 Visa/Mastercard 外币卡，或者绑卡经常被 Stripe 风控网关拒付、封号。",
+      "本期教程手把手演示一套通用且风控极低的最优解——借助美区 Apple ID + 苹果 App Store 官方应用内购（In-App Purchase）通道，通过正规礼品卡充值苹果余额一键扣款，免外币卡、无需接码，全平台会员权限通用！"
+    ],
+    sections: [
+      {
+        heading: "一、背景痛点：为什么大家纷纷转向 Claude Code？",
+        paragraphs: [
+          "• OpenAI / Codex 成本高昂且额度见底极快：20 美元/月的会员，在高强度连续编程场景下，往往只能支撑 3~4 个小时额度就会耗尽；即便花 100 美元升级到更高档位，据群友实测也只能撑大约 1 天左右。",
+          "• Claude Code 表现惊艳且极其耐用：同样是 20 美元/月的 Pro 会员，在日常主力开发中使用 Claude 3.7 / 3.5 Sonnet 模型，实测可以轻松支撑 5 天的高强度连续开发，而且生成的代码工程质量、上下文把控和一次成型率非常高。",
+          "• 国内最大痛点与底层破局逻辑：国内开发者最大的难点是没有海外 Visa/Mastercard 信用卡（国内双币卡几乎 100% 被 Stripe 拒付），或者担心注册即封号。本方案的核心逻辑是通过「美区 Apple ID + 苹果 App Store 应用内购（In-App Purchase）」支付通道。只要在美区 App Store 上架的 AI 工具，均可通过正规礼品卡充值苹果余额直接扣款，完全绕过海外信用卡和风控网关，安全稳定不封号！"
+        ],
+      },
+      {
+        heading: "二、前期准备条件",
+        paragraphs: [
+          "1. 苹果设备：iPhone 或 iPad 一台（用于完成 App Store 内购扣款）。",
+          "2. 美区 Apple ID：必须是美国地区的 Apple 账户。手机上的 App Store 需切换登录该美区账户（设置中的 iCloud 可以保留国内日常账号，只需在 App Store 单独登录美区账号即可）。",
+          "3. 正常、纯净的海外网络环境：保持固定在美区节点，避免高频切换国家或 IP 漂移。"
+        ],
+      },
+      {
+        heading: "三、购买美区礼品卡与充值（解决支付问题）",
+        paragraphs: [
+          "• 购买渠道：打开手机微信，搜索小程序「PockytShop」（免代购、官方直营合作）。进入首页点击右下角「礼品卡」，在国家列表中选择「美国 / US」，找到「App Store & iTunes 礼品卡（US）」。",
+          "• 面额选择与付款：Claude Pro 会员标准月费为 $20/月，输入或选择对应面额，直接使用微信支付或支付宝付款。付款后在订单详情页或邮箱中查收 16 位由字母与数字组成的兑换码。",
+          "• 充值到美区 Apple 账户：打开 iPhone 上的 App Store（确认登录美区账号）-> 点击右上角头像 -> 点击「Redeem Gift Card or Code」（兑换充值卡或代码）-> 选择「Enter Code Manually」输入 16 位代码点击「Redeem」。兑换成功后账户余额即时显示 $20.00。"
+        ],
+      },
+      {
+        heading: "四、下载 Claude App 并开通 Pro 会员",
+        paragraphs: [
+          "1. 下载官方 App：在美区 App Store 搜索「Claude」（认准 Anthropic 官方出品），点击获取并安装。",
+          "2. 注册与登录：打开 Claude 手机 App，强烈推荐直接点击「Continue with Apple」（通过 Apple 登录），结合美区 Apple ID 原生登录风控极低；也可使用自用 Gmail 或海外邮箱。",
+          "3. 订阅 Pro 会员：登录成功后，点击右上角设置图标 -> 侧边栏底部点击账户名称 -> 点击「Billing」或「Upgrade to Pro」（$20/月）。",
+          "4. 苹果官方扣款：弹出苹果内购面板后，双击手机电源侧边键通过 Face ID 或密码确认，系统直接从刚刚充值的苹果余额中扣款。开通后全平台会员权限通用！"
+        ],
+      },
+      {
+        heading: "五、电脑端登录与 Claude Code 终端命令行环境配置",
+        paragraphs: [
+          "• 网页端登录：打开电脑浏览器访问官方网址 https://claude.ai/，使用手机端相同的账号登录，右上角即刻显示 Pro 标识。支持 Chat 通用日常对话模式与 Code / Projects 专业编程开发模式。",
+          "• Claude Code 终端 CLI 环境要求：系统需安装 Node.js 18.0 或更高版本（终端输入 node -v 检查）。",
+          "• 全局安装命令：在终端运行 npm install -g @anthropic-ai/claude-code 完成安装。",
+          "• 启动与授权：在任意项目文件夹下运行 claude 启动，首次运行会弹出浏览器授权链接，登录 Pro 账号点击授权即可直接开始终端 Agentic 协作编程。"
+        ],
+        codeBlocks: [
+          "# 1. 全局安装 Claude Code CLI\nnpm install -g @anthropic-ai/claude-code\n\n# 2. 进入你的项目文件夹并启动\ncd /path/to/your/project\nclaude"
+        ],
+      },
+      {
+        heading: "六、实战选型心得：Claude 模型梯队与性价比深度剖析",
+        paragraphs: [
+          "• Haiku（低端轻量）：速度极快、Token 消耗极低，适合简单快速问答、日志过滤与初筛分类。",
+          "• Sonnet 3.7 / 3.5（核心中端 / 主力中坚）：日常编程绝对主力！性价比之王。实测 20 美元 Pro 会员在连续高强度编程下可稳定支撑 5 天，逻辑严密、代码工程质量极佳。",
+          "• Opus（高端深度推理）：适合超复杂架构设计、长上下文多层逻辑推理与攻坚场景，思考深刻但推理耗时略长。",
+          "• Fable / 实验旗舰：超高端模型，Pro 会员通常受限或无法无限制调用，日常使用 Sonnet 已完全胜任。",
+          "• 对比总结：Codex 20 美元高强度写 4 小时见底，Claude Code 20 美元结合 Sonnet 可用 5 天，是目前兼顾品质与耐用度的首选工具。"
+        ],
+      },
+      {
+        heading: "七、长期稳定使用防封规范（避坑指南）",
+        paragraphs: [
+          "1. 坚持走苹果内购渠道：避免绑定来源不明的虚拟信用卡，从根源杜绝 Stripe 拒付黑名单风险。",
+          "2. 固定干净的美区节点：使用稳定的专线节点，尽量固定在同一地区，严禁短时间内在多个国家 IP 间频繁跳跃。",
+          "3. 独立个人资料与单人单号：电脑端建议使用 Chrome 独立个人资料（Profile）专用于海外 AI 工具；单人单号使用，切勿多人跨地域高频并发。"
+        ],
+      },
+      {
+        heading: "八、延伸探索：全球大模型竞技场实时排行榜",
+        paragraphs: [
+          "想了解最新的 Claude 3.7、Opus、Codex 以及 Gemini 各家模型的最新排名动态，欢迎访问湖森堡网站的 AI 导航板块：https://hooosberg.com/ai-navigation",
+          "排行榜每周同步全球权威大模型竞技场数据，方便大家在不同开发场景下科学选型！"
+        ],
+      },
+    ],
+  },
+  {
     slug: "video-codex-gemini-proxy",
     title: "Codex外挂Gemini！白嫖Antigravity模型，反向代理全自动配置",
     category: "视频教程笔记",
