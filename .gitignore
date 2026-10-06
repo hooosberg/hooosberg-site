@@ -6,7 +6,8 @@ dist/
 output/
 
 # Local operating documents stay outside the public source repository.
-docs/
+docs/*
+!docs/*.md
 DEPLOYMENT.md
 
 .DS_Store

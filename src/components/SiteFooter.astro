@@ -1,24 +1,35 @@
 ---
 import StudioAbout from "./StudioAbout.astro";
-import { brandNameByLocale, getLocalizedSocialLinks, toLocalizedPath, uiText, type Locale } from "../utils/i18n";
+import {
+  allLocales,
+  brandNameByLocale,
+  getAlternatePaths,
+  getLocalizedSocialLinks,
+  localeMeta,
+  toLocalizedPath,
+  uiText,
+  type Locale,
+} from "../utils/i18n";
 
 type Props = {
   locale?: Locale;
 };
 
 const { locale = "zh-CN" } = Astro.props;
-const text = uiText[locale];
-const brandTitle = brandNameByLocale[locale];
+const currentPath = Astro.url.pathname;
+const alternatePaths = getAlternatePaths(currentPath);
+const text = uiText[locale] ?? uiText["en"];
+const brandTitle = brandNameByLocale[locale] ?? "@Hooosberg";
 const links = getLocalizedSocialLinks(locale);
-const isEnglish = locale === "en";
+const isEnglish = locale !== "zh-CN";
 const legalLinks = [
-  { label: isEnglish ? "Privacy" : "隐私政策", url: toLocalizedPath("/privacy", locale) },
-  { label: isEnglish ? "Terms" : "服务条款", url: toLocalizedPath("/terms", locale) },
-  { label: isEnglish ? "Cookies" : "Cookie 说明", url: toLocalizedPath("/cookies", locale) },
+  { label: locale === "zh-CN" ? "隐私政策" : "Privacy", url: toLocalizedPath("/privacy", locale) },
+  { label: locale === "zh-CN" ? "服务条款" : "Terms", url: toLocalizedPath("/terms", locale) },
+  { label: locale === "zh-CN" ? "Cookie 说明" : "Cookies", url: toLocalizedPath("/cookies", locale) },
 ];
-const footerNote = isEnglish
-  ? "Public project notes, AI tutorials, and product pages. Legal, privacy, and analytics details are documented in the pages below."
-  : "这里记录公开项目、AI 教程和产品页面。隐私、服务条款与网站统计说明以底部对应页面为准。";
+const footerNote = locale === "zh-CN"
+  ? "这里记录公开项目、AI 教程和产品页面。隐私、服务条款与网站统计说明以底部对应页面为准。"
+  : "Public project notes, AI tutorials, and product pages. Legal, privacy, and analytics details are documented in the pages below.";
 const copyrightText = `© ${new Date().getFullYear()} Hooosberg.`;
 ---
 
@@ -31,8 +42,21 @@ const copyrightText = `© ${new Date().getFullYear()} Hooosberg.`;
     <nav class="site-footer__social" aria-label={isEnglish ? "Social links" : "社交链接"}>
       {links.map((link) => <a href={link.url} target={link.url.startsWith("http") ? "_blank" : undefined} rel="noreferrer">{link.label}</a>)}
     </nav>
-    <nav class="site-footer__legal" aria-label={locale === "en" ? "Legal links" : "法律链接"}>
+    <nav class="site-footer__legal" aria-label={locale === "zh-CN" ? "法律链接" : "Legal links"}>
       {legalLinks.map((link) => <a href={link.url}>{link.label}</a>)}
+    </nav>
+    <nav class="site-footer__languages" aria-label={locale === "zh-CN" ? "多语言切换" : "Language navigation"}>
+      {allLocales.map((loc) => {
+        const href = alternatePaths[loc] ?? (loc === "zh-CN" ? "/" : `/${loc}`);
+        return (
+          <a
+            class:list={["site-footer__lang-pill", loc === locale && "is-active"]}
+            href={href}
+          >
+            {localeMeta[loc].label}
+          </a>
+        );
+      })}
     </nav>
     <p class="site-footer__note">{footerNote} <span>{copyrightText}</span></p>
     <StudioAbout compact />

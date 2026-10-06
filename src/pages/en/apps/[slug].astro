@@ -6,7 +6,7 @@ import ProductIcon from "../../../components/ProductIcon.astro";
 import { getArticlesForProduct } from "../../../data/articles";
 import { products, type Product, type ProductAction } from "../../../data/products";
 import { getLocalizedProduct, getLocalizedArticle, toLocalizedPath } from "../../../utils/i18n";
-import { buildProductJsonLd, buildProductWebPageJsonLd } from "../../../utils/structuredData";
+import { buildBreadcrumbJsonLd, buildProductJsonLd, buildProductWebPageJsonLd } from "../../../utils/structuredData";
 
 export function getStaticPaths() {
   return products.map((product) => ({
@@ -57,7 +57,16 @@ if (!product.hideSourceLinks && product.website) {
 }
 addAction(product.secondaryAction);
 
-const productJsonLd = [buildProductWebPageJsonLd(product, "en"), buildProductJsonLd(product, "en")];
+const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+  { name: "Home", path: "/en" },
+  { name: "Products", path: "/en/apps" },
+  { name: product.displayName, path: `/en/apps/${product.slug}` },
+]);
+const productJsonLd = [
+  buildProductWebPageJsonLd(product, "en"),
+  buildProductJsonLd(product, "en"),
+  breadcrumbJsonLd,
+];
 const pageTitle = product.slug === "witnote"
   ? "WitNote Markdown Editor for Mac, iPhone & iPad | Hooosberg"
   : `${product.displayName} | Hooosberg`;

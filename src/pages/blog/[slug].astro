@@ -6,6 +6,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { articles, type Article } from "../../data/articles";
 import { products } from "../../data/products";
 import { absoluteUrl } from "../../utils/i18n";
+import { buildBreadcrumbJsonLd } from "../../utils/structuredData";
 
 export function getStaticPaths() {
   return articles.map((article) => ({
@@ -24,9 +25,15 @@ const visibleBody = article.body.filter(
 const relatedProducts = article.productSlugs
   .map((slug) => products.find((product) => product.slug === slug))
   .filter(Boolean);
+const defaultClusterProducts = products
+  .filter((p) => ["witnote", "docktouchbar", "leantake", "mood-button"].includes(p.slug))
+  .slice(0, 3);
 const relatedArticles = (article.relatedArticleSlugs ?? [])
   .map((slug) => articles.find((item) => item.slug === slug))
   .filter((item): item is Article => Boolean(item));
+const fallbackArticles = articles
+  .filter((item) => item.slug !== article.slug && (item.category === article.category || item.diaryKind === article.diaryKind))
+  .slice(0, 3);
 const diaryReturnHref = `/blog?kind=${article.diaryKind}`;
 const articleJsonLd = {
   "@context": "https://schema.org",
@@ -54,6 +61,11 @@ const articleJsonLd = {
   },
   mainEntityOfPage: absoluteUrl(`/blog/${article.slug}`),
 };
+const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+  { name: "首页", path: "/" },
+  { name: "笔记", path: "/blog" },
+  { name: article.title, path: `/blog/${article.slug}` },
+]);
 ---
 
 <BaseLayout
@@ -63,7 +75,7 @@ const articleJsonLd = {
   type="article"
   publishedTime={article.date}
   modifiedTime={article.date}
-  jsonLd={articleJsonLd}
+  jsonLd={[articleJsonLd, breadcrumbJsonLd]}
 >
   <article class="article-detail" data-diary-kind={article.diaryKind}>
     <header>
@@ -145,22 +157,50 @@ const articleJsonLd = {
       </div>
     )}
 
-    {relatedProducts.length > 0 && (
-      <footer class="article-related">
-        <h2>关联产品</h2>
-        <div class="mini-link-row">
-          {relatedProducts.map((product) => product && <a href={`/apps/${product.slug}`}>{product.displayName}</a>)}
+    <footer class="article-related article-topic-cluster">
+      <h2>主题集群与延伸探索</h2>
+      <div class="topic-cluster-grid">
+        <div class="topic-cluster-card">
+          <div class="topic-cluster-card__header">
+            <span>🛠️</span>
+            <strong>自研产品实践</strong>
+          </div>
+          <p>从真实需求到上架维护的独立开发项目与开源工具。</p>
+          <div class="mini-link-row">
+            {(relatedProducts.length > 0 ? relatedProducts : defaultClusterProducts).map((product) => product && (
+              <a href={`/apps/${product.slug}`}>{product.displayName}</a>
+            ))}
+            <a href="/apps" class="cluster-more-link">全部产品 →</a>
+          </div>
         </div>
-      </footer>
-    )}
 
-    {relatedArticles.length > 0 && (
-      <footer class="article-related">
-        <h2>关联课程</h2>
-        <div class="mini-link-row">
-          {relatedArticles.map((item) => <a href={`/blog/${item.slug}`}>{item.title}</a>)}
+        <div class="topic-cluster-card">
+          <div class="topic-cluster-card__header">
+            <span>🧭</span>
+            <strong>AI 工具与模型导航</strong>
+          </div>
+          <p>精选全球与国内主流 AI 工具、编程助手与模型战力天梯榜。</p>
+          <div class="mini-link-row">
+            <a href="/ai-navigation">AI 工具导航</a>
+            <a href="/ai-model-sanguo-ranking">大模型排行榜</a>
+            <a href="/ai-navigation#coding">代码助手</a>
+          </div>
         </div>
-      </footer>
-    )}
+
+        <div class="topic-cluster-card">
+          <div class="topic-cluster-card__header">
+            <span>📚</span>
+            <strong>知识体系与实战笔记</strong>
+          </div>
+          <p>系统性沉淀的 AI 自动化办公、终端 Agent 与实战复盘。</p>
+          <div class="mini-link-row">
+            {(relatedArticles.length > 0 ? relatedArticles.slice(0, 3) : fallbackArticles).map((item) => (
+              <a href={`/blog/${item.slug}`}>{item.title}</a>
+            ))}
+            <a href={diaryReturnHref} class="cluster-more-link">更多{article.category} →</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </article>
 </BaseLayout>

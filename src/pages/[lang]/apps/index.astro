@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ProductCard from "../../../components/ProductCard.astro";
+import StudioAbout from "../../../components/StudioAbout.astro";
+import { productsByLatest } from "../../../data/products";
+import { tier1Locales, type Tier1Locale } from "../../../utils/i18n";
+import { tier1Content } from "../../../data/tier1Translations";
+import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../../utils/structuredData";
+
+export function getStaticPaths() {
+  return tier1Locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const locale = lang as Tier1Locale;
+const content = tier1Content[locale] ?? tier1Content["ja"];
+
+const productItems = productsByLatest.map((product) => ({
+  name: product.displayName,
+  url: `/en/apps/${product.slug}`,
+  description: product.summary,
+}));
+
+const jsonLd = [
+  buildSectionCollectionJsonLd({
+    locale,
+    path: `/${locale}/apps`,
+    name: `@Hooosberg ${content.products.heroTitle}`,
+    description: content.products.heroSubtitle,
+    topics: ["indie AI apps", "local-first AI apps", "AI developer tools", "Hooosberg products"],
+  }),
+  buildItemListJsonLd(`https://hooosberg.com/${locale}/apps#product-list`, productItems),
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${content.products.heroTitle} | @Hooosberg`}
+  description={content.products.heroSubtitle}
+  canonicalPath={`/${locale}/apps`}
+  jsonLd={jsonLd}
+>
+  <section class="page-hero page-hero--narrow">
+    <p class="commerce-kicker">{content.products.heroKicker}</p>
+    <h1>{content.products.heroTitle}</h1>
+    <p>{content.products.heroSubtitle}</p>
+  </section>
+
+  <section class="catalog-section">
+    <div class="product-grid product-grid--catalog">
+      {productsByLatest.map((product) => <ProductCard product={product} locale={locale} />)}
+    </div>
+    <StudioAbout id="about" />
+  </section>
+</BaseLayout>

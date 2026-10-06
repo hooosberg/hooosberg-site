@@ -1,23 +1,53 @@
 import type { Article, ArticleSection, DiaryKind } from "../data/articles";
 import { products, socialLinks, type Product, type ProductAction } from "../data/products";
+import { localizedCategories, localizedProductSummaries } from "../data/tier1Translations";
 
-export type Locale = "zh-CN" | "en";
+export type FullSiteLocale = "zh-CN" | "en";
+export type Tier1Locale = "ja" | "ko" | "es" | "fr" | "de" | "pt" | "ru" | "it" | "ar" | "hi";
+export type Locale = FullSiteLocale | Tier1Locale;
+
+export const fullSiteLocales: FullSiteLocale[] = ["zh-CN", "en"];
+export const tier1Locales: Tier1Locale[] = ["ja", "ko", "es", "fr", "de", "pt", "ru", "it", "ar", "hi"];
+export const allLocales: Locale[] = [...fullSiteLocales, ...tier1Locales];
 
 export const siteName = "湖森堡AI_hooosberg";
 export const siteOrigin = "https://hooosberg.com";
+
 export const brandNameByLocale: Record<Locale, string> = {
   "zh-CN": "湖森堡AI_hooosberg",
   en: "@Hooosberg",
+  ja: "@Hooosberg",
+  ko: "@Hooosberg",
+  es: "@Hooosberg",
+  fr: "@Hooosberg",
+  de: "@Hooosberg",
+  pt: "@Hooosberg",
+  ru: "@Hooosberg",
+  it: "@Hooosberg",
+  ar: "@Hooosberg",
+  hi: "@Hooosberg",
 };
 
-export const localeMeta: Record<Locale, { htmlLang: string; hreflang: string; label: string; shortLabel: string }> = {
-  "zh-CN": { htmlLang: "zh-CN", hreflang: "zh-CN", label: "中文", shortLabel: "中文" },
-  en: { htmlLang: "en", hreflang: "en", label: "English", shortLabel: "EN" },
+export const localeMeta: Record<Locale, { htmlLang: string; hreflang: string; ogLocale: string; label: string; shortLabel: string; dir?: "ltr" | "rtl" }> = {
+  "zh-CN": { htmlLang: "zh-CN", hreflang: "zh-CN", ogLocale: "zh_CN", label: "中文", shortLabel: "中文" },
+  en: { htmlLang: "en", hreflang: "en", ogLocale: "en_US", label: "English", shortLabel: "EN" },
+  ja: { htmlLang: "ja", hreflang: "ja", ogLocale: "ja_JP", label: "日本語", shortLabel: "JA" },
+  ko: { htmlLang: "ko", hreflang: "ko", ogLocale: "ko_KR", label: "한국어", shortLabel: "KO" },
+  es: { htmlLang: "es", hreflang: "es", ogLocale: "es_ES", label: "Español", shortLabel: "ES" },
+  fr: { htmlLang: "fr", hreflang: "fr", ogLocale: "fr_FR", label: "Français", shortLabel: "FR" },
+  de: { htmlLang: "de", hreflang: "de", ogLocale: "de_DE", label: "Deutsch", shortLabel: "DE" },
+  pt: { htmlLang: "pt", hreflang: "pt", ogLocale: "pt_PT", label: "Português", shortLabel: "PT" },
+  ru: { htmlLang: "ru", hreflang: "ru", ogLocale: "ru_RU", label: "Русский", shortLabel: "RU" },
+  it: { htmlLang: "it", hreflang: "it", ogLocale: "it_IT", label: "Italiano", shortLabel: "IT" },
+  ar: { htmlLang: "ar", hreflang: "ar", ogLocale: "ar_AR", label: "العربية", shortLabel: "AR", dir: "rtl" },
+  hi: { htmlLang: "hi", hreflang: "hi", ogLocale: "hi_IN", label: "हिन्दी", shortLabel: "HI" },
 };
 
 export const uiText = {
   "zh-CN": {
     brandAria: "湖森堡AI_hooosberg home",
+    bannerText: "零基础也能用 AI 帮你办公自动化你手上的工作",
+    bannerCta: "立即购买 ↗",
     nav: [
       ["学习笔记", "/blog"],
       ["AI导航", "/ai-navigation"],
@@ -31,9 +61,12 @@ export const uiText = {
     footerCopy: "真实项目教程、独立 App、AI 工具和长期产品记录。",
     productDiary: "开发笔记",
     viewProduct: "查看产品详情",
+    productButton: "产品页",
   },
   en: {
     brandAria: "Hooosberg home",
+    bannerText: "Automate your daily office tasks with AI from scratch",
+    bannerCta: "Enroll Now ↗",
     nav: [
       ["Learning Notes", "/blog"],
       ["AI Guide", "/ai-navigation"],
@@ -47,8 +80,201 @@ export const uiText = {
     footerCopy: "Real product notes, independent apps, AI tools, and long-term build notes.",
     productDiary: "Build notes",
     viewProduct: "View product details",
+    productButton: "Product",
+  },
+  ja: {
+    brandAria: "Hooosberg ホーム",
+    bannerText: "ゼロから始めるAIオフィス自動化：日常業務を効率化",
+    bannerCta: "詳細を見る ↗",
+    nav: [
+      ["学習ノート", "/blog"],
+      ["AIガイド", "/ai-navigation"],
+      ["プロダクト", "/apps"],
+      ["連絡先", "/links"],
+    ],
+    moreNavLabel: "その他",
+    moreNav: [],
+    themeToggle: "テーマ切り替え",
+    languageSwitch: "Switch language",
+    footerCopy: "実践型チュートリアル、個人開発アプリ、AIツール、継続的な開発記録。",
+    productDiary: "開発ノート",
+    viewProduct: "詳細を見る",
+    productButton: "プロダクト",
+  },
+  ko: {
+    brandAria: "Hooosberg 홈",
+    bannerText: "기초부터 시작하는 AI 오피스 자동화: 일상 업무 효율화",
+    bannerCta: "자세히 보기 ↗",
+    nav: [
+      ["학습 노트", "/blog"],
+      ["AI 가이드", "/ai-navigation"],
+      ["제품", "/apps"],
+      ["연락처", "/links"],
+    ],
+    moreNavLabel: "더보기",
+    moreNav: [],
+    themeToggle: "테마 전환",
+    languageSwitch: "Switch language",
+    footerCopy: "실전 프로젝트 튜토리얼, 인디 앱, AI 도구 및 지속적인 개발 일지.",
+    productDiary: "개발 일지",
+    viewProduct: "제품 상세 보기",
+    productButton: "제품",
+  },
+  es: {
+    brandAria: "Hooosberg inicio",
+    bannerText: "Automatice sus tareas de oficina con IA desde cero",
+    bannerCta: "Ver detalles ↗",
+    nav: [
+      ["Notas de aprendizaje", "/blog"],
+      ["Guía IA", "/ai-navigation"],
+      ["Productos", "/apps"],
+      ["Contacto", "/links"],
+    ],
+    moreNavLabel: "Más",
+    moreNav: [],
+    themeToggle: "Cambiar tema",
+    languageSwitch: "Switch language",
+    footerCopy: "Tutoriales de proyectos reales, apps independientes, herramientas de IA y notas de desarrollo continuo.",
+    productDiary: "Notas de desarrollo",
+    viewProduct: "Ver detalles",
+    productButton: "Producto",
+  },
+  fr: {
+    brandAria: "Hooosberg accueil",
+    bannerText: "Automatisez vos tâches de bureau avec l'IA en partant de zéro",
+    bannerCta: "En savoir plus ↗",
+    nav: [
+      ["Notes d'apprentissage", "/blog"],
+      ["Guide IA", "/ai-navigation"],
+      ["Produits", "/apps"],
+      ["Contact", "/links"],
+    ],
+    moreNavLabel: "Plus",
+    moreNav: [],
+    themeToggle: "Basculer le thème",
+    languageSwitch: "Switch language",
+    footerCopy: "Tutoriels de projets réels, applications indépendantes, outils IA et carnets de développement continus.",
+    productDiary: "Notes de conception",
+    viewProduct: "Voir les détails",
+    productButton: "Produit",
+  },
+  de: {
+    brandAria: "Hooosberg Startseite",
+    bannerText: "Büroaufgaben mit KI von Grund auf automatisieren",
+    bannerCta: "Mehr erfahren ↗",
+    nav: [
+      ["Lernnotizen", "/blog"],
+      ["KI-Guide", "/ai-navigation"],
+      ["Produkte", "/apps"],
+      ["Kontakt", "/links"],
+    ],
+    moreNavLabel: "Mehr",
+    moreNav: [],
+    themeToggle: "Design umschalten",
+    languageSwitch: "Switch language",
+    footerCopy: "Praxisnahe Projekt-Tutorials, Indie-Apps, KI-Tools und transparente Entwicklungstagebücher.",
+    productDiary: "Entwicklungsnotizen",
+    viewProduct: "Details anzeigen",
+    productButton: "Produkt",
+  },
+  pt: {
+    brandAria: "Hooosberg início",
+    bannerText: "Automatize suas tarefas de escritório com IA do zero",
+    bannerCta: "Ver detalhes ↗",
+    nav: [
+      ["Notas de aprendizagem", "/blog"],
+      ["Guia IA", "/ai-navigation"],
+      ["Produtos", "/apps"],
+      ["Contato", "/links"],
+    ],
+    moreNavLabel: "Mais",
+    moreNav: [],
+    themeToggle: "Alternar tema",
+    languageSwitch: "Switch language",
+    footerCopy: "Tutoriais de projetos reais, aplicativos independentes, ferramentas de IA e diários de desenvolvimento contínuos.",
+    productDiary: "Notas de criação",
+    viewProduct: "Ver detalhes",
+    productButton: "Produto",
+  },
+  ru: {
+    brandAria: "Hooosberg главная",
+    bannerText: "Автоматизация офисных задач с помощью ИИ с нуля",
+    bannerCta: "Подробнее ↗",
+    nav: [
+      ["Учебные заметки", "/blog"],
+      ["ИИ-навигатор", "/ai-navigation"],
+      ["Продукты", "/apps"],
+      ["Контакты", "/links"],
+    ],
+    moreNavLabel: "Еще",
+    moreNav: [],
+    themeToggle: "Переключить тему",
+    languageSwitch: "Switch language",
+    footerCopy: "Практические руководства по проектам, инди-приложения, инструменты ИИ и журналы разработки.",
+    productDiary: "Дневник разработки",
+    viewProduct: "Подробнее",
+    productButton: "Продукт",
+  },
+  it: {
+    brandAria: "Hooosberg home",
+    bannerText: "Automatizza le attività d'ufficio con l'IA da zero",
+    bannerCta: "Scopri di più ↗",
+    nav: [
+      ["Note di studio", "/blog"],
+      ["Guida AI", "/ai-navigation"],
+      ["Prodotti", "/apps"],
+      ["Contatti", "/links"],
+    ],
+    moreNavLabel: "Altro",
+    moreNav: [],
+    themeToggle: "Cambia tema",
+    languageSwitch: "Switch language",
+    footerCopy: "Tutorial su progetti reali, app indipendenti, strumenti di intelligenza artificiale e diari di sviluppo continui.",
+    productDiary: "Note di sviluppo",
+    viewProduct: "Vedi dettagli",
+    productButton: "Prodotto",
+  },
+  ar: {
+    brandAria: "Hooosberg الرئيسية",
+    bannerText: "أتمتة المهام المكتبية اليومية باستخدام الذكاء الاصطناعي من الصفر",
+    bannerCta: "التفاصيل ↗",
+    nav: [
+      ["ملاحظات التعلم", "/blog"],
+      ["دليل الذكاء الاصطناعي", "/ai-navigation"],
+      ["المنتجات", "/apps"],
+      ["اتصل بنا", "/links"],
+    ],
+    moreNavLabel: "المزيد",
+    moreNav: [],
+    themeToggle: "تبديل المظهر",
+    languageSwitch: "Switch language",
+    footerCopy: "دروس مشاريع عملية، تطبيقات مستقلة، أدوات ذكاء اصطناعي، ويوميات تطوير مستمرة.",
+    productDiary: "مذكرات التطوير",
+    viewProduct: "عرض التفاصيل",
+    productButton: "المنتج",
+  },
+  hi: {
+    brandAria: "Hooosberg होम",
+    bannerText: "शुरुआत से AI के साथ अपने दैनिक कार्यालय कार्यों को स्वचालित करें",
+    bannerCta: "विवरण देखें ↗",
+    nav: [
+      ["लर्निंग नोट्स", "/blog"],
+      ["AI गाइड", "/ai-navigation"],
+      ["उत्पाद", "/apps"],
+      ["संपर्क", "/links"],
+    ],
+    moreNavLabel: "अधिक",
+    moreNav: [],
+    themeToggle: "थीम बदलें",
+    languageSwitch: "Switch language",
+    footerCopy: "वास्तविक प्रोजेक्ट ट्यूटोरियल, स्वतंत्र ऐप्स, AI उपकरण और दीर्घकालिक निर्माण डायरी।",
+    productDiary: "निर्माण नोट्स",
+    viewProduct: "विवरण देखें",
+    productButton: "उत्पाद",
   },
 } satisfies Record<Locale, Record<string, unknown>>;
+
+export const tier1Paths = new Set(["/", "/apps", "/links", "/blog", "/services", "/ai-navigation"]);
 
 export function normalizePath(pathname: string) {
   const clean = pathname.split("#")[0].split("?")[0] || "/";
@@ -56,33 +282,75 @@ export function normalizePath(pathname: string) {
   return clean.replace(/\/index\.html$/, "").replace(/\/$/, "") || "/";
 }
 
-export function toEnglishPath(pathname: string) {
-  const path = normalizePath(pathname);
-  if (path === "/en" || path.startsWith("/en/")) return path;
-  if (path === "/") return "/en";
+export function stripLocale(pathname: string): string {
+  const clean = normalizePath(pathname);
+  if (clean === "/") return "/";
+  for (const loc of Object.keys(localeMeta)) {
+    if (loc === "zh-CN") continue;
+    if (clean === `/${loc}`) return "/";
+    if (clean.startsWith(`/${loc}/`)) return normalizePath(clean.slice(loc.length + 1));
+  }
+  return clean;
+}
 
-  const legacyLegal = path.match(/^\/([^/]+)\/(privacy|terms)$/);
-  if (legacyLegal) return `/en/${legacyLegal[2]}/${legacyLegal[1]}`;
-
-  return `/en${path}`;
+export function isTier1Path(pathname: string): boolean {
+  return tier1Paths.has(stripLocale(pathname));
 }
 
 export function toChinesePath(pathname: string) {
-  const path = normalizePath(pathname);
-  if (path === "/en") return "/";
-  if (path.startsWith("/en/")) return normalizePath(path.slice(3));
-  return path;
+  const base = stripLocale(pathname);
+  return base;
 }
 
-export function toLocalizedPath(pathname: string, locale: Locale) {
-  return locale === "en" ? toEnglishPath(pathname) : toChinesePath(pathname);
+export function toEnglishPath(pathname: string) {
+  const base = stripLocale(pathname);
+  if (base === "/") return "/en";
+
+  const legacyLegal = base.match(/^\/([^/]+)\/(privacy|terms)$/);
+  if (legacyLegal) return `/en/${legacyLegal[2]}/${legacyLegal[1]}`;
+
+  return `/en${base}`;
 }
 
-export function getAlternatePaths(pathname: string) {
+export function toLocalizedPath(pathname: string, locale: Locale): string {
+  if (locale === "zh-CN") return toChinesePath(pathname);
+  if (locale === "en") return toEnglishPath(pathname);
+
+  const base = stripLocale(pathname);
+  if (tier1Paths.has(base)) {
+    return base === "/" ? `/${locale}` : `/${locale}${base}`;
+  }
+
+  return toEnglishPath(pathname);
+}
+
+export function getAlternatePaths(pathname: string): Record<string, string> {
   const zh = toChinesePath(pathname);
   const en = toEnglishPath(zh);
+  const base = stripLocale(pathname);
+
+  if (tier1Paths.has(base)) {
+    const alternates: Record<string, string> = {
+      "zh-CN": zh,
+      en,
+    };
+    for (const loc of tier1Locales) {
+      alternates[loc] = base === "/" ? `/${loc}` : `/${loc}${base}`;
+    }
+    return alternates;
+  }
 
   return { "zh-CN": zh, en };
+}
+
+export function getLocaleFromPath(pathname: string): Locale {
+  const clean = normalizePath(pathname);
+  if (clean === "/" || clean === "") return "zh-CN";
+  const first = clean.split("/")[1];
+  if (first && (allLocales as string[]).includes(first)) {
+    return first as Locale;
+  }
+  return "zh-CN";
 }
 
 export function absoluteUrl(pathname: string) {
@@ -556,12 +824,16 @@ export function getLocalizedProduct(product: Product, locale: Locale): Product {
   const override = productEnglish[product.slug];
   if (!override) return product;
 
+  const isTier1 = (tier1Locales as string[]).includes(locale);
+  const tier1Category = isTier1 ? localizedCategories[locale as Tier1Locale]?.[override.category] : undefined;
+  const tier1Summary = isTier1 ? localizedProductSummaries[locale as Tier1Locale]?.[product.slug] : undefined;
+
   return {
     ...product,
     displayName: override.displayName ?? product.displayName,
-    category: override.category,
+    category: tier1Category || override.category,
     tagline: override.tagline,
-    summary: override.summary,
+    summary: tier1Summary || override.summary,
     audience: override.audience,
     platforms: override.platforms ?? product.platforms,
     status: override.status ?? product.status,
@@ -887,7 +1159,7 @@ export function getLocalizedArticleTags(tags: string[], locale: Locale) {
   return tags.map((tag) => articleTagEn[tag] ?? (/[\u3400-\u9fff]/.test(tag) ? "build note" : tag));
 }
 
-export const diarySectionsLocalized: Record<Locale, Array<{ kind: DiaryKind; label: string; summary: string }>> = {
+export const diarySectionsLocalized: Record<FullSiteLocale, Array<{ kind: DiaryKind; label: string; summary: string }>> = {
   "zh-CN": [
     { kind: "video", label: "视频教程笔记", summary: "承接 B 站视频课程，把单集链接、课件、提示词和操作流程整理成更清晰的公开笔记。" },
     { kind: "product", label: "产品笔记", summary: "真实产品开发过程的聚合：立项、功能、架构、上架、复盘和每一次和 AI 共同推进的记录。" },

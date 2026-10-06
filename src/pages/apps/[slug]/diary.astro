@@ -3,6 +3,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import ProductIcon from "../../../components/ProductIcon.astro";
 import { getArticlesForProduct } from "../../../data/articles";
 import { products, type Product } from "../../../data/products";
+import { buildBreadcrumbJsonLd } from "../../../utils/structuredData";
 
 export function getStaticPaths() {
   return products.map((product) => ({
@@ -15,6 +16,12 @@ type Props = { product: Product };
 
 const { product } = Astro.props;
 const diaryArticles = getArticlesForProduct(product.slug);
+const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+  { name: "首页", path: "/" },
+  { name: "独立产品", path: "/apps" },
+  { name: product.displayName, path: `/apps/${product.slug}` },
+  { name: "开发日记", path: `/apps/${product.slug}/diary` },
+]);
 ---
 
 <BaseLayout
@@ -22,6 +29,7 @@ const diaryArticles = getArticlesForProduct(product.slug);
   description={`${product.displayName} 的开发日记、产品复盘和设计过程。`}
   canonicalPath={`/apps/${product.slug}/diary`}
   image={product.icon ?? "/brand/hooosberg-ai-icon.png"}
+  jsonLd={breadcrumbJsonLd}
 >
   <section class="page-hero page-hero--narrow product-diary-hero" style={`--accent:${product.accent}`}>
     <ProductIcon product={product} size="md" />

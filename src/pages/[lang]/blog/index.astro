@@ -1,10 +1,19 @@
 ---
 import { ArrowUpRight } from "@lucide/astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { articlesByDate, diarySections, videoTutorialNoteArticles } from "../../../data/articles";
+import { articlesByDate, diarySections } from "../../../data/articles";
 import { learningSeries } from "../../../data/learningSeries";
-import { getLocalizedArticle } from "../../../utils/i18n";
+import { tier1Locales, type Tier1Locale, getLocalizedArticle } from "../../../utils/i18n";
+import { tier1Content } from "../../../data/tier1Translations";
 import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../../utils/structuredData";
+
+export function getStaticPaths() {
+  return tier1Locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const locale = lang as Tier1Locale;
+const content = tier1Content[locale] ?? tier1Content["ja"];
 
 const articlesPerPage = 15;
 const workbuddy = learningSeries.find((series) => series.id === "workbuddy")!;
@@ -16,48 +25,102 @@ const otherGroups = diarySections.filter((section) => section.kind !== "video").
   articles: localizedArticles.filter((article) => article.diaryKind === section.kind),
 }));
 const courseArticles = new Map(localizedArticles.filter((article) => article.diaryKind === "video").map((article) => [article.slug, article]));
-const pageDescription = "WorkBuddy office AI automation tutorials and Codex programming guides, plus product diaries, reading notes, thoughts, and resources.";
-const jsonLd = [
-  buildSectionCollectionJsonLd({ locale: "en", path: "/en/blog", name: "Hooosberg AI Office Automation Green Books", description: pageDescription, topics: ["AI automation", "WorkBuddy", "Codex", "AI Agents", "Claude Code"] }),
-  buildItemListJsonLd("https://hooosberg.com/en/blog#learning-notes", localizedArticles.filter((article) => article.diaryKind === "video").map((article) => ({ name: article.title, url: `/en/blog/${article.slug}`, description: article.excerpt }))),
-];
 
-const tabTitles = {
-  workbuddy: {
-    title: "WorkBuddy AI Office Tutorials",
-    subtitle: "Practical office AI tutorials for mastering Excel, PPT, and Word automation workflows from scratch.",
+const tabTitles: Record<Tier1Locale, Record<string, { title: string; subtitle: string }>> = {
+  ja: {
+    workbuddy: { title: "WorkBuddy AIオフィス自動化チュートリアル", subtitle: "Excel、Word、PPTの自動化実戦を体系的に学ぶAIオフィスワークフロー講座。" },
+    cola: { title: "Codex プログラミングチュートリアル", subtitle: "Codex、Claude Code、ChatGPTを活用した実戦プログラミングとAI開発記録。" },
+    other: { title: "その他の開発・読書ノート", subtitle: "個人プロダクト開発、技術読書、思考ノート、厳選リソースのアーカイブ。" },
   },
-  cola: {
-    title: "Codex & AI Coding Tutorials",
-    subtitle: "Practical programming tutorials and workflows with Codex, Claude Code, Gemini, and ChatGPT.",
+  ko: {
+    workbuddy: { title: "WorkBuddy AI 오피스 튜토리얼", subtitle: "Excel, PPT, Word 자동화 실무를 체계적으로 마스터하는 AI 오피스 튜토리얼." },
+    cola: { title: "Codex 프로그래밍 튜토리얼", subtitle: "Codex, Claude Code, ChatGPT를 활용한 실전 코딩 및 AI 개발 일지." },
+    other: { title: "기타 개발 및 독서 노트", subtitle: "실제 제품 개발, 독서 노트, 에세이 및 엄선된 개발 리소스 아카이브." },
   },
-  other: {
-    title: "Other Notes",
-    subtitle: "Product development diaries, deep reading notes, thoughts, and curated developer resources.",
+  es: {
+    workbuddy: { title: "Tutoriales de Automatización de Oficina WorkBuddy AI", subtitle: "Aprende flujos de trabajo prácticos para automatizar Excel, PPT y Word desde cero." },
+    cola: { title: "Tutoriales de Programación con Codex & IA", subtitle: "Guías prácticas y flujos de trabajo con Codex, Claude Code, Gemini y ChatGPT." },
+    other: { title: "Otras Notas de Desarrollo", subtitle: "Diarios de productos, notas de lectura profunda, reflexiones y recursos." },
+  },
+  fr: {
+    workbuddy: { title: "Tutoriels Bureautique WorkBuddy AI", subtitle: "Maîtrisez l'automatisation d'Excel, Word et PowerPoint étape par étape." },
+    cola: { title: "Tutoriels de Code avec Codex & IA", subtitle: "Guides pratiques avec Codex, Claude Code, Gemini et ChatGPT." },
+    other: { title: "Autres Notes & Journaux", subtitle: "Journaux de développement, lectures approfondies et ressources utiles." },
+  },
+  de: {
+    workbuddy: { title: "WorkBuddy KI-Büroautomation Tutorials", subtitle: "Praktische Büro-KI-Tutorials zur Automatisierung von Excel, Word und PowerPoint." },
+    cola: { title: "Codex & KI-Coding Tutorials", subtitle: "Praxisnahe Programmier-Tutorials mit Codex, Claude Code und ChatGPT." },
+    other: { title: "Weitere Notizen", subtitle: "Produkt-Entwicklungstagebücher, Lese-Notizen und Entwickler-Ressourcen." },
+  },
+  pt: {
+    workbuddy: { title: "Tutoriais de Automação de Escritório WorkBuddy IA", subtitle: "Aprenda fluxos de trabalho práticos para automatizar Excel, PPT e Word." },
+    cola: { title: "Tutoriais de Programação com Codex & IA", subtitle: "Guias práticos com Codex, Claude Code, Gemini e ChatGPT." },
+    other: { title: "Outras Notas de Desenvolvimento", subtitle: "Diários de desenvolvimento, notas de leitura e recursos selecionados." },
+  },
+  ru: {
+    workbuddy: { title: "Руководства по автоматизации офиса с WorkBuddy", subtitle: "Практические руководства по автоматизации Excel, Word и PowerPoint с помощью ИИ." },
+    cola: { title: "Руководства по кодингу с Codex и ИИ", subtitle: "Практические инструкции по программированию с Codex, Claude Code и ChatGPT." },
+    other: { title: "Другие заметки", subtitle: "Дневники разработки продуктов, конспекты книг и полезные ресурсы." },
+  },
+  it: {
+    workbuddy: { title: "Tutorial di Automazione d'Ufficio WorkBuddy AI", subtitle: "Guide pratiche per automatizzare Excel, Word e PowerPoint passo dopo passo." },
+    cola: { title: "Tutorial di Programmazione con Codex & AI", subtitle: "Guide pratiche con Codex, Claude Code, Gemini e ChatGPT." },
+    other: { title: "Altre Note di Sviluppo", subtitle: "Diari di sviluppo, note di lettura e risorse utili." },
+  },
+  ar: {
+    workbuddy: { title: "دروس أتمتة المكاتب مع WorkBuddy", subtitle: "تعلم أتمتة مهام Excel و Word و PowerPoint عملياً خطوة بخطوة." },
+    cola: { title: "دروس البرمجة مع Codex والذكاء الاصطناعي", subtitle: "أدلة برمجية وتطبيقات عملية مع Codex و Claude Code و ChatGPT." },
+    other: { title: "ملاحظات أخرى", subtitle: "يوميات تطوير المنتجات، مذكرات القراءة، والموارد المختارة." },
+  },
+  hi: {
+    workbuddy: { title: "WorkBuddy AI ऑफिस ऑटोमेशन ट्यूटोरियल", subtitle: "Excel, PPT और Word कार्यों को स्वचालित करने के व्यावहारिक ट्यूटोरियल।" },
+    cola: { title: "Codex और AI कोडिंग ट्यूटोरियल", subtitle: "Codex, Claude Code और ChatGPT के साथ व्यावहारिक प्रोग्रामिंग कार्यप्रवाह।" },
+    other: { title: "अन्य निर्माण नोट्स", subtitle: "उत्पाद निर्माण डायरी, अध्ययन नोट्स और चयनित संसाधन।" },
   },
 };
+
+const currentTabTitles = tabTitles[locale] ?? tabTitles.ja;
+const pageDescription = currentTabTitles.workbuddy.subtitle;
+
+const jsonLd = [
+  buildSectionCollectionJsonLd({
+    locale,
+    path: `/${locale}/blog`,
+    name: `@Hooosberg ${currentTabTitles.workbuddy.title}`,
+    description: pageDescription,
+    topics: ["AI automation", "WorkBuddy", "Codex", "AI Agents", "Claude Code"],
+  }),
+  buildItemListJsonLd(
+    `https://hooosberg.com/${locale}/blog#learning-notes`,
+    localizedArticles.filter((article) => article.diaryKind === "video").map((article) => ({
+      name: article.title,
+      url: `/en/blog/${article.slug}`,
+      description: article.excerpt,
+    }))
+  ),
+];
 ---
 
-<BaseLayout locale="en" title={`${tabTitles.workbuddy.title} | Hooosberg`} description={pageDescription} canonicalPath="/en/blog" jsonLd={jsonLd}>
+<BaseLayout locale={locale} title={`${currentTabTitles.workbuddy.title} | @Hooosberg`} description={pageDescription} canonicalPath={`/${locale}/blog`} jsonLd={jsonLd}>
   <section class="page-hero page-hero--narrow learning-hero">
-    <h1 id="learning-hero-title">{tabTitles.workbuddy.title}</h1>
-    <p id="learning-hero-subtitle" class="learning-hero-subtitle">{tabTitles.workbuddy.subtitle}</p>
+    <h1 id="learning-hero-title">{currentTabTitles.workbuddy.title}</h1>
+    <p id="learning-hero-subtitle" class="learning-hero-subtitle">{currentTabTitles.workbuddy.subtitle}</p>
   </section>
 
   <section class="learning-index" aria-label="Learning notes sections">
     <div class="learning-switch" role="tablist" aria-label="Learning paths">
-      <button class="learning-tab" type="button" role="tab" aria-selected="true" data-learning-tab="workbuddy" data-title={tabTitles.workbuddy.title} data-subtitle={tabTitles.workbuddy.subtitle}>{tabTitles.workbuddy.title}</button>
-      <button class="learning-tab" type="button" role="tab" aria-selected="false" data-learning-tab="cola" data-title={tabTitles.cola.title} data-subtitle={tabTitles.cola.subtitle}>{tabTitles.cola.title}</button>
-      <button class="learning-tab" type="button" role="tab" aria-selected="false" data-learning-tab="other" data-title={tabTitles.other.title} data-subtitle={tabTitles.other.subtitle}>{tabTitles.other.title}</button>
+      <button class="learning-tab" type="button" role="tab" aria-selected="true" data-learning-tab="workbuddy" data-title={currentTabTitles.workbuddy.title} data-subtitle={currentTabTitles.workbuddy.subtitle}>{currentTabTitles.workbuddy.title}</button>
+      <button class="learning-tab" type="button" role="tab" aria-selected="false" data-learning-tab="cola" data-title={currentTabTitles.cola.title} data-subtitle={currentTabTitles.cola.subtitle}>{currentTabTitles.cola.title}</button>
+      <button class="learning-tab" type="button" role="tab" aria-selected="false" data-learning-tab="other" data-title={currentTabTitles.other.title} data-subtitle={currentTabTitles.other.subtitle}>{currentTabTitles.other.title}</button>
     </div>
 
     <section class="learning-panel" data-learning-panel="workbuddy">
       <div class="learning-list-header">
         <div>
-          <p>Bilibili public series · 30 lessons syllabus</p>
+          <p>Public Series · 30 lessons syllabus</p>
           <h3>Browse titles, outlines, and companion notes by lesson</h3>
         </div>
-        <span>Each lesson includes copyable prompts and verification standards.</span>
+        <span>Each lesson includes copyable prompts and verification standards in English.</span>
       </div>
       <div class="learning-lesson-list">
         {[...workbuddy.lessons].reverse().map((lesson) => {
@@ -141,7 +204,6 @@ const tabTitles = {
           const tabTitle = tab.dataset.title || tab.textContent.trim();
           if (heroTitle) heroTitle.textContent = tabTitle;
           if (heroSubtitle && tab.dataset.subtitle) heroSubtitle.textContent = tab.dataset.subtitle;
-          document.title = `${tabTitle} | Hooosberg`;
         }
       });
       const url = new URL(window.location.href);

@@ -1,5 +1,5 @@
 import { socialLinks, type Product } from "../data/products";
-import { absoluteUrl, type Locale } from "./i18n";
+import { absoluteUrl, localeMeta, type Locale } from "./i18n";
 
 const publicProfileUrls = socialLinks
   .map((link) => link.url)
@@ -12,7 +12,8 @@ const websiteId = "https://hooosberg.com/#website";
 const publicEmail = "zikedece@proton.me";
 
 export function buildHomeJsonLd(locale: Locale) {
-  const language = locale === "en" ? "en" : "zh-CN";
+  const language = localeMeta[locale]?.htmlLang ?? (locale === "en" ? "en" : "zh-CN");
+  const homePath = locale === "zh-CN" ? "/" : `/${locale}`;
 
   return [
     {
@@ -36,7 +37,7 @@ export function buildHomeJsonLd(locale: Locale) {
       "@id": founderId,
       name: "Hooosberg",
       alternateName: ["湖森堡AI_hooosberg", "@Hooosberg"],
-      url: absoluteUrl(locale === "en" ? "/en" : "/"),
+      url: absoluteUrl(homePath),
       image: absoluteUrl("/brand/hooosberg-avatar.png"),
       sameAs: publicProfileUrls,
       worksFor: {
@@ -47,9 +48,9 @@ export function buildHomeJsonLd(locale: Locale) {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "@id": websiteId,
-      name: locale === "en" ? "Hooosberg" : "湖森堡AI_hooosberg",
+      name: locale === "zh-CN" ? "湖森堡AI_hooosberg" : "Hooosberg",
       alternateName: "Hooosberg",
-      url: absoluteUrl(locale === "en" ? "/en" : "/"),
+      url: absoluteUrl(homePath),
       inLanguage: language,
       publisher: {
         "@id": organizationId,
@@ -160,7 +161,7 @@ export function buildSectionWebPageJsonLd({ locale, path, name, description, top
     name,
     description,
     url,
-    inLanguage: locale === "en" ? "en" : "zh-CN",
+    inLanguage: localeMeta[locale]?.htmlLang ?? (locale === "en" ? "en" : "zh-CN"),
     isPartOf: {
       "@id": websiteId,
     },
@@ -184,7 +185,7 @@ export function buildSectionCollectionJsonLd({ locale, path, name, description, 
     name,
     description,
     url,
-    inLanguage: locale === "en" ? "en" : "zh-CN",
+    inLanguage: localeMeta[locale]?.htmlLang ?? (locale === "en" ? "en" : "zh-CN"),
     isPartOf: {
       "@id": websiteId,
     },
@@ -215,3 +216,22 @@ export function buildItemListJsonLd(id: string, items: SectionItem[]) {
     })),
   };
 }
+
+export type BreadcrumbItem = {
+  name: string;
+  path: string;
+};
+
+export function buildBreadcrumbJsonLd(items: BreadcrumbItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}
+

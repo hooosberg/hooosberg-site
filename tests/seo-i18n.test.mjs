@@ -249,3 +249,103 @@ test("robots and sitemap exist and avoid legacy legal URLs", async () => {
   assert.doesNotMatch(sitemapZero, /https:\/\/hooosberg\.com\/witnote\/privacy/, "legacy privacy route should be filtered from sitemap");
   assert.doesNotMatch(sitemapZero, /https:\/\/hooosberg\.com\/witnote\/terms/, "legacy terms route should be filtered from sitemap");
 });
+
+test("12-language tiered architecture guarantees canonicals, complete Tier 1 hreflangs, and no Tier 2 phantom URLs", async () => {
+  const tier1Locales = ["ja", "ko", "es", "fr", "de", "pt", "ru", "it", "ar", "hi"];
+  const allLocales = ["zh-CN", "en", ...tier1Locales];
+
+  // 1. Check Japanese Home and Apps pages
+  const jaHomeHtml = await readFile(new URL("../dist/ja/index.html", import.meta.url), "utf8");
+  const jaAppsHtml = await readFile(new URL("../dist/ja/apps/index.html", import.meta.url), "utf8");
+  const jaBlogHtml = await readFile(new URL("../dist/ja/blog/index.html", import.meta.url), "utf8");
+  const appsHtml = await readFile(new URL("../dist/apps/index.html", import.meta.url), "utf8");
+
+  assert.match(jaHomeHtml, /<html[^>]*lang="ja"/, "Japanese home should use ja html lang");
+  assert.match(jaHomeHtml, /<link rel="canonical" href="https:\/\/hooosberg\.com\/ja">/, "Japanese home should canonicalize to /ja");
+  assert.match(jaAppsHtml, /<link rel="canonical" href="https:\/\/hooosberg\.com\/ja\/apps">/, "Japanese apps should canonicalize to /ja/apps");
+  assert.match(jaBlogHtml, /<link rel="canonical" href="https:\/\/hooosberg\.com\/ja\/blog">/, "Japanese blog should canonicalize to /ja/blog");
+
+  // 2. Arabic RTL test
+  const arHomeHtml = await readFile(new URL("../dist/ar/index.html", import.meta.url), "utf8");
+  assert.match(arHomeHtml, /<html[^>]*dir="rtl"/, "Arabic pages should have dir='rtl'");
+
+  // 3. Tier 1 pages expose hreflangs for ALL 12 languages + x-default
+  for (const loc of allLocales) {
+    const locHreflang = loc === "zh-CN" ? "zh-CN" : loc;
+    assert.match(appsHtml, new RegExp(`<link rel="alternate" hreflang="${locHreflang}"`), `Tier 1 apps page must expose hreflang for ${loc}`);
+  }
+  assert.match(appsHtml, /<link rel="alternate" hreflang="x-default"/, "Tier 1 apps page must expose x-default");
+
+  // 4. Tier 2 note articles strictly do NOT emit Tier 1 phantom hreflang links
+  const articleHtml = await readFile(new URL("../dist/blog/drowsebook-market-research/index.html", import.meta.url), "utf8");
+  for (const loc of tier1Locales) {
+    assert.doesNotMatch(articleHtml, new RegExp(`<link rel="alternate" hreflang="${loc}"`), `Tier 2 article must NOT expose hreflang for non-translated locale ${loc}`);
+  }
+  assert.match(articleHtml, /<link rel="alternate" hreflang="zh-CN"/, "Tier 2 article must expose zh-CN hreflang");
+  assert.match(articleHtml, /<link rel="alternate" hreflang="en"/, "Tier 2 article must expose en hreflang");
+  assert.match(articleHtml, /<link rel="alternate" hreflang="x-default"/, "Tier 2 article must expose x-default");
+
+  // 5. Sitemap covers Tier 1 localized routes
+  const sitemapZero = await readFile(new URL("../dist/sitemap-0.xml", import.meta.url), "utf8");
+  for (const loc of tier1Locales) {
+    assert.match(sitemapZero, new RegExp(`https:\/\/hooosberg\.com\/${loc}\/apps`), `Sitemap should include /${loc}/apps`);
+  }
+});
+
+test("advanced SEO and GEO features: BreadcrumbList, OpenGraph details, RSS feeds, LLM indices, and topic clusters", async () => {
+  const [productHtml, enProductHtml, articleHtml, enArticleHtml, homeHtml, rssXml, enRssXml, llmsTxt, llmsFullTxt] = await Promise.all([
+    readFile(productPage, "utf8"),
+    readFile(enProductPage, "utf8"),
+    readFile(articlePage, "utf8"),
+    readFile(enArticlePage, "utf8"),
+    readFile(homePage, "utf8"),
+    readFile(new URL("../dist/rss.xml", import.meta.url), "utf8"),
+    readFile(new URL("../dist/en/rss.xml", import.meta.url), "utf8"),
+    readFile(new URL("../dist/llms.txt", import.meta.url), "utf8"),
+    readFile(new URL("../dist/llms-full.txt", import.meta.url), "utf8"),
+  ]);
+
+  // 1. BreadcrumbList JSON-LD
+  const productBreadcrumbs = findJsonLd(productHtml, "BreadcrumbList");
+  assert.ok(productBreadcrumbs, "Product page must output BreadcrumbList JSON-LD");
+  assert.equal(productBreadcrumbs.itemListElement.length, 3, "Product breadcrumb should have 3 levels");
+  assert.equal(productBreadcrumbs.itemListElement[0].name, "首页");
+  assert.equal(productBreadcrumbs.itemListElement[1].name, "独立产品");
+
+  const enProductBreadcrumbs = findJsonLd(enProductHtml, "BreadcrumbList");
+  assert.ok(enProductBreadcrumbs, "English product page must output BreadcrumbList JSON-LD");
+  assert.equal(enProductBreadcrumbs.itemListElement[0].name, "Home");
+  assert.equal(enProductBreadcrumbs.itemListElement[1].name, "Products");
+
+  const articleBreadcrumbs = findJsonLd(articleHtml, "BreadcrumbList");
+  assert.ok(articleBreadcrumbs, "Article page must output BreadcrumbList JSON-LD");
+  assert.equal(articleBreadcrumbs.itemListElement[0].name, "首页");
+  assert.equal(articleBreadcrumbs.itemListElement[1].name, "笔记");
+
+  // 2. OpenGraph & Twitter image enhancements
+  assert.match(homeHtml, /property="og:image:width" content="1200"/, "Pages must declare og:image:width 1200");
+  assert.match(homeHtml, /property="og:image:height" content="630"/, "Pages must declare og:image:height 630");
+  assert.match(homeHtml, /property="og:image:type" content="image\/png"/, "Pages must declare og:image:type image/png");
+  assert.match(homeHtml, /name="twitter:image:alt"/, "Pages must declare twitter:image:alt");
+
+  // 3. RSS feeds
+  assert.match(homeHtml, /<link[^>]*rel="alternate"[^>]*type="application\/rss\+xml"/, "Home page must link to RSS feed");
+  assert.match(rssXml, /<title>湖森堡AI_hooosberg<\/title>/, "RSS feed must render title");
+  assert.match(rssXml, /<atom:link href="https:\/\/hooosberg\.com\/rss\.xml"/, "RSS feed must declare self atom:link");
+  assert.match(rssXml, /<item>/, "RSS feed must contain items");
+  assert.match(enRssXml, /<title>Hooosberg AI<\/title>/, "English RSS feed must render English title");
+
+  // 4. GEO (llms.txt and llms-full.txt)
+  assert.match(llmsTxt, /# Hooosberg AI/, "llms.txt must have site title");
+  assert.match(llmsTxt, /https:\/\/hooosberg\.com\/llms-full\.txt/, "llms.txt must link to full knowledge base");
+  assert.match(llmsFullTxt, /# Hooosberg AI Full Knowledge Base/, "llms-full.txt must have full documentation header");
+  assert.match(llmsFullTxt, /WitNote/, "llms-full.txt must list products");
+
+  // 5. Topic clusters
+  assert.match(articleHtml, /class="article-related article-topic-cluster"/, "Articles must render topic cluster exploration footer");
+  assert.match(articleHtml, /自研产品实践/, "Chinese articles must include self-developed product cluster");
+  assert.match(articleHtml, /AI 工具与模型导航/, "Chinese articles must include AI navigation cluster");
+  assert.match(enArticleHtml, /Topic Clusters & Explore Next/, "English articles must include English topic clusters");
+});
+
+

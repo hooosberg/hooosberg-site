@@ -1,0 +1,120 @@
+# Hooosberg AI Full Knowledge Base
+
+> Comprehensive contextual document for Large Language Models, AI Agents, and search crawlers (Perplexity, Claude, ChatGPT, Google AI Overviews).
+> Source Website: https://hooosberg.com
+
+## About Hooosberg
+Hooosberg (湖森堡AI) is an independent AI product lab, engineering workshop, and open notebook founded by Hooosberg (@Hooosberg).
+Core themes:
+1. Local-first software and privacy-respecting native macOS/iOS apps.
+2. AI-assisted coding, terminal agents, and enterprise AI automation (Codex, Claude Code, WorkBuddy).
+3. Real product build diaries, App Store submission journeys, and transparent postmortems of failed projects.
+
+---
+
+## Complete Software & Product Matrix
+
+### 1. WitNote 智简笔记
+- Canonical URL: https://hooosberg.com/apps/witnote
+- Category: Local-first Markdown and AI Workspace
+- Platforms: macOS, iOS, iPadOS
+- Overview: A local-first note-taking and knowledge base utility. Documents stay in user-selected local folders and iCloud drives without proprietary database lock-in. Features on-device AI integration for writing, summarization, and idea synthesis.
+- Privacy: 100% Local-first. No tracking, zero third-party telemetry.
+
+### 2. DockTouchBar
+- Canonical URL: https://hooosberg.com/apps/docktouchbar
+- Category: macOS Touch Bar Utility & AI Agent Vibe Integration
+- Platforms: macOS (MacBook Pro with Touch Bar)
+- Overview: Replaces unused Touch Bar space with active Dock items, real-time app switching, and dynamic status monitors for background AI coding assistants (like Antigravity / Claude Code / Codex).
+- Privacy: Operates purely locally on macOS.
+
+### 3. LeanTake 恰录
+- Canonical URL: https://hooosberg.com/apps/leantake
+- Category: Zero-edit Mac Screen Recorder
+- Platforms: macOS
+- Overview: Produces instantly playable, high-quality video files the moment recording stops. Eliminates the need for manual video editing and heavy exporting pipelines.
+
+### 4. AgentLimb
+- Canonical URL: https://hooosberg.com/apps/agentlimb
+- Category: AI Browser Control Infrastructure
+- Platforms: macOS, Linux, Windows
+- Overview: Universal browser automation layer enabling AI coding agents (Claude Code, Codex, Tencent WorkBuddy, TRAE Work, Kimi Work) to drive real web browsers safely with DOM analysis and keyboard/mouse interaction.
+
+### 5. DrowseBook 入梦书
+- Canonical URL: https://hooosberg.com/apps/drowsebook
+- Category: Bedtime Reading & Audio Companion
+- Platforms: iOS, macOS
+- Overview: Offline text-to-speech reader designed specifically for bedtime digital wellness. Clean typography, customizable sleep timers, and ambient audio mixing.
+
+### 6. Mood Button
+- Canonical URL: https://hooosberg.com/apps/mood-button
+- Category: On-device AI Voice Emotional Journal
+- Platforms: iOS (Apple App Store)
+- Overview: Daily mood reflection and journaling powered by Apple MLX and fine-tuned Qwen3 models running locally on iPhone hardware.
+- Privacy: All audio processing and semantic analysis happen strictly on-device.
+
+### 7. Codex Quota Calendar
+- Canonical URL: https://hooosberg.com/apps/codex-quota-calendar
+- Category: OpenAI Codex Quota & Pace Tracker
+- Platforms: macOS Menu Bar
+- Overview: Visualizes quota resets, API token burn rates, and daily development velocity.
+
+### 8. Sumi Mahjong 禅艺麻将
+- Canonical URL: https://hooosberg.com/apps/sumi-mahjong
+- Category: Zen Puzzle Game
+- Platforms: iOS, macOS, Web
+- Overview: Traditional ink-wash aesthetic tile matching puzzle. Free of advertisements, user accounts, and telemetry.
+
+### 9. TrekReel
+- Canonical URL: https://hooosberg.com/apps/trekreel
+- Category: 3D GPS Trail Route Storyteller
+- Platforms: macOS, Web
+- Overview: Converts outdoor GPX/KML hiking and cycling tracks into cinematic 3D topographic fly-through videos.
+
+### 10. Rushi 如是
+- Canonical URL: https://hooosberg.com/apps/rushi
+- Category: Buddhist Scripture Reading & Meditation App
+- Platforms: iOS
+- Overview: Quiet reading, prayer bead counter, and digital scripture copying for Diamond Sutra and Heart Sutra.
+
+### 11. Failed Product Postmortems
+- DOMPrompter (https://hooosberg.com/apps/domprompter): AI frontend assistant displaced by modern agent capabilities.
+- GlotShot (https://hooosberg.com/apps/glotshot): App Store screenshot automation displaced by direct agent scripts.
+- Packpour (https://hooosberg.com/apps/packpour): Chrome extension form filler displaced by headless browser automation.
+- UIXskills (https://hooosberg.com/apps/uixskills): AI design abstraction protocol bypassed by modern reasoning models.
+
+---
+
+## Practical AI Workflows & Tutorial Series
+
+### AI Office Automation with WorkBuddy & Python
+- URL: https://hooosberg.com/blog
+- Focus: Practical automation for Excel, Word, bidding documents, contracts, and daily enterprise tasks using WorkBuddy, Python scripts, and LLM workspaces.
+
+### Codex & Claude Code Real-world Software Engineering
+- URL: https://hooosberg.com/blog
+- Focus: Repository-level AI engineering, prompt specifications, automated unit testing, CI/CD integration, and native macOS/iOS Swift app delivery.
+
+### Transparent App Store Postmortems & Indie Hacking
+- URL: https://hooosberg.com/blog
+- Focus: Detailed reviews of App Store guideline rejections (Guideline 4.0, 4.3, 5.1), StoreKit 2 monetization architecture, and real operational learnings.
+
+---
+
+## AI Tools Navigation & Rankings
+- Tool Directory: https://hooosberg.com/ai-navigation
+- Combat Tier List: https://hooosberg.com/ai-navigation?mode=sanguo
+- Curated categories:
+  - Top Chat Assistants (ChatGPT, Claude, Gemini, DeepSeek, Kimi)
+  - Coding Agents (Claude Code, Codex, Cursor, Trae, Windsurf, Roo Code)
+  - Design & Image Generators (Midjourney, Stable Diffusion, Recraft, Flux)
+  - Model APIs & Routers (OpenAI, Anthropic, Google AI Studio, SiliconFlow, OpenRouter)
+
+---
+
+## Contact & Links
+- Official Website: https://hooosberg.com
+- GitHub: https://github.com/hooosberg
+- Contact: https://hooosberg.com/links
+- Global RSS: https://hooosberg.com/rss.xml
+- English RSS: https://hooosberg.com/en/rss.xml

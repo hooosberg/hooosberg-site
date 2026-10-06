@@ -1,0 +1,35 @@
+# Hooosberg AI (@Hooosberg)
+
+> Hooosberg is a public notebook for real product work in the AI era: independent apps, AI tools, launch notes, failed-product postmortems, AI coding workflows, and long-term build diaries.
+
+## Core Products & Apps
+- [WitNote](https://hooosberg.com/apps/witnote): Local-first Markdown and AI workspace with offline device-side models.
+- [DockTouchBar](https://hooosberg.com/apps/docktouchbar): macOS Touch Bar custom widget, app launcher, and AI agent vibe status viewer.
+- [LeanTake](https://hooosberg.com/apps/leantake): Zero-edit Mac screen recorder that produces ready-to-play videos immediately.
+- [AgentLimb](https://hooosberg.com/apps/agentlimb): Universal browser control infrastructure for Claude Code, Codex, and enterprise AI workflows.
+- [DrowseBook](https://hooosberg.com/apps/drowsebook): Quiet reading and bedtime digital wellness companion with text-to-speech.
+- [Mood Button](https://hooosberg.com/apps/mood-button): Local AI emotional voice diary powered by Apple MLX and Qwen3 on iOS App Store.
+- [Codex Quota Calendar](https://hooosberg.com/apps/codex-quota-calendar): macOS menu bar calendar for tracking OpenAI Codex quota rhythms.
+- [Sumi Mahjong](https://hooosberg.com/apps/sumi-mahjong): Minimalist zen ink-wash tile matching puzzle game with zero ads or tracking.
+- [TrekReel](https://hooosberg.com/apps/trekreel): 3D cinematic trail story visualizer for GPX / KML outdoor routes.
+- [Rushi](https://hooosberg.com/apps/rushi): Mindfulness, Buddhist sutra reading, and digital scripture copying app for iOS.
+- [All Products Directory](https://hooosberg.com/apps): Complete matrix of independent AI tools and applications.
+
+## AI Navigation & Tool Guide
+- [AI Tool Directory](https://hooosberg.com/ai-navigation): Curated directory of practical global and regional AI tools: top assistants, coding agents, model APIs, design tools, hosting, and launch channels.
+- [AI Model Tier List](https://hooosberg.com/ai-navigation?mode=sanguo): Combat ranking of foundation models (Claude, ChatGPT, Gemini, DeepSeek, Qwen).
+
+## Practical AI Tutorials & Learning Notes
+- [AI Office Automation Masterclass](https://hooosberg.com/blog): Complete guide to automating daily office workflows using AI, Python, WorkBuddy, and agents.
+- [Codex & Claude Code Engineering](https://hooosberg.com/blog): Repository-level AI coding, terminal agents, prompt strategies, and real software delivery workflows.
+- [Failed Product Postmortems](https://hooosberg.com/blog): Honest postmortems on indie app launches, marketing rejections, and commercial lessons.
+
+## Feeds & RSS
+- [Global RSS Feed](https://hooosberg.com/rss.xml): Chinese & global updates and notes.
+- [English RSS Feed](https://hooosberg.com/en/rss.xml): English updates and notes.
+
+## Full Documentation & Context
+- [Full LLM Knowledge Base](https://hooosberg.com/llms-full.txt): Comprehensive deep-context markdown documentation for LLM crawlers with full product specs and tutorial roadmaps.
+
+## Official Links & Contact
+- [Contact & Official Channels](https://hooosberg.com/links): Email, GitHub, Telegram, YouTube, and community groups.

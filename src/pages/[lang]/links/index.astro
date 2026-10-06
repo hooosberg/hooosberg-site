@@ -1,0 +1,99 @@
+---
+import { ExternalLink } from "@lucide/astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ContactQrGroup from "../../../components/ContactQrGroup.astro";
+import { tier1Locales, type Tier1Locale, getLocalizedSocialLinks } from "../../../utils/i18n";
+import { tier1Content } from "../../../data/tier1Translations";
+import { buildSectionWebPageJsonLd } from "../../../utils/structuredData";
+
+export function getStaticPaths() {
+  return tier1Locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const locale = lang as Tier1Locale;
+const content = tier1Content[locale] ?? tier1Content["ja"];
+
+const linkCards = getLocalizedSocialLinks(locale);
+const displayNote = (link: (typeof linkCards)[number]) => link.note;
+
+const videoLabels = ["YouTube", "B站", "抖音", "快手", "TikTok"];
+const socialLabels = ["GitHub", "X", "小红书"];
+const directLabels = ["Email", "Telegram"];
+
+const getCards = (labels: string[]) =>
+  labels
+    .map((label) => linkCards.find((link) => link.originalLabel === label))
+    .filter((link): link is (typeof linkCards)[number] => Boolean(link));
+
+const contactSections = [
+  {
+    title: content.links.directTitle,
+    kicker: content.links.directKicker,
+    cards: getCards(directLabels),
+    className: "platform-card-grid--direct",
+  },
+  {
+    title: content.links.videoTitle,
+    kicker: content.links.videoKicker,
+    cards: getCards(videoLabels),
+    className: "platform-card-grid--video",
+  },
+  {
+    title: content.links.socialTitle,
+    kicker: content.links.socialKicker,
+    cards: getCards(socialLabels),
+    className: "platform-card-grid--social",
+  },
+];
+
+const pageDescription = content.links.heroSubtitle;
+const jsonLd = buildSectionWebPageJsonLd({
+  locale,
+  path: `/${locale}/links`,
+  name: `@Hooosberg ${content.links.heroTitle}`,
+  description: pageDescription,
+  topics: ["Hooosberg official links", "Hooosberg contact", "social profiles", "official support"],
+});
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${content.links.heroTitle} | @Hooosberg`}
+  description={pageDescription}
+  canonicalPath={`/${locale}/links`}
+  jsonLd={jsonLd}
+>
+  <section class="page-hero page-hero--narrow">
+    <p class="commerce-kicker">{content.links.heroKicker}</p>
+    <h1>{content.links.heroTitle}</h1>
+    <p>{content.links.heroSubtitle}</p>
+  </section>
+
+  <section class="link-hub">
+    {contactSections.map((section) => (
+      <div class="contact-platform-section">
+        <div class="contact-platform-section__heading">
+          <span>{section.title}</span>
+          <p>{section.kicker}</p>
+        </div>
+        {section.className === "platform-card-grid--direct" && <ContactQrGroup locale={locale} />}
+        <div class={`platform-card-grid ${section.className}`}>
+          {section.cards.map((link) => (
+            <a
+              class="platform-card"
+              href={link.url}
+              target={link.url.startsWith("http") ? "_blank" : undefined}
+              rel="noreferrer"
+              aria-label={`${link.label}: ${displayNote(link)}`}
+            >
+              <img class="platform-card__icon" src={link.icon} alt="" loading="lazy" decoding="async" />
+              <strong>{displayNote(link)}</strong>
+              {link.url.startsWith("http") && <ExternalLink class="platform-card__external" size={16} aria-hidden="true" />}
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+</BaseLayout>

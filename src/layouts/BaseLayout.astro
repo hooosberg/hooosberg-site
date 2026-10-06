@@ -7,6 +7,7 @@ import SiteFooter from "../components/SiteFooter.astro";
 import {
   absoluteUrl,
   getAlternatePaths,
+  getLocaleFromPath,
   localeMeta,
   normalizePath,
   siteName,
@@ -44,13 +45,15 @@ const {
 } = Astro.props;
 
 const currentPath = normalizePath(Astro.url.pathname);
-const locale: Locale = explicitLocale ?? (currentPath === "/en" || currentPath.startsWith("/en/") ? "en" : "zh-CN");
+const locale: Locale = explicitLocale ?? getLocaleFromPath(currentPath);
 const canonicalPath = normalizePath(explicitCanonicalPath ?? currentPath);
 const alternatePaths = { ...getAlternatePaths(canonicalPath), ...explicitAlternatePaths };
 const canonicalUrl = absoluteUrl(canonicalPath);
 const imageUrl = absoluteUrl(image);
 const jsonLdItems = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
-const htmlLang = localeMeta[locale].htmlLang;
+const htmlLang = localeMeta[locale]?.htmlLang ?? "zh-CN";
+const htmlDir = localeMeta[locale]?.dir ?? "ltr";
+const ogLocale = localeMeta[locale]?.ogLocale ?? (locale === "en" ? "en_US" : "zh_CN");
 const showFloatingAd =
   currentPath === "/ai-navigation" ||
   currentPath.startsWith("/ai-navigation/") ||
@@ -65,9 +68,11 @@ const showFloatingAd =
 <!doctype html>
 <html
   lang={htmlLang}
+  dir={htmlDir}
   data-locale={locale}
   data-en-path={alternatePaths.en}
   data-zh-path={alternatePaths["zh-CN"]}
+  data-locale-paths={JSON.stringify(alternatePaths)}
 >
   <head>
     <meta charset="UTF-8" />
@@ -78,20 +83,32 @@ const showFloatingAd =
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="/brand/hooosberg-ai-icon.png" />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="alternate" hreflang="zh-CN" href={absoluteUrl(alternatePaths["zh-CN"] ?? canonicalPath)} />
-    <link rel="alternate" hreflang="en" href={absoluteUrl(alternatePaths.en ?? canonicalPath)} />
+    {Object.entries(alternatePaths).map(([loc, path]) => (
+      <link rel="alternate" hreflang={localeMeta[loc as Locale]?.hreflang || loc} href={absoluteUrl(path)} />
+    ))}
     <link rel="alternate" hreflang="x-default" href={absoluteUrl(alternatePaths.en ?? canonicalPath)} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={locale === "en" ? "Hooosberg RSS Feed" : "湖森堡AI RSS 订阅源"}
+      href={absoluteUrl(locale === "en" ? "/en/rss.xml" : "/rss.xml")}
+    />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:type" content={type === "article" ? "article" : "website"} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={imageUrl} />
-    <meta property="og:locale" content={locale === "en" ? "en_US" : "zh_CN"} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:locale" content={ogLocale} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:image:alt" content={title} />
     {publishedTime && <meta property="article:published_time" content={publishedTime} />}
     {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
     <script is:inline>
@@ -113,24 +130,58 @@ const showFloatingAd =
         const crawlerPattern = /bot|crawler|spider|crawling|google|bing|baidu|yandex|duckduckbot|slurp|facebookexternalhit|twitterbot|linkedinbot|whatsapp/i;
         if (crawlerPattern.test(navigator.userAgent)) return;
 
+        let localePaths = {};
+        try {
+          localePaths = JSON.parse(root.dataset.localePaths || "{}");
+        } catch {}
+
+        const supportedLocales = ["zh-CN", "en", "ja", "ko", "es", "fr", "de", "pt", "ru", "it", "ar", "hi"];
+
         const getSavedLocale = () => {
           try {
             const saved = localStorage.getItem("hooosberg-locale");
-            return saved === "zh-CN" || saved === "en" ? saved : "";
+            return saved && supportedLocales.includes(saved) ? saved : "";
           } catch {
             return "";
           }
         };
+
         const detectBrowserLocale = () => {
           const languages = Array.isArray(navigator.languages) && navigator.languages.length
             ? navigator.languages
             : [navigator.language || ""];
+
+          const langPrefixMap = [
+            ["zh", "zh-CN"],
+            ["ja", "ja"],
+            ["ko", "ko"],
+            ["es", "es"],
+            ["fr", "fr"],
+            ["de", "de"],
+            ["pt", "pt"],
+            ["ru", "ru"],
+            ["it", "it"],
+            ["ar", "ar"],
+            ["hi", "hi"],
+            ["en", "en"],
+          ];
+
+          for (const rawLang of languages) {
+            const l = (rawLang || "").toLowerCase();
+            for (const [prefix, loc] of langPrefixMap) {
+              if (l.startsWith(prefix)) {
+                return loc;
+              }
+            }
+          }
+
           return languages.some((language) => language.toLowerCase().startsWith("zh")) ? "zh-CN" : "en";
         };
+
         const preferredLocale = getSavedLocale() || detectBrowserLocale();
         if (preferredLocale === currentLocale) return;
 
-        const targetPath = preferredLocale === "zh-CN" ? root.dataset.zhPath : root.dataset.enPath;
+        const targetPath = localePaths[preferredLocale] || (preferredLocale === "zh-CN" ? root.dataset.zhPath : root.dataset.enPath);
         if (!targetPath) return;
 
         const targetUrl = new URL(targetPath, window.location.origin);

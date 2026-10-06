@@ -2,11 +2,211 @@
 import { wechatQr } from "../data/contactQr";
 
 type Props = {
-  locale?: "zh-CN" | "en";
+  locale?: string;
 };
 
 const { locale = "zh-CN" } = Astro.props;
-const isEnglish = locale === "en";
+
+type QrTranslations = {
+  qqAlt: string;
+  qqBadge: string;
+  qqTitle: string;
+  qqDesc: string;
+  qqNote: string;
+  wechatAlt: string;
+  wechatBadge: string;
+  wechatTitle: string;
+  wechatDesc: string;
+  wechatExpiredTitle: string;
+  wechatExpiredDesc: string;
+  wechatHandle: string;
+  countdownInitial: string;
+};
+
+const qrTranslations: Record<string, QrTranslations> = {
+  "zh-CN": {
+    qqAlt: "湖森堡 QQ 群二维码，群号 1105424769",
+    qqBadge: "QQ群",
+    qqTitle: "加入湖森堡 QQ 群",
+    qqDesc: "扫描二维码加入群聊，也可搜索群号 1105424769。",
+    qqNote: "需要课件可以添加 QQ 群，在群文件中自取。",
+    wechatAlt: "湖森堡微信群二维码",
+    wechatBadge: "微信群",
+    wechatTitle: "加入湖森堡微信群",
+    wechatDesc: `二维码从上传当天开始重新计时，有效期 7 天（${wechatQr.validUntilZh}）。`,
+    wechatExpiredTitle: "此二维码已过期",
+    wechatExpiredDesc: "二维码已过期，请添加下方微信号拉你进群。",
+    wechatHandle: "微信号：hooosberg",
+    countdownInitial: "正在计算剩余时间...",
+  },
+  en: {
+    qqAlt: "Hooosberg QQ group QR code, group number 1105424769",
+    qqBadge: "QQ group",
+    qqTitle: "Join the Hooosberg QQ group",
+    qqDesc: "Scan the QR code or search for group number 1105424769.",
+    qqNote: "Course files are available in the QQ group files.",
+    wechatAlt: "Hooosberg WeChat group QR code",
+    wechatBadge: "WeChat group",
+    wechatTitle: "Join the Hooosberg WeChat group",
+    wechatDesc: `The QR code is valid for 7 days from upload (${wechatQr.validUntilEn}).`,
+    wechatExpiredTitle: "QR code expired",
+    wechatExpiredDesc: "Please add the WeChat ID below to get invited to the group.",
+    wechatHandle: "WeChat ID: hooosberg",
+    countdownInitial: "Checking validity...",
+  },
+  ja: {
+    qqAlt: "Hooosberg QQグループQRコード、グループ番号 1105424769",
+    qqBadge: "QQグループ",
+    qqTitle: "Hooosberg QQグループに参加",
+    qqDesc: "QRコードをスキャンするか、グループ番号 1105424769 を検索してご参加ください。",
+    qqNote: "教材や講義資料はQQグループのファイル共有から自取できます。",
+    wechatAlt: "Hooosberg WeChatグループQRコード",
+    wechatBadge: "WeChatグループ",
+    wechatTitle: "Hooosberg WeChatグループに参加",
+    wechatDesc: `QRコードはアップロードから7日間有効です（${wechatQr.validUntilEn}まで）。`,
+    wechatExpiredTitle: "QRコードの有効期限切れ",
+    wechatExpiredDesc: "QRコードが期限切れです。下記のWeChat IDを追加してご参加ください。",
+    wechatHandle: "WeChat ID: hooosberg",
+    countdownInitial: "有効期限を確認中...",
+  },
+  ko: {
+    qqAlt: "Hooosberg QQ 그룹 QR 코드, 그룹 번호 1105424769",
+    qqBadge: "QQ 그룹",
+    qqTitle: "Hooosberg QQ 그룹 참여",
+    qqDesc: "QR 코드를 스캔하거나 그룹 번호 1105424769를 검색하세요.",
+    qqNote: "강의 자료는 QQ 그룹 파일에서 다운로드할 수 있습니다.",
+    wechatAlt: "Hooosberg WeChat 그룹 QR 코드",
+    wechatBadge: "WeChat 그룹",
+    wechatTitle: "Hooosberg WeChat 그룹 참여",
+    wechatDesc: `QR 코드는 업로드일로부터 7일간 유효합니다(${wechatQr.validUntilEn}까지).`,
+    wechatExpiredTitle: "QR 코드 만료됨",
+    wechatExpiredDesc: "QR 코드가 만료되었습니다. 아래 WeChat ID를 추가하여 그룹에 참여하세요.",
+    wechatHandle: "WeChat ID: hooosberg",
+    countdownInitial: "유효 기간 확인 중...",
+  },
+  es: {
+    qqAlt: "Código QR del grupo QQ de Hooosberg, número 1105424769",
+    qqBadge: "Grupo QQ",
+    qqTitle: "Unirse al grupo QQ de Hooosberg",
+    qqDesc: "Escanea el código QR o busca el grupo 1105424769.",
+    qqNote: "Los materiales del curso están disponibles en los archivos del grupo QQ.",
+    wechatAlt: "Código QR del grupo WeChat de Hooosberg",
+    wechatBadge: "Grupo WeChat",
+    wechatTitle: "Unirse al grupo WeChat de Hooosberg",
+    wechatDesc: `El código QR es válido durante 7 días (${wechatQr.validUntilEn}).`,
+    wechatExpiredTitle: "Código QR caducado",
+    wechatExpiredDesc: "El código ha caducado. Añade el WeChat inferior para recibir una invitación.",
+    wechatHandle: "WeChat ID: hooosberg",
+    countdownInitial: "Comprobando validez...",
+  },
+  fr: {
+    qqAlt: "Code QR du groupe QQ Hooosberg, numéro 1105424769",
+    qqBadge: "Groupe QQ",
+    qqTitle: "Rejoindre le groupe QQ Hooosberg",
+    qqDesc: "Scannez le code QR ou cherchez le numéro 1105424769.",
+    qqNote: "Les supports de cours sont disponibles dans les fichiers du groupe QQ.",
+    wechatAlt: "Code QR du groupe WeChat Hooosberg",
+    wechatBadge: "Groupe WeChat",
+    wechatTitle: "Rejoindre le groupe WeChat Hooosberg",
+    wechatDesc: `Le code QR est valide 7 jours (${wechatQr.validUntilEn}).`,
+    wechatExpiredTitle: "Code QR expiré",
+    wechatExpiredDesc: "Le code QR a expiré. Ajoutez l'identifiant WeChat ci-dessous pour être invité.",
+    wechatHandle: "WeChat ID: hooosberg",
+    countdownInitial: "Vérification de la validité...",
+  },
+  de: {
+    qqAlt: "Hooosberg QQ-Gruppe QR-Code, Nummer 1105424769",
+    qqBadge: "QQ-Gruppe",
+    qqTitle: "Hooosberg QQ-Gruppe beitreten",
+    qqDesc: "QR-Code scannen oder nach Gruppennummer 1105424769 suchen.",
+    qqNote: "Kursmaterialien sind in den QQ-Gruppendateien verfügbar.",
+    wechatAlt: "Hooosberg WeChat-Gruppe QR-Code",
+    wechatBadge: "WeChat-Gruppe",
+    wechatTitle: "Hooosberg WeChat-Gruppe beitreten",
+    wechatDesc: `Der QR-Code ist ab Upload 7 Tage gültig (${wechatQr.validUntilEn}).`,
+    wechatExpiredTitle: "QR-Code abgelaufen",
+    wechatExpiredDesc: "QR-Code ist abgelaufen. Bitte fügen Sie die WeChat-ID unten hinzu.",
+    wechatHandle: "WeChat ID: hooosberg",
+    countdownInitial: "Gültigkeit wird geprüft...",
+  },
+  pt: {
+    qqAlt: "Código QR do grupo QQ da Hooosberg, número 1105424769",
+    qqBadge: "Grupo QQ",
+    qqTitle: "Entrar no grupo QQ da Hooosberg",
+    qqDesc: "Digitalize o código QR ou pesquise o grupo 1105424769.",
+    qqNote: "Materiais do curso estão nos arquivos do grupo QQ.",
+    wechatAlt: "Código QR do grupo WeChat da Hooosberg",
+    wechatBadge: "Grupo WeChat",
+    wechatTitle: "Entrar no grupo WeChat da Hooosberg",
+    wechatDesc: `O código QR é válido por 7 dias (${wechatQr.validUntilEn}).`,
+    wechatExpiredTitle: "Código QR expirado",
+    wechatExpiredDesc: "O código QR expirou. Adicione o WeChat abaixo para receber convite.",
+    wechatHandle: "WeChat ID: hooosberg",
+    countdownInitial: "Verificando validade...",
+  },
+  ru: {
+    qqAlt: "QR-код группы QQ Hooosberg, номер 1105424769",
+    qqBadge: "Группа QQ",
+    qqTitle: "Присоединиться к группе QQ Hooosberg",
+    qqDesc: "Отсканируйте QR-код или найдите номер группы 1105424769.",
+    qqNote: "Материалы курса доступны в файлах группы QQ.",
+    wechatAlt: "QR-код группы WeChat Hooosberg",
+    wechatBadge: "Группа WeChat",
+    wechatTitle: "Присоединиться к группе WeChat Hooosberg",
+    wechatDesc: `QR-код действителен 7 дней с момента загрузки (${wechatQr.validUntilEn}).`,
+    wechatExpiredTitle: "Срок действия QR-кода истек",
+    wechatExpiredDesc: "QR-код устарел. Добавьте контакт WeChat ниже для приглашения.",
+    wechatHandle: "WeChat ID: hooosberg",
+    countdownInitial: "Проверка срока действия...",
+  },
+  it: {
+    qqAlt: "Codice QR del gruppo QQ Hooosberg, numero 1105424769",
+    qqBadge: "Gruppo QQ",
+    qqTitle: "Unisciti al gruppo QQ di Hooosberg",
+    qqDesc: "Scansiona il codice QR o cerca il numero 1105424769.",
+    qqNote: "I materiali del corso sono nei file del gruppo QQ.",
+    wechatAlt: "Codice QR del gruppo WeChat Hooosberg",
+    wechatBadge: "Gruppo WeChat",
+    wechatTitle: "Unisciti al gruppo WeChat di Hooosberg",
+    wechatDesc: `Il codice QR è valido per 7 giorni (${wechatQr.validUntilEn}).`,
+    wechatExpiredTitle: "Codice QR scaduto",
+    wechatExpiredDesc: "Il codice QR è scaduto. Aggiungi il WeChat qui sotto per essere invitato.",
+    wechatHandle: "WeChat ID: hooosberg",
+    countdownInitial: "Verifica validità in corso...",
+  },
+  ar: {
+    qqAlt: "رمز الاستجابة السريعة لمجموعة QQ Hooosberg، رقم 1105424769",
+    qqBadge: "مجموعة QQ",
+    qqTitle: "الانضمام إلى مجموعة QQ Hooosberg",
+    qqDesc: "امسح رمز الاستجابة السريعة أو ابحث عن رقم المجموعة 1105424769.",
+    qqNote: "ملفات الدورة التدريبية متوفرة في ملفات مجموعة QQ.",
+    wechatAlt: "رمز الاستجابة السريعة لمجموعة WeChat Hooosberg",
+    wechatBadge: "مجموعة WeChat",
+    wechatTitle: "الانضمام إلى مجموعة WeChat Hooosberg",
+    wechatDesc: `رمز الاستجابة السريعة صالح لمدة 7 أيام (${wechatQr.validUntilEn}).`,
+    wechatExpiredTitle: "انتهت صلاحية رمز الاستجابة السريعة",
+    wechatExpiredDesc: "انتهت الصلاحية، يُرجى إضافة حساب WeChat أدناه للدعوة.",
+    wechatHandle: "WeChat ID: hooosberg",
+    countdownInitial: "جارٍ التحقق من الصلاحية...",
+  },
+  hi: {
+    qqAlt: "Hooosberg QQ समूह QR कोड, समूह संख्या 1105424769",
+    qqBadge: "QQ समूह",
+    qqTitle: "Hooosberg QQ समूह में शामिल हों",
+    qqDesc: "QR कोड स्कैन करें या समूह संख्या 1105424769 खोजें।",
+    qqNote: "कोर्स सामग्री QQ समूह फ़ाइलों में उपलब्ध है।",
+    wechatAlt: "Hooosberg WeChat समूह QR कोड",
+    wechatBadge: "WeChat समूह",
+    wechatTitle: "Hooosberg WeChat समूह में शामिल हों",
+    wechatDesc: `QR कोड 7 दिनों के लिए मान्य है (${wechatQr.validUntilEn})।`,
+    wechatExpiredTitle: "QR कोड समाप्त हो गया",
+    wechatExpiredDesc: "QR कोड समाप्त हो गया है, समूह आमंत्रण के लिए नीचे दिए गए WeChat ID को जोड़ें।",
+    wechatHandle: "WeChat ID: hooosberg",
+    countdownInitial: "वैधता की जांच हो रही है...",
+  },
+};
+
+const t = qrTranslations[locale] ?? qrTranslations["en"] ?? qrTranslations["zh-CN"];
 ---
 
 <div class="contact-qr-grid" data-qr-expiry={wechatQr.expiresAt} data-qr-uploaded={wechatQr.uploadedAt}>
@@ -14,15 +214,15 @@ const isEnglish = locale === "en";
     <img
       class="contact-qr-card__image"
       src="/images/contact/qq-group-1105424769.jpg"
-      alt={isEnglish ? "Hooosberg QQ group QR code, group number 1105424769" : "湖森堡 QQ 群二维码，群号 1105424769"}
+      alt={t.qqAlt}
       loading="eager"
       decoding="async"
     />
     <div class="contact-qr-card__content">
-      <span>{isEnglish ? "QQ group" : "QQ群"}</span>
-      <strong>{isEnglish ? "Join the Hooosberg QQ group" : "加入湖森堡 QQ 群"}</strong>
-      <p>{isEnglish ? "Scan the QR code or search for group number 1105424769." : "扫描二维码加入群聊，也可搜索群号 1105424769。"}</p>
-      <p class="contact-qr-card__note">{isEnglish ? "Course files are available in the QQ group files." : "需要课件可以添加 QQ 群，在群文件中自取。"}</p>
+      <span>{t.qqBadge}</span>
+      <strong>{t.qqTitle}</strong>
+      <p>{t.qqDesc}</p>
+      <p class="contact-qr-card__note">{t.qqNote}</p>
     </div>
   </div>
 
@@ -31,22 +231,22 @@ const isEnglish = locale === "en";
       <img
         class="contact-qr-card__image"
         src={wechatQr.image}
-        alt={isEnglish ? "Hooosberg WeChat group QR code" : "湖森堡微信群二维码"}
+        alt={t.wechatAlt}
         loading="eager"
         decoding="async"
       />
       <div class="contact-qr-card__expired" data-qr-expired hidden>
-        <strong>{isEnglish ? "QR code expired" : "此二维码已过期"}</strong>
-        <span>{isEnglish ? "Please add the WeChat ID below to get invited to the group." : "二维码已过期，请添加下方微信号拉你进群。"}</span>
+        <strong>{t.wechatExpiredTitle}</strong>
+        <span>{t.wechatExpiredDesc}</span>
       </div>
     </div>
     <div class="contact-qr-card__content">
-      <span>{isEnglish ? "WeChat group" : "微信群"}</span>
-      <strong>{isEnglish ? "Join the Hooosberg WeChat group" : "加入湖森堡微信群"}</strong>
-      <p>{isEnglish ? `The QR code is valid for 7 days from upload (${wechatQr.validUntilEn}).` : `二维码从上传当天开始重新计时，有效期 7 天（${wechatQr.validUntilZh}）。`}</p>
+      <span>{t.wechatBadge}</span>
+      <strong>{t.wechatTitle}</strong>
+      <p>{t.wechatDesc}</p>
       <!-- 微信号：未过期时隐藏，仅在倒计时结束（已过期）时才出现 -->
-      <strong class="contact-qr-card__handle" data-qr-handle hidden>{isEnglish ? "WeChat ID: hooosberg" : "微信号：hooosberg"}</strong>
-      <p class="contact-qr-card__countdown" data-qr-countdown aria-live="polite">{isEnglish ? "Checking validity..." : "正在计算剩余时间..."}</p>
+      <strong class="contact-qr-card__handle" data-qr-handle hidden>{t.wechatHandle}</strong>
+      <p class="contact-qr-card__countdown" data-qr-countdown aria-live="polite">{t.countdownInitial}</p>
     </div>
   </div>
 </div>
@@ -54,20 +254,85 @@ const isEnglish = locale === "en";
 <script is:inline>
   (() => {
     const grids = document.querySelectorAll("[data-qr-expiry]");
-    const formatRemaining = (expiresAt, isEnglish) => {
+    const formatRemaining = (expiresAt, lang) => {
       const remaining = new Date(expiresAt).getTime() - Date.now();
       if (remaining <= 0) return null;
       const days = Math.floor(remaining / 86400000);
       const hours = Math.floor((remaining % 86400000) / 3600000);
       const minutes = Math.floor((remaining % 3600000) / 60000);
-      if (days > 0) {
-        return isEnglish
-          ? `Valid: ${days}d ${hours}h ${minutes}m remaining`
-          : `有效期剩余：${days} 天 ${hours} 小时 ${minutes} 分`;
+      if (lang === "zh-CN" || lang.startsWith("zh")) {
+        return days > 0
+          ? `有效期剩余：${days} 天 ${hours} 小时 ${minutes} 分`
+          : `即将过期：剩余 ${hours} 小时 ${minutes} 分`;
       }
-      return isEnglish
-        ? `Expiring soon: ${hours}h ${minutes}m remaining`
-        : `即将过期：剩余 ${hours} 小时 ${minutes} 分`;
+      if (lang === "ja") {
+        return days > 0
+          ? `有効期限残り：${days}日 ${hours}時間 ${minutes}分`
+          : `まもなく期限切れ：残り ${hours}時間 ${minutes}分`;
+      }
+      if (lang === "ko") {
+        return days > 0
+          ? `유효기간 남음: ${days}일 ${hours}시간 ${minutes}분`
+          : `곧 만료: 남은 시간 ${hours}시간 ${minutes}분`;
+      }
+      if (lang === "es") {
+        return days > 0
+          ? `Válido: quedan ${days}d ${hours}h ${minutes}m`
+          : `Expira pronto: quedan ${hours}h ${minutes}m`;
+      }
+      if (lang === "fr") {
+        return days > 0
+          ? `Valide : reste ${days}j ${hours}h ${minutes}m`
+          : `Expire bientôt : reste ${hours}h ${minutes}m`;
+      }
+      if (lang === "de") {
+        return days > 0
+          ? `Gültig: noch ${days}T ${hours}Std ${minutes}Min`
+          : `Läuft bald ab: noch ${hours}Std ${minutes}Min`;
+      }
+      if (lang === "ru") {
+        return days > 0
+          ? `Действителен: осталось ${days}д ${hours}ч ${minutes}мин`
+          : `Скоро истечет: осталось ${hours}ч ${minutes}мин`;
+      }
+      if (lang === "pt") {
+        return days > 0
+          ? `Válido: restam ${days}d ${hours}h ${minutes}m`
+          : `Expira em breve: restam ${hours}h ${minutes}m`;
+      }
+      if (lang === "it") {
+        return days > 0
+          ? `Valido: restano ${days}g ${hours}h ${minutes}m`
+          : `In scadenza: restano ${hours}h ${minutes}m`;
+      }
+      if (lang === "ar") {
+        return days > 0
+          ? `الصلاحية المتبقية: ${days} يوم و${hours} ساعة و${minutes} دقيقة`
+          : `ينتهي قريباً: متبقي ${hours} ساعة و${minutes} دقيقة`;
+      }
+      if (lang === "hi") {
+        return days > 0
+          ? `वैध: ${days} दिन ${hours} घंटे ${minutes} मिनट शेष`
+          : `जल्द समाप्त: ${hours} घंटे ${minutes} मिनट शेष`;
+      }
+      return days > 0
+        ? `Valid: ${days}d ${hours}h ${minutes}m remaining`
+        : `Expiring soon: ${hours}h ${minutes}m remaining`;
+    };
+
+    const getExpiredText = (lang) => {
+      if (lang === "zh-CN" || lang.startsWith("zh")) return "已过期（请添加微信号：hooosberg）";
+      if (lang === "ja") return "期限切れ（WeChat ID: hooosberg を追加してください）";
+      if (lang === "ko") return "만료됨 (WeChat ID: hooosberg 추가)";
+      if (lang === "es") return "Caducado (Contactar WeChat: hooosberg)";
+      if (lang === "fr") return "Expiré (Contacter WeChat : hooosberg)";
+      if (lang === "de") return "Abgelaufen (WeChat-Kontakt: hooosberg)";
+      if (lang === "ru") return "Истек (Контакт WeChat: hooosberg)";
+      if (lang === "pt") return "Expirado (Adicionar WeChat: hooosberg)";
+      if (lang === "it") return "Scaduto (Contatto WeChat: hooosberg)";
+      if (lang === "ar") return "منتهي الصلاحية (أضف WeChat: hooosberg)";
+      if (lang === "hi") return "समाप्त (WeChat संपर्क: hooosberg)";
+      return "Expired (Contact WeChat: hooosberg)";
     };
 
     grids.forEach((grid) => {
@@ -77,24 +342,23 @@ const isEnglish = locale === "en";
       const expired = qr?.querySelector("[data-qr-expired]");
       const countdown = qr?.querySelector("[data-qr-countdown]");
       const handle = qr?.querySelector("[data-qr-handle]");
-      const isEnglish = document.documentElement.lang.startsWith("en");
+      const lang = document.documentElement.lang || "zh-CN";
       if (!expiry || !qr || !image || !expired || !countdown) return;
 
       const update = () => {
-        const label = formatRemaining(expiry, isEnglish);
+        const label = formatRemaining(expiry, lang);
         if (label) {
           countdown.textContent = label;
           image.hidden = false;
           expired.hidden = true;
-          if (handle) handle.hidden = true; // 未过期时隐藏微信号
+          if (handle) handle.hidden = true;
           qr.classList.remove("is-expired");
           return;
         }
-        // 过期时
         image.hidden = true;
         expired.hidden = false;
-        if (handle) handle.hidden = false; // 过期后才显示微信号
-        countdown.textContent = isEnglish ? "Expired (Contact WeChat: hooosberg)" : "已过期（请添加微信号：hooosberg）";
+        if (handle) handle.hidden = false;
+        countdown.textContent = getExpiredText(lang);
         qr.classList.add("is-expired");
       };
 

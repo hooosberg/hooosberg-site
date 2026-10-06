@@ -45,9 +45,10 @@ npm test
 
 `npm test` runs the production build and the Node test suite under `tests/`.
 
-## Content Workflows
+## Content Workflows & Rules
 
 - Video tutorial notes: [`VIDEO_NOTE_WORKFLOW.md`](VIDEO_NOTE_WORKFLOW.md)
+- Multi-language (i18n) translation rules & SEO architecture: [`docs/I18N_TRANSLATION_RULES.md`](docs/I18N_TRANSLATION_RULES.md)
 
 ## Deployment
 

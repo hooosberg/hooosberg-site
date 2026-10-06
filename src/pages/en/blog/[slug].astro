@@ -6,6 +6,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { articles, type Article } from "../../../data/articles";
 import { products } from "../../../data/products";
 import { absoluteUrl, getLocalizedArticle, getLocalizedProduct } from "../../../utils/i18n";
+import { buildBreadcrumbJsonLd } from "../../../utils/structuredData";
 
 export function getStaticPaths() {
   return articles.map((article) => ({
@@ -22,9 +23,17 @@ const relatedProducts = article.productSlugs
   .map((slug) => products.find((product) => product.slug === slug))
   .filter(Boolean)
   .map((product) => product && getLocalizedProduct(product, "en"));
+const defaultClusterProducts = products
+  .filter((p) => ["witnote", "docktouchbar", "leantake", "mood-button"].includes(p.slug))
+  .slice(0, 3)
+  .map((product) => getLocalizedProduct(product, "en"));
 const relatedArticles = (sourceArticle.relatedArticleSlugs ?? [])
   .map((slug) => articles.find((item) => item.slug === slug))
   .filter((item): item is Article => Boolean(item))
+  .map((item) => getLocalizedArticle(item, "en"));
+const fallbackArticles = articles
+  .filter((item) => item.slug !== article.slug && (item.category === sourceArticle.category || item.diaryKind === sourceArticle.diaryKind))
+  .slice(0, 3)
   .map((item) => getLocalizedArticle(item, "en"));
 const diaryReturnHref = `/en/blog?kind=${article.diaryKind}`;
 const hiddenLeadPrefixes = ["resource url:", "video url:"];
@@ -57,6 +66,11 @@ const articleJsonLd = {
   },
   mainEntityOfPage: absoluteUrl(`/en/blog/${article.slug}`),
 };
+const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+  { name: "Home", path: "/en" },
+  { name: "Notes", path: "/en/blog" },
+  { name: article.title, path: `/en/blog/${article.slug}` },
+]);
 ---
 
 <BaseLayout
@@ -67,7 +81,7 @@ const articleJsonLd = {
   type="article"
   publishedTime={article.date}
   modifiedTime={article.date}
-  jsonLd={articleJsonLd}
+  jsonLd={[articleJsonLd, breadcrumbJsonLd]}
 >
   <article class="article-detail" data-diary-kind={article.diaryKind}>
     <header>
@@ -149,22 +163,50 @@ const articleJsonLd = {
       </div>
     )}
 
-    {relatedProducts.length > 0 && (
-      <footer class="article-related">
-        <h2>Related Products</h2>
-        <div class="mini-link-row">
-          {relatedProducts.map((product) => product && <a href={`/en/apps/${product.slug}`}>{product.displayName}</a>)}
+    <footer class="article-related article-topic-cluster">
+      <h2>Topic Clusters & Explore Next</h2>
+      <div class="topic-cluster-grid">
+        <div class="topic-cluster-card">
+          <div class="topic-cluster-card__header">
+            <span>🛠️</span>
+            <strong>Indie Products</strong>
+          </div>
+          <p>Real-world indie tools, local-first apps, and open-source utilities.</p>
+          <div class="mini-link-row">
+            {(relatedProducts.length > 0 ? relatedProducts : defaultClusterProducts).map((product) => product && (
+              <a href={`/en/apps/${product.slug}`}>{product.displayName}</a>
+            ))}
+            <a href="/en/apps" class="cluster-more-link">All Products →</a>
+          </div>
         </div>
-      </footer>
-    )}
 
-    {relatedArticles.length > 0 && (
-      <footer class="article-related">
-        <h2>Related Lessons</h2>
-        <div class="mini-link-row">
-          {relatedArticles.map((item) => <a href={`/en/blog/${item.slug}`}>{item.title}</a>)}
+        <div class="topic-cluster-card">
+          <div class="topic-cluster-card__header">
+            <span>🧭</span>
+            <strong>AI Tools Directory</strong>
+          </div>
+          <p>Curated global assistants, coding agents, and foundation model benchmarks.</p>
+          <div class="mini-link-row">
+            <a href="/en/ai-navigation">AI Tools Guide</a>
+            <a href="/en/ai-model-sanguo-ranking">Model Tier List</a>
+            <a href="/en/ai-navigation#coding">Coding Agents</a>
+          </div>
         </div>
-      </footer>
-    )}
+
+        <div class="topic-cluster-card">
+          <div class="topic-cluster-card__header">
+            <span>📚</span>
+            <strong>Learning Notes</strong>
+          </div>
+          <p>Practical guides on AI office automation, terminal agents, and indie postmortems.</p>
+          <div class="mini-link-row">
+            {(relatedArticles.length > 0 ? relatedArticles.slice(0, 3) : fallbackArticles).map((item) => (
+              <a href={`/en/blog/${item.slug}`}>{item.title}</a>
+            ))}
+            <a href={diaryReturnHref} class="cluster-more-link">More in {article.category} →</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </article>
 </BaseLayout>

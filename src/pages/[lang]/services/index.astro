@@ -1,0 +1,88 @@
+---
+import { ArrowRight, UserRoundCog, Wrench } from "@lucide/astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { tier1Locales, type Tier1Locale } from "../../../utils/i18n";
+import { tier1Content } from "../../../data/tier1Translations";
+import { buildSectionWebPageJsonLd } from "../../../utils/structuredData";
+
+export function getStaticPaths() {
+  return tier1Locales.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const locale = lang as Tier1Locale;
+const content = tier1Content[locale] ?? tier1Content["ja"];
+
+const services = [
+  {
+    title: "WorkBuddy Expert Customization",
+    description: "A tailored WorkBuddy setup, task workflow, and expert collaboration approach built around your goals and working style.",
+    price: "RMB 1,500",
+    note: "One-to-one discovery and an actionable custom plan",
+    icon: UserRoundCog,
+  },
+  {
+    title: "WorkBuddy Skill Customization",
+    description: "Custom WorkBuddy skills for a specific task, turning repeat work into a reliable and reusable workflow.",
+    price: "RMB 1,500",
+    note: "Skills and operating guidance tailored to your use case",
+    icon: Wrench,
+  },
+];
+
+const jsonLd = buildSectionWebPageJsonLd({
+  locale,
+  path: `/${locale}/services`,
+  name: `@Hooosberg ${content.services.heroTitle}`,
+  description: content.services.heroSubtitle,
+  topics: ["WorkBuddy custom service", "WorkBuddy expert customization", "WorkBuddy skill customization"],
+});
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${content.services.heroTitle} | @Hooosberg`}
+  description={content.services.heroSubtitle}
+  canonicalPath={`/${locale}/services`}
+  jsonLd={jsonLd}
+>
+  <section class="page-hero page-hero--narrow courses-hero commerce-hero">
+    <p class="commerce-kicker">{content.services.heroKicker}</p>
+    <h1>{content.services.heroTitle}</h1>
+    <p>{content.services.heroSubtitle}</p>
+  </section>
+
+  <section class="catalog-section commerce-section service-section">
+    <div class="section-line-heading course-section-heading commerce-section-heading">
+      <h2>{content.services.heroTitle}</h2>
+      <span>RMB 1,500</span>
+    </div>
+
+    <div class="service-grid commerce-card-grid">
+      {services.map((service) => {
+        const Icon = service.icon;
+
+        return (
+          <article class="service-card commerce-card">
+            <div class="commerce-card__top">
+              <div class="course-icon"><Icon size={20} aria-hidden="true" /></div>
+              <span>WorkBuddy custom</span>
+            </div>
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+            <div class="service-card__footer commerce-card__footer">
+              <div>
+                <strong>{service.price}</strong>
+                <small>{service.note}</small>
+              </div>
+              <a class="commerce-action" href={`/${locale}/links`}>
+                Contact
+                <ArrowRight size={15} aria-hidden="true" />
+              </a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>
