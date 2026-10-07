@@ -120,7 +120,7 @@ export const learningSeries: LearningSeries[] = [
     lessons: [
       // 置顶教学：账号星球与海外AI账号充值全流程指南
       {
-        number: 26,
+        number: 27,
         title: "【置顶指南】Codex、Gemini与ChatGPT海外账号如何获取？AI会员自助充值与避坑全流程教学",
         outcome: "海外AI账号注册、会员充值、防止封号与纯净环境全套实战教学，附专属快速通道。",
         articleSlug: "video-codex-account-registration-recharge-guide",
@@ -128,6 +128,14 @@ export const learningSeries: LearningSeries[] = [
         hasDownload: false,
       },
       // 最新发布倒序排列（编号倒序：最新一课编号最大，与 WorkBuddy 对齐）
+      {
+        number: 26,
+        title: "外国设计师都在抛弃PS？3款开源免费Photoshop平替实测：秒开PSD，配合AI生图轻量图层足够用",
+        outcome: "实测三款开源免费PS平替软件，对比PSD兼容性、本地AI抠图与轻量图层工作流。",
+        articleSlug: "video-codex-free-photoshop-alternatives",
+        hasDownload: false,
+        videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+      },
       {
         number: 25,
         title: "Claude Code 国内简易注册订阅教程（免海外卡）",

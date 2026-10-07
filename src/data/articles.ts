@@ -1598,6 +1598,73 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
 </div>`,
   },
   {
+    slug: "video-codex-free-photoshop-alternatives",
+    title: "外国设计师都在抛弃PS？3款开源免费Photoshop平替实测：秒开PSD，配合AI生图轻量图层足够用",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-10-07",
+    seriesOrder: 199,
+    handoutFirst: true,
+    excerpt: "Adobe PS 臃肿卡顿还死贵？实测 3 款优质开源免费 Photoshop 平替软件：Photon Studio、Compositor 与 ArtCraft。秒开 PSD 分层，配合 AI 生图极简图层工作流，轻量高效完全够用。",
+    tags: ["视频教程", "Photoshop平替", "开源软件", "Photon", "Compositor", "ArtCraft", "AI生图", "PSD分层"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+    videoMeta: "B 站：Codex 编程实战与前沿评测",
+    body: [
+      "现在的 Adobe Photoshop 越来越臃肿，安装包动辄几 GB 到十几 GB，启动慢、后台常驻服务多、广告弹窗频发，关键还一直采用昂贵的订阅制按月扣费，海外很多独立设计师和独立开发者早已怨声载道，纷纷投奔轻量开源阵营。",
+      "尤其在如今的 AI 生图时代，大部分复杂的背景、原画与视觉主体直接交给 Midjourney、Stable Diffusion、ChatGPT / DALL-E 或 Flux 批量生成。日常设计工作流中，大家往往只需要一个轻快干净的工具做基础的图层叠加、蒙版擦除、简单调色、打字排版和切图导出，PS 那 90% 庞大陈旧的历史功能根本用不上。",
+      "本期节目精选并实测海外开源社区热度最高的 3 款 Photoshop 免费平替：Photon Studio、Compositor 和 ArtCraft。核心底线是全部支持打开与保存 PSD 分层文件，无论你是追求极致性能、Mac 原生极简还是全家桶生态，都能找到零成本平替方案！"
+    ],
+    sections: [
+      {
+        heading: "一、软件官网与开源项目下载地址速查",
+        paragraphs: [
+          "以下为本期评测三款软件的官方下载与开源仓库地址，建议直接收藏或按需下载体验：",
+          "• Photon Studio（全平台 / GPU加速 / 深度兼容PS / 支持AI Agent）：https://tenzen.studio/photon/",
+          "• Compositor（macOS专属 / 极简轻量 / 专注图层合成）：https://github.com/robbietilton/Compositor （也支持终端运行 brew install --cask robbietilton-compositor 一键安装）",
+          "• ArtCraft / PhotoCraft（全开源全家桶计划 / Rust编写 / 汉化尚不完善）：https://getartcraft.com/apps",
+        ],
+        codeBlocks: [
+          "# 三款开源免费 PS 平替工具地址汇总\n\n1. Photon Studio (全平台 GPU 加速 / 本地 AI 抠图 / 兼容 PS 快捷键)\n   官网下载：https://tenzen.studio/photon/\n\n2. Compositor (Mac 原生 Swift 图像合成 / 超轻量秒开 / 配合 AI 生图)\n   开源仓库：https://github.com/robbietilton/Compositor\n   Homebrew 一键安装：brew install --cask robbietilton-compositor\n\n3. ArtCraft / PhotoCraft (开源 Rust 创意应用全家桶 / 早期 Alpha 阶段)\n   应用主页：https://getartcraft.com/apps",
+        ],
+      },
+      {
+        heading: "二、软件一：Photon Studio（综合性能最强、最像 PS 的生产力利器）",
+        paragraphs: [
+          "• 底层与架构：由 Tenzen Studio 团队打造，采用现代 Rust 语言开发，基于 Metal、DirectX 12 与 Vulkan 纯 GPU 硬件渲染引擎。即使打开高达数 GB 的巨幅多图层 PSB/PSD 文件，平移和缩放依然丝滑流畅，完全没有 Adobe 的迟钝感。",
+          "• 界面与使用习惯：工具栏布局、菜单归类、图层面板和快捷键系统几乎 100% 像素级对齐 Photoshop。多年老 PS 用户的肌肉记忆无需任何改变，打开即用。",
+          "• 格式与资产生态兼容：完美打开并保存 PSD 与 PSB 格式，图层组、蒙版、调整图层、智能对象、可编辑文字图层和图层样式（投影/描边等）均能完整保留。并且直接支持载入 Photoshop 的画笔预设（.abr）、动作批处理（.atn）、图层样式（.asl）和渐变（.grd）。",
+          "• 端侧离线 AI 抠图：内置了端侧离线 AI 模型，支持一键主体抠图（Select Subject）和一键去除背景（Remove Background），完全在本地显卡推理，不上传云端、不耗费网络，极大保障设计隐私。",
+          "• 杀手级特性（AI Agent 联动）：原生自带 CLI 命令行与 MCP（Model Context Protocol）Server！可以直接接入 Claude Code、Codex、Cursor、VS Code Copilot 等编程智能体，让 AI Agent 直接读取画布结构并用代码自动化批处理修图！",
+        ],
+      },
+      {
+        heading: "三、软件二：Compositor（专为 Mac 设计的极简图层合成神器）",
+        paragraphs: [
+          "• 定位与理念：由开发者 Robbie Tilton 在 GitHub 开源，专为 macOS 设计的原生轻量级图像合成工具。它彻底摒弃了 Photoshop 身上冗长累赘的历史包袱，只专注于核心的“图层拼合与后期合成（Compositing）”。",
+          "• 轻量秒开与 Mac 原生体验：采用 Apple 原生技术架构，体积极小，启动毫秒级完成，内存占用极低。没有任何后台驻留更新程序或弹窗骚扰。",
+          "• 核心功能扎实克制：支持 PSD 图层与图层组结构、图层蒙版、剪贴蒙版（Clipping Mask）、图层混合模式、非破坏性变换（缩放/旋转/扭曲），并提供曲线（Curves）、色阶（Levels）、曝光度、色相饱和度等常用调整图层，以及仿制图章与污点修复工具。",
+          "• 配合 AI 生图的黄金搭档：我们在日常用 AI 生图后，通常只需要把几张底图快速拼成背景、套个蒙版抠除边缘、叠上标题字、调一下曲线对比度。用 Compositor 整个流程清爽干练，开箱即用，是 Mac 创作者的高效利器。",
+        ],
+      },
+      {
+        heading: "四、软件三：ArtCraft / PhotoCraft（雄心勃勃的开源全家桶，汉化尚弱）",
+        paragraphs: [
+          "• 背景与愿景：ArtCraft（Crafting Apps）是一个野心极大的开源项目，立志用 Rust 从零重构一套完全替代 Adobe 全家桶的套件，涵盖图片处理 PhotoCraft、矢量绘图 VectorCraft、视频剪辑 FilmCraft、排版工具 DesignCraft 等。",
+          "• 基础能力可用：同样支持在 Windows、macOS 和 Linux 上跨平台运行，能够读取和保存 PSD/PSB 文件，保留基础的图层分离与编辑属性，日常应急查看 PSD、拆分图层资产完全能够胜任。",
+          "• 客观不足与现状说明：首先是汉化目前不够完善，界面以英文为主，中文本地化较为欠缺；其次目前整体处于 Early Alpha（早期开发预览）阶段，部分高级功能尚未完工，且在高负载下偶尔有卡顿或小 Bug。目前更建议作为关注开源生态演进的备选工具，期待其后续版本的成熟迭代。",
+        ],
+      },
+      {
+        heading: "五、横向选型建议与视频演示要点",
+        paragraphs: [
+          "• 选型建议：如果你需要最接近 Photoshop 的工作流、需要全平台且要处理重度 PSD，甚至想玩 AI Agent 自动化修图，无脑选择【Photon Studio】；如果你是 Mac 用户，主要用于配合 AI 生图做快速图层合成、蒙版与轻量排版，强烈推荐极速小巧的【Compositor】；如果对全套开源创意套件抱有兴趣，想尝鲜 Rust 重构的 Adobe 替代品，可以体验【ArtCraft】。",
+          "• 录制视频演示建议：视频开场直接对比 Photoshop 臃肿体积与扣费账单；接着展示 AI 生图时代只需轻量图层拼合的新范式；然后依次在屏幕上下载、打开同一份多图层 PSD 文件进行图层操作与抠图演示；最后明确指出各自的优劣势（尤其是 ArtCraft 目前汉化尚不成熟的现状），给观众最实诚的避坑选型建议。",
+        ],
+      },
+    ],
+  },
+  {
     slug: "video-codex-claude-code-registration-guide",
     title: "Claude Code 国内简易注册订阅教程（免海外卡）",
     category: "视频教程笔记",
