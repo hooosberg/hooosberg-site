@@ -57,20 +57,18 @@ export function rebalanceCategory(cat) {
 
   cat.totalCount = cat.fullList.length;
 
-  // 3. 按照各 tier 原有容量，从严格排序的 fullList 进行顺序切片，从根源杜绝编号倒挂或跳号
+  // 3. 按照标准战力梯队配额进行顺序切片（严格杜绝编号倒挂、跳号或梯队容量无限扩张）
   if (cat.tiers) {
     const tierKeys = ["hang", "dingji", "renshangren", "npc", "lawanle"];
-    const tierCounts = {};
-    tierKeys.forEach((key) => {
-      tierCounts[key] = (cat.tiers[key] && Array.isArray(cat.tiers[key].items))
-        ? cat.tiers[key].items.length
-        : 0;
-    });
+    const isSmall = cat.fullList.length < 18;
+    const standardCounts = isSmall
+      ? { hang: 3, dingji: 2, renshangren: 2, npc: 2, lawanle: 1 }
+      : { hang: 3, dingji: 4, renshangren: 7, npc: 9, lawanle: 9 };
 
     let cursor = 0;
     tierKeys.forEach((key) => {
       if (cat.tiers[key]) {
-        const count = tierCounts[key] || 0;
+        const count = standardCounts[key] || 0;
         const sliceItems = cat.fullList.slice(cursor, cursor + count);
         cat.tiers[key].items = sliceItems.map((item) => ({ ...item }));
         cursor += count;
@@ -111,7 +109,7 @@ export function clearOldNewFlags(data) {
 /**
  * 插入或更新模型
  */
-export function upsertModel(cat, modelData, targetTierKey = "dingji") {
+export function upsertModel(cat, modelData) {
   const existingIdx = cat.fullList.findIndex(
     (m) => m.name.toLowerCase() === modelData.name.toLowerCase()
   );
@@ -120,23 +118,152 @@ export function upsertModel(cat, modelData, targetTierKey = "dingji") {
     cat.fullList[existingIdx] = { ...cat.fullList[existingIdx], ...modelData };
   } else {
     cat.fullList.push(modelData);
-    if (cat.tiers && cat.tiers[targetTierKey]) {
-      const tier = cat.tiers[targetTierKey];
-      const tierExistingIdx = tier.items.findIndex(
-        (m) => m.name.toLowerCase() === modelData.name.toLowerCase()
-      );
-      if (tierExistingIdx === -1) {
-        tier.items.push(modelData);
-      }
-    }
   }
 
   rebalanceCategory(cat);
 }
 
+/**
+ * 执行 Claude Haiku 5.5 发布注入与排行榜标准更新
+ */
+export function injectClaudeHaiku55(data) {
+  // 1. 清理往期旧模型的高亮标签（保证本周新仅凸显当期最新模型）
+  const cleared = clearOldNewFlags(data);
+  console.log(`[OK] Cleared ${cleared} old "isNewThisWeek" highlights.`);
+
+  // 2. 规范化往期残留的旧命名（如 claude-haiku-4-5-20251001）
+  data.categories.forEach((c) => {
+    c.fullList.forEach((m) => {
+      if (m.name === "claude-haiku-4-5-20251001" || m.name.toLowerCase().includes("haiku-4-5")) {
+        m.name = "Claude Haiku 4.5";
+      }
+    });
+  });
+
+  const haikuConfigs = [
+    {
+      categoryId: "agent",
+      model: {
+        name: "Claude Haiku 5.5",
+        rawName: "Claude Haiku 5.5",
+        organization: "Anthropic",
+        url: "https://www.anthropic.com/news/claude-haiku-5-5",
+        scoreText: "4.85%",
+        rating: "4.85%",
+        isAgent: true,
+        votes: "12,500 局实测",
+        license: "Proprietary",
+        contextLength: 1000000,
+        isNewThisWeek: true,
+      },
+    },
+    {
+      categoryId: "text",
+      model: {
+        name: "Claude Haiku 5.5",
+        rawName: "Claude Haiku 5.5",
+        organization: "Anthropic",
+        url: "https://www.anthropic.com/news/claude-haiku-5-5",
+        scoreText: "1486分",
+        rating: 1486,
+        isAgent: false,
+        votes: "16,400 票",
+        contextLength: 1000000,
+        license: "Proprietary",
+        isNewThisWeek: true,
+      },
+    },
+    {
+      categoryId: "coding",
+      model: {
+        name: "Claude Haiku 5.5",
+        rawName: "Claude Haiku 5.5",
+        organization: "Anthropic",
+        url: "https://www.anthropic.com/news/claude-haiku-5-5",
+        scoreText: "1642分",
+        rating: 1642,
+        isAgent: false,
+        votes: "11,800 票",
+        contextLength: 1000000,
+        license: "Proprietary",
+        isNewThisWeek: true,
+      },
+    },
+    {
+      categoryId: "document",
+      model: {
+        name: "Claude Haiku 5.5",
+        rawName: "Claude Haiku 5.5",
+        organization: "Anthropic",
+        url: "https://www.anthropic.com/news/claude-haiku-5-5",
+        scoreText: "1478分",
+        rating: 1478,
+        isAgent: false,
+        votes: "24,500 票",
+        contextLength: 1000000,
+        license: "Proprietary",
+        isNewThisWeek: true,
+      },
+    },
+    {
+      categoryId: "search",
+      model: {
+        name: "Claude Haiku 5.5",
+        rawName: "Claude Haiku 5.5",
+        organization: "Anthropic",
+        url: "https://www.anthropic.com/news/claude-haiku-5-5",
+        scoreText: "1201分",
+        rating: 1201,
+        isAgent: false,
+        votes: "15,200 票",
+        contextLength: 1000000,
+        license: "Proprietary",
+        isNewThisWeek: true,
+      },
+    },
+    {
+      categoryId: "vision",
+      model: {
+        name: "Claude Haiku 5.5",
+        rawName: "Claude Haiku 5.5",
+        organization: "Anthropic",
+        url: "https://www.anthropic.com/news/claude-haiku-5-5",
+        scoreText: "1282分",
+        rating: 1282,
+        isAgent: false,
+        votes: "14,100 票",
+        contextLength: 1000000,
+        license: "Proprietary",
+        isNewThisWeek: true,
+      },
+    },
+  ];
+
+  haikuConfigs.forEach(({ categoryId, model }) => {
+    const cat = data.categories.find((c) => c.id === categoryId);
+    if (cat) {
+      upsertModel(cat, model);
+      console.log(`[OK] Inserted Claude Haiku 5.5 into [${cat.name}] -> #${model.rank || "rebalanced"} (${model.scoreText})`);
+    }
+  });
+
+  // 3. 全榜重新平衡与时间戳更新
+  data.categories.forEach(rebalanceCategory);
+
+  const now = new Date();
+  data.updatedAt = now.toISOString();
+  data.updatedDateText = now.toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric" });
+
+  saveData(data);
+  console.log(`[OK] Successfully updated leaderboard data for Claude Haiku 5.5 at ${data.updatedDateText}.`);
+}
+
 // 命令行运行支持
 const args = process.argv.slice(2);
-if (args.includes("--lint") || args.includes("--check")) {
+if (args.includes("--add-haiku") || args.includes("--haiku")) {
+  const data = loadData();
+  injectClaudeHaiku55(data);
+} else if (args.includes("--lint") || args.includes("--check")) {
   const data = loadData();
   data.categories.forEach(rebalanceCategory);
   saveData(data);

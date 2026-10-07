@@ -146,25 +146,32 @@ function normalizeModelInfo(rawName = "", defaultOrg = "AI Lab") {
     url = "https://www.anthropic.com/news/claude-sonnet-5-5";
     isNewThisWeek = true;
   }
-  // 5. Anthropic Claude Fable 5.1
+  // 5. Anthropic Claude Haiku 5.5
+  else if (/claude[- ]*haiku[- ]*5\.5/i.test(s)) {
+    name = "Claude Haiku 5.5";
+    org = "Anthropic";
+    url = "https://www.anthropic.com/news/claude-haiku-5-5";
+    isNewThisWeek = true;
+  }
+  // 6. Anthropic Claude Fable 5.1
   else if (/claude[- ]*fable[- ]*5\.1/i.test(s)) {
     name = "Claude Fable 5.1";
     org = "Anthropic";
     url = "https://www.anthropic.com/claude-fable-and-mythos-5-1";
   }
-  // 6. OpenAI GPT 6 Astra
+  // 7. OpenAI GPT 6 Astra
   else if (/gpt[- ]*6[- ]*astra/i.test(s)) {
     name = "GPT 6 Astra";
     org = "OpenAI";
     url = "https://openai.com/index/gpt-6-astra/";
   }
-  // 7. OpenAI GPT 6 Sol
+  // 8. OpenAI GPT 6 Sol
   else if (/gpt[- ]*6[- ]*sol/i.test(s)) {
     name = "GPT 6 Sol";
     org = "OpenAI";
     url = "https://openai.com/index/gpt-6-sol/";
   }
-  // 8. 其他常见前沿模型
+  // 9. 其他常见前沿模型
   else if (/claude[- ]*opus[- ]*5\b/i.test(s)) {
     name = "Claude Opus 5";
     org = "Anthropic";
@@ -190,7 +197,11 @@ function normalizeModelInfo(rawName = "", defaultOrg = "AI Lab") {
     url = "https://openai.com/index/gpt-5-6-sol/";
   } else {
     // 规范化常见 slug 名称为大写形式
-    let cleaned = s.replace(/^contenders\//i, "").replace(/-agent$/i, "").replace(/-(high|max|xhigh|medium|low|thinking|search|vertex)$/i, "");
+    let cleaned = s
+      .replace(/^contenders\//i, "")
+      .replace(/-agent$/i, "")
+      .replace(/-(high|max|xhigh|medium|low|thinking|search|vertex)$/i, "")
+      .replace(/-202[0-9]{5}/g, "");
     if (/^claude-opus-([0-9.-]+)/i.test(cleaned)) {
       const v = cleaned.match(/^claude-opus-([0-9.-]+)/i)[1].replace(/[-.]+$/, "").replace(/-/g, ".");
       name = `Claude Opus ${v}`;
@@ -199,6 +210,11 @@ function normalizeModelInfo(rawName = "", defaultOrg = "AI Lab") {
       const v = cleaned.match(/^claude-sonnet-([0-9.-]+)/i)[1].replace(/[-.]+$/, "").replace(/-/g, ".");
       name = `Claude Sonnet ${v}`;
       org = "Anthropic";
+    } else if (/^claude-haiku-([0-9.-]+)/i.test(cleaned)) {
+      const v = cleaned.match(/^claude-haiku-([0-9.-]+)/i)[1].replace(/[-.]+$/, "").replace(/-/g, ".");
+      name = `Claude Haiku ${v}`;
+      org = "Anthropic";
+      url = "https://www.anthropic.com/news";
     } else if (/^claude-fable-([0-9.-]+)/i.test(cleaned)) {
       const v = cleaned.match(/^claude-fable-([0-9.-]+)/i)[1].replace(/[-.]+$/, "").replace(/-/g, ".");
       name = `Claude Fable ${v}`;
