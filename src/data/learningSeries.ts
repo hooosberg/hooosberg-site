@@ -130,11 +130,11 @@ export const learningSeries: LearningSeries[] = [
       // 最新发布倒序排列（编号倒序：最新一课编号最大，与 WorkBuddy 对齐）
       {
         number: 26,
-        title: "外国设计师都在抛弃PS？3款开源免费Photoshop平替实测：秒开PSD，配合AI生图轻量图层足够用",
-        outcome: "实测三款开源免费PS平替软件，对比PSD兼容性、本地AI抠图与轻量图层工作流。",
+        title: "Adobe 天塌了！实测3款开源免费PS平替：1:1像PS，还能让Codex直接修图",
+        outcome: "实测三款开源免费PS平替，对比PSD兼容性、本地AI抠图与Codex智能体操作修图。",
         articleSlug: "video-codex-free-photoshop-alternatives",
         hasDownload: false,
-        videoUrl: "https://space.bilibili.com/3546822886820332/lists/8881026?type=season",
+        videoUrl: "https://www.bilibili.com/video/BV12ipM6FEDi/",
       },
       {
         number: 25,
