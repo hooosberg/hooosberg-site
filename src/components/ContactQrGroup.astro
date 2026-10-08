@@ -245,7 +245,7 @@ const t = qrTranslations[locale] ?? qrTranslations["en"] ?? qrTranslations["zh-C
       <strong>{t.wechatTitle}</strong>
       <p>{t.wechatDesc}</p>
       <!-- 微信号：未过期时隐藏，仅在倒计时结束（已过期）时才出现 -->
-      <strong class="contact-qr-card__handle" data-qr-handle hidden>{t.wechatHandle}</strong>
+      <strong class="contact-qr-card__handle" data-qr-handle hidden style="display: none;">{t.wechatHandle}</strong>
       <p class="contact-qr-card__countdown" data-qr-countdown aria-live="polite">{t.countdownInitial}</p>
     </div>
   </div>
@@ -351,13 +351,19 @@ const t = qrTranslations[locale] ?? qrTranslations["en"] ?? qrTranslations["zh-C
           countdown.textContent = label;
           image.hidden = false;
           expired.hidden = true;
-          if (handle) handle.hidden = true;
+          if (handle) {
+            handle.hidden = true;
+            handle.style.display = "none";
+          }
           qr.classList.remove("is-expired");
           return;
         }
         image.hidden = true;
         expired.hidden = false;
-        if (handle) handle.hidden = false;
+        if (handle) {
+          handle.hidden = false;
+          handle.style.display = "";
+        }
         countdown.textContent = getExpiredText(lang);
         qr.classList.add("is-expired");
       };
