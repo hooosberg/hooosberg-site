@@ -503,6 +503,62 @@ export const products: Product[] = [
     },
   },
   {
+    slug: "sumi-klondike-solitaire",
+    name: "Sumi Klondike Solitaire",
+    displayName: "Sumi Klondike Solitaire 水墨接龙",
+    category: "安静纸牌游戏",
+    tagline: "无广告、无账号、无追踪的 Klondike 纸牌接龙，经典绿毡免费，更多材质牌桌可选。",
+    summary: "离线 iPhone / iPad Klondike 纸牌接龙，免费默认皮肤 Classic Green（经典绿毡），撤销、提示、存档、抽一或抽三全部免费，专注纯粹离线纸牌。",
+    platforms: ["iPhone", "iPad", "iOS", "游戏"],
+    status: ["App Store 筹备中", "免费 + 一次买断皮肤", "无广告", "无追踪"],
+    audience: "喜欢经典纸牌接龙，但不想被广告、账号和联网推荐打扰的用户。",
+    primaryAction: { label: "即将登陆 App Store", disabled: true },
+    repo: "",
+    website: undefined,
+    hideSourceLinks: true,
+    icon: "/product-icons/sumi-klondike-solitaire.png",
+    accent: "#78716c",
+    priority: "P1",
+    learnSlug: "sumi-klondike-solitaire-ios-game",
+    privacy: privacyLocal("正常游玩不需要网络；付费解锁通过 Apple StoreKit 完成。"),
+    features: ["经典 Klondike 接龙，支持抽一或抽三", "撤销、提示、存档全部免费", "免费默认皮肤 Classic Green（经典绿毡），另有 9 套付费材质皮肤（漆金夜、酒红丝绒、皇家蓝毡、胡桃木、干邑皮革、大理石、夜石板、靛蓝扎染、极光夜）", "落叶 / 扫叶特效、触感反馈、背景音乐与环境音（可关）", "“已验证有解”的发牌模式", "12 种界面语言", "无广告、无账号、无第三方追踪"],
+    buildNotes: ["“安静纸牌”：离线、无账号、无广告，把接龙做成随时能停下的小游戏。", "皮肤一次买断解锁全部，非消耗型、支持家庭共享，不订阅；已购用户未来新增的皮肤不再收费。", "产品页目前为未上架状态，不标注上架日期。"],
+    courseHooks: ["iOS 纸牌游戏", "StoreKit 2", "无广告产品", "多语言上架"],
+    detail: {
+      overview: [
+        "Sumi Klondike Solitaire 是一款 iPhone 与 iPad 离线 Klondike 纸牌接龙。它保留经典接龙的玩法，把牌桌换成可选的材质皮肤：免费默认的 Classic Green 绿毡皮肤完整可用，玩家可以在不联网、没有账号的情况下安静地玩完整局。",
+        "产品刻意不做的事和 Sumi Mahjong 一样清楚：不接广告 SDK，不做账号系统，不做第三方统计和追踪。撤销、提示、存档、抽一或抽三这些局内玩法永远免费，付费只用于解锁更多牌桌皮肤。",
+        "这个页面同时服务普通玩家、App Store 审核和后续课程案例。玩家能快速理解玩法和付费边界；审核员能看到数据与 StoreKit 的范围；学习者可以和同系列的 Sumi Mahjong 对照，看同样的无广告边界怎样落在不同的玩法与商业化结构上。"
+      ],
+      proofPoints: [
+        { label: "玩法", value: "Klondike 接龙", note: "经典纸牌接龙，支持抽一或抽三；撤销、提示、存档都在局内免费提供。" },
+        { label: "隐私", value: "Data Not Collected", note: "正常游玩无账号、无广告、不联网、无第三方统计和追踪。" },
+        { label: "商业化", value: "免费 + 一次买断", note: "免费默认皮肤 Classic Green 完整可用；9 套付费皮肤一次买断全部解锁，不订阅。" },
+        { label: "语言", value: "12 UI languages", note: "覆盖英语、简繁中文、日语、韩语、西班牙语、法语、德语、葡萄牙语（巴西）、意大利语、俄语和阿拉伯语。" }
+      ],
+      valueProps: [
+        { title: "给玩家的是一局安静的接龙", body: "没有开屏广告、登录流程、每日任务或体力限制。打开就是牌桌，撤销、提示和存档都在身边，局内帮助不需要通过看广告来换取。" },
+        { title: "给审核的是清楚边界", body: "App Store 描述、隐私政策和服务条款都强调同一件事：正常游玩不需要网络，StoreKit 只负责皮肤的一次买断，数据留在设备本地。" },
+        { title: "安静是整体气质", body: "落叶、扫叶等特效与触感反馈服务于牌桌本身，背景音乐与环境音可以关闭，安静始终优先。" }
+      ],
+      featureDetails: [
+        { title: "Classic Green 与 9 套材质皮肤", body: "免费默认皮肤是 Classic Green（经典绿毡）。另有 9 套付费材质皮肤，包括漆金夜、酒红丝绒、皇家蓝毡、胡桃木、干邑皮革、大理石、夜石板、靛蓝扎染和极光夜；一次买断即可解锁全部皮肤。" },
+        { title: "落叶与扫叶", body: "牌局中的特色包括落叶与扫叶效果，让牌桌的变化更有画面感，而不是把注意力引向数字和提示。" },
+        { title: "触感与声音", body: "支持触感反馈；背景音乐与环境音可以开启或关闭，不需要时保持安静。" },
+        { title: "已验证有解的发牌", body: "提供“已验证有解”的发牌模式：求解器为这副牌找到过解，但不保证这一局容易。" },
+        { title: "撤销、提示与存档", body: "撤销、提示、存档、抽一或抽三全部免费，局内帮助不绑定广告、体力或付费墙。" },
+        { title: "本地游玩与 StoreKit", body: "牌局存档、统计和偏好保存在设备里；皮肤买断交给 Apple StoreKit 处理，不引入自有服务器。买断为非消耗型、支持家庭共享、不订阅，已购用户未来新增的皮肤不再收费。" }
+      ],
+      principles: [
+        { title: "先写不做清单", body: "无广告、无账号、无订阅、无联网、无第三方追踪，这些边界决定了依赖、隐私政策、文案和审核说明。" },
+        { title: "商业化不打断牌局", body: "付费只收束到牌桌皮肤。免费默认皮肤和所有玩法完整可用，玩家喜欢视觉时再主动解锁，不在局中制造购买压力。" },
+        { title: "有解不等于容易", body: "“已验证有解”的发牌模式只承诺求解器找到过解，不承诺牌局简单，不把难度包装成体验承诺。" }
+      ],
+      diaryIntro:
+        "Sumi Klondike Solitaire 目前处于 App Store 筹备中，开发日记尚未发布。可以先对照 Sumi Mahjong 的开发日记，看同一组安静游戏从立项、隐私边界到商业化上架的路径。"
+    },
+  },
+  {
     slug: "trekreel",
     name: "TrekReel",
     displayName: "TrekReel",
@@ -825,6 +881,7 @@ export const featuredProducts = products.filter((product) => product.priority ==
 
 // 展示顺序：**新上线 / 新加的 App 一律放在最前面**（首页“最新产品”取前 6 个，产品列表页按这个顺序排）。
 const latestProductSlugs = [
+  "sumi-klondike-solitaire",
   "leantake",
   "docktouchbar",
   "mood-button",
@@ -846,6 +903,7 @@ const latestProductSlugs = [
 const productTimelineNotes: Record<string, string> = {
   docktouchbar: "刚发布",
   "sumi-mahjong": "最近上架",
+  "sumi-klondike-solitaire": "筹备中",
   drowsebook: "v1.1 已通过",
   glotshot: "失败复盘",
   trekreel: "近期发布",

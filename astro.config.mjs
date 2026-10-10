@@ -9,6 +9,7 @@ const productSlugs = new Set([
   "codex-quota-calendar",
   "drowsebook",
   "sumi-mahjong",
+  "sumi-klondike-solitaire",
   "trekreel",
   "mood-button",
   "rushi",

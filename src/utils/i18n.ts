@@ -548,6 +548,18 @@ const productEnglish: Record<string, EnglishProductOverride> = {
     features: ["144 hand-tuned ink Mahjong tiles", "Classic two-turn matching rule", "Undo, hint, and shuffle", "No ad SDKs, accounts, or third-party tracking"],
     courseHooks: ["iOS and iPadOS small game", "StoreKit 2", "No-ads product design", "Multilingual launch"],
   },
+  "sumi-klondike-solitaire": {
+    displayName: "Sumi Klondike Solitaire",
+    category: "Quiet card game",
+    tagline: "A no-ads, no-account, no-tracking ink-style Klondike solitaire.",
+    summary: "An offline iPhone and iPad Klondike solitaire with a classic green felt default. Undo, hints, saves, and draw-one or draw-three are always free; the Classic Green default skin is free, and one one-time purchase unlocks all paid skins.",
+    audience: "Players who like classic solitaire without ads, accounts, or online nudges.",
+    platforms: ["iPhone", "iPad", "iOS", "Game"],
+    status: ["App Store coming soon", "Free + one-time skin unlock", "No ads", "No tracking"],
+    privacyNote: "Normal play does not require network access. Optional purchases are handled by Apple StoreKit.",
+    features: ["Classic Klondike with draw-one or draw-three", "Undo, hints, and saves always free", "Free Classic Green default skin and 9 paid material skins, including Gilded Night, Burgundy Velvet and Walnut", "Falling-leaf and sweeping effects, haptics, music and ambience (can be turned off)", "A \"verified solvable\" deal mode", "12 UI languages", "No ads, no accounts, no third-party tracking"],
+    courseHooks: ["iOS and iPadOS card game", "StoreKit 2", "No-ads product design", "Multilingual launch"],
+  },
   trekreel: {
     category: "3D trail-story tool",
     tagline: "Turn GPX and KML tracks into cinematic 3D map stories.",

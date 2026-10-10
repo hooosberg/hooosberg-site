@@ -9,11 +9,12 @@ type Props = {
 const { product } = Astro.props;
 const isMoodButton = product.slug === "mood-button";
 const isSumiMahjong = product.slug === "sumi-mahjong";
+const isSumiKlondike = product.slug === "sumi-klondike-solitaire";
 const isLeanTake = product.slug === "leantake";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
 const isTrekReel = product.slug === "trekreel";
-const updatedDate = isLeanTake ? "2026-10-02" : isTrekReel ? "2026-09-30" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const updatedDate = isLeanTake ? "2026-10-02" : isTrekReel ? "2026-09-30" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : isSumiKlondike ? "2026-10-10" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const distributionText = product.hideSourceLinks
   ? `This privacy policy applies to ${product.displayName}. Product delivery for this app happens through the App Store and the linked Hooosberg product website.`
   : isWitNote
@@ -218,6 +219,32 @@ const platformServicesText = product.hideSourceLinks
         <section>
           <h2>Deletion and Retention</h2>
           <p>Because Sumi Mahjong does not create a Hooosberg account or server profile, there is no server-side player account for Hooosberg to delete. Local game progress, settings, and best-time records can be removed by deleting the app from the device. Apple may retain purchase, refund, crash, or store activity records under Apple's own policies and user settings.</p>
+        </section>
+      </>
+    )}
+
+    {isSumiKlondike && (
+      <>
+        <section>
+          <h2>Sumi Klondike Solitaire Data Flow</h2>
+          <p>Sumi Klondike Solitaire has no account system, no advertising SDK, no third-party analytics SDK, no tracking, no social feed, and no Hooosberg game server. Normal gameplay works offline and does not require a network connection.</p>
+          <div class="privacy-list">
+            <div class="privacy-row"><strong>Game saves</strong><span>Stored locally on the device so you can continue a game. They are not uploaded to Hooosberg.</span></div>
+            <div class="privacy-row"><strong>Statistics</strong><span>Stored locally on the device. They are not uploaded to Hooosberg and are not used for advertising.</span></div>
+            <div class="privacy-row"><strong>Preferences</strong><span>Stored locally to remember language, selected skin, sound, haptics, and deal and draw settings.</span></div>
+            <div class="privacy-row"><strong>Skin unlock state</strong><span>Stored locally after Apple StoreKit confirms an optional purchase or restore.</span></div>
+            <div class="privacy-row"><strong>Personal identifiers</strong><span>Sumi Klondike Solitaire does not ask for name, email, phone number, location, contacts, photos, microphone, camera, or social account access.</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>In-App Purchases</h2>
+          <p>The optional non-consumable one-time purchase that unlocks all paid skins is handled by Apple App Store and StoreKit. The purchase is not a subscription, may be shared through Family Sharing, and does not charge purchasers for skins added later. Hooosberg does not receive the user's Apple ID, payment method, billing address, App Store account credentials, or full purchase history. Restore Purchases uses Apple's StoreKit flow.</p>
+        </section>
+
+        <section>
+          <h2>Deletion and Retention</h2>
+          <p>Because Sumi Klondike Solitaire does not create a Hooosberg account or server profile, there is no server-side player account for Hooosberg to delete. Local game saves, statistics, and preferences can be removed by deleting the app from the device. Apple may retain purchase, refund, crash, or store activity records under Apple's own policies and user settings.</p>
         </section>
       </>
     )}
