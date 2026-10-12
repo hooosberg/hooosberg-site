@@ -9,12 +9,13 @@ type Props = {
 const { product } = Astro.props;
 const isMoodButton = product.slug === "mood-button";
 const isSumiMahjong = product.slug === "sumi-mahjong";
+const isSumiFreeCell = product.slug === "sumi-freecell";
 const isSumiKlondike = product.slug === "sumi-klondike-solitaire";
 const isLeanTake = product.slug === "leantake";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
 const isTrekReel = product.slug === "trekreel";
-const updatedDate = isLeanTake ? "2026-10-02" : isTrekReel ? "2026-09-30" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : isSumiKlondike ? "2026-10-10" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const updatedDate = isSumiFreeCell ? "2026-10-12" : isLeanTake ? "2026-10-02" : isTrekReel ? "2026-09-30" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : isSumiKlondike ? "2026-10-10" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const distributionText = product.hideSourceLinks
   ? `This privacy policy applies to ${product.displayName}. Product delivery for this app happens through the App Store and the linked Hooosberg product website.`
   : isWitNote
@@ -220,6 +221,14 @@ const platformServicesText = product.hideSourceLinks
           <h2>Deletion and Retention</h2>
           <p>Because Sumi Mahjong does not create a Hooosberg account or server profile, there is no server-side player account for Hooosberg to delete. Local game progress, settings, and best-time records can be removed by deleting the app from the device. Apple may retain purchase, refund, crash, or store activity records under Apple's own policies and user settings.</p>
         </section>
+      </>
+    )}
+
+    {isSumiFreeCell && (
+      <>
+        <section><h2>Sumi FreeCell Solitaire Data Flow</h2><p>Gameplay works offline. Game saves, statistics, language, sound, accessibility preferences and selected themes stay on your device. The app has no account system, advertising SDK, third-party analytics, tracking or Hooosberg game server.</p></section>
+        <section><h2>In-App Purchases</h2><p>The optional non-consumable Unlock All Themes purchase changes the table and card backs only. Purchases and Restore Purchases communicate with Apple StoreKit. Hooosberg does not receive your Apple ID, payment details or App Store credentials. Local unlock state is saved after StoreKit verification.</p></section>
+        <section><h2>Deletion and Retention</h2><p>Deleting the app removes its local game data according to iOS behavior. There is no Hooosberg player account to delete. Apple may retain purchase, refund, crash and store records under Apple's policies. If you contact support by email, the information you send is used to respond to your request.</p></section>
       </>
     )}
 

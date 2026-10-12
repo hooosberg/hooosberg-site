@@ -8,11 +8,12 @@ type Props = {
 
 const { product } = Astro.props;
 const isSumiMahjong = product.slug === "sumi-mahjong";
+const isSumiFreeCell = product.slug === "sumi-freecell";
 const isSumiKlondike = product.slug === "sumi-klondike-solitaire";
 const isLeanTake = product.slug === "leantake";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
-const updatedDate = isLeanTake ? "2026-10-02" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : isSumiKlondike ? "2026-10-10" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const updatedDate = isSumiFreeCell ? "2026-10-12" : isLeanTake ? "2026-10-02" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : isSumiKlondike ? "2026-10-10" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const scopeText = product.hideSourceLinks
   ? "The product page, App Store download link, privacy policy, terms, and support contact define the current public product scope."
   : isWitNote
@@ -92,6 +93,9 @@ const thirdPartyText = product.hideSourceLinks
       {isSumiMahjong && (
         <p>The core game is playable for free. The optional non-consumable in-app purchase Unlock All Themes unlocks premium visual themes through Apple StoreKit. Sumi Mahjong does not offer auto-renewable subscriptions. Refunds, billing issues, and purchase records are handled by Apple under App Store rules.</p>
       )}
+      {isSumiFreeCell && (
+        <p>Sumi FreeCell Solitaire is a casual four-cell FreeCell game. All gameplay, undo, hints, restart, saving and the Green Felt theme are free. The optional non-consumable Unlock All Themes purchase unlocks table and card-back themes, including future themes in this app. It is not a subscription. Prices are shown by Apple StoreKit before purchase. Restore Purchases is available on the theme page. Billing and refunds follow Apple's rules. Deal numbers are specific to this game; random deals are not guaranteed solvable. The app is licensed under <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Apple's standard EULA</a>. Bundled third-party audio remains subject to its source licenses, listed in About &gt; Sound Credits.</p>
+      )}
       {isSumiKlondike && (
         <p>The core game, all in-game help (undo, hints, saves, draw-one and draw-three), and the free default Classic Green skin are available at no cost. The optional non-consumable one-time purchase unlocks all paid skins through Apple StoreKit. It is not a subscription, and skins added after you purchase are not charged to you. Refunds, billing issues, and purchase records are handled by Apple under App Store rules.</p>
       )}
@@ -111,6 +115,9 @@ const thirdPartyText = product.hideSourceLinks
       )}
       {isSumiMahjong && (
         <p>Sumi Mahjong does not include advertising networks, third-party analytics SDKs, social feeds, cloud saves, or third-party AI services. Some bundled art or audio may include licensed or credited materials; those materials remain subject to their respective rights and may not be extracted or reused outside the app.</p>
+      )}
+      {isSumiFreeCell && (
+        <p>Sumi FreeCell Solitaire has no advertising or third-party analytics SDKs and no Hooosberg game server. Apple's terms apply to StoreKit purchases and restores. Bundled art and audio remain subject to their licenses and notices in About &gt; Sound Credits.</p>
       )}
       {isSumiKlondike && (
         <p>Sumi Klondike Solitaire does not include advertising networks, third-party analytics SDKs, tracking, social feeds, cloud accounts, or third-party AI services. Bundled artwork, skins, and audio remain subject to their respective rights and may not be extracted or reused outside the app.</p>

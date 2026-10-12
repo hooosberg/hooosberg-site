@@ -548,6 +548,18 @@ const productEnglish: Record<string, EnglishProductOverride> = {
     features: ["144 hand-tuned ink Mahjong tiles", "Classic two-turn matching rule", "Undo, hint, and shuffle", "No ad SDKs, accounts, or third-party tracking"],
     courseHooks: ["iOS and iPadOS small game", "StoreKit 2", "No-ads product design", "Multilingual launch"],
   },
+  "sumi-freecell": {
+    displayName: "Sumi FreeCell Solitaire",
+    category: "Quiet card game",
+    tagline: "Classic four-cell FreeCell. Free gameplay, no ads, optional art themes.",
+    summary: "Offline FreeCell for iPhone and iPad: eight face-up columns and four free cells, tap or drag controls, unlimited undo, hints and automatic saves. Easy-Read Mode enlarges the cards, and twelve interface languages can be selected in Settings.",
+    audience: "FreeCell players who want quiet offline play or larger cards.",
+    platforms: ["iPhone", "iPad", "iOS", "Game"],
+    status: ["App Store coming soon", "Free + one-time theme unlock", "No ads", "No tracking"],
+    privacyNote: "Games, statistics and settings stay on your device. Gameplay works offline; optional purchases and restores use Apple StoreKit. No ads, accounts or third-party analytics or tracking.",
+    features: ["Standard four-cell FreeCell and eight face-up columns", "Tap or drag; free undo, hints, restart and automatic saves", "Easy-Read Mode: 5–8 cards per row and a pannable table", "Free Green Felt plus Jade Ink & Gold Ginkgo, Night Sakura, Crimson & Gold Scroll, and Lapis & Gold", "12 interface languages with an in-app selector", "Optional sounds, music, ambience and haptics"],
+    courseHooks: ["FreeCell rules", "SwiftUI", "StoreKit 2", "Localization"],
+  },
   "sumi-klondike-solitaire": {
     displayName: "Sumi Klondike Solitaire",
     category: "Quiet card game",

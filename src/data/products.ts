@@ -505,6 +505,36 @@ export const products: Product[] = [
     },
   },
   {
+    slug: "sumi-freecell",
+    name: "Sumi FreeCell Solitaire",
+    displayName: "Sumi FreeCell Solitaire 空当接龙",
+    category: "安静纸牌游戏",
+    tagline: "四格空当接龙，完整玩法免费、无广告，四套艺术主题自愿买断。",
+    summary: "适用于 iPhone 与 iPad 的离线空当接龙。八列明牌、四个暂存格，支持点按与拖动、无限撤销、提示和自动存档；长辈模式可放大牌面，设置中可随时切换十二种语言。",
+    platforms: ["iPhone", "iPad", "iOS", "游戏"],
+    status: ["App Store 筹备中", "免费 + 一次买断主题", "无广告", "无追踪"],
+    audience: "喜欢空当接龙、希望安静离线游玩，或需要更大牌面的玩家。",
+    primaryAction: { label: "即将登陆 App Store", disabled: true },
+    repo: "",
+    hideSourceLinks: true,
+    icon: "/product-icons/sumi-freecell.png",
+    accent: "#254e3d",
+    priority: "P1",
+    learnSlug: "sumi-freecell-ios-game",
+    privacy: privacyLocal("牌局、统计与设置保存在设备本地。正常游玩无需网络；主题购买与恢复由 Apple StoreKit 处理。无广告、无账号、无第三方统计或追踪。"),
+    features: ["标准四格 FreeCell 与八列明牌", "点按或拖动，撤销、提示、重开和自动存档免费", "长辈模式：每行显示 5 至 8 张牌，可拖动桌面查看", "免费经典绿毡，另有墨玉金杏、夜樱、绛红金卷、青金四套主题", "十二种界面语言，可在设置中切换", "可关闭的声音、音乐、环境音与触感"],
+    buildNotes: ["目前尚未在 App Store 发布。", "付费仅解锁桌面与牌背主题，不影响任何核心玩法。", "牌局编号为本游戏自己的编号；随机牌局不承诺全部有解。"],
+    courseHooks: ["FreeCell 规则", "SwiftUI", "StoreKit 2", "多语言"],
+    detail: {
+      overview: ["Sumi FreeCell Solitaire 保留标准空当接龙的策略：利用四个暂存格和空列，把所有牌按花色从 A 到 K 收入基础区。牌从一开始全部朝上，点按或拖动即可操作。", "撤销、提示、重开和存档免费。经典绿毡免费可用，更多桌面和牌背主题通过一次买断解锁，没有订阅。"],
+      proofPoints: [{ label: "玩法", value: "四格空当接龙", note: "八列明牌，标准四个暂存格。" }, { label: "大牌面", value: "长辈模式", note: "每行 5 至 8 张牌，可拖动桌面查看。" }, { label: "语言", value: "12 种", note: "跟随系统或在应用设置中选择。" }],
+      valueProps: [{ title: "随时能继续", body: "牌局自动保存，短暂停下后可以继续；没有账号或联网等待。" }, { title: "需要帮助时就用", body: "撤销与提示不绑定广告或购买。" }],
+      featureDetails: [{ title: "四套艺术主题", body: "墨玉金杏、夜樱、绛红金卷与青金，每套包含桌面和配套牌背。" }, { title: "看得更清楚", body: "长辈模式放大牌面，支持横竖屏；可以选择每行牌数并拖动查看。" }],
+      principles: [{ title: "付费只改变外观", body: "免费玩家和付费玩家使用相同的规则、撤销、提示与存档功能。" }],
+      diaryIntro: "开发记录将整理规则验证、可读性和多语言实现。"
+    },
+  },
+  {
     slug: "sumi-klondike-solitaire",
     name: "Sumi Klondike Solitaire",
     displayName: "Sumi Klondike Solitaire 水墨接龙",
@@ -883,6 +913,7 @@ export const featuredProducts = products.filter((product) => product.priority ==
 
 // 展示顺序：**新上线 / 新加的 App 一律放在最前面**（首页“最新产品”取前 6 个，产品列表页按这个顺序排）。
 const latestProductSlugs = [
+  "sumi-freecell",
   "sumi-klondike-solitaire",
   "leantake",
   "docktouchbar",
@@ -905,6 +936,7 @@ const latestProductSlugs = [
 const productTimelineNotes: Record<string, string> = {
   docktouchbar: "刚发布",
   "sumi-mahjong": "最近上架",
+  "sumi-freecell": "筹备中",
   "sumi-klondike-solitaire": "筹备中",
   drowsebook: "v1.1 已通过",
   glotshot: "失败复盘",
