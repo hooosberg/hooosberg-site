@@ -129,6 +129,13 @@ export const learningSeries: LearningSeries[] = [
       },
       // 最新发布倒序排列（编号倒序：最新一课编号最大，与 WorkBuddy 对齐）
       {
+        number: 28,
+        title: "Claude Code 防封与环境伪装实战：从 82 分高危到 28 分安全，手把手封堵 WebRTC/时区/DNS 泄露",
+        outcome: "实测将 IPPure 遥测风控分从 82 压缩至 28 分安全区；剖析 Claude Code 逆向隐写机制，手把手封堵真实 IP、系统时区与国内 DNS 泄露，并推荐 CCBaga 开源套件。",
+        articleSlug: "video-codex-claude-code-anti-ban-guide",
+        hasDownload: false,
+      },
+      {
         number: 26,
         title: "Adobe 天塌了！实测3款开源免费PS平替：1:1像PS，还能让Codex直接修图",
         outcome: "实测三款开源免费PS平替，对比PSD兼容性、本地AI抠图与Codex智能体操作修图。",

@@ -1598,6 +1598,271 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
 </div>`,
   },
   {
+    slug: "video-codex-claude-code-anti-ban-guide",
+    title: "Claude Code 防封与环境伪装实战：从 82 分高危到 28 分安全，手把手封堵 WebRTC/时区/DNS 泄露",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-10-13",
+    seriesOrder: 201,
+    handoutFirst: true,
+    excerpt: "实战记录：通过 IPPure 遥测体检，深度剖析 Claude Code 逆向隐写风控机制；手把手四步封堵 WebRTC 真实 IP 泄露、系统时区 Asia/Shanghai 暴露和 DNS 泄露，将风险评分从 82 分断崖压缩至 28 分低风险绿标，并推荐 CCBaga 开源套件。",
+    tags: ["视频教程", "Claude Code", "防封指南", "IPPure", "WebRTC泄露", "时区隐写", "DNS泄漏", "CCBaga", "环境伪装"],
+    productSlugs: [],
+    body: [
+      "很多国内开发者（甚至包括持美国身份与信用卡回国差旅的工程师）在使用 Claude Code 时，常常发现即使挂着海外节点，账号依然会突然被封杀或封停（Deactivated）。",
+      "核心铁律在于：如果连开源的 IPPure 检测网站都能一眼看出你在中国地区，那以严苛风控著称的 Claude Code 更不可能放过你！本期实战记录手把手演示如何将遥测风险分从 82 分高危直接降至 28 分安全绿区，并剖析背后的逆向机制与开源隔离利器 CCBaga。"
+    ],
+    contentHtml: `<div class="article-course-notice" style="margin: 0 0 28px; padding: 20px 24px; border-radius: 16px; background: color-mix(in srgb, var(--accent) 8%, var(--surface-solid)); border: 1.5px solid color-mix(in srgb, var(--accent) 30%, var(--border)); display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--accent); font-size: 16px;">
+    <span style="font-size: 20px;">🛡️</span>
+    <span>核心铁律：连 IPPure 都能查出你是中国用户，Claude Code 怎会放过你？</span>
+  </div>
+  <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: var(--muted);">
+    使用 <strong>Claude Code</strong> 终端编程工具时，许多朋友最费解的问题是：<em>“明明我开着梯子节点，为什么刚登录或者用了几分钟就被封号了？”</em> 甚至连持美国国籍、绑美国信用卡的工程师回国出差，也难逃区域封杀。<br>
+    原因很简单：<strong>Anthropic 的风控远不止看出口 IP！它在操作系统、浏览器指纹、网络协议底层布满了严密的嗅探陷阱。</strong> 本文基于真实排查过程，手把手带大家一步步封堵真实 IP 漏洞、时区隐写与 DNS 泄露，将 <a href="https://ippure.com/claude.html" target="_blank" rel="noopener noreferrer">IPPure</a> 遥测风险从 <strong>82 分高危（狗头标记）</strong> 断崖式压缩到 <strong>28 分（安全绿标：“你不是 Claude 中国用户”）</strong>！
+  </p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 4px;">
+    <div style="padding: 10px 14px; border-radius: 10px; background: color-mix(in srgb, #10b981 10%, var(--surface-solid)); border: 1px solid color-mix(in srgb, #10b981 30%, var(--border)); font-size: 13.5px; color: #059669; font-weight: 700;">
+      ✅ WebRTC 真实物理 IP 泄露：彻底封堵
+    </div>
+    <div style="padding: 10px 14px; border-radius: 10px; background: color-mix(in srgb, #10b981 10%, var(--surface-solid)); border: 1px solid color-mix(in srgb, #10b981 30%, var(--border)); font-size: 13.5px; color: #059669; font-weight: 700;">
+      ✅ Claude Code 时区隐写特征：立减 30 分
+    </div>
+    <div style="padding: 10px 14px; border-radius: 10px; background: color-mix(in srgb, #10b981 10%, var(--surface-solid)); border: 1px solid color-mix(in srgb, #10b981 30%, var(--border)); font-size: 13.5px; color: #059669; font-weight: 700;">
+      ✅ 国内 DNS 泄露与语言指纹：降至 28 分绿区
+    </div>
+  </div>
+</div>
+
+<h2>一、深度逆向揭秘：Claude Code 到底是如何在暗中出卖你的？</h2>
+<p>根据安全团队对 Claude Code 客户端代码的最新逆向分析，Anthropic 的风控机制极其隐蔽与精巧：<strong>它绝不会在数据包里明目张胆地上传“该用户在大陆”等标签，而是利用微调 System Prompt 的【视觉隐写术（Unicode Steganography）】暗度陈仓向服务器通风报信！</strong></p>
+
+<div style="display: flex; flex-direction: column; gap: 14px; margin: 18px 0;">
+  <div style="padding: 16px 20px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 5%, var(--surface-solid)); border-left: 4px solid var(--accent);">
+    <strong style="color: var(--text); font-size: 15px;">1. 操作系统物理时区双重锁定（系统提示词日期变脸）</strong><br>
+    <span style="font-size: 14px; line-height: 1.7; color: var(--muted); display: block; margin-top: 6px;">
+      Claude Code 会在底层通过 Node.js 读取你的本地系统物理时区。一旦发现系统时区为 <code>Asia/Shanghai</code> 或 <code>Asia/Urumqi</code>，在向 Anthropic 服务器发送隐秘系统提示词时，它会偷偷将 <code>Today's date is 2026-07-03</code> 的短横线连字符 <code>-</code> 替换为正斜杠 <code>/</code>（即 <code>2026/07/03</code>）！这个看似极其细微的格式变更，就是 Anthropic 后端风控系统识别你真实物理所在地的铁证！
+    </span>
+  </div>
+
+  <div style="padding: 16px 20px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 5%, var(--surface-solid)); border-left: 4px solid var(--accent);">
+    <strong style="color: var(--text); font-size: 15px;">2. 中继与代理域名黑名单（147 个混淆域名与标点符号 Unicode 掉包）</strong><br>
+    <span style="font-size: 14px; line-height: 1.7; color: var(--muted); display: block; margin-top: 6px;">
+      客户端内部硬编码了 <strong>147 个经过 XOR 混淆加密的域名黑名单</strong>（涵盖了国内几乎所有知名的第三方中转站、反代域名以及特定 AI Lab 关键词）。如果你配置了环境变量 <code>ANTHROPIC_BASE_URL</code> 命中这些域名，或者被它嗅探到了系统显式代理（如 <code>HTTP_PROXY</code> 环境变量），Claude Code 会保持日期外观不变，但将 <code>Today's</code> 里的标准英文 ASCII 单引号 <code>'</code> (<code>\u0027</code>) 掉包替换为肉眼完全无法辨别的 Unicode 变体：
+      <br>• 右单引号 <code>’</code> (<code>\u2019</code>)
+      <br>• 修饰符字母撇号 <code>ʼ</code> (<code>\u02BC</code>)
+      <br>• 修饰符角分号 <code>ʹ</code> (<code>\u02B9</code>)
+      <br>这种高隐蔽性隐写术在发送给 Anthropic 服务器时，服务端仅凭扫描提示词中的 Unicode 编码就能秒定你使用了国内中继并触发自动化封号！
+    </span>
+  </div>
+</div>
+
+<h2>二、优化前体检报告：82 分极高危现场诊断</h2>
+<p>在开始优化前，我们使用专业环境体检工具 <a href="https://ippure.com/claude.html" target="_blank" rel="noopener noreferrer">IPPure</a> 进行环境遥测，结果惨不忍睹（很多人的电脑也是这个状态）：</p>
+
+<div style="overflow-x: auto; margin: 18px 0;">
+  <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">
+    <thead>
+      <tr style="border-bottom: 2px solid var(--border); background: color-mix(in srgb, var(--accent) 5%, transparent);">
+        <th style="padding: 10px 14px;">检测维度</th>
+        <th style="padding: 10px 14px;">检测结果与状态</th>
+        <th style="padding: 10px 14px;">致命隐患剖析</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 10px 14px; font-weight: 700;">网络出口 IP</td>
+        <td style="padding: 10px 14px; color: #10b981;">海外代理出口 (如 Tokyo / Singapore 等)</td>
+        <td style="padding: 10px 14px;">表面上代理生效，流量显示在海外节点。</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border); background: color-mix(in srgb, #ef4444 6%, transparent);">
+        <td style="padding: 10px 14px; font-weight: 700; color: #ef4444;">WebRTC 隐私泄露</td>
+        <td style="padding: 10px 14px; color: #ef4444; font-weight: 700;">国内真实宽带 IP 裸连暴露</td>
+        <td style="padding: 10px 14px; color: #ef4444;"><strong>致命漏洞！</strong> 浏览器 WebRTC STUN 探测绕过普通 HTTP 代理，物理宽带真实 IP 彻底裸连！</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border); background: color-mix(in srgb, #ef4444 6%, transparent);">
+        <td style="padding: 10px 14px; font-weight: 700; color: #ef4444;">DNS 区域泄露</td>
+        <td style="padding: 10px 14px; color: #ef4444;">大量中国国内 DNS 暴露 (114/腾讯/阿里)</td>
+        <td style="padding: 10px 14px;">Mac 本地 DNS 指向 114，代理上游走国内 DoH，所有域名解析都在国内节点。</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border); background: color-mix(in srgb, #ef4444 6%, transparent);">
+        <td style="padding: 10px 14px; font-weight: 700; color: #ef4444;">系统时区特征</td>
+        <td style="padding: 10px 14px; color: #ef4444;">Asia/Shanghai (+30 分)</td>
+        <td style="padding: 10px 14px;">直接触发 Claude Code 的日期隐写上报！</td>
+      </tr>
+      <tr style="border-bottom: 1px solid var(--border);">
+        <td style="padding: 10px 14px; font-weight: 700;">浏览器语言偏好</td>
+        <td style="padding: 10px 14px; color: #ef4444;">zh-CN, en-US (+24 分)</td>
+        <td style="padding: 10px 14px;">首选语言包含简体中文。</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 14px; font-weight: 800;">综合风险评分</td>
+        <td style="padding: 10px 14px; font-weight: 800; color: #ef4444;" colspan="2">82 / 100（高风险 🐶 🐶你绝对是「Claude 中国用户」🐶 🐶）</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>三、四步手动优化实战：把风险分压制到 28 分安全区</h2>
+<p>我们不需要依赖黑盒工具，通过清晰透明的 4 个步骤，逐一击破所有特征泄露通道：</p>
+
+<h3>步骤 1：斩断时区锚定（立减 30 分，且不影响日常作息）</h3>
+<p>
+  <strong>核心思路</strong>：将 macOS 物理时区更改为 <strong><code>Asia/Singapore</code>（新加坡）</strong>。<br>
+  <strong>为什么是新加坡？</strong> 新加坡与中国大陆<strong>同属 UTC+8 时区，时间完全一致、分秒不差</strong>！修改后你的电脑日历、作息完全不受影响，但系统底层报告给 Claude Code 的时区标识瞬间从黑名单中的 <code>Asia/Shanghai</code> 变为合规地区的 <code>Asia/Singapore</code>，直接让隐写规则落空！
+</p>
+<p>在 Mac 终端中运行以下命令（输入电脑锁屏密码授权）：</p>
+<pre><code class="language-bash">sudo systemsetup -settimezone Asia/Singapore</code></pre>
+<p style="font-size: 13.5px; color: var(--muted);"><em>（注：如果终端出现 Error:-99 提示，属于 macOS 尝试网络校时的内部无害警告，只要最后输出 Set TimeZone: Asia/Singapore 即代表成功修改）</em></p>
+
+<h3>步骤 2：剥离浏览器中文指纹（立减 17 分）</h3>
+<p>很多网站会通过 <code>navigator.languages</code> 探测你的语言偏好列表：</p>
+<ol>
+  <li>打开 Google Chrome，在地址栏输入：<code>chrome://settings/languages</code></li>
+  <li>在 <strong>首选语言（Preferred languages）</strong> 列表中，添加 <strong>English (United States)</strong> 并置顶。</li>
+  <li>关键一步：在列表中的 <strong>「中文（简体）」</strong> 右侧点击 <code>⋮</code>，选择 <strong>「移除」（Remove）</strong>。</li>
+</ol>
+<p style="font-size: 13.5px; color: var(--muted);">这样 <code>navigator.languages</code> 列表中将只包含 <code>['en-US']</code>，检测项中的语言扣分彻底清零！</p>
+
+<h3>步骤 3：彻底封堵 WebRTC 穿透漏洞（隐匿国内真实物理 IP）</h3>
+<p>
+  <strong>为什么开着梯子依然泄露真实 IP？</strong> 因为常规的代理软件（如 Clash Verge）默认只接管 TCP 的 HTTP/SOCKS 流量，而浏览器的 WebRTC 走的是 UDP 底层 STUN 穿透探测，会直接绕过系统代理，从你的物理网卡裸连公网！
+</p>
+<div style="display: flex; flex-direction: column; gap: 10px; margin: 12px 0;">
+  <div style="padding: 12px 16px; border-radius: 10px; background: color-mix(in srgb, var(--accent) 6%, var(--surface-solid)); border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));">
+    <strong>推荐方案 A（最轻量彻底）</strong>：在 Chrome 网上应用店安装扩展 <strong><a href="https://chromewebstore.google.com/detail/webrtc-control/fjkehfdmcnkgmenimipjpcedfladdkgk" target="_blank" rel="noopener noreferrer">WebRTC Control</a></strong> 并保持开启。该插件会一键锁死物理网卡的非代理 UDP 探测。
+  </div>
+  <div style="padding: 12px 16px; border-radius: 10px; background: color-mix(in srgb, var(--accent) 6%, var(--surface-solid)); border: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));">
+    <strong>推荐方案 B（代理内核方案）</strong>：在 Clash Verge 中开启 <strong>TUN 模式</strong>，并将 <code>strict-route: true</code>（严格路由）启用，强制将系统的所有物理流量全部拽入虚拟网卡。
+  </div>
+</div>
+
+<div style="padding: 14px 18px; border-radius: 12px; background: color-mix(in srgb, #f59e0b 8%, var(--surface-solid)); border: 1px solid color-mix(in srgb, #f59e0b 30%, var(--border)); margin: 14px 0;">
+  <strong style="color: #d97706; font-size: 14.5px;">💡 核心破局点：阻断系统代理，拥抱纯 TUN 透明出海（切断代理链嗅探）</strong>
+  <p style="margin: 6px 0 0; font-size: 13.5px; line-height: 1.65; color: var(--text);">
+    在代理客户端（如 Clash Verge Rev / Surge）中，<strong>将「系统代理（System Proxy）」关闭（OFF），仅保持「TUN 虚拟网卡模式（TUN Mode: ON）」</strong>！<br>
+    这样做至关重要：关闭系统代理后，macOS 系统和终端中将不会被注入 <code>127.0.0.1:7897</code> 等代理设置与 <code>HTTP_PROXY</code> 环境变量。终端里的 Claude Code 运行时，底层就像插上网线直连海外一样，完全无法检测到代理链的存在，从根源上扼杀单引号被 Unicode 隐写掉包的触发条件！
+  </p>
+</div>
+
+<h3>步骤 4：根治国内 DNS 泄露（告别 114 与阿里腾讯）</h3>
+<p>
+  很多开发者发现自己虽然挂了代理，但体检时仍然出现一堆国内的解析节点（例如国内各大运营商的 DNS 节点在报告里漫天飞）。这不仅暴露了你身处国内，还意味着访问行为随时可能被旁路记录。<br>
+  <strong>根本原因</strong>：很多网络订阅在导入客户端（如 Clash Verge Rev / Surge）时，配置的默认上游 <code>nameserver</code> 往往包含了国内大厂的公共 DoH（如腾讯 <code>doh.pub</code> 或阿里 <code>dns.alidns.com</code>），且系统的物理网卡常常配置了 <code>114.114.114.114</code>。
+</p>
+
+<div style="display: flex; flex-direction: column; gap: 12px; margin: 14px 0;">
+  <div style="padding: 14px 18px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 5%, var(--surface-solid)); border-left: 4px solid var(--accent);">
+    <strong style="color: var(--text); font-size: 14.5px;">1. 在客户端订阅拓展配置（Merge）中注入纯净海外 DoH 规则</strong><br>
+    <span style="font-size: 13.5px; line-height: 1.65; color: var(--muted); display: block; margin-top: 6px;">
+      打开 Clash Verge Rev，进入 <strong>「订阅」</strong>，在当前使用的订阅卡片上点击右键选择 <strong>「拓展配置（Merge）」</strong>（或在全局「拓展配置」中），填入以下配置：
+    </span>
+    <pre style="margin-top: 8px;"><code class="language-yaml"># 开启严格路由与 DNS 劫持，拦截一切底层 UDP/53 端口泄露
+tun:
+  enable: true
+  stack: mixed
+  auto-route: true
+  auto-detect-interface: true
+  strict-route: true
+  dns-hijack:
+    - any:53
+    - tcp://any:53
+
+# 强制默认与海外流量走纯净 DoH，国内保留高速直连
+dns:
+  enable: true
+  listen: :53
+  enhanced-mode: fake-ip
+  default-nameserver:
+    - 1.1.1.1
+    - 8.8.8.8
+  nameserver:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+  direct-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  direct-nameserver-follow-policy: true
+  proxy-server-nameserver:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+  fallback:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query</code></pre>
+    <span style="font-size: 13px; color: var(--muted); display: block; margin-top: 6px;">
+      保存后，右键该订阅点击「刷新」或在设置中「重启内核」即可生效。这样国内直连流量依然走高速国内解析，而所有海外与 Claude 请求强制走 Cloudflare / Google 加密通道！
+    </span>
+  </div>
+
+  <div style="padding: 14px 18px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 5%, var(--surface-solid)); border-left: 4px solid var(--accent);">
+    <strong style="color: var(--text); font-size: 14.5px;">2. 终端验证 Fake-IP 零泄露效果</strong><br>
+    <span style="font-size: 13.5px; line-height: 1.65; color: var(--muted); display: block; margin-top: 6px;">
+      配置生效后，在终端中测试解析：
+    </span>
+    <pre style="margin-top: 8px;"><code class="language-bash">nslookup claude.ai</code></pre>
+    <span style="font-size: 13px; color: var(--muted); display: block; margin-top: 6px;">
+      你会发现它立即被虚拟网卡拦截，并直接返回内核的 Fake-IP（例如 <code>198.18.0.x</code>）。这意味着：<strong>所有域名解析在本地完全不发出真实公网查询包，真实的域名解析全部由远端海外节点在出海口直接完成，本地物理网络不会向任何国内 DNS 发送查询，DNS Leak 彻底清零！</strong>
+    </span>
+  </div>
+
+  <div style="padding: 14px 18px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 5%, var(--surface-solid)); border-left: 4px solid var(--accent);">
+    <strong style="color: var(--text); font-size: 14.5px;">3. 清理物理网卡 114 DNS 与 Chrome 加密 DNS</strong><br>
+    <span style="font-size: 13.5px; line-height: 1.65; color: var(--muted); display: block; margin-top: 6px;">
+      在终端执行以下命令，将 Wi-Fi 硬件上可能残留的 114 DNS 清理为海外安全 DNS：
+    </span>
+    <pre style="margin-top: 8px;"><code class="language-bash">sudo networksetup -setdnsservers Wi-Fi 1.1.1.1 8.8.8.8</code></pre>
+    <span style="font-size: 13px; color: var(--muted); display: block; margin-top: 6px;">
+      如果 Chrome 的「安全 DNS」界面显示 <em>“This setting is disabled on managed browsers”</em> 被锁死，直接在终端执行系统策略写入，然后 <code>Command + Q</code> 重启 Chrome 即可：
+    </span>
+    <pre style="margin-top: 8px;"><code class="language-bash">defaults write com.google.Chrome DnsOverHttpsMode -string "secure"
+defaults write com.google.Chrome DnsOverHttpsTemplates -string "https://cloudflare-dns.com/dns-query"</code></pre>
+  </div>
+</div>
+
+<h2>四、实测验收：28 分安全绿标达成！</h2>
+<p>完成上述 4 步后，重新刷新 IPPure 检测页面，奇迹发生了：</p>
+<div style="padding: 18px 22px; border-radius: 14px; background: color-mix(in srgb, #10b981 10%, var(--surface-solid)); border: 1.5px solid color-mix(in srgb, #10b981 40%, var(--border)); margin: 18px 0;">
+  <div style="font-size: 18px; font-weight: 800; color: #059669; margin-bottom: 8px;">
+    🎉 最终体检结果：28 / 100（低风险 🐶🐶你不是「Claude 中国用户」🐶🐶）
+  </div>
+  <ul style="margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.8; color: var(--text);">
+    <li><strong>WebRTC 隐私泄露</strong>：未发现真实 IP 泄露（暂无 WebRTC 数据，国内真实物理 IP 完全隐匿！）</li>
+    <li><strong>系统时区权重 (30 分)</strong>：<code>Asia/Singapore +0</code>（扣分完全清零！）</li>
+    <li><strong>浏览器语言权重 (24 分)</strong>：<code>en-us +0</code>（扣分完全清零！）</li>
+    <li><strong>仅存信号</strong>：只剩下 macOS 系统自带的苹方中文字体 (+20) 与 UTC+8 正常时区偏移 (+6)，完全处于极低风险基线之内。</li>
+  </ul>
+</div>
+
+<h2>五、进阶自动化与多账号隔离利器：开源项目 CCBaga 推荐</h2>
+<p>
+  前面我们分享的手动四步调整，能够让你清晰透彻地理解风控的每一个环节，并在无需安装任何庞大套件的情况下迅速把环境压到 28 分。<br>
+  但如果你在出差或日常开发中，需要<strong>管理多个 Claude 账号、或者旧账号被封后想彻底隔离新旧工作区</strong>，强烈推荐搭配使用开源项目 <a href="https://github.com/liseami/CCBaga" target="_blank" rel="noopener noreferrer"><strong>CCBaga (liseami/CCBaga)</strong></a>。
+</p>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 18px 0;">
+  <div style="padding: 16px 18px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 5%, var(--surface-solid)); border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--border));">
+    <strong style="color: var(--text);">🗄️ CCBaga-A：Claude 原生身份保险库</strong>
+    <p style="margin: 6px 0 0; font-size: 13.5px; color: var(--muted); line-height: 1.6;">
+      支持一键将本地受污染的 Claude 凭据（<code>~/.claude.json</code>、macOS 钥匙串等）加密归档并清空工作区（Empty identity），确保新账号不会被旧残留连带封停；同时支持一键修改系统时区和语言。
+    </p>
+  </div>
+  <div style="padding: 16px 18px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 5%, var(--surface-solid)); border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--border));">
+    <strong style="color: var(--text);">🌐 CCBaga-B：独立指纹伴侣浏览器</strong>
+    <p style="margin: 6px 0 0; font-size: 13.5px; color: var(--muted); line-height: 1.6;">
+      基于定制的 Fingerprint Chromium，提供与日常浏览器完全隔离的 OAuth 登录授权环境，并内置真实出口与时区一致性的绿标检测。
+    </p>
+  </div>
+  <div style="padding: 16px 18px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 5%, var(--surface-solid)); border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--border));">
+    <strong style="color: var(--text);">🤖 Network Skill：AI 自动化网络搭建</strong>
+    <p style="margin: 6px 0 0; font-size: 13.5px; color: var(--muted); line-height: 1.6;">
+      一个符合 Agent Skills 规范的技能插件，让 AI 协助你自动部署“Debian VPS + 静态住宅代理 (ISP) + TUN 全局路由”，避开公共机房 IP 的批量拉黑。
+    </p>
+  </div>
+</div>
+
+<p><strong>总结</strong>：先用我们的四步法把设备环境压制到 28 分以下，确保你的物理出口与设备特征处于极净状态；如果涉及多账号切换，配合 CCBaga 进行凭据隔离，双管齐下，就能彻底告别 Claude Code 动辄被封号的焦虑！</p>`,
+  },
+  {
     slug: "video-codex-free-photoshop-alternatives",
     title: "Adobe 天塌了！实测3款开源免费PS平替：1:1像PS，还能让Codex直接修图",
     category: "视频教程笔记",
