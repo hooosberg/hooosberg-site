@@ -118,6 +118,15 @@ export const learningSeries: LearningSeries[] = [
     description: "汇聚真实工业工具实战、ChatGPT 视觉设计工作流与前沿大模型深度评测，均附演示视频与实操课件要点。",
     playlistUrl: colaPlaylistUrl,
     lessons: [
+      // 置顶教学：大模型 API 聚合与全客户端配置指南
+      {
+        number: 29,
+        title: "【置顶指南】大模型 API 怎么选、怎么用？一站式打通 Claude、GPT、Gemini 与 DeepSeek 接口获取与全工具配置保姆级实战",
+        outcome: "解决海外信用卡拒付与 429 报错，一站式低成本获取 Claude、GPT、Gemini 与 DeepSeek 聚合 API 并无缝配置到 WitNote、Cursor 与聊天客户端。",
+        articleSlug: "video-codex-llm-api-infistar-guide",
+        isPinned: true,
+        hasDownload: false,
+      },
       // 置顶教学：账号星球与海外AI账号充值全流程指南
       {
         number: 27,
