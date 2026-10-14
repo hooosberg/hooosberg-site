@@ -227,9 +227,27 @@ const platformServicesText = product.hideSourceLinks
 
     {isSumiBlockPuzzle && (
       <>
-        <section><h2>Sumi Block Puzzle Data Flow</h2><p>Gameplay works completely offline. 9×9 board states, high scores, language, sound, and theme preferences stay on your device. The app has no user accounts, advertising SDKs, third-party analytics, tracking, or Hooosberg game servers.</p></section>
-        <section><h2>In-App Purchases</h2><p>The optional non-consumable Unlock All Themes purchase unlocks visual themes (Pudding, Crystal, Lacquerware, and Dunhuang). Purchases and restores communicate directly with Apple StoreKit 2. Hooosberg does not receive your Apple ID, payment details, or App Store credentials. Local unlock state is validated and stored on-device.</p></section>
-        <section><h2>Deletion and Retention</h2><p>Deleting the app removes all local game saves and high scores according to iOS behavior. There is no Hooosberg player profile to delete. Apple may retain purchase, refund, crash, and store records under Apple's policies. If you contact support by email, information you send is used solely to respond to your inquiry.</p></section>
+        <section>
+          <h2>Sumi Block Puzzle Data Flow</h2>
+          <p>Sumi Block Puzzle has no account system, no advertising SDK, no third-party analytics SDK, no tracking, no social feed, and no Hooosberg game server. Normal gameplay works completely offline and does not require a network connection.</p>
+          <div class="privacy-list">
+            <div class="privacy-row"><strong>Game saves and board state</strong><span>Stored locally on the device so you can pause and resume your 9×9 puzzle at any time. They are not uploaded to Hooosberg.</span></div>
+            <div class="privacy-row"><strong>High scores and statistics</strong><span>Stored locally on the device (separate best scores for Classic 19-piece and Gentle 12-piece modes). They are not uploaded and are not used for advertising.</span></div>
+            <div class="privacy-row"><strong>Preferences</strong><span>Stored locally to remember language, theme display style (3D/Flat), sound volume, haptics, and leaf animation settings.</span></div>
+            <div class="privacy-row"><strong>Theme unlock state</strong><span>Stored locally after Apple StoreKit 2 confirms an optional one-time purchase or restore.</span></div>
+            <div class="privacy-row"><strong>Personal identifiers</strong><span>Sumi Block Puzzle does not request or collect name, email, phone number, location, contacts, photos, microphone, camera, or social account access.</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>In-App Purchases</h2>
+          <p>The optional non-consumable one-time purchase Unlock All Themes unlocks premium visual themes (Pudding, Crystal, Lacquerware, and Dunhuang) through Apple StoreKit 2. The purchase is not a subscription, supports Family Sharing, and does not charge purchasers for any themes added in the future. Hooosberg does not receive the user's Apple ID, payment method, billing address, App Store credentials, or full purchase history. Restore Purchases uses Apple's native StoreKit 2 flow.</p>
+        </section>
+
+        <section>
+          <h2>Deletion and Retention</h2>
+          <p>Because Sumi Block Puzzle does not create a Hooosberg account or server profile, there is no server-side player account for Hooosberg to delete. Local board saves, statistics, and preferences can be completely removed by deleting the app from the device. Apple may retain purchase, refund, crash, or store activity records under Apple's own privacy policies and user settings. If you contact developer support by email, information you send is used solely to respond to your inquiry.</p>
+        </section>
       </>
     )}
 
