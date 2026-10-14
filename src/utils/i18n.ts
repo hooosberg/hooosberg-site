@@ -548,6 +548,27 @@ const productEnglish: Record<string, EnglishProductOverride> = {
     features: ["144 hand-tuned ink Mahjong tiles", "Classic two-turn matching rule", "Undo, hint, and shuffle", "No ad SDKs, accounts, or third-party tracking"],
     courseHooks: ["iOS and iPadOS small game", "StoreKit 2", "No-ads product design", "Multilingual launch"],
   },
+  "sumi-block-puzzle": {
+    displayName: "Sumi Block Puzzle",
+    category: "Quiet block puzzle",
+    tagline: "9×9 block puzzle. Free gameplay, no ads, optional art themes.",
+    summary: "Offline block puzzle for iPhone and iPad: 9×9 wood grid, classic three-piece batches, simultaneous row, column and 3×3 square clears. Tap or drag controls, one free undo per game, auto-save on every move. The 3D Bamboo theme is completely free, with four optional handcrafted material themes. Switch between 12 languages anytime in Settings.",
+    audience: "Players who enjoy classic block puzzles and geometric clears with zero ad interruptions.",
+    platforms: ["iPhone", "iPad", "iOS", "Game"],
+    status: ["App Store coming soon", "Free + one-time theme unlock", "No ads", "No tracking"],
+    privacyNote: "Games, high scores and settings stay on your device. Gameplay works offline; optional theme unlock and restores use Apple StoreKit. No ads, accounts, or third-party tracking.",
+    features: [
+      "Classic 9×9 wood grid and three-piece batch placement",
+      "Rows, columns, and 3×3 sub-grids clear simultaneously with combo bonus",
+      "One free undo per game and instant game-over detection",
+      "Auto-save on every move; pick up right where you left off offline",
+      "Free 3D Bamboo theme plus Pudding, Crystal, Lacquerware, and Dunhuang themes",
+      "Falling leaves, sweep button, crisp wood sounds, and haptics (customizable)",
+      "12 interface languages with an in-app selector",
+      "No ads, no accounts, no third-party tracking"
+    ],
+    courseHooks: ["Block puzzle logic", "SwiftUI + SpriteKit", "StoreKit 2", "Localization"],
+  },
   "sumi-freecell": {
     displayName: "Sumi FreeCell Solitaire",
     category: "Quiet card game",

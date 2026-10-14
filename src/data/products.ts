@@ -505,6 +505,66 @@ export const products: Product[] = [
     },
   },
   {
+    slug: "sumi-block-puzzle",
+    name: "Sumi Block Puzzle",
+    displayName: "Sumi Block Puzzle 木块拼放",
+    category: "安静益智消除",
+    tagline: "9×9 木块拼放，完整玩法免费、无广告，四套艺术主题自愿买断。",
+    summary: "适用于 iPhone 与 iPad 的离线木块拼放益智游戏。9×9 棋盘、经典三块一批、行列与 3×3 宫格同时消除；支持点按与拖拽、每局一次免费撤销、随走随存自动存档；立体竹林主题完全免费，另有布丁、水晶、漆器、敦煌四套艺术材质主题；设置中可随时切换十二种语言。",
+    platforms: ["iPhone", "iPad", "iOS", "游戏"],
+    status: ["App Store 筹备中", "免费 + 一次买断主题", "无广告", "无追踪"],
+    audience: "喜欢木块拼放、几何益智消除，希望安静离线游玩、无广告打扰的玩家。",
+    primaryAction: { label: "即将登陆 App Store", disabled: true },
+    repo: "",
+    hideSourceLinks: true,
+    icon: "/product-icons/sumi-block-puzzle.png",
+    accent: "#5a3d28",
+    priority: "P1",
+    learnSlug: "sumi-block-puzzle-ios-game",
+    privacy: privacyLocal("棋局、最高分与设置保存在设备本地。正常游玩无需网络；主题购买与恢复由 Apple StoreKit 处理。无广告、无账号、无第三方统计或追踪。"),
+    features: [
+      "经典 9×9 棋盘与三块一批拼放消除",
+      "行列与 3×3 九宫格同时消除，多消连击加分",
+      "每局一次免费撤销与死局即时判定",
+      "随走随存，随时退出随时继续，无网络也可完整游玩",
+      "默认免费竹林立体主题，另有布丁、水晶、漆器、敦煌四套艺术主题",
+      "落叶与扫叶动效、清脆撞击声与触感反馈（可独立开启/关闭）",
+      "十二种界面语言，可在设置中随时切换",
+      "无广告、无账号、无第三方追踪"
+    ],
+    buildNotes: [
+      "目前尚未在 App Store 正式发布。",
+      "付费仅一次性解锁布丁、水晶、漆器、敦煌四套艺术主题，不影响任何核心玩法、撤销或存档。",
+      "支持 Family Sharing 家庭共享，支持离线恢复购买。"
+    ],
+    courseHooks: ["Block Puzzle 算法", "SwiftUI + SpriteKit", "StoreKit 2", "多语言"],
+    detail: {
+      overview: [
+        "Sumi Block Puzzle 保持木块拼放的纯粹质感：在 9×9 棋盘上摆放各种形态的几何积木，拼满整行、整列或 3×3 宫格即可清爽消除。每回合从托盘中拼放三块，随走随存，随时随地开启一局心流体验。",
+        "游戏完整包含免费的竹林立体主题与每局一次撤销，无强制广告、无弹窗打扰。四款高精度艺术主题（布丁、水晶、漆器、敦煌）可通过一次性自愿买断解锁，支持家庭共享，没有订阅。"
+      ],
+      proofPoints: [
+        { label: "玩法", value: "9×9 拼放消除", note: "行列与 3×3 宫格同时消除，连击加分。" },
+        { label: "离线", value: "随走随存", note: "无需网络，断点续玩，无广告打扰。" },
+        { label: "语言", value: "12 种", note: "跟随系统或在应用设置中实时切换。" }
+      ],
+      valueProps: [
+        { title: "随时沉浸，随时暂停", body: "棋局与托盘状态完全本地实时保存，无论是通勤间隙还是睡前片刻，打开即玩，关闭即存。" },
+        { title: "没有广告骚扰", body: "没有激励视频，没有横幅遮挡，没有弹窗倒计时，把专注还给思考与触感。" },
+        { title: "公平的视觉买断", body: "所有规则、计分和撤销功能对免费玩家与付费玩家完全相同，付费只为审美体验买单。" }
+      ],
+      featureDetails: [
+        { title: "四套付费艺术材质", body: "Q弹温润的布丁、晶莹通透的水晶、古朴沉稳的漆器与典雅大气的敦煌，每套均配备量身定制的棋子质感与专属桌面。" },
+        { title: "细腻视听与触感", body: "支持轻度落叶与一键扫叶动效，配备真实的木石碰撞敲击音效与分段触觉反馈，均可在设置中自主调节。" }
+      ],
+      principles: [
+        { title: "核心玩法永久完整免费", body: "棋局、行列/九宫格消除、计分排行榜与撤销功能绝不收费。" },
+        { title: "零数据收集与纯本地化", body: "不采集任何个人信息或设备标识，仅通过 Apple StoreKit 2 处理主题凭证。" }
+      ],
+      diaryIntro: "Sumi Block Puzzle 开发记录系统整理了从 9×9 几何命中、底座平行透视、无广告产品设计到 StoreKit 2 一次买断的闭环开发过程。"
+    }
+  },
+  {
     slug: "sumi-freecell",
     name: "Sumi FreeCell Solitaire",
     displayName: "Sumi FreeCell Solitaire 空当接龙",
@@ -913,6 +973,7 @@ export const featuredProducts = products.filter((product) => product.priority ==
 
 // 展示顺序：**新上线 / 新加的 App 一律放在最前面**（首页“最新产品”取前 6 个，产品列表页按这个顺序排）。
 const latestProductSlugs = [
+  "sumi-block-puzzle",
   "sumi-freecell",
   "sumi-klondike-solitaire",
   "leantake",
@@ -934,6 +995,7 @@ const latestProductSlugs = [
 ] as const;
 
 const productTimelineNotes: Record<string, string> = {
+  "sumi-block-puzzle": "筹备中",
   docktouchbar: "刚发布",
   "sumi-mahjong": "最近上架",
   "sumi-freecell": "筹备中",
