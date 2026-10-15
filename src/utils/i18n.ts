@@ -423,6 +423,7 @@ const productActionLabelMap: Record<string, string> = {
   "即将登陆 Mac App Store": "Coming to the Mac App Store",
   "App Store 即将上架": "App Store coming soon",
   "Mac App Store": "Mac App Store",
+  "即将登陆 App Store": "Coming to the App Store",
   "App Store": "App Store",
   "GitHub": "GitHub",
   "GitHub Releases": "GitHub Releases",
@@ -551,8 +552,8 @@ const productEnglish: Record<string, EnglishProductOverride> = {
   "sumi-block-puzzle": {
     displayName: "Sumi Block Puzzle",
     category: "Quiet block puzzle",
-    tagline: "9×9 block puzzle. Free gameplay, no ads, optional art themes.",
-    summary: "Offline block puzzle for iPhone and iPad: 9×9 wood grid, classic three-piece batches, simultaneous row, column and 3×3 square clears. Tap or drag controls, one free undo per game, auto-save on every move. The 3D Bamboo theme is completely free, with four optional handcrafted material themes. Switch between 12 languages anytime in Settings.",
+    tagline: "Place three blocks. Make room for a quiet moment.",
+    summary: "A calm, offline 9×9 wood block puzzle for iPhone and iPad. Clear rows, columns and 3×3 squares. Free gameplay, no ads, and optional hand-painted themes.",
     audience: "Players who enjoy classic block puzzles and geometric clears with zero ad interruptions.",
     platforms: ["iPhone", "iPad", "iOS", "Game"],
     status: ["App Store coming soon", "Free + one-time theme unlock", "No ads", "No tracking"],
@@ -567,7 +568,7 @@ const productEnglish: Record<string, EnglishProductOverride> = {
       "12 interface languages with an in-app selector",
       "No ads, no accounts, no third-party tracking"
     ],
-    courseHooks: ["Block puzzle logic", "SwiftUI + SpriteKit", "StoreKit 2", "Localization"],
+    courseHooks: ["Block puzzle logic", "SwiftUI + Swift core", "StoreKit 2", "Localization"],
   },
   "sumi-freecell": {
     displayName: "Sumi FreeCell Solitaire",
@@ -685,6 +686,34 @@ function localizeAction(action: ProductAction | undefined, locale: Locale) {
 }
 
 function buildEnglishDetail(product: Product, override: EnglishProductOverride) {
+  if (product.slug === "sumi-block-puzzle") {
+    return {
+      overview: [
+        "Place three pieces, then make room for the next three. Complete a row, column or 3×3 square to clear it; plan your space one move at a time.",
+        "The full puzzle, Bamboo theme, one undo per round and automatic saves are free, with no ads. One optional theme pack adds Pudding, Crystal, Lacquer and Dunhuang. It changes the look only, with no subscription.",
+      ],
+      proofPoints: [
+        { label: "Play", value: "9×9 grid", note: "Clear complete rows, columns and 3×3 squares." },
+        { label: "Offline", value: "Save and return", note: "Gameplay works offline. Purchases and restores use Apple services." },
+        { label: "Language", value: "12 languages", note: "Choose your interface language in Settings." },
+      ],
+      valueProps: [
+        { title: "Take your time", body: "Tap or drag each piece into place. Switch between Classic and Relaxed shape pools for a new round." },
+        { title: "Keep your place", body: "Automatic saves retain your board. One undo per round lets you take back a placement." },
+        { title: "Play without ads", body: "The puzzle stays free. The optional purchase is for the art themes, not a gameplay advantage." },
+      ],
+      featureDetails: [
+        { title: "Five hand-painted settings", body: "Bamboo, soft Pudding, icy Crystal, black-and-gold Lacquer and mineral-colour Dunhuang pair tactile pieces with illustrated backgrounds." },
+        { title: "Make it quiet", body: "Choose sounds, music, ambience, haptics and falling leaves in Settings. Sweep the leaves when you want a clear board." },
+      ],
+      principles: [
+        { title: "A clear purchase boundary", body: "The Bamboo theme and core game are free. Four additional themes share one optional one-time purchase." },
+        { title: "Your game stays local", body: override.privacyNote },
+      ],
+      diaryIntro: "Notes on block placement, tactile materials, hand-painted settings and a quiet no-ads game.",
+    };
+  }
+
   const statusText = (override.status ?? product.status).join(" / ");
   const platformText = (override.platforms ?? product.platforms).join(" / ");
   const hooks = override.courseHooks;

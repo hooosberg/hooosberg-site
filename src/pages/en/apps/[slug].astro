@@ -1,5 +1,6 @@
 ---
 import { LifeBuoy, ShieldCheck } from "@lucide/astro";
+import BlockPuzzlePreview from "../../../components/BlockPuzzlePreview.astro";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import ProductActionButton from "../../../components/ProductActionButton.astro";
 import ProductIcon from "../../../components/ProductIcon.astro";
@@ -69,6 +70,7 @@ const productJsonLd = [
 ];
 const pageTitle = product.slug === "witnote"
   ? "WitNote Markdown Editor for Mac, iPhone & iPad | Hooosberg"
+  : product.slug === "sumi-block-puzzle" ? "Sumi Block Puzzle — Offline 9×9 Wood Puzzle | Hooosberg"
   : `${product.displayName} | Hooosberg`;
 ---
 
@@ -77,7 +79,7 @@ const pageTitle = product.slug === "witnote"
   title={pageTitle}
   description={product.summary}
   canonicalPath={`/en/apps/${product.slug}`}
-  image={product.icon ?? "/brand/hooosberg-ai-icon.png"}
+  image={product.slug === "sumi-block-puzzle" ? "/product-previews/sumi-block-puzzle/og-en.png" : product.icon ?? "/brand/hooosberg-ai-icon.png"}
   type="product"
   jsonLd={productJsonLd}
 >
@@ -137,6 +139,8 @@ const pageTitle = product.slug === "witnote"
       </div>
     </div>
 
+    {product.slug === "sumi-block-puzzle" && <BlockPuzzlePreview locale="en" />}
+
     <section class="product-overview">
       <div class="product-overview__copy">
         <h2>{overviewTitle}</h2>
@@ -158,7 +162,7 @@ const pageTitle = product.slug === "witnote"
     <section class="product-section">
       <div class="product-section-heading">
         <h2>{valueSectionTitle}</h2>
-        <p>Each product page is written for users, reviewers, and builders: what it solves, what it does not solve, and what can be reused.</p>
+        <p>{product.slug === "sumi-block-puzzle" ? "A quiet place to plan your next move, with the details you choose." : "Each product page is written for users, reviewers, and builders: what it solves, what it does not solve, and what can be reused."}</p>
       </div>
       <div class="product-value-grid">
         {(detail.valueProps ?? []).map((item) => (

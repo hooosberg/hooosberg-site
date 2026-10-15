@@ -10,6 +10,7 @@ const productSlugs = new Set([
   "drowsebook",
   "sumi-mahjong",
   "sumi-klondike-solitaire",
+  "sumi-block-puzzle",
   "trekreel",
   "mood-button",
   "rushi",

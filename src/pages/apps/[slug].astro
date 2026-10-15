@@ -1,5 +1,6 @@
 ---
 import { LifeBuoy, ShieldCheck } from "@lucide/astro";
+import BlockPuzzlePreview from "../../components/BlockPuzzlePreview.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProductActionButton from "../../components/ProductActionButton.astro";
 import ProductIcon from "../../components/ProductIcon.astro";
@@ -25,7 +26,7 @@ const overviewTitle = isFailureCase ? "失败经验说明" : "产品说明";
 const valueSectionTitle = isFailureCase ? "失败在哪里" : "为什么值得看";
 const valueSectionCopy = isFailureCase
   ? "这些案例的价值不在于证明产品成功，而在于说明 AI 能力变化怎样吞掉辅助工具，以及下一次如何判断边界。"
-  : "每个产品页都先回答用户真正关心的问题：它解决什么、有什么边界、为什么可信。";
+  : product.slug === "sumi-block-puzzle" ? "按自己的节奏，留心下一块要放在哪里。" : "每个产品页都先回答用户真正关心的问题：它解决什么、有什么边界、为什么可信。";
 const featureSectionTitle = isFailureCase ? "失败原因" : "核心体验";
 const principleSectionTitle = isFailureCase ? "经验教训" : "设计取舍";
 const diarySectionTitle = isFailureCase ? "复盘日记" : "开发日记";
@@ -100,6 +101,7 @@ const productJsonLd = [
 ];
 const pageTitle = product.slug === "witnote"
   ? "WitNote Markdown 编辑器｜Mac、iPhone、iPad | 湖森堡AI_hooosberg"
+  : product.slug === "sumi-block-puzzle" ? "Sumi Block Puzzle 木块拼放｜免费离线9×9消除 | 湖森堡AI_hooosberg"
   : `${product.displayName} | 湖森堡AI_hooosberg`;
 ---
 
@@ -107,7 +109,7 @@ const pageTitle = product.slug === "witnote"
   title={pageTitle}
   description={product.summary}
   canonicalPath={`/apps/${product.slug}`}
-  image={product.icon ?? "/brand/hooosberg-ai-icon.png"}
+  image={product.slug === "sumi-block-puzzle" ? "/product-previews/sumi-block-puzzle/og-zh.png" : product.icon ?? "/brand/hooosberg-ai-icon.png"}
   type="product"
   jsonLd={productJsonLd}
 >
@@ -166,6 +168,8 @@ const pageTitle = product.slug === "witnote"
         </dl>
       </div>
     </div>
+
+    {product.slug === "sumi-block-puzzle" && <BlockPuzzlePreview locale="zh-CN" />}
 
     <section class="product-overview">
       <div class="product-overview__copy">

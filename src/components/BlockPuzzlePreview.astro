@@ -1,0 +1,32 @@
+---
+const { locale = "zh-CN" } = Astro.props;
+const en = locale === "en";
+const base = "/product-previews/sumi-block-puzzle";
+const captions = en
+  ? ["Bamboo · free core game", "Five material themes · four optional", "Crystal · optional theme", "Dunhuang · optional theme"]
+  : ["竹林 · 免费核心玩法", "五款材质 · 四款可选购", "水晶 · 可选主题", "敦煌 · 可选主题"];
+const shots = ["bamboo", "themes", "crystal", "dunhuang"];
+const questions = en ? [
+  ["Does it work offline?", "Core gameplay works offline. Buying or restoring the optional theme pack requires Apple services."],
+  ["What is free?", "The full puzzle, Bamboo theme, scoring, one undo per round and automatic saves. Four art themes share one optional one-time purchase."],
+  ["Can I come back to my game?", "Your board saves automatically on your device, so you can leave and continue later."],
+  ["Which devices and languages are supported?", "Designed for iPhone and iPad, with 12 interface languages selectable in Settings. The App Store release is in preparation."],
+] : [
+  ["需要联网吗？", "核心玩法可以离线游玩。购买或恢复可选主题包时，需要连接 Apple 服务。"],
+  ["哪些内容免费？", "完整拼放玩法、竹林主题、计分、每局一次撤销和自动存档均免费。另有四款艺术主题，通过一个可选买断包解锁。"],
+  ["退出后还能继续吗？", "棋局自动保存在你的设备上，回来后可以继续同一盘面。"],
+  ["支持哪些设备和语言？", "为 iPhone 和 iPad 设计，设置中可选择12种界面语言。App Store 首发正在筹备中。"],
+];
+---
+<section class="block-preview" aria-label={en ? "Gameplay preview" : "玩法预览"}>
+  <p class="eyebrow">{en ? "A LITTLE ROOM TO THINK" : "给思考，留一点空白"}</p>
+  <h2>{en ? "A small puzzle. A painted world." : "一盘木块，一幅手绘风景。"}</h2>
+  <p>{en ? "Development previews from the current game. Some illustrated themes are optional purchases." : "以下为当前游戏的实际画面，部分手绘主题需单次购买。"}</p>
+  <div class="shots">{shots.map((shot, i) => <figure><img src={`${base}/${en ? "en" : "zh"}-${shot}.jpg`} alt={captions[i]} width="560" height="1217" loading="lazy" decoding="async" /><figcaption>{captions[i]}</figcaption></figure>)}</div>
+  <div class="clip"><video controls playsinline preload="none" poster={`${base}/video-poster.jpg`} width="360" height="780" aria-label={en ? "Real gameplay, English interface" : "真实玩法视频，英文界面"}><source src={`${base}/gameplay-en.mp4`} type="video/mp4" /></video><div><h3>{en ? "Place. Clear. Make space." : "摆放，消除，再留出空间。"}</h3><p>{en ? "Place a block, clear three lines, undo, and plan the next pieces. See how a round unfolds." : "看一段真实操作：放下棋子、三线消除、撤销，再规划下一组方块。视频使用英文界面。"}</p></div></div>
+  <h2>{en ? "Before you play" : "开始之前"}</h2>
+  <div class="faq">{questions.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+</section>
+<style>
+.block-preview{margin:3.5rem 0;padding:clamp(20px,4vw,48px);background:#f3f0e5;color:#294431;border:1px solid #dedecb;border-radius:24px}.eyebrow{font-size:.75rem;letter-spacing:.15em;color:#647552}.block-preview h2{font-size:clamp(24px,3vw,36px);line-height:1.3}.shots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:28px}.shots figure{margin:0}.shots img{width:100%;height:auto;border-radius:12px;box-shadow:0 8px 24px #223c2419}.shots figcaption{font-size:.8rem;margin-top:10px;line-height:1.5}.clip{display:grid;grid-template-columns:minmax(180px,280px) 1fr;gap:36px;align-items:center;margin:42px auto;max-width:850px}.clip video{width:100%;height:auto;border-radius:18px;background:#e0e5d3}.faq details{border-top:1px solid #cdd1bd;padding:18px 0}.faq summary{font-weight:600;cursor:pointer}.faq p{max-width:780px;line-height:1.8}@media(max-width:680px){.shots{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.clip{grid-template-columns:1fr;gap:16px}.clip video{max-width:280px;margin:auto}}
+</style>
