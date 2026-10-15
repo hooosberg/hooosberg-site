@@ -517,7 +517,7 @@ export const products: Product[] = [
     primaryAction: { label: "即将登陆 App Store", disabled: true },
     repo: "",
     hideSourceLinks: true,
-    icon: "/product-icons/sumi-block-puzzle.png",
+    icon: "/product-icons/sumi-block-puzzle.png?v=dad9d1022e8d",
     accent: "#5a3d28",
     priority: "P1",
     learnSlug: "sumi-block-puzzle-ios-game",
