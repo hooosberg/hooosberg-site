@@ -26,6 +26,7 @@ type Props = {
   publishedTime?: string;
   modifiedTime?: string;
   noindex?: boolean;
+  hideBrandImage?: boolean;
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
 };
 
@@ -41,6 +42,7 @@ const {
   publishedTime,
   modifiedTime,
   noindex = false,
+  hideBrandImage = false,
   jsonLd,
 } = Astro.props;
 
@@ -198,7 +200,7 @@ const showFloatingAd =
     ))}
   </head>
   <body>
-    <SiteHeader locale={locale} currentPath={canonicalPath} />
+    <SiteHeader locale={locale} currentPath={canonicalPath} hideBrandImage={hideBrandImage} />
     <main class={mainClass}>
       <slot />
     </main>

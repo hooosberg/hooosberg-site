@@ -6,10 +6,11 @@ type Props = {
   action: ProductAction;
   primary?: boolean;
   text?: boolean;
+  showIcon?: boolean;
   class?: string;
 };
 
-const { action, primary = false, text = false, class: className = "" } = Astro.props;
+const { action, primary = false, text = false, showIcon = true, class: className = "" } = Astro.props;
 const isDisabled = action.disabled || !action.url;
 const isExternal = Boolean(action.url?.startsWith("http"));
 const icon = action.icon ?? getActionIcon(action.label, action.url ?? "");
@@ -20,12 +21,12 @@ const classList = text
 
 {isDisabled ? (
   <span class:list={classList} aria-disabled="true">
-    <img class={text ? "action-icon" : "button-icon"} src={icon} alt="" loading="lazy" decoding="async" />
+    {showIcon && <img class={text ? "action-icon" : "button-icon"} src={icon} alt="" loading="lazy" decoding="async" />}
     {action.label}
   </span>
 ) : (
   <a class:list={classList} href={action.url} target={isExternal ? "_blank" : undefined} rel={isExternal ? "noreferrer" : undefined}>
-    <img class={text ? "action-icon" : "button-icon"} src={icon} alt="" loading="lazy" decoding="async" />
+    {showIcon && <img class={text ? "action-icon" : "button-icon"} src={icon} alt="" loading="lazy" decoding="async" />}
     {action.label}
     <slot />
   </a>

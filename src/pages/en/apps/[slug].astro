@@ -79,14 +79,15 @@ const pageTitle = product.slug === "witnote"
   title={pageTitle}
   description={product.summary}
   canonicalPath={`/en/apps/${product.slug}`}
-  image={product.slug === "sumi-block-puzzle" ? "/product-previews/sumi-block-puzzle/og-en.png" : product.icon ?? "/brand/hooosberg-ai-icon.png"}
+  image={product.slug === "sumi-block-puzzle" ? "/brand/hooosberg-ai-icon.png" : product.icon ?? "/brand/hooosberg-ai-icon.png"}
+  hideBrandImage={product.slug === "sumi-block-puzzle"}
   type="product"
   jsonLd={productJsonLd}
 >
   <section class="product-landing" style={`--accent:${product.accent}`}>
     <div class="product-landing__hero">
       <div class="product-landing__intro">
-        <ProductIcon product={product} size="lg" />
+        {product.slug !== "sumi-block-puzzle" && <ProductIcon product={product} size="lg" />}
         <div class="product-landing__label-row">
           <p class="product-landing__category">{product.category}</p>
           {isFailureCase && <span class="product-landing__case-badge">{product.caseStudy?.label}</span>}
@@ -97,7 +98,7 @@ const pageTitle = product.slug === "witnote"
 
       <div class="product-landing__aside" aria-label={`${product.displayName} links`}>
         <div class="landing-actions landing-actions--stack">
-          {linkActions.map((action, index) => <ProductActionButton action={action} primary={index === 0} />)}
+          {linkActions.map((action, index) => <ProductActionButton action={action} primary={index === 0} showIcon={product.slug !== "sumi-block-puzzle"} />)}
         </div>
 
         <dl class="product-facts">

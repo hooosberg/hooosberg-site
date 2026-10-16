@@ -13,9 +13,10 @@ import {
 type Props = {
   locale?: Locale;
   currentPath?: string;
+  hideBrandImage?: boolean;
 };
 
-const { locale = "zh-CN", currentPath = Astro.url.pathname } = Astro.props;
+const { locale = "zh-CN", currentPath = Astro.url.pathname, hideBrandImage = false } = Astro.props;
 const text = uiText[locale] ?? uiText["en"];
 const navItems = text.nav.map(([label, href]) => ({ label, href: toLocalizedPath(href, locale) }));
 const moreNavItems = text.moreNav.map(([label, href]) => ({ label, href: toLocalizedPath(href, locale) }));
@@ -41,7 +42,7 @@ const courseBuyUrl =
   </aside>
   <div class="site-header__inner">
     <a class="brand" href={homeHref} aria-label={text.brandAria}>
-      <img class="brand-mark" src="/brand/hooosberg-ai-icon.png" alt="" />
+      {!hideBrandImage && <img class="brand-mark" src="/brand/hooosberg-ai-icon.png" alt="" />}
       <span>
         <strong>{brandTitle}</strong>
       </span>
