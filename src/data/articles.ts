@@ -1034,6 +1034,89 @@ const videoTutorialNoteSeeds: ArticleSeed[] = [
     ],
   },
   {
+    slug: "video-workbuddy-lesson42-opencode-zengate-free-models",
+    title: "第42集｜终极白嫖！数十款顶级模型免费接入WorkBuddy：OpenCode＋Zen-Gate反代免费神器｜AI自动化办公",
+    category: "视频教程笔记",
+    diaryKind: "video",
+    date: "2026-10-17",
+    seriesOrder: 42,
+    excerpt: "WorkBuddy 免费活动到期？教小白用自然语言零代码配置 OpenCode 与 Zen-Gate 开源项目，白嫖十余款顶级免费模型并反代接入 WorkBuddy 日常办公。",
+    tags: ["视频教程", "WorkBuddy", "OpenCode", "Zen-Gate", "免费模型", "反向代理", "AI办公"],
+    productSlugs: [],
+    videoUrl: "https://space.bilibili.com/3546822886820332/lists/8625038?type=season",
+    videoMeta: "B 站：WorkBuddy 入门绿皮书合集",
+    downloadableResources: [{
+      title: "第42集｜OpenCode 与 Zen-Gate 免费顶级模型接入 WorkBuddy 指南",
+      description: "小白专用自然语言提示词、本地网关后台配置与二合一反代实操手册。",
+      fileName: "第42集-OpenCode与ZenGate反代免费顶级模型接入WorkBuddy.md",
+      url: "/downloads/workbuddy/第42集-OpenCode与ZenGate反代免费顶级模型接入WorkBuddy.md",
+    }],
+    body: [
+      "最近不少小伙伴都在问：WorkBuddy 之前的免费额度用完了，包括每天签到加油的赠送活动也陆续结束，难道只能自费充钱买额度了吗？国内各家 AI 平台的免费活动要么只给一个智商很笨的基础模型，要么限制提问次数和试用天数；之前推荐过的一些 API 中转站，免费活动往往几天就关门。",
+      "今天给大家隆重介绍两套神仙级解决方案（二合一终极方案）：一个是官方送大批免费顶级模型池的 OpenCode，另一个是专门把这些海量免费资源集中反代到 WorkBuddy 的开源聚合项目 Zen-Gate！",
+      "整个过程专为小白设计，不需要你敲任何代码、不看复杂的终端命令行，全部在 WorkBuddy 聊天框里用日常自然语言吩咐 AI，让它帮我们在后台装好环境，你只需要打开本地后台开关，就能零成本免费用上十几款顶级大模型！",
+    ],
+    sections: [
+      {
+        heading: "核心资源网址导航（先收藏备用）",
+        paragraphs: [
+          "在开始之前，把本期用到的核心网址保存好，所有操作思路都围绕这几个链接展开：",
+          "1. OpenCode 官方入口：https://opencode.ai/ （自带顶级开源免费模型池的 CLI 工具）",
+          "2. Zen-Gate GitHub 开源仓库：https://github.com/LAGcomcom/zen-gate （将全网免费模型聚合反代到 WorkBuddy 的开源网关）",
+          "3. Zen-Gate 本地控制台后台：http://127.0.0.1:8787/ （本地安装启动后查看模型列表与一键对接开关）",
+          "4. 湖森堡个人博客专栏：https://hooosberg.com/blog/ （本集图文笔记、课件与提示词整理归档处）",
+        ],
+      },
+      {
+        heading: "神器一：OpenCode 终端里隐藏的免费顶级模型宝库",
+        paragraphs: [
+          "很多同学不知道：OpenCode 的桌面客户端是不直接送免费模型的，但官方在终端（CLI 命令行）版本里，极其慷慨地开放了一批免费的顶级模型池！",
+          "里面包含 DeepSeek V4.1、GLM 5.3、Nemotron 3.5、Big Pickle、LongCat 2.5、Mimo 2.6、Space Bunny、Beam 等十余款顶尖模型。经过高强度实测，这些模型的逻辑推理与代码理解能力极其出色，完全是顶级智商梯队，而且官方并没有卡死严苛的调用额度。",
+          "小白操作秘诀：不需要你自己打开黑底白字的命令行敲一堆复杂的 curl 或 npm 命令，直接在 WorkBuddy 聊天框里发送以下自然语言提示词，让 WorkBuddy 在后台自动帮你配置并测试好！",
+        ],
+        codeBlocks: [
+          "帮我在当前电脑的终端环境中配置并安装 OpenCode（官方网址：https://opencode.ai/ ）。\n要求：\n1. 自动检测系统环境（macOS / Windows / Linux）并执行正规一键安装脚本；\n2. 安装完成后，测试运行 `opencode --version` 确保命令可执行；\n3. 告诉我如何在终端输入 `/model` 查看自带的免费模型列表。",
+        ],
+      },
+      {
+        heading: "验证 OpenCode 免费模型",
+        paragraphs: [
+          "让 WorkBuddy 安装完毕后，如果你想在终端快速体验，直接在终端输入 `opencode` 回车启动。",
+          "进入交互界面后，输入 `/model` 就会弹出一长串模型列表。你会发现前面带 free 标识的十几款模型全部免费可用，方向键回车选中就能直接用顶尖模型对话、写方案、写代码！",
+        ],
+      },
+      {
+        heading: "神器二：Zen-Gate 开源项目，把全网免费资源反代到 WorkBuddy",
+        paragraphs: [
+          "在终端里用 OpenCode 虽然很爽，但大部分同学日常最习惯的还是在 WorkBuddy 图形界面里工作：做复杂的 Excel 表格清洗、生成 Word 文档、排版海报或使用多智能体协作。怎么把 OpenCode 的免费模型以及各路免费接口反向代理到 WorkBuddy 里？",
+          "这就是开源神器 Zen-Gate 的核心威力！它是一个轻量级本地代理网关，能够把 OpenCode 模型与网络免费模型接口打包汇聚，在本地 `http://127.0.0.1:8787/` 开启标准 API 服务，并原生支持一键对接 WorkBuddy！",
+          "同样，我们绝不自己敲命令，直接把 GitHub 开源链接复制给 WorkBuddy，让 WorkBuddy 帮你完成自动化部署与拉起：",
+        ],
+        codeBlocks: [
+          "请帮我在电脑本地配置并启动这个开源反向代理网关项目：\nGitHub 仓库：https://github.com/LAGcomcom/zen-gate\n要求：\n1. 检查本地环境，完成依赖安装与二进制配置；\n2. 启动本地后台服务，确保服务稳定监听在 http://127.0.0.1:8787/ ；\n3. 保持后台常驻运行，配置完成后将本地管理面板访问地址告诉我。",
+        ],
+      },
+      {
+        heading: "最后一步：打开本地后台开关，WorkBuddy 畅享顶级模型",
+        paragraphs: [
+          "WorkBuddy 提示安装并启动成功后，操作就只剩最后一步了：",
+          "1. 用浏览器打开本地后台控制面板：http://127.0.0.1:8787/ ；",
+          "2. 在控制面板里，你会看到所有已经自动激活的免费模型列表和性能状态；",
+          "3. 找到 WorkBuddy 的专用接入开关，轻轻点击【开启】（或者在 WorkBuddy 的自定义模型设置中将接口地址指向 http://127.0.0.1:8787/v1 ）；",
+          "4. 回到 WorkBuddy，在模型切换菜单里，数十款顶级免费大模型就已经整整齐齐列在你的界面里了！不管是复杂的办公逻辑推演还是长文档处理，你都可以随意调用，再也不用担心每天的额度告急。",
+        ],
+      },
+      {
+        heading: "小白避坑与日常使用心得",
+        paragraphs: [
+          "1. 本地服务保持常驻：Zen-Gate 是在你电脑本地运行的轻量级代理程序，只要电脑开着、后台服务在监听，WorkBuddy 就能随时无缝调用。如果偶尔发现无法生成，只需打开 http://127.0.0.1:8787/ 确认本地服务是否正常在线即可。",
+          "2. 自然语言是最强武器：大家要建立一个习惯——以后在 GitHub 或网上看到任何优秀的开源工具，不要被复杂的 Readme 和命令行吓退，直接把链接和需求扔给 WorkBuddy，让 AI 做你的专属运维工程师。",
+          "3. 搭配子智能体发挥极致威力：上一集我们讲了“贵模型负责思考，便宜模型负责干活”。现在接入了 OpenCode 与 Zen-Gate，你完全可以用顶级免费推理模型做 Master 思考拆解，用极速免费轻量模型做 Worker 批量执行，真正实现零成本、无上限的 AI 自动化办公！",
+        ],
+      },
+    ],
+  },
+  {
     slug: "video-codex-lesson1-expense-sheet-merge",
     title: "第01集｜AI自动化办公入门＋Excel：多部门乱表合并＋自动找异常",
     category: "视频教程笔记",

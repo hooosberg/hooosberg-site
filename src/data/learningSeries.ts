@@ -71,7 +71,7 @@ export const learningSeries: LearningSeries[] = [
     id: "workbuddy",
     title: "WorkBuddy AI办公教程",
     shortTitle: "WorkBuddy AI办公教程",
-    toolLine: "适用于 WorkBuddy、豆包办公、千问办公等工具 · 34 集免费课",
+    toolLine: "适用于 WorkBuddy、豆包办公、千问办公等工具 · 系列免费课",
     description: "从第一次给 AI 下任务开始，学习资料整理、表格、文档、工作流、浏览器和本地文件的基础用法。",
     playlistUrl: workbuddyPlaylistUrl,
     lessons: [
@@ -108,6 +108,7 @@ export const learningSeries: LearningSeries[] = [
       { number: 32, title: "第 32 课：餐饮成本核算与保本线分析", outcome: "把经营截图转化为带公式双表并封装为 Skill。", articleSlug: "video-workbuddy-lesson32-catering-cost-excel", hasDownload: true },
       { number: 33, title: "第 33 课：豆包办公＋开源公文 Skill", outcome: "把开源公文 Skill 装进 AI 生成规范公文 Word。", articleSlug: "video-workbuddy-lesson33-doubao-gongwen-skill", hasDownload: true },
       { number: 34, title: "第 34 课：AI Agent 时代的知识库", outcome: "理解底层文件、中层 Agent 与上层工具的极简架构。", articleSlug: "video-workbuddy-lesson34-folder-as-knowledge-base", hasDownload: true },
+      { number: 42, title: "第 42 课：终极白嫖！数十款顶级模型接入 WorkBuddy（OpenCode＋Zen-Gate）", outcome: "用自然语言让 WorkBuddy 自动配置 OpenCode 与 Zen-Gate 开源网关，零代码白嫖数十款顶级免费模型并反代接入日常办公。", articleSlug: "video-workbuddy-lesson42-opencode-zengate-free-models", hasDownload: true },
     ],
   },
   {
