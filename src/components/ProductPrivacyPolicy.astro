@@ -16,7 +16,7 @@ const isLeanTake = product.slug === "leantake";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
 const isTrekReel = product.slug === "trekreel";
-const updatedDate = isSumiBlockPuzzle ? "2026-10-14" : isSumiFreeCell ? "2026-10-12" : isLeanTake ? "2026-10-02" : isTrekReel ? "2026-09-30" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : isSumiKlondike ? "2026-10-10" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const updatedDate = isSumiBlockPuzzle ? "2026-10-14" : isSumiFreeCell ? "2026-10-12" : isLeanTake ? "2026-10-22" : isTrekReel ? "2026-09-30" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : isSumiKlondike ? "2026-10-10" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const distributionText = product.hideSourceLinks
   ? `This privacy policy applies to ${product.displayName}. Product delivery for this app happens through the App Store and the linked Hooosberg product website.`
   : isWitNote
@@ -181,6 +181,16 @@ const platformServicesText = product.hideSourceLinks
             <div class="privacy-row"><strong>Diagnostic log</strong><span>A small local log file is kept on your Mac to help troubleshoot recording problems. It is not sent anywhere. You can delete it at any time.</span></div>
             <div class="privacy-row"><strong>Permissions</strong><span>You can review or revoke screen recording, microphone, camera, and system audio access at any time in macOS System Settings &gt; Privacy &amp; Security.</span></div>
           </div>
+        </section>
+
+        <section>
+          <h2>Screen Recording Data</h2>
+          <p><strong>What is captured.</strong> When you press Record, LeanTake captures the screen content of the display, window, or area you selected. If system audio is on, the sound your Mac plays is recorded together with the screen. If you turn on the microphone, your voice is recorded into the same video. If you turn on the camera, the camera picture can be drawn into the recording or saved as a separate file. The pen, magnifier, and cursor effects read the live screen and are drawn into the recorded frames while recording is active.</p>
+          <p><strong>Why it is captured.</strong> The only purpose is to create the video file you asked for. We do not analyze, profile, track, advertise with, or train on your recordings.</p>
+          <p><strong>Sharing.</strong> Screen recording data is never shared with anyone — no third parties, no advertisers, no analytics providers. LeanTake has no server.</p>
+          <p><strong>Where it is stored.</strong> Your videos are saved locally on your Mac — by default in your Movies folder, or in a folder you choose. Nothing is uploaded.</p>
+          <p><strong>Retention.</strong> Recordings stay on your Mac until you delete them. There is no server-side copy.</p>
+          <p><strong>Permissions.</strong> macOS asks for screen recording, microphone, camera, and system audio access the first time you use the related feature, and you can review or revoke access at any time in System Settings &gt; Privacy &amp; Security.</p>
         </section>
 
         <section>
