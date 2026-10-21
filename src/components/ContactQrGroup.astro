@@ -211,13 +211,15 @@ const t = qrTranslations[locale] ?? qrTranslations["en"] ?? qrTranslations["zh-C
 
 <div class="contact-qr-grid" data-qr-expiry={wechatQr.expiresAt} data-qr-uploaded={wechatQr.uploadedAt}>
   <div class="contact-qr-card contact-qr-card--qq">
-    <img
-      class="contact-qr-card__image"
-      src="/images/contact/qq-group-1105424769.jpg"
-      alt={t.qqAlt}
-      loading="eager"
-      decoding="async"
-    />
+    <div class="contact-qr-card__media">
+      <img
+        class="contact-qr-card__image"
+        src="/images/contact/qq-group-1105424769-qr.jpg"
+        alt={t.qqAlt}
+        loading="eager"
+        decoding="async"
+      />
+    </div>
     <div class="contact-qr-card__content">
       <span>{t.qqBadge}</span>
       <strong>{t.qqTitle}</strong>
