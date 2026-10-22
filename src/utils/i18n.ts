@@ -49,6 +49,7 @@ export const uiText = {
     bannerText: "零基础也能用 AI 帮你办公自动化你手上的工作",
     bannerCta: "立即购买 ↗",
     nav: [
+      ["更多课程", "/courses"],
       ["学习笔记", "/blog"],
       ["AI导航", "/ai-navigation"],
       ["产品", "/apps"],
@@ -68,6 +69,7 @@ export const uiText = {
     bannerText: "Automate your daily office tasks with AI from scratch",
     bannerCta: "Enroll Now ↗",
     nav: [
+      ["More Courses", "/courses"],
       ["Learning Notes", "/blog"],
       ["AI Guide", "/ai-navigation"],
       ["Products", "/apps"],

@@ -1,28 +1,12 @@
 ---
-import {
-  ArrowRight,
-  BookOpen,
-  Check,
-  ChevronDown,
-  ExternalLink,
-  FileSpreadsheet,
-  FileText,
-  Flame,
-  Globe,
-  Layers3,
-  MessageSquare,
-  Play,
-  ShieldCheck,
-  Smartphone,
-  Sparkles,
-  Users,
-  Wrench,
-  Zap,
-} from "@lucide/astro";
+import { ArrowRight, BookOpen, ExternalLink } from "@lucide/astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import StudioAbout from "../components/StudioAbout.astro";
 import { socialLinks } from "../data/products";
 import { buildHomeJsonLd } from "../utils/structuredData";
+
+import CourseCard from "../components/CourseCard.astro";
+import { courseCatalog } from "../data/courseCatalog";
 
 const bilibiliCourseUrl =
   "https://www.bilibili.com/cheese/play/ss402180572?csource=private_space_class_null&spm_id_from=333.1387.0.0";
@@ -37,180 +21,6 @@ const socialCards = socialLinks
     icon: link.icon,
   }));
 
-const tools = [
-  {
-    name: "腾讯 WorkBuddy",
-    tag: "全课程主讲环境 ｜ 桌面 Agent 标杆",
-    desc: "支持本地读写文件、任务规划拆解与工具调用，后续所有实战案例的标准实操环境。",
-    icon: Zap,
-  },
-  {
-    name: "豆包办公",
-    tag: "轻量 / 多模态对照 ｜ 网页开箱即用",
-    desc: "适合日常文档、截图、多模态处理与灵感分析，无需复杂配置，网页直接可用。",
-    icon: Sparkles,
-  },
-  {
-    name: "阿里千问办公",
-    tag: "企业 / 钉钉生态对照 ｜ 一站式协同",
-    desc: "深度整合钉钉生态，适合企业团队协同、一站式表格整理与公文/PPT演示生成。",
-    icon: Layers3,
-  },
-];
-
-const courseStages = [
-  {
-    step: "01",
-    title: "先解决手边的事",
-    desc: "写通知、理资料、做会议待办，让第一件小事立刻轻松下来。",
-    jobs: "行政 · 文秘 · 老师 · 店长",
-    icon: FileText,
-  },
-  {
-    step: "02",
-    title: "处理文档和表格",
-    desc: "填合同、核发票、合并乱表、算工资，把重复操作变成清楚步骤。",
-    jobs: "财务 · 人事 · 运营 · 零售",
-    icon: FileSpreadsheet,
-  },
-  {
-    step: "03",
-    title: "让沟通有结果",
-    desc: "整理客户信息、回复消息、跟进事项，不再靠翻聊天记录找答案。",
-    jobs: "销售 · 客服 · 商务 · 采购",
-    icon: MessageSquare,
-  },
-  {
-    step: "04",
-    title: "把方法留下来",
-    desc: "把反复做的工作整理成自己的流程，换软件也能接着用。",
-    jobs: "项目 · 管理 · 创业 · 团队协作",
-    icon: Wrench,
-  },
-];
-
-const caseStudies = [
-  {
-    chapter: "行政 · 文书 · 审批",
-    title: "合同与申请表原样填报",
-    count: "第 07 课",
-    lessons: [
-      "无论格式多复杂的合同或表格，原样保留排版与表格结构",
-      "从多份资料或邮件中精准提取关键信息，一键填入对应格子",
-      "告别手动复制粘贴，填完自动保留数据出处，方便随时复核",
-    ],
-  },
-  {
-    chapter: "财务 · 会计 · 出纳",
-    title: "发票与报销单批量拍照核对",
-    count: "第 08 课",
-    lessons: [
-      "手机拍照发票、电子发票、报销单据一键批量提取",
-      "关键金额、日期、发票代码自动交叉核算对账，不出差错",
-      "对模糊或可疑数据自动标出，提示人工快速核实确认",
-    ],
-  },
-  {
-    chapter: "人事 · 店长 · 综合",
-    title: "多部门乱表格合并与自动算薪",
-    count: "第 09~11 课",
-    lessons: [
-      "各部门、多店铺提交的不同格式表格自动纠错、去重清洗",
-      "把口头或文档里的复杂提成、考勤扣款规则转为自动计算",
-      "支持多岗位自动核算工资条，保留计算步骤随时抽查",
-    ],
-  },
-  {
-    chapter: "运营 · 零售 · 仓储",
-    title: "进销存交叉分析与一键做 PPT",
-    count: "第 12~13 课",
-    lessons: [
-      "销售表与库存表多表联动分析，快速算出售罄率与存销比",
-      "一眼揪出热卖缺货或积压滞销商品，给出精准调整建议",
-      "从分析结论一键生成带图表、排版工整的高管汇报演示 PPT",
-    ],
-  },
-  {
-    chapter: "商务 · 市场 · 销售",
-    title: "招投标初筛与客户背景调查",
-    count: "第 15~16 课",
-    lessons: [
-      "全网各大招投标平台自动初筛符合预算与地域的新商机",
-      "拜访客户前自动搜集背景信息，挖掘企业真实痛点与合作点",
-      "一键生成针对该客户的沟通破冰词与定制商务邮件",
-    ],
-  },
-  {
-    chapter: "客服 · 项目 · 管理",
-    title: "客户群聊自动记账与定时巡检",
-    count: "第 17 & 19~22 课",
-    lessons: [
-      "一天上百条微信群消息中，自动提取客户加单与交期要求",
-      "自动追加到每日业务台账，清晨准时生成未决事项主管晨报",
-      "把常用工作流程存为一键执行，每周定时自动巡检提醒",
-    ],
-  },
-];
-
-const courseFeatures = [
-  {
-    title: "普通人学 AI，不需要先学编程",
-    desc: "没有一行复杂的代码门槛。课程全程使用日常普通中文提需求，只要你会打字、平时用电脑办公，人人都能零基础轻松上手。",
-    icon: Users,
-  },
-  {
-    title: "不是学 100 个工具，而是学会解决问题",
-    desc: "软件总会更新换代，但解决工作问题的方法不会变。教你掌握拆解任务、安全边界、格式约束与结果核验的通用底层逻辑，换什么软件都能自如迁移。",
-    icon: Wrench,
-  },
-  {
-    title: "不要追模型，先把工作流程跑通",
-    desc: "不管底座模型多花哨，先把自己的电脑文件、业务表格和交付流程跑通。以交付真实可用的 Word、Excel、PPT 为唯一检验标准。",
-    icon: Zap,
-  },
-  {
-    title: "23 套仿真随课实操练习素材包",
-    desc: "随课提供 23 套仿真真实业务表格、发票单据图片、会议记录与标准格式模板，解压即练，跟着视频一步步做出一模一样的成果。",
-    icon: BookOpen,
-  },
-  {
-    title: "全流程提示词与操作指令库（TXT）",
-    desc: "随课附赠全套结构化提示词与操作指令 TXT，清晰标明占位符与替换规则，方便随时复制，告别反复调优与鸡同鸭讲。",
-    icon: FileText,
-  },
-  {
-    title: "专属学员微信交流与答疑支持",
-    desc: "提供专属学员微信交流渠道。遇到工具使用、指令调优、复杂表格或流程卡点，随时在群内交流探讨，助你顺利通关。",
-    icon: MessageSquare,
-  },
-];
-
-const faqs = [
-  {
-    q: "这门课程适合什么人学习？企业和个人都可以买吗？",
-    a: "非常适合！企业AI改造，先改人再改系统，这门课非常适合作为团队普及 AI 办公规范与自动化工作流的标准化实操教材；对于个人，普通人学 AI 不需要先学编程，只要你平时要处理 Word、Excel、单据发票、会议纪要或客户对接，都能立刻用上，彻底告别繁琐机械的加班复制粘贴。",
-  },
-  {
-    q: "这门课程和市面上的普通 AI 聊天提问有什么本质区别？",
-    a: "普通聊天 AI 只是在网页对话框里给你出建议，最终改表格、排版 Word、核算账目还是得你自己动手；而智能体（Agent）能真正深入电脑本地，自动读写 Excel、Word、PPT，批量整理文件、核对单据发票、清洗多部门乱表格，并把成熟流程沉淀为一键运行的套路，替你交付真实可验收的工作文件。",
-  },
-  {
-    q: "学这门课对电脑有什么配置要求？Mac 和 Windows 都能用吗？",
-    a: "日常普通办公电脑即可，Windows 和 Mac 均完美支持！课程主讲环境（如腾讯 WorkBuddy 等）原生支持 Windows 与 macOS（包括 Intel 与 Apple Silicon 芯片），日常普通办公笔记本就能流畅实操，不需要购买昂贵的独立显卡或配置复杂的开发环境。",
-  },
-  {
-    q: "为什么说“软件会换，工作方法不会换”？",
-    a: "如今各种 AI 工具和新模型层出不穷，很多教程追着新工具跑，几个月后软件改版教程就作废了。我们教的是通用的业务处理逻辑：怎么拆解目标、怎么隔离安全边界、怎么让 AI 原样填表、怎么核验数据真实性。掌握了这套工作方法，无论未来用什么软件，你都能自如迁移。",
-  },
-  {
-    q: "配套的 23 套业务素材、Word 讲义和提示词在哪里获取？",
-    a: "购买课程后，在 B 站课程播放页右侧的【课件资料】区即可一键下载全套学员实操资料包（包含 23 套随课仿真素材、Word 讲义与 TXT 提示词库）；同时本站「学习笔记」也同步公开了各课时的复习要点。",
-  },
-  {
-    q: "遇到操作卡点或想找同行交流怎么办？有学习交流群吗？",
-    a: "有的！购买付费课程的学员可在 B 站课程专区获取专属微信答疑交流渠道；同时本站页面底部也公开了作者微信与全网交流渠道。无论你是付费学员，还是在看免费教程的小伙伴，都欢迎直接添加交流，共同探讨 AI 办公自动化！",
-  },
-];
 ---
 
 <BaseLayout
@@ -220,202 +30,25 @@ const faqs = [
 >
   <section class="landing-hero landing-hero--course">
     <div class="hero-grid course-hero__grid" aria-hidden="true"></div>
-    <div class="course-hero">
-      <div class="course-hero__copy">
-        <h1>AI办公新手入门课</h1>
-        <p class="course-hero__lead">不用学编程，也不用追着模型跑。</p>
-        <p class="course-hero__choice">从你手上的工作开始，把 AI 用进日常办公。</p>
-        <div class="hero-actions course-hero__actions">
-          <a class="button button--primary button--xl" href={bilibiliCourseUrl} target="_blank" rel="noreferrer">
-            开始系统学习
-            <ArrowRight size={17} aria-hidden="true" />
-          </a>
-        </div>
+    <div class="course-hero"><div class="course-hero__copy">
+      <h1>AI办公新手入门课</h1><p class="course-hero__lead">不用学编程，也不用追着模型跑。</p><p class="course-hero__choice">从你手上的工作开始，把 AI 用进日常办公。</p>
+      <div class="hero-actions course-hero__actions">
+        <a class="button button--primary button--xl" href={bilibiliCourseUrl} target="_blank" rel="noreferrer">开始系统学习<ArrowRight size={17} /></a>
+        <a class="button button--secondary" href="/courses">其他课程<ArrowRight size={15} /></a>
       </div>
-    </div>
+    </div></div>
   </section>
-
-  <!-- Section 1: 课程内容精选 (覆盖各行各业高频痛点) -->
-  <section class="landing-section" id="curriculum" style="padding-top: 20px;">
-    <div class="section-heading section-heading--center">
-      <div class="course-pill">
-        <BookOpen size={14} />
-        <span>真实业务场景</span>
-      </div>
-      <h2>覆盖各行各业的高频办公痛点</h2>
-      <span>行政文书、财务出纳、人事算薪、运营零售、商务销售、项目管理……少说技术术语，把你的实际工作问题逐个解决</span>
+  <section class="landing-section course-overview" id="curriculum">
+    <div class="section-heading section-heading--center"><div class="course-pill"><BookOpen size={14} /><span>核心课程内容</span></div>
+      <h2>让日常工作，轻松一点</h2>
+      <span>以腾讯 WorkBuddy 为主讲环境，跟着真实业务素材实操，做出能检查、能交付的结果。</span>
     </div>
-
-    <div class="course-curriculum-grid">
-      {caseStudies.map((chapter) => (
-        <div class="course-chapter-card">
-          <div class="course-chapter-card__top">
-            <span class="course-chapter-badge">{chapter.chapter}</span>
-            <span class="course-chapter-lessons-count">{chapter.count}</span>
-          </div>
-          <h3>{chapter.title}</h3>
-          <ul class="course-lesson-items">
-            {chapter.lessons.map((lesson) => (
-              <li class="course-lesson-item">
-                <Play size={13} aria-hidden="true" />
-                <span>{lesson}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-
-    <div style="text-align: center; margin-top: 36px;">
-      <a class="button button--primary button--lg" style="border-radius: 9999px; padding: 12px 28px;" href={curriculumNoteUrl}>
-        查看 23 课完整目录与配套笔记资料
-        <ArrowRight size={16} aria-hidden="true" />
-      </a>
-    </div>
+    <div class="course-overview__grid"><article class="course-overview__item"><span>01</span><h3>文档与单据</h3><p>原样填报合同、提取发票信息，保留来源方便复核。</p></article><article class="course-overview__item"><span>02</span><h3>表格与分析</h3><p>清洗合并乱表、核算工资，把数据整理成清楚的汇报。</p></article><article class="course-overview__item"><span>03</span><h3>沟通与流程</h3><p>整理客户信息和待办，把常用方法留下来、反复使用。</p></article></div>
+    <div class="course-overview__foot"><span>23 节实操课 · 配套素材、讲义与提示词</span><a href={curriculumNoteUrl}>查看完整目录与学习笔记 ↗</a></div>
   </section>
-
-  <!-- Section 2: 四个阶段学习路线 -->
-  <section class="landing-section" id="curve">
-    <div class="section-heading section-heading--center">
-      <h2>从一件小事，到自己的工作方法</h2>
-      <span>无论你做行政、财务、销售、运营还是项目管理，都从自己正在做的事开始。</span>
-    </div>
-
-    <div class="course-stage-list">
-      {courseStages.map((stage) => (
-        <article class="course-stage">
-          <div class="course-stage__number">{stage.step}</div>
-          <div class="course-stage__icon"><stage.icon size={22} aria-hidden="true" /></div>
-          <h3>{stage.title}</h3>
-          <p>{stage.desc}</p>
-          <span>{stage.jobs}</span>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <!-- Section 3: 课程核心优势与实操环境 (卖点与理念整合) -->
-  <section class="landing-section" id="features">
-    <div class="section-heading section-heading--center">
-      <div class="course-pill">
-        <Sparkles size={14} />
-        <span>核心优势</span>
-      </div>
-      <h2>为什么这门课能帮你真正搞定办公自动化？</h2>
-      <span>企业AI改造，先改人再改系统。不追模型、不学编程，以真实交付结果为唯一衡量标准</span>
-    </div>
-
-    <div class="course-features-grid">
-      {courseFeatures.map((feat) => (
-        <div class="course-feature-card">
-          <div class="course-feature-card__icon">
-            <feat.icon size={22} aria-hidden="true" />
-          </div>
-          <h3>{feat.title}</h3>
-          <p>{feat.desc}</p>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- Section 4: 课程价格 (Pricing Card - 极简居中，高购买冲动) -->
-  <section class="landing-section" id="pricing">
-    <div class="section-heading section-heading--center">
-      <div class="course-pill course-pill--hot">
-        <Flame size={14} />
-        <span>课程价格</span>
-      </div>
-      <h2>课程价格</h2>
-      <span>一次购买，立即开启你的 AI 办公智能体实战之旅</span>
-    </div>
-
-    <div class="course-pricing-wrapper">
-      <div class="course-pricing-card">
-        <div class="course-pricing-tag">限时特惠</div>
-        <h3>AI办公新手入门课程</h3>
-
-        <div class="course-price-box">
-          <div class="course-price-original">标价 ¥299</div>
-          <div class="course-price-current">
-            <span class="flame">🔥</span>
-            <span class="price-num">¥229</span>
-            <span class="price-period">/ 一次购买永久有效</span>
-          </div>
-        </div>
-
-        <p class="course-pricing-desc">
-          系统实用的 AI 办公入门实战课。不学编程、不背工具，带你把工作流程真正跑通，随课赠送 23 套业务实战素材。
-        </p>
-
-        <ul class="course-perks-list">
-          <li>
-            <Check size={15} />
-            <span>23 课时超清视频实操（B 站官方付费课堂）</span>
-          </li>
-          <li>
-            <Check size={15} />
-            <span>23 套随课仿真练习素材包（解压即练）</span>
-          </li>
-          <li>
-            <Check size={15} />
-            <span>全套可复制提示词库（TXT）与 Word 讲义</span>
-          </li>
-          <li>
-            <Check size={15} />
-            <span>多端永久随时回看 + 专属微信答疑交流</span>
-          </li>
-        </ul>
-
-        <a class="button button--primary button--lg" style="border-radius: 9999px; width: 100%; justify-content: center;" href={bilibiliCourseUrl} target="_blank" rel="noreferrer">
-          立即前往 B 站购买课程 (¥229) ↗
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 5: 常见问题解答 (FAQ) -->
-  <section class="landing-section" id="faq">
-    <div class="section-heading section-heading--center">
-      <div class="course-pill">
-        <Users size={14} />
-        <span>常见问题</span>
-      </div>
-      <h2>针对课程学习的常见问题解答</h2>
-      <span>解答你在学习、工具与实操中的常见疑问</span>
-    </div>
-
-    <div class="course-faq-container">
-      {faqs.map((faq, index) => (
-        <details class="course-faq-item" open={index === 0}>
-          <summary class="course-faq-question">
-            <span>{faq.q}</span>
-            <ChevronDown size={18} aria-hidden="true" />
-          </summary>
-          <div class="course-faq-answer">
-            {faq.a}
-          </div>
-        </details>
-      ))}
-    </div>
-  </section>
-
-  <!-- Section 6: 底部转化促单 Banner -->
-  <section class="course-cta-banner">
-    <h2>准备开启你的 AI 办公实战之旅吗？</h2>
-    <p>
-      加入 23 课系统实战课，少说技术术语，跑通自己的工作流程，让 AI 真正替你搞定日常繁琐交付！
-    </p>
-    <div class="course-cta-actions">
-      <a class="button button--primary button--lg" style="border-radius: 9999px;" href={bilibiliCourseUrl} target="_blank" rel="noreferrer">
-        立即以 ¥229 购买课程 ↗
-      </a>
-      <a class="button button--secondary button--lg" style="border-radius: 9999px;" href={curriculumNoteUrl}>
-        查看 23 课目录与笔记
-      </a>
-    </div>
-    <p class="course-cta-subtext">
-      标价 ¥299，限时特惠 🔥 ¥229，包含 23 节完整课程与 23 套随课实战素材包。
-    </p>
+  <section class="landing-section course-enrollment" id="pricing">
+    <div class="course-enrollment__copy"><p class="hero-kicker">从第一件小事开始</p><h2>你的第一门 AI 办公实操课</h2><p>适合个人学习，也适合团队一起入门。跟着视频做，用配套素材练，把方法用回自己的工作。</p><a href="/courses">看看更多课程 →</a></div>
+    <CourseCard course={courseCatalog[0]} english={false} />
   </section>
 
   <!-- Section 7: 关于湖森堡AI_hooosberg 与全网社交媒体矩阵 (用户明确要求完整保留) -->

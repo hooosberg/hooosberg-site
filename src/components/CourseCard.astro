@@ -1,0 +1,50 @@
+---
+import { ArrowUpRight } from "@lucide/astro";
+import { courseCatalog } from "../data/courseCatalog";
+type Props = { course: (typeof courseCatalog)[number]; english?: boolean };
+const { course, english = false } = Astro.props;
+const promotion = "promotion" in course ? course.promotion : undefined;
+const promotionActive = promotion && Date.now() >= Date.parse(promotion.start) && Date.now() < Date.parse(promotion.end);
+---
+<article class:list={["course-shop-card", `course-shop-card--${course.id}`]}>
+  <div class="course-shop-card__body">
+    <h2>{english ? course.enTitle : course.title}</h2>
+    <p class="course-shop-card__subtitle">{english ? course.enSubtitle : course.subtitle}</p>
+    <p class="course-shop-card__description">{english ? course.enDescription : course.description}</p>
+    <div class="course-shop-card__bottom">
+      <div data-course-pricing data-promotion-start={promotion?.start} data-promotion-end={promotion?.end} data-regular-price={course.price} data-offer-price={promotion?.price} data-english={String(english)}>
+        {promotion && <span class="course-offer-label" data-offer-only hidden={!promotionActive}>{english ? "Limited-time offer" : "限时优惠价"}</span>}
+        <strong class="course-shop-card__price" data-current-price>{promotionActive ? promotion.price : course.price}</strong>
+        {promotion ? <>
+          <small data-offer-only hidden={!promotionActive}>{english ? "Original " : "原价 "}<s>{course.price}</s></small>
+          <small class="course-offer-countdown" data-offer-only data-offer-countdown hidden={!promotionActive}>{english ? "Ends Nov 30, 00:00 (UTC+8)" : "11月30日 00:00 截止（北京时间）"}</small>
+        </> : <small>{english ? course.enNote : course.note}</small>}
+      </div>
+      <a class="button button--primary" href={course.url} target="_blank" rel="noreferrer">{english ? "View course" : "查看课程"}<ArrowUpRight size={16} /></a>
+    </div>
+  </div>
+</article>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-course-pricing][data-promotion-end]").forEach((pricing) => {
+    const start = Date.parse(pricing.dataset.promotionStart!);
+    const end = Date.parse(pricing.dataset.promotionEnd!);
+    const english = pricing.dataset.english === "true";
+    const update = () => {
+      const now = Date.now();
+      const active = now >= start && now < end;
+      pricing.querySelectorAll<HTMLElement>("[data-offer-only]").forEach((el) => { el.hidden = !active; });
+      pricing.querySelector<HTMLElement>("[data-current-price]")!.textContent = active ? pricing.dataset.offerPrice! : pricing.dataset.regularPrice!;
+      if (active) {
+        const seconds = Math.max(0, Math.floor((end - now) / 1000));
+        const days = Math.floor(seconds / 86400);
+        const hours = String(Math.floor(seconds % 86400 / 3600)).padStart(2, "0");
+        const minutes = String(Math.floor(seconds % 3600 / 60)).padStart(2, "0");
+        const secs = String(seconds % 60).padStart(2, "0");
+        pricing.querySelector<HTMLElement>("[data-offer-countdown]")!.textContent = english ? `Ends in ${days}d ${hours}:${minutes}:${secs}` : `距优惠结束 ${days}天 ${hours}:${minutes}:${secs}`;
+      }
+    };
+    update();
+    window.setInterval(update, 1000);
+  });
+</script>

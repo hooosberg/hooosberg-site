@@ -8595,3 +8595,63 @@ main.main--ai-directory {
   color: var(--text);
 }
 
+
+/* Compact course storefront, shared by the homepage and catalog. */
+.course-overview { padding-block: 48px; }
+.course-overview .section-heading { margin-bottom: 30px; }
+.course-overview .section-heading h2 { font-size: clamp(27px, 3.6vw, 42px); }
+.course-overview__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.course-overview__item { padding: 26px; border-radius: 22px; background: var(--surface); border: 1px solid var(--line); }
+.course-overview__item > span { color: var(--accent); font-size: 13px; font-weight: 700; }
+.course-overview__item h3 { margin: 18px 0 10px; font-size: 21px; }
+.course-overview__item p { margin: 0; color: var(--muted); line-height: 1.8; font-size: 15px; }
+.course-overview__foot { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; padding-top: 22px; font-size: 14px; color: var(--muted); }
+.course-overview__foot a, .course-enrollment__copy > a { color: var(--accent); font-weight: 650; }
+.course-enrollment { display: grid; grid-template-columns: 1fr 420px; align-items: center; gap: 64px; padding-block: 44px; }
+.course-enrollment__copy h2 { font-size: clamp(28px, 3.5vw, 42px); line-height: 1.3; margin: 14px 0 18px; }
+.course-enrollment__copy > p:not(.hero-kicker) { color: var(--muted); line-height: 1.9; max-width: 450px; margin-bottom: 24px; }
+.course-catalog-hero { padding-bottom: 38px; }
+.course-shop-grid { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; padding-bottom: 80px; }
+.course-shop-card { overflow: hidden; border-radius: 22px; border: 1px solid var(--line); background: var(--surface); display: flex; flex-direction: column; box-shadow: 0 10px 35px rgba(25, 61, 130, .04); }
+.course-shop-card__cover { min-height: 180px; padding: 24px; background: linear-gradient(135deg, #e8eeff, #dbe8ff); color: #245bd7; display: grid; align-content: space-between; gap: 13px; }
+.course-shop-card--management .course-shop-card__cover { background: linear-gradient(135deg, #dfefec, #e6ecff); color: #237c78; }
+.course-shop-card__cover > span:first-child { font-size: 10px; font-weight: 700; letter-spacing: .14em; }
+.course-shop-card__cover strong { font-size: 24px; line-height: 1.3; }
+.course-shop-card__cover > span:last-child { font-size: 12px; }
+.course-shop-card__body { display: flex; flex-direction: column; flex: 1; padding: 23px; }
+.course-shop-card__meta { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
+.course-shop-card__body h2 { font-size: 20px; line-height: 1.4; margin: 0 0 7px; }
+.course-shop-card__subtitle { font-size: 14px; margin: 0 0 12px; }
+.course-shop-card__description { color: var(--muted); font-size: 14px; line-height: 1.8; margin: 0 0 22px; }
+.course-shop-card__bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; }
+.course-shop-card__bottom > div { display: grid; gap: 4px; }
+.course-shop-card__price { font-size: 25px; color: var(--accent); }
+.course-shop-card__bottom small { font-size: 11px; color: var(--muted); }
+.course-shop-card__bottom .button { padding: 10px 15px; white-space: nowrap; font-size: 13px; }
+.course-enrollment .course-shop-card__cover { display: none; }
+.course-enrollment .course-shop-card__body { padding: 28px; }
+@media (max-width: 1000px) { .course-shop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .course-enrollment { gap: 30px; grid-template-columns: 1fr 380px; } }
+@media (max-width: 680px) {
+  .course-overview__grid, .course-shop-grid, .course-enrollment { grid-template-columns: 1fr; }
+  .course-overview__grid { gap: 12px; }
+  .course-overview__item { padding: 20px; }
+  .course-overview__item h3 { margin-top: 9px; }
+  .course-overview, .course-enrollment { padding-block: 28px; }
+  .course-shop-grid { gap: 22px; }
+  .course-shop-card__cover { min-height: 165px; }
+}
+
+.course-offer-label { color: var(--accent); font-size: 11px; font-weight: 700; }
+.course-shop-card__bottom .course-offer-countdown { font-size: 10px; font-variant-numeric: tabular-nums; color: var(--accent); white-space: nowrap; }
+
+/* One concise information hierarchy per course card. */
+.course-shop-card__body { padding: 30px; }
+.course-shop-card__body h2 { color: #245bd7; font-size: 24px; margin-bottom: 10px; }
+.course-shop-card--management .course-shop-card__body h2 { color: #237c78; }
+:root[data-theme="dark"] .course-shop-card__body h2 { color: #8bb5ff; }
+:root[data-theme="dark"] .course-shop-card--management .course-shop-card__body h2 { color: #7fd2c7; }
+.course-shop-card__subtitle { margin-bottom: 14px; }
+.course-shop-card__description { margin-bottom: 28px; }
+.course-shop-card--office { background: linear-gradient(145deg, color-mix(in srgb, var(--surface-solid) 93%, #cdddff), var(--surface-solid)); }
+.course-shop-card--management { background: linear-gradient(145deg, color-mix(in srgb, var(--surface-solid) 93%, #bce6dc), var(--surface-solid)); }
+@media (max-width: 680px) { .course-shop-card__body { padding: 24px; } .course-shop-card__body h2 { font-size: 22px; } }
