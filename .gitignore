@@ -6,9 +6,14 @@ dist/
 output/
 
 # Local operating documents stay outside the public source repository.
-docs/*
-!docs/*.md
+# 给自己看的工作流、内容映射与 SOP 里有本机绝对路径，不属于站点源码。
+docs/
 DEPLOYMENT.md
+AGENTS.md
+CONTENT_SOURCE_MAPPING.md
+VIDEO_NOTE_WORKFLOW.md
+AI_MODEL_LEADERBOARD_SOP.md
+.agents/
 
 .DS_Store
 *.log
