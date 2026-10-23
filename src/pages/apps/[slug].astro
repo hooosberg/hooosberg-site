@@ -172,6 +172,17 @@ const pageTitle = product.slug === "witnote"
 
     {product.slug === "sumi-block-puzzle" && <BlockPuzzlePreview locale="zh-CN" />}
 
+    {product.previews && product.previews.length > 0 && (
+      <section class="product-previews" aria-label={`${product.displayName} 界面`}>
+        {product.previews.map((preview) => (
+          <figure class="product-preview">
+            <img src={preview.src} alt={preview.alt} loading="lazy" />
+            <figcaption>{preview.caption}</figcaption>
+          </figure>
+        ))}
+      </section>
+    )}
+
     <section class="product-overview">
       <div class="product-overview__copy">
         <h2>{overviewTitle}</h2>

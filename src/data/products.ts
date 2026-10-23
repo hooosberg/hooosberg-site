@@ -36,6 +36,8 @@ export type Product = {
     principles?: { title: string; body: string }[];
     diaryIntro?: string;
   };
+  /** 界面截图：产品页顶部预览廊，按顺序展示。 */
+  previews?: { src: string; alt: string; caption: string }[];
   caseStudy?: {
     kind: "failure";
     label: string;
@@ -170,55 +172,62 @@ export const products: Product[] = [
     slug: "agentlimb",
     name: "AgentLimb",
     displayName: "AgentLimb",
-    category: "AI 浏览器控制工具",
-    tagline: "全平台网页控制底座：Claude Code、Codex，以及腾讯 WorkBuddy、千问办公、TRAE Work、Kimi Work 都能驱动真实浏览器。",
-    summary: "全平台通用网页控制扩展，支持 Claude Code、Codex、WorkBuddy 等终端用真实浏览器会话精准操作网页。",
-    platforms: ["Chrome / Edge / Brave / Vivaldi", "MCP", "Windows + macOS", "本地桥接"],
-    status: ["开源", "0.2.1 b7", "本地优先", "Win + Mac"],
-    audience: "需要让 AI 操作真实网页、账号会话和多账号流程的开发者和 AI 重度用户。",
-    primaryAction: { label: "官网", url: "https://agentlimb.com/" },
-    secondaryAction: { label: "GitHub", url: "https://github.com/hooosberg/AgentLimb" },
+    category: "AI 浏览器控制扩展",
+    tagline: "给任意支持 MCP 的智能体装上操作浏览器的手：复制一条提示词即完成配对，侧栏是它和你说话的地方。",
+    summary: "AgentLimb 是一个 Chrome 扩展加本地 MCP 宿主的通用浏览器控制方案：任意支持 MCP 的 AI（Claude Code、Codex、Cursor、腾讯 WorkBuddy 等）复制一条提示词即可配对，之后直接驱动你正在使用的浏览器——真实登录态、后台标签、不抢焦点，全程 100% 本地。",
+    platforms: ["Chrome / Edge / Brave / Vivaldi 等 Chromium 浏览器", "标准 MCP", "Windows + macOS + Linux", "本地回环"],
+    status: ["开源", "0.5.7", "本地优先", "活跃维护"],
+    audience: "需要让 AI 操作真实网页、已登录会话和多账号流程的开发者和 AI 重度用户。",
+    primaryAction: { label: "GitHub 获取与 Star", url: "https://github.com/hooosberg/AgentLimb" },
     repo: "https://github.com/hooosberg/AgentLimb",
     website: "https://agentlimb.com/",
     icon: "/product-icons/agentlimb.svg",
     accent: "#f5a623",
     priority: "P0",
     learnSlug: "agentlimb-browser-memory",
-    privacy: privacyLocal("Bridge 运行在本地 127.0.0.1，浏览器会话和 muscle 文件保留在用户自己的机器上。"),
-    features: ["一段提示词完成接入", "官方支持国产 AI 终端", "Windows + macOS 双平台", "所有谷歌内核浏览器", "复用 DOM 探索记忆省 85% Token", "真实浏览器会话与多账号"],
-    buildNotes: ["AI 自动化课程的技术锚点。", "可解释 MCP、本地 bridge、浏览器 session 和任务记忆。"],
+    previews: [
+      { src: "/product-previews/agentlimb/hero.png", alt: "AgentLimb 侧栏首屏：未连接时只有复制连接提示词一件事", caption: "未连接时，侧栏只做一件事：复制连接提示词" },
+      { src: "/product-previews/agentlimb/settings.png", alt: "AgentLimb 设置页：连接、通用、关于三个分组", caption: "设置页：连接其他 AI、已连接的 AI、界面语言、高级、关于" },
+      { src: "/product-previews/agentlimb/about.png", alt: "AgentLimb 关于页：版本信息与官网、产品页链接", caption: "关于页：版本信息、官网与产品页链接，以及 GitHub Star 入口" },
+    ],
+    privacy: privacyLocal("扩展与本地宿主全部运行在本机：MCP 宿主只监听 127.0.0.1 回环端口，配对信任与聊天记录只存在扩展私有存储，页面数据不上传，无云端、无追踪。"),
+    features: ["复制一条提示词完成配对", "任意 MCP 智能体通用", "侧栏是 AI 的回复窗", "后台标签操控不抢焦点", "多 AI 并存单控制器串行", "16 个标准工具"],
+    buildNotes: ["AI 自动化课程的技术锚点。", "可解释 MCP、本地桥接、浏览器 session 与多客户端信任管理。"],
     courseHooks: ["浏览器自动化", "MCP 工具链", "多账号运营", "AI 操作真实网页"],
     detail: {
       overview: [
-        "AgentLimb 的定位是「全平台全软件的网页控制通用插件」。它不绑定某一家 AI 工具：只要一个终端能执行本机命令，它就能通过本地 Bridge 的 16 个标准化工具驱动浏览器——定位元素、填表、点击、截图、抓取数据，全程复用你已登录的真实浏览器会话，不需要无头浏览器，也不需要重新登录。",
-        "0.2.1（b7）是双平台里程碑：同一份接入提示词在 Windows 和 macOS 上都能走通。macOS 首次安装后由 agent 直接拉起已装 Runtime，Windows 通过 install.ps1 完成本地注册和自启动，两个平台都先征得用户明确授权、下载前校验 SHA-256。此前 v0.1.4 只发了扩展包导致 Windows 无法安装的问题（GitHub issue #2）已在 v0.2.x 双包模型中彻底解决。",
-        "b7 同步官宣了对国产 AI 终端的官方支持：TOP 1 腾讯 WorkBuddy、TOP 2 阿里千问办公、TOP 3 字节 TRAE Work、TOP 4 Kimi Work。这四款终端与 Claude Code、Codex、Cursor、Trae、Windsurf 走完全相同的接入协议——打开侧边栏复制接入提示词，粘贴进终端，授权后 10 秒完成配置。配合所有谷歌内核浏览器（Chrome、Edge、Brave、Vivaldi 等），AgentLimb 成为国产 AI 办公场景下可直接使用的网页自动化底座。"
+        "AgentLimb 的定位是「全平台全软件的网页控制通用插件」。它不绑定某一家 AI 工具：任何支持标准 MCP 的智能体——Claude Code、Codex、Cursor、Trae、Windsurf、腾讯 WorkBuddy，或任何能跑本地命令的模型——都能通过它驱动你的真实浏览器，定位元素、填表、点击、截图、抓取数据，全程复用已登录的会话，不需要无头浏览器，也不需要重新登录。",
+        "0.5.7 是把「配对」这件事减到最简的版本：点击侧栏的「复制连接提示词」本身就是授权——扩展打开一个 30 分钟接入窗口，窗口内第一个连上来的 AI 自动受信，之后同身份自动重连，重启软件也不用重新配对。没有确认页、没有配对码、没有需要手改的配置文件；安装器只负责把本地宿主放进 ~/.agentlimb 并打印 mcpServers 配置，不写任何智能体软件自己的配置。",
+        "侧栏在两种状态各做一件事：未连接时教你复制提示词；已连接后它就是当前 AI 的回复窗——AI 的每条回复通过 say 工具回到这里，操作期间只显示一个「正在操作」状态，十几步操作也不会把聊天流淹掉。页面里能看到幽灵光标与辉光边框，AI 在哪个标签干活一目了然；新标签一律后台打开，不抢你正在看的页面。",
+        "工程上它是一个零依赖的纯 Node 本地宿主加一枚 MV3 扩展：本地 SSE 推送替代轮询、按标签持久 CDP attach、document_start 常驻无障碍树、自适应 JPEG 截图、密码字段脱敏，配对到授权完成实测小于 1 秒。"
       ],
       proofPoints: [
-        { label: "支持终端", value: "海外 5+ / 国产 4 家", note: "Claude Code、Codex、Cursor、Trae、Windsurf，以及腾讯 WorkBuddy、阿里千问办公、字节 TRAE Work、Kimi Work。" },
-        { label: "平台", value: "Windows + macOS", note: "b7 起同一份提示词双平台可用；Windows 走 install.ps1，macOS 支持已装 Runtime 直接拉起。" },
-        { label: "浏览器", value: "所有谷歌内核", note: "Chrome、Edge、Brave、Vivaldi、Chromium 等均可安装同一枚扩展。" },
-        { label: "隐私", value: "本地优先", note: "Bridge 只监听 127.0.0.1:7791，会话与 muscle 记忆文件全部留在本机。" }
+        { label: "配对速度", value: "< 1 秒", note: "桥接就绪到浏览器完成授权；已有一个 AI 在线时，第二个 AI 也能秒级被发现。" },
+        { label: "智能体", value: "任意 MCP 客户端", note: "Claude Code、Codex、Cursor、Trae、Windsurf、腾讯 WorkBuddy，以及任何能跑本地命令的模型。" },
+        { label: "浏览器与系统", value: "Chromium / Win + Mac + Linux", note: "Chrome、Edge、Brave、Vivaldi、Chromium 等安装同一枚扩展；一套提示词三套系统通用。" },
+        { label: "隐私", value: "100% 本地", note: "宿主只监听 127.0.0.1；信任、聊天记录与页面数据都不出本机，无云端、无追踪。" }
       ],
       valueProps: [
-        { title: "国产终端开箱即用", body: "WorkBuddy、千问办公、TRAE Work、Kimi Work 无需任何特殊配置，与海外终端走同一段接入提示词。用国产 AI 办公套件的人第一次拥有了一套正式适配的网页控制能力。" },
-        { title: "真实会话，不是无头浏览器", body: "AI 操作的是你日常使用的浏览器：登录态、Cookie、多 Profile 全部保留。已登录的网站直接可用，多账号并行互不干扰。" },
-        { title: "越用越省的网页记忆", body: "DOM 探索结果沉淀为可读的 muscle 记忆文件，重复任务平均节省 85.7% 的 Token——对按量计费的国产终端尤其划算。" }
+        { title: "复制提示词就是授权", body: "没有确认页、没有配对码、没有要改的配置文件。点一次复制打开 30 分钟接入窗口，第一个连上的 AI 自动受信；之后同身份自动重连，窗口过期就再点一次，不改配置、不重启。" },
+        { title: "侧栏是回复窗，不是控制台", body: "未连接时只教你复制提示词；已连接后 AI 的回复通过 say 回到同一个窗口，操作过程折叠成一个「正在操作」状态。指令在 AI 工具里自然语言下达，侧栏只负责让你看见。" },
+        { title: "AI 在后台干活，不抢焦点", body: "AI 操作你日常使用的浏览器：登录态、Cookie、扩展全在。新标签后台打开，页面内幽灵光标与辉光边框实时可见；你在别的标签打字、看视频都不受影响。" },
+        { title: "多 AI 并存，单控制器串行", body: "最多同时连接六个 MCP 宿主，每个 AI 的信任、聊天与草稿互相隔离；同一时刻只有一个 AI 执行浏览器任务，忙时拒绝强切，排队过期的调用拒绝执行——迟到的浏览器操作比失败更危险。" }
       ],
       featureDetails: [
-        { title: "一段提示词接入", body: "侧边栏点「复制接入提示词」，粘贴进任何 AI 终端。终端征得授权后自动下载 Runtime、校验 SHA-256、配置 Native Messaging，健康检查通过即可用。" },
-        { title: "国产 AI 终端官方支持", body: "腾讯 WorkBuddy、阿里千问办公、字节 TRAE Work、Kimi Work 均按标准协议适配，无需插件端任何改动。" },
-        { title: "Windows + macOS 双平台", body: "b7 完整支持两套系统：Windows 通过 install.ps1 注册本地服务，macOS 已装环境秒级拉起，首装才需要下载。" },
-        { title: "所有谷歌内核浏览器", body: "扩展可装在 Chrome、Edge、Brave、Vivaldi 等一切支持 Chrome 扩展体系的浏览器上。" },
-        { title: "muscle 网页记忆", body: "每个网站的 DOM 结构和操作路线沉淀为人类可读的 JSON 记忆，AI 下次直接复用，省 Token 也省时间。" },
-        { title: "16 个标准化工具", body: "navigate、page_snapshot、javascript_eval、tabs_context 等统一工具面，通过 /docs 端点自动发现，任何 agent 无需预装 SDK。" }
+        { title: "一段提示词配对", body: "侧栏点「复制连接提示词」即完成授权：30 分钟窗口内第一个连上的未知 AI 自动受信，提示词里没有任何码，也不需要粘进任何配置。提示词会带着扩展 ID 指纹，AI 据此反查出安装目录，自己完成宿主安装与 MCP 配置。" },
+        { title: "任意 MCP 智能体", body: "只走标准 MCP over stdio：Claude Code、Codex、Cursor、Trae、Windsurf、腾讯 WorkBuddy，或任何能跑本地命令的模型。安装器只部署 ~/.agentlimb 并打印 mcpServers 配置，各软件自己的 MCP 启用与信任仍由该软件决定。" },
+        { title: "侧栏 = AI 的回复窗", body: "已配对后侧栏展示当前 AI 的回复与连接状态：它的每条回复通过 say 工具回到这里，操作期间只显示一个「正在操作」。断开只标记离线、保留信任；设置里的移除才撤销配对。" },
+        { title: "真实浏览器，后台操作", body: "AI 操作你正在使用的 Chrome：登录态、Cookie、多 Profile 全部保留。新标签一律后台打开，通过焦点模拟操控后台标签，页面内幽灵光标与辉光边框让你看见 AI 在动哪个标签。" },
+        { title: "16 个标准工具", body: "tabs_context、read_page、find、computer、form_input、navigate、javascript_eval、browser_batch（一次最多 20 个动作）、read_console_messages、read_network_requests、wait、say、ping 等，扩展与宿主共用同一份目录，改一处两端同步。" },
+        { title: "工程上的讲究", body: "本地 SSE 推送零轮询、按标签持久 CDP attach、document_start 常驻无障碍树、自适应 JPEG 截图、密码字段在无障碍树里直接脱敏、同源 iframe 与 Shadow DOM 可遍历；配对到授权完成实测小于 1 秒。" }
       ],
       principles: [
-        { title: "终端无关", body: "不做任何一家终端的私有能力，只维护一套开放协议，新终端出现即天然兼容。" },
-        { title: "授权先行", body: "下载、安装、每一步写操作都需要用户明确批准，沉默永远不等于成功。" },
-        { title: "本地优先", body: "Bridge、会话、记忆文件全部留在本机 127.0.0.1，不上传任何浏览数据。" }
+        { title: "复制即授权", body: "用户点复制已经表达过意图，再做确认页只是把同一个意图确认两遍。授权只存扩展私有存储，绝不写进配置文件——那会留下一个永远失效的死码。" },
+        { title: "侧栏与控制解耦", body: "工具调用走 Service Worker 与本地桥接，侧栏开不开都不影响 AI 干活。侧栏只是你和 AI 说话的地方，不是遥控器。" },
+        { title: "串行而不强切", body: "多 AI 并存时只有一个 controller：忙时切换被拒绝而不是强切，排队过期的调用拒绝执行。半路换人会让两个 AI 互相踩，迟到的操作比失败更危险。" },
+        { title: "本地优先", body: "宿主只监听 127.0.0.1，信任、聊天记录、页面数据都不出本机。隐私靠架构保证，不靠承诺。" }
       ],
-      diaryIntro: "开发日记持续记录 AgentLimb 从浏览器扩展、本地 Bridge、双平台自举到国产终端适配的完整过程，同时沉淀为 AI 自动化课程的案例。"
+      diaryIntro: "开发日记记录了 AgentLimb 的完整演化：从 0.2 时代的 Runtime 自举与网页记忆，到 0.5 时代推倒重来、以「复制即配对 + 回复窗侧栏」为核心的完整过程，也沉淀为 AI 自动化课程的案例。"
     },
   },
   {
@@ -1008,7 +1017,7 @@ const productTimelineNotes: Record<string, string> = {
   packpour: "失败复盘",
   beraw: "浏览器工具",
   domprompter: "失败复盘",
-  agentlimb: "AI 浏览器底座",
+  agentlimb: "活跃维护 · 0.5.7",
   "codex-quota-calendar": "Codex 工具",
   uixskills: "失败复盘",
   dailyzikr: "支持页迁移",

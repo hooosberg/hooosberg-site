@@ -8655,3 +8655,37 @@ main.main--ai-directory {
 .course-shop-card--office { background: linear-gradient(145deg, color-mix(in srgb, var(--surface-solid) 93%, #cdddff), var(--surface-solid)); }
 .course-shop-card--management { background: linear-gradient(145deg, color-mix(in srgb, var(--surface-solid) 93%, #bce6dc), var(--surface-solid)); }
 @media (max-width: 680px) { .course-shop-card__body { padding: 24px; } .course-shop-card__body h2 { font-size: 22px; } }
+
+/* ── 产品页界面截图廊（AgentLimb 等带 previews 的产品） ── */
+.product-previews {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 26px 0 8px;
+}
+.product-preview {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface-solid);
+  box-shadow: var(--shadow);
+}
+.product-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.product-preview figcaption {
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--muted);
+  border-top: 1px solid var(--line-soft);
+}
+@media (max-width: 860px) {
+  .product-previews {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
+}
