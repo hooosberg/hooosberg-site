@@ -766,7 +766,7 @@ export const localizedProductSummaries: Partial<Record<Tier1Locale, Record<strin
     leantake: "スクロールスクリーンショットとクリップボード履歴を瞬時にキャプチャする軽量Macツール。",
     trekreel: "GPXトラックから実衛星画像と地形を用いたシネマティックな3Dルートストーリー動画を作成。",
     "mood-button": "Macのメニューバーに常駐するインタラクティブな癒やしボタン。感情を静かに記録。",
-    agentlimb: "どんなMCP対応AIエージェントにもブラウザ操作の手を与えるChrome拡張。プロンプトを1つコピーするだけでペアリング完了。サイドパネルはAIとの対話窓。完全ローカル。",
+    agentlimb: "どんなMCP対応AIにもブラウザ操作の手を与えるChrome拡張。プロンプト1つで自動認可、ローカルMarkdownのサイト記憶で一度操作したサイトを他のAIとも再利用。サイドパネルはAIの応答窓。完全ローカル。",
   },
   ko: {
     witnote: "로컬 퍼스트 Markdown 및 AI 글쓰기 워크스페이스. 사고 정리와 빠른 집필 지원.",
@@ -774,7 +774,7 @@ export const localizedProductSummaries: Partial<Record<Tier1Locale, Record<strin
     leantake: "스크롤 스크린샷과 클립보드 히스토리를 즉각 처리하는 경량 Mac 유틸리티.",
     trekreel: "GPX 트랙을 실제 위성 영상과 지형을 활용한 영화 같은 3D 경로 영상으로 제작.",
     "mood-button": "Mac 메뉴바에 상주하는 힐링 인터랙션 버튼. 감정을 조용히 기록.",
-    agentlimb: "어떤 MCP 지원 AI 에이전트에게도 브라우저 조작의 손을 주는 Chrome 확장. 프롬프트 하나를 복사하면 페어링 완료. 사이드 패널은 AI와 대화하는 창. 100% 로컬.",
+    agentlimb: "모든 MCP 지원 AI에게 브라우저 조작의 손을 주는 Chrome 확장. 프롬프트 하나로 자동 승인되고, 로컬 Markdown 사이트 기억으로 한 번 익힌 웹사이트를 다른 AI에서도 바로 재사용. 사이드 패널은 AI 응답 창, 100% 로컬.",
   },
   es: {
     witnote: "Espacio de trabajo local para Markdown y escritura con IA. Estructura ideas rápidamente.",
@@ -782,7 +782,7 @@ export const localizedProductSummaries: Partial<Record<Tier1Locale, Record<strin
     leantake: "Herramienta ligera para Mac para capturas de pantalla con desplazamiento e historial del portapapeles.",
     trekreel: "Crea vídeos cinemáticos en 3D de tus rutas GPX con imágenes de satélite y relieve real.",
     "mood-button": "Botón interactivo en la barra de menú de Mac para registrar tu estado de ánimo con calma.",
-    agentlimb: "Extensión de Chrome que da a cualquier agente de IA compatible con MCP manos para operar el navegador: copia un prompt y queda emparejado. El panel lateral es la ventana de diálogo con la IA. 100% local.",
+    agentlimb: "Extensión de Chrome que da manos en el navegador a cualquier agente MCP: un prompt para conectar con autorización automática, memoria local de sitios en Markdown reutilizable entre IAs y panel lateral como ventana de respuesta. 100% local.",
   },
   fr: {
     witnote: "Espace d'écriture Markdown et IA en local pour structurer rapidement vos idées.",
@@ -790,7 +790,7 @@ export const localizedProductSummaries: Partial<Record<Tier1Locale, Record<strin
     leantake: "Outil Mac léger pour captures d'écran déroulantes et historique du presse-papiers.",
     trekreel: "Créez des vidéos cinématiques 3D de vos parcours GPX avec imagerie satellite et relief réel.",
     "mood-button": "Bouton relaxant dans la barre de menus Mac pour noter discrètement votre humeur.",
-    agentlimb: "Extension Chrome qui donne à tout agent IA compatible MCP des mains pour piloter le navigateur : copiez un prompt, l'appairage est fait. Le panneau latéral est la fenêtre de dialogue avec l'IA. 100 % local.",
+    agentlimb: "Extension Chrome qui donne à tout agent MCP des mains dans le navigateur : un prompt pour connecter avec autorisation automatique, mémoire locale des sites en Markdown réutilisable entre IA et panneau latéral comme fenêtre de réponse. 100 % local.",
   },
   de: {
     witnote: "Lokaler Markdown- und KI-Schreibarbeitsbereich für strukturierte Gedanken und schnelles Verfassen.",
@@ -798,6 +798,6 @@ export const localizedProductSummaries: Partial<Record<Tier1Locale, Record<strin
     leantake: "Schlankes Mac-Tool für Scrolling-Screenshots und Zwischenablage-Verlauf.",
     trekreel: "Erstellt kinoreife 3D-Routenvideos aus GPX-Tracks mit echten Satellitenbildern und Gelände.",
     "mood-button": "Entspannender Klick-Button in der Mac-Menüleiste zum ruhigen Protokollieren der Stimmung.",
-    agentlimb: "Chrome-Erweiterung, die jedem MCP-fähigen KI-Agenten Hände für die Browsersteuerung gibt: ein Prompt kopieren, fertig gekoppelt. Das Seitenpanel ist das Dialogfenster zur KI. 100 % lokal.",
+    agentlimb: "Chrome-Erweiterung, die jedem MCP-fähigen KI-Agenten Hände im Browser gibt: ein Prompt zur automatischen Autorisierung, lokales Markdown-Seitengedächtnis über KI-Tools hinweg und Seitenpanel als Antwortfenster. 100 % lokal.",
   },
 };

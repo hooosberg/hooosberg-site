@@ -171,10 +171,10 @@ export const products: Product[] = [
     name: "AgentLimb",
     displayName: "AgentLimb",
     category: "AI 浏览器控制扩展",
-    tagline: "给任意支持 MCP 的智能体装上操作浏览器的手：复制一条提示词即完成配对，侧栏是它和你说话的地方。",
-    summary: "AgentLimb 是一个 Chrome 扩展加本地 MCP 宿主的通用浏览器控制方案：任意支持 MCP 的 AI（Claude Code、Codex、Cursor、腾讯 WorkBuddy 等）复制一条提示词即可配对，之后直接驱动你正在使用的浏览器——真实登录态、后台标签、不抢焦点，全程 100% 本地。",
+    tagline: "给任意支持 MCP 的智能体装上操作浏览器的手：安装即授权，自带外挂式网站记忆，侧栏是它和你说话的地方。",
+    summary: "AgentLimb 是一个 Chrome 扩展加本地 MCP 宿主的通用浏览器控制方案：任意支持 MCP 的 AI（Claude Code、Codex、Cursor、腾讯 WorkBuddy 等）复制一条提示词即可接入并默认自动授权，自带本地 Markdown 网站记忆（操作过一次的网站下次直接照手册走，不用重新摸索），后台标签操控、不抢焦点，全程 100% 本地。",
     platforms: ["Chrome / Edge / Brave / Vivaldi 等 Chromium 浏览器", "标准 MCP", "Windows + macOS + Linux", "本地回环"],
-    status: ["开源", "0.5.7", "本地优先", "活跃维护"],
+    status: ["开源", "0.6.4", "本地优先", "活跃维护"],
     audience: "需要让 AI 操作真实网页、已登录会话和多账号流程的开发者和 AI 重度用户。",
     primaryAction: { label: "GitHub 获取与 Star", url: "https://github.com/hooosberg/AgentLimb" },
     repo: "https://github.com/hooosberg/AgentLimb",
@@ -183,44 +183,44 @@ export const products: Product[] = [
     accent: "#f5a623",
     priority: "P0",
     learnSlug: "agentlimb-browser-memory",
-    privacy: privacyLocal("扩展与本地宿主全部运行在本机：MCP 宿主只监听 127.0.0.1 回环端口，配对信任与聊天记录只存在扩展私有存储，页面数据不上传，无云端、无追踪。"),
-    features: ["复制一条提示词完成配对", "任意 MCP 智能体通用", "侧栏是 AI 的回复窗", "后台标签操控不抢焦点", "多 AI 并存单控制器串行", "16 个标准工具"],
-    buildNotes: ["AI 自动化课程的技术锚点。", "可解释 MCP、本地桥接、浏览器 session 与多客户端信任管理。"],
-    courseHooks: ["浏览器自动化", "MCP 工具链", "多账号运营", "AI 操作真实网页"],
+    privacy: privacyLocal("扩展与本地宿主全部运行在本机：MCP 宿主只监听 127.0.0.1 回环端口，配对信任与聊天记录只存在扩展私有存储，网站记忆为本机纯 Markdown 手册且自动脱敏凭据，页面数据不上传，无云端、无追踪。"),
+    features: ["复制一条提示词即接入（默认安装即授权）", "外挂式网站记忆（操作一次，跨 AI 复用）", "任意 MCP 智能体通用", "侧栏是 AI 的回复窗", "后台标签操控不抢焦点", "17 个标准工具"],
+    buildNotes: ["AI 自动化课程的技术锚点。", "可解释 MCP、本地桥接、网站记忆（Site memory）与多客户端信任管理。"],
+    courseHooks: ["浏览器自动化", "MCP 工具链", "网站记忆沉淀", "AI 操作真实网页"],
     detail: {
       overview: [
         "AgentLimb 的定位是「全平台全软件的网页控制通用插件」。它不绑定某一家 AI 工具：任何支持标准 MCP 的智能体——Claude Code、Codex、Cursor、Trae、Windsurf、腾讯 WorkBuddy，或任何能跑本地命令的模型——都能通过它驱动你的真实浏览器，定位元素、填表、点击、截图、抓取数据，全程复用已登录的会话，不需要无头浏览器，也不需要重新登录。",
-        "0.5.7 是把「配对」这件事减到最简的版本：点击侧栏的「复制连接提示词」本身就是授权——扩展打开一个 30 分钟接入窗口，窗口内第一个连上来的 AI 自动受信，之后同身份自动重连，重启软件也不用重新配对。没有确认页、没有配对码、没有需要手改的配置文件；安装器只负责把本地宿主放进 ~/.agentlimb 并打印 mcpServers 配置，不写任何智能体软件自己的配置。",
-        "侧栏在两种状态各做一件事：未连接时教你复制提示词；已连接后它就是当前 AI 的回复窗——AI 的每条回复通过 say 工具回到这里，操作期间只显示一个「正在操作」状态，十几步操作也不会把聊天流淹掉。页面里能看到幽灵光标与辉光边框，AI 在哪个标签干活一目了然；新标签一律后台打开，不抢你正在看的页面。",
-        "工程上它是一个零依赖的纯 Node 本地宿主加一枚 MV3 扩展：本地 SSE 推送替代轮询、按标签持久 CDP attach、document_start 常驻无障碍树、自适应 JPEG 截图、密码字段脱敏，配对到授权完成实测小于 1 秒。"
+        "0.6.4 带来了两大升级：「外挂式网站记忆（Site memory）」与「安装即授权」。网站记忆把 AI 操作过的每个网站写成一本本地纯 Markdown 手册（~/.agentlimb/memory，8 节固定结构，≤120 行，只记入口 URL、元素锚点、坑与成功判定，不记操作流水账）。当 AI 打开某个网站或用 say 收尾时，宿主会在工具返回结果里自动夹带该站手册或沉淀提醒——不依赖客户端是否支持 Skill，第一次跑通写下来，第二次操作快 5–8 倍，换另一个 AI 工具也能直接接着用。",
+        "配对与状态指示也进一步减法：装好本地 MCP 宿主连上即自动授权（也可在高级设置切回 30 分钟复制窗口严格模式），同身份跨重启自动重连。侧栏在未连接时教你复制提示词，已连接后就是 AI 的纯回复窗（显示圆点与「正在操作」）；AI 操作期间只在橙色标签组芯片上显示「⏳ AgentLimb」，插件图标与页面标题保持干净，新标签一律后台打开，不抢你正在看的页面。",
+        "工程上它是一个零依赖的纯 Node 本地宿主加一枚 MV3 扩展：本地 SSE 推送替代轮询、按标签持久 CDP attach、document_start 常驻无障碍树、自适应 JPEG 截图、网站记忆读取 O(1) 单文件命中（约 10ms，日志不进检索热路径）、写入前代码级凭据脱敏与连续失败自动标 stale，107 项自动化单测加三套混沌测试守卫。"
       ],
       proofPoints: [
-        { label: "配对速度", value: "< 1 秒", note: "桥接就绪到浏览器完成授权；已有一个 AI 在线时，第二个 AI 也能秒级被发现。" },
-        { label: "智能体", value: "任意 MCP 客户端", note: "Claude Code、Codex、Cursor、Trae、Windsurf、腾讯 WorkBuddy，以及任何能跑本地命令的模型。" },
-        { label: "浏览器与系统", value: "Chromium / Win + Mac + Linux", note: "Chrome、Edge、Brave、Vivaldi、Chromium 等安装同一枚扩展；一套提示词三套系统通用。" },
-        { label: "隐私", value: "100% 本地", note: "宿主只监听 127.0.0.1；信任、聊天记录与页面数据都不出本机，无云端、无追踪。" }
+        { label: "配对与授权", value: "< 1 秒 · 安装即授权", note: "宿主连上即自动受信（可在高级设置切回严格窗口）；已有 AI 在线时第二个 AI 也能秒级接入。" },
+        { label: "网站记忆", value: "快 5–8 倍 · ~10ms 读取", note: "本地纯 Markdown 手册，打开网页与收尾时自动注入工具结果；跨 AI 工具通用，连续失败自动提醒重验。" },
+        { label: "智能体与系统", value: "任意 MCP / Win + Mac + Linux", note: "Claude Code、Codex、Cursor、Trae、Windsurf、WorkBuddy 等；Chrome、Edge、Brave、Vivaldi 通用。" },
+        { label: "隐私", value: "100% 本地 + 自动脱敏", note: "宿主只监听 127.0.0.1；网站记忆只记操作路径且代码级拦截密码/Token/Cookie，无云端、无追踪。" }
       ],
       valueProps: [
-        { title: "复制提示词就是授权", body: "没有确认页、没有配对码、没有要改的配置文件。点一次复制打开 30 分钟接入窗口，第一个连上的 AI 自动受信；之后同身份自动重连，窗口过期就再点一次，不改配置、不重启。" },
-        { title: "侧栏是回复窗，不是控制台", body: "未连接时只教你复制提示词；已连接后 AI 的回复通过 say 回到同一个窗口，操作过程折叠成一个「正在操作」状态。指令在 AI 工具里自然语言下达，侧栏只负责让你看见。" },
-        { title: "AI 在后台干活，不抢焦点", body: "AI 操作你日常使用的浏览器：登录态、Cookie、扩展全在。新标签后台打开，页面内幽灵光标与辉光边框实时可见；你在别的标签打字、看视频都不受影响。" },
+        { title: "外挂式网站记忆，越用越省事", body: "第一次探索某个网站最贵。网站记忆把直达 URL、选择器、二次确认坑和成功判定沉淀到本机 Markdown 文件夹，并在 navigate / tab_new 与 say 的工具结果里自动提示 AI 读写。不綁定插件、不要求装 Skill，下次或换别的 AI 工具直接复用。" },
+        { title: "安装即授权，复制一条提示词搞定", body: "提示词自带扩展 ID 指纹，AI 自己定位源码、安装 ~/.agentlimb 宿主并配置 MCP；连上浏览器即默认自动授权，没有确认页、没有配对码。需要严格隔离时可在高级设置切回 30 分钟复制窗口模式。" },
+        { title: "侧栏是回复窗，状态指示极简克制", body: "侧栏只做你和 AI 说话的窗口，AI 回复通过 say 回到这里，顶栏只显示圆点与「正在操作」；浏览器里仅在橙色分组标签芯片显示「⏳ AgentLimb」加上页面边缘辉光与幽灵光标，不闪烁图标、不改网页标题、不打扰阅读。" },
         { title: "多 AI 并存，单控制器串行", body: "最多同时连接六个 MCP 宿主，每个 AI 的信任、聊天与草稿互相隔离；同一时刻只有一个 AI 执行浏览器任务，忙时拒绝强切，排队过期的调用拒绝执行——迟到的浏览器操作比失败更危险。" }
       ],
       featureDetails: [
-        { title: "一段提示词配对", body: "侧栏点「复制连接提示词」即完成授权：30 分钟窗口内第一个连上的未知 AI 自动受信，提示词里没有任何码，也不需要粘进任何配置。提示词会带着扩展 ID 指纹，AI 据此反查出安装目录，自己完成宿主安装与 MCP 配置。" },
+        { title: "网站记忆（Site memory）", body: "纯宿主侧实现（host/memory.mjs + site_memory 工具），默认保存在 ~/.agentlimb/memory，可在侧栏设置随时开关或改路径。单站一本 PLAYBOOK.md（≤120 行），工具返回结果自动附带手册与写回提醒；内置路径白名单、密码/Token/Bearer 自动脱敏、同内容去重、目录锁与连续失败 2 次自动标 stale。" },
+        { title: "一段提示词接入 + 默认自动授权", body: "复制提示词交给 AI，AI 根据扩展 ID 指纹反查安装目录，自动完成宿主安装与 MCP 配置。默认开启自动授权，连上即受信；已授权 AI 随时可在「已连接」列表中移除。" },
         { title: "任意 MCP 智能体", body: "只走标准 MCP over stdio：Claude Code、Codex、Cursor、Trae、Windsurf、腾讯 WorkBuddy，或任何能跑本地命令的模型。安装器只部署 ~/.agentlimb 并打印 mcpServers 配置，各软件自己的 MCP 启用与信任仍由该软件决定。" },
-        { title: "侧栏 = AI 的回复窗", body: "已配对后侧栏展示当前 AI 的回复与连接状态：它的每条回复通过 say 工具回到这里，操作期间只显示一个「正在操作」。断开只标记离线、保留信任；设置里的移除才撤销配对。" },
-        { title: "真实浏览器，后台操作", body: "AI 操作你正在使用的 Chrome：登录态、Cookie、多 Profile 全部保留。新标签一律后台打开，通过焦点模拟操控后台标签，页面内幽灵光标与辉光边框让你看见 AI 在动哪个标签。" },
-        { title: "16 个标准工具", body: "tabs_context、read_page、find、computer、form_input、navigate、javascript_eval、browser_batch（一次最多 20 个动作）、read_console_messages、read_network_requests、wait、say、ping 等，扩展与宿主共用同一份目录，改一处两端同步。" },
-        { title: "工程上的讲究", body: "本地 SSE 推送零轮询、按标签持久 CDP attach、document_start 常驻无障碍树、自适应 JPEG 截图、密码字段在无障碍树里直接脱敏、同源 iframe 与 Shadow DOM 可遍历；配对到授权完成实测小于 1 秒。" }
+        { title: "侧栏 = AI 的回复窗", body: "已配对后侧栏展示当前 AI 的回复与连接状态：每条回复通过 say 工具回到这里，操作过程折叠成简洁的「正在操作」；你在侧栏发消息还会自动附带当前标签页的文本快照与压缩截图。" },
+        { title: "真实浏览器，后台操作 + 极简沙漏", body: "AI 操作你正在使用的 Chrome：登录态、Cookie、多 Profile 全部保留。新标签一律在橙色「AgentLimb」分组后台打开，运作时分组芯片变为「⏳ AgentLimb」，通过焦点模拟操控后台标签，不抢焦点。" },
+        { title: "17 个标准工具与工程守卫", body: "tabs_context、read_page、find、computer、form_input、navigate、javascript_eval、browser_batch（单次最多 20 步）、read_console_messages、read_network_requests、wait、say、site_memory、ping 等；107 项单测 + 配对/面板/记忆三套混沌测试。" }
       ],
       principles: [
-        { title: "复制即授权", body: "用户点复制已经表达过意图，再做确认页只是把同一个意图确认两遍。授权只存扩展私有存储，绝不写进配置文件——那会留下一个永远失效的死码。" },
-        { title: "侧栏与控制解耦", body: "工具调用走 Service Worker 与本地桥接，侧栏开不开都不影响 AI 干活。侧栏只是你和 AI 说话的地方，不是遥控器。" },
-        { title: "串行而不强切", body: "多 AI 并存时只有一个 controller：忙时切换被拒绝而不是强切，排队过期的调用拒绝执行。半路换人会让两个 AI 互相踩，迟到的操作比失败更危险。" },
-        { title: "本地优先", body: "宿主只监听 127.0.0.1，信任、聊天记录、页面数据都不出本机。隐私靠架构保证，不靠承诺。" }
+        { title: "只记知识，不记流水账", body: "「我点了这里又点了那里」的录像没人会读第二遍，还会拖慢检索。网站记忆只存 8 节操作知识，精确命中单文件（~10ms），运行日志只供人复盘、永不进检索热路径。" },
+        { title: "把纪律写成代码不变量", body: "提示词会忘、会被懒加载吞掉。所以手册注入直接走 navigate/say 的工具返回结果，而防路径逃逸、凭据脱敏、行数上限与并发锁全部由宿主代码强制兜底。" },
+        { title: "怎么简单怎么来", body: "安装即授权省去来回点确认；操作指示只改分组标签「⏳ AgentLimb」，去掉多余的横幅、标题前缀和图标闪烁；侧栏只做回复窗，绝不堆砌控制台按钮。" },
+        { title: "本地优先与串行控制", body: "宿主只监听 127.0.0.1，信任、聊天记录、网站记忆与页面数据都不出本机；多 AI 并存时单控制器串行，忙时拒绝强切。" }
       ],
-      diaryIntro: "开发日记记录了 AgentLimb 的完整演化：从 0.2 时代的 Runtime 自举与网页记忆，到 0.5 时代推倒重来、以「复制即配对 + 回复窗侧栏」为核心的完整过程，也沉淀为 AI 自动化课程的案例。"
+      diaryIntro: "开发日记记录了 AgentLimb 的完整演化：从 0.2 时代的 Runtime 自举，到 0.5 时代「复制即配对 + 回复窗侧栏」，再到 0.6 时代「外挂式网站记忆 + 安装即授权 + 极简分组沙漏」的完整过程，也沉淀为 AI 自动化课程的案例。"
     },
   },
   {
@@ -1010,7 +1010,7 @@ const productTimelineNotes: Record<string, string> = {
   packpour: "失败复盘",
   beraw: "浏览器工具",
   domprompter: "失败复盘",
-  agentlimb: "活跃维护 · 0.5.7",
+  agentlimb: "活跃维护 · 0.6.4",
   "codex-quota-calendar": "Codex 工具",
   uixskills: "失败复盘",
   dailyzikr: "支持页迁移",
