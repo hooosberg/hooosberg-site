@@ -47,8 +47,9 @@ npm test
 
 ## Content Workflows & Rules
 
-- Video tutorial notes: [`VIDEO_NOTE_WORKFLOW.md`](VIDEO_NOTE_WORKFLOW.md)
-- Multi-language (i18n) translation rules & SEO architecture: [`docs/I18N_TRANSLATION_RULES.md`](docs/I18N_TRANSLATION_RULES.md)
+Local operating notes (video pipeline, i18n rules, leaderboard SOP) are kept
+outside this repository on purpose — they reference machine-specific folders.
+They live next to the project on disk and are ignored by `.gitignore`.
 
 ## Deployment
 
