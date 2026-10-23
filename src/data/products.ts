@@ -36,8 +36,8 @@ export type Product = {
     principles?: { title: string; body: string }[];
     diaryIntro?: string;
   };
-  /** 界面截图：产品页顶部预览廊，按顺序展示。 */
-  previews?: { src: string; alt: string; caption: string }[];
+  /** 界面截图：产品页顶部预览廊，按顺序展示。altEn/captionEn 供英文版使用，缺省回退中文。 */
+  previews?: { src: string; alt: string; caption: string; altEn?: string; captionEn?: string }[];
   caseStudy?: {
     kind: "failure";
     label: string;
@@ -186,9 +186,9 @@ export const products: Product[] = [
     priority: "P0",
     learnSlug: "agentlimb-browser-memory",
     previews: [
-      { src: "/product-previews/agentlimb/hero.png", alt: "AgentLimb 侧栏首屏：未连接时只有复制连接提示词一件事", caption: "未连接时，侧栏只做一件事：复制连接提示词" },
-      { src: "/product-previews/agentlimb/settings.png", alt: "AgentLimb 设置页：连接、通用、关于三个分组", caption: "设置页：连接其他 AI、已连接的 AI、界面语言、高级、关于" },
-      { src: "/product-previews/agentlimb/about.png", alt: "AgentLimb 关于页：版本信息与官网、产品页链接", caption: "关于页：版本信息、官网与产品页链接，以及 GitHub Star 入口" },
+      { src: "/product-previews/agentlimb/hero.png", alt: "AgentLimb 侧栏首屏：未连接时只有复制连接提示词一件事", caption: "未连接时，侧栏只做一件事：复制连接提示词", altEn: "AgentLimb side panel before pairing: the only action is copying the connection prompt", captionEn: "Before pairing the side panel does one thing: copy the connection prompt" },
+      { src: "/product-previews/agentlimb/settings.png", alt: "AgentLimb 设置页：连接、通用、关于三个分组", caption: "设置页：连接其他 AI、已连接的 AI、界面语言、高级、关于", altEn: "AgentLimb settings: the Connect, General and About groups", captionEn: "Settings: connect another AI, connected AIs, language, advanced, about" },
+      { src: "/product-previews/agentlimb/about.png", alt: "AgentLimb 关于页：版本信息与官网、产品页链接", caption: "关于页：版本信息、官网与产品页链接，以及 GitHub Star 入口", altEn: "AgentLimb about page: version, website and product-page links", captionEn: "About: version, website and product-page links, plus the GitHub star entry" },
     ],
     privacy: privacyLocal("扩展与本地宿主全部运行在本机：MCP 宿主只监听 127.0.0.1 回环端口，配对信任与聊天记录只存在扩展私有存储，页面数据不上传，无云端、无追踪。"),
     features: ["复制一条提示词完成配对", "任意 MCP 智能体通用", "侧栏是 AI 的回复窗", "后台标签操控不抢焦点", "多 AI 并存单控制器串行", "16 个标准工具"],
