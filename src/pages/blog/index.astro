@@ -80,12 +80,6 @@ const jsonLd = [
     </section>
 
     <section class="learning-panel" data-learning-panel="other" hidden>
-      <div class="other-notes-heading">
-        <div>
-          <h2>AI综合学习</h2>
-          <p>涵盖独立实战、浏览器自动化、真实产品研发、深度阅读与随想笔记，扁平化呈现，最新篇章排在最前。</p>
-        </div>
-      </div>
       <div class="article-list article-list--other">
         {comprehensiveArticles.map((article, articleIndex) => (
           <a class="article-row" href={`/blog/${article.slug}`} data-comp-row data-comp-page={Math.floor(articleIndex / articlesPerPage) + 1} hidden={articleIndex >= articlesPerPage}>
