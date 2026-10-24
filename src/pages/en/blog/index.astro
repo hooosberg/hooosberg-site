@@ -10,15 +10,12 @@ const articlesPerPage = 15;
 const workbuddy = learningSeries.find((series) => series.id === "workbuddy")!;
 const cola = learningSeries.find((series) => series.id === "cola")!;
 const localizedArticles = articlesByDate.map((article) => getLocalizedArticle(article, "en"));
-const otherGroups = diarySections.filter((section) => section.kind !== "video").map((section) => ({
-  ...section,
-  label: section.kind === "product" ? "Product Diaries" : section.kind === "reading" ? "Reading Notes" : section.kind === "thought" ? "Thoughts" : "Resources",
-  articles: localizedArticles.filter((article) => article.diaryKind === section.kind),
-}));
+const comprehensiveArticles = localizedArticles.filter((article) => article.diaryKind !== "video");
+const comprehensivePageCount = Math.ceil(comprehensiveArticles.length / articlesPerPage);
 const courseArticles = new Map(localizedArticles.filter((article) => article.diaryKind === "video").map((article) => [article.slug, article]));
-const pageDescription = "WorkBuddy office AI automation tutorials and Codex programming guides, plus product diaries, reading notes, thoughts, and resources.";
+const pageDescription = "WorkBuddy office AI automation tutorials and Codex programming guides, plus AI comprehensive learning, browser automation, and field notes.";
 const jsonLd = [
-  buildSectionCollectionJsonLd({ locale: "en", path: "/en/blog", name: "Hooosberg AI Office Automation Green Books", description: pageDescription, topics: ["AI automation", "WorkBuddy", "Codex", "AI Agents", "Claude Code"] }),
+  buildSectionCollectionJsonLd({ locale: "en", path: "/en/blog", name: "Hooosberg AI Office Automation Green Books", description: pageDescription, topics: ["AI automation", "WorkBuddy", "Codex", "AI Agents", "Claude Code", "AI Comprehensive Learning"] }),
   buildItemListJsonLd("https://hooosberg.com/en/blog#learning-notes", localizedArticles.filter((article) => article.diaryKind === "video").map((article) => ({ name: article.title, url: `/en/blog/${article.slug}`, description: article.excerpt }))),
 ];
 
@@ -32,8 +29,8 @@ const tabTitles = {
     subtitle: "Practical programming tutorials and workflows with Codex, Claude Code, Gemini, and ChatGPT.",
   },
   other: {
-    title: "Other Notes",
-    subtitle: "Product development diaries, deep reading notes, thoughts, and curated developer resources.",
+    title: "AI Comprehensive Learning",
+    subtitle: "Real-world engineering, browser automation, product development, deep reading notes, and field thoughts — searchable by tag with newest posts first.",
   },
 };
 ---
@@ -100,21 +97,25 @@ const tabTitles = {
     </section>
 
     <section class="learning-panel" data-learning-panel="other" hidden>
-      <div class="other-notes-heading"><div><h2>Other Notes</h2><p>Product development, reading, thoughts, and resources live here in one place.</p></div></div>
-      <div class="other-note-switch" role="tablist" aria-label="Other note types">
-        {otherGroups.map((group, index) => <button type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} data-other-tab={group.kind}>{group.label}<small>{group.articles.length} notes</small></button>)}
-      </div>
       <div class="article-list article-list--other">
-        {otherGroups.flatMap((group, groupIndex) => group.articles.map((article, articleIndex) => <a class="article-row" href={`/en/blog/${article.slug}?kind=${group.kind}`} data-other-row={group.kind} data-other-page={Math.floor(articleIndex / articlesPerPage) + 1} hidden={groupIndex !== 0 || articleIndex >= articlesPerPage}>
-          <span class="article-row__category">{article.productLabel ?? article.category}</span><span class="article-row__title">{article.title}</span><span class="article-row__excerpt">{article.excerpt}</span><span class="article-row__date">{article.date}</span>
-        </a>))}
+        {comprehensiveArticles.map((article, articleIndex) => (
+          <a class="article-row" href={`/en/blog/${article.slug}`} data-comp-row data-comp-page={Math.floor(articleIndex / articlesPerPage) + 1} hidden={articleIndex >= articlesPerPage}>
+            <span class="article-row__category">{article.tags[0] ?? article.category}</span>
+            <span class="article-row__title">{article.title}</span>
+            <span class="article-row__excerpt">{article.excerpt}</span>
+            <span class="article-row__date">{article.date}</span>
+          </a>
+        ))}
       </div>
-      {otherGroups.map((group, groupIndex) => {
-        const pageCount = Math.ceil(group.articles.length / articlesPerPage);
-        return <nav class="diary-pagination" aria-label={`${group.label} pagination`} data-other-pagination={group.kind} hidden={groupIndex !== 0 || pageCount <= 1}>
-          {Array.from({ length: pageCount }, (_, pageIndex) => <button class="diary-page-button" type="button" data-other-page-button data-other-kind={group.kind} data-other-page={pageIndex + 1} aria-current={pageIndex === 0 ? "page" : undefined}>{pageIndex + 1}</button>)}
-        </nav>;
-      })}
+      {comprehensivePageCount > 1 && (
+        <nav class="diary-pagination" aria-label="AI Comprehensive Learning pagination" data-comp-pagination>
+          {Array.from({ length: comprehensivePageCount }, (_, pageIndex) => (
+            <button class="diary-page-button" type="button" data-comp-page-button data-comp-page={pageIndex + 1} aria-current={pageIndex === 0 ? "page" : undefined}>
+              {pageIndex + 1}
+            </button>
+          ))}
+        </nav>
+      )}
     </section>
   </section>
 </BaseLayout>
@@ -125,17 +126,16 @@ const tabTitles = {
     const heroSubtitle = document.getElementById("learning-hero-subtitle");
     const panels = Array.from(document.querySelectorAll("[data-learning-panel]"));
     const tabs = Array.from(document.querySelectorAll("[data-learning-tab]"));
-    const otherTabs = Array.from(document.querySelectorAll("[data-other-tab]"));
-    const otherRows = Array.from(document.querySelectorAll("[data-other-row]"));
-    const otherPaginations = Array.from(document.querySelectorAll("[data-other-pagination]"));
-    const otherPageButtons = Array.from(document.querySelectorAll("[data-other-page-button]"));
+    const compRows = Array.from(document.querySelectorAll("[data-comp-row]"));
+    const compPageButtons = Array.from(document.querySelectorAll("[data-comp-page-button]"));
 
     const setPanel = (name) => {
+      const targetName = (name === "comprehensive") ? "other" : name;
       panels.forEach((panel) => {
-        panel.hidden = panel.dataset.learningPanel !== name;
+        panel.hidden = panel.dataset.learningPanel !== targetName;
       });
       tabs.forEach((tab) => {
-        const isSelected = tab.dataset.learningTab === name;
+        const isSelected = tab.dataset.learningTab === targetName;
         tab.setAttribute("aria-selected", String(isSelected));
         if (isSelected) {
           const tabTitle = tab.dataset.title || tab.textContent.trim();
@@ -145,26 +145,26 @@ const tabTitles = {
         }
       });
       const url = new URL(window.location.href);
-      url.searchParams.set("section", name);
+      url.searchParams.set("section", targetName);
       window.history.replaceState({}, "", `${url.pathname}${url.search}`);
     };
 
-    const setOther = (kind, page = 1) => {
-      otherTabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.otherTab === kind)));
-      otherRows.forEach((row) => {
-        row.hidden = row.dataset.otherRow !== kind || Number(row.dataset.otherPage || "1") !== page;
+    const setCompPage = (page = 1) => {
+      compRows.forEach((row) => {
+        row.hidden = Number(row.dataset.compPage || "1") !== page;
       });
-      otherPaginations.forEach((nav) => {
-        nav.hidden = nav.dataset.otherPagination !== kind || nav.querySelectorAll("button").length < 2;
+      compPageButtons.forEach((button) => {
+        button.setAttribute("aria-current", String(Number(button.dataset.compPage) === page));
       });
-      otherPageButtons.forEach((button) => button.setAttribute("aria-current", String(button.dataset.otherKind === kind && Number(button.dataset.otherPage) === page)));
     };
 
     tabs.forEach((tab) => tab.addEventListener("click", () => setPanel(tab.dataset.learningTab)));
-    otherTabs.forEach((tab) => tab.addEventListener("click", () => setOther(tab.dataset.otherTab, 1)));
-    otherPageButtons.forEach((button) => button.addEventListener("click", () => setOther(button.dataset.otherKind, Number(button.dataset.otherPage))));
+    compPageButtons.forEach((button) => button.addEventListener("click", () => setCompPage(Number(button.dataset.compPage))));
 
-    const initial = new URLSearchParams(window.location.search).get("section");
+    const searchParams = new URLSearchParams(window.location.search);
+    const rawKind = searchParams.get("kind");
+    const rawInitial = searchParams.get("section") || (rawKind ? (["product", "reading", "thought", "resources"].includes(rawKind) ? "other" : rawKind) : null);
+    const initial = (rawInitial === "comprehensive") ? "other" : rawInitial;
     if (initial && tabs.some((tab) => tab.dataset.learningTab === initial)) {
       setPanel(initial);
     } else {
@@ -178,7 +178,7 @@ const tabTitles = {
         }
       }
     }
-    setOther(otherTabs[0]?.dataset.otherTab, 1);
+    setCompPage(1);
   })();
 </script>
 

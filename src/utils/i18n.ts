@@ -1296,7 +1296,7 @@ const englishCustomArticleOverrides: Record<string, EnglishCustomArticleOverride
         paragraphs: [
           "Solving this problem isn't about refusing to spend money; it's about establishing clear 'task tiering'. In my daily development, tasks are strictly categorized into two buckets:",
           "1. The 10% Core Engineering (High-stakes tasks): Multi-system architecture, complex algorithm debugging, deep cross-file refactoring, and critical product decisions. These require the world's most capable frontier reasoning models (like Claude 3.5 Sonnet / Opus, Gemini Pro).",
-          "2. The 90% Daily Chores (All routed to free/local models): Lightweight scripting, regex generation, format conversions (JSON/CSV/Excel), spellchecking, and boilerplate scraping. Modern free open models handle these with 100% precision, costing literally zsh."
+          "2. The 90% Daily Chores (All routed to free/local models): Lightweight scripting, regex generation, format conversions (JSON/CSV/Excel), spellchecking, and boilerplate scraping. Modern free open models handle these with 100% precision, costing literally $0."
         ]
       },
       {
@@ -1332,8 +1332,8 @@ const englishCustomArticleOverrides: Record<string, EnglishCustomArticleOverride
         paragraphs: [
           "Here is the summarized minimal viable AI setup for solo developers, bootstrappers, and content creators:",
           "1. Paid Tier ($20/mo): One frontier aggregator powerhouse (handling the 10% critical architectural core);",
-          "2. Free Tier (zsh/mo): WorkBuddy Global + leading open models + local LLMs (handling 90% of daily chores);",
-          "3. Tooling Tier (zsh/mo): AgentLimb open-source bridge (driving real Chrome for local MCP browser automation without expensive RPA fees).",
+          "2. Free Tier ($0/mo): WorkBuddy Global + leading open models + local LLMs (handling 90% of daily chores);",
+          "3. Tooling Tier ($0/mo): AgentLimb open-source bridge (driving real Chrome for local MCP browser automation without expensive RPA fees).",
           "In the early days of bootstrapping, cash flow is life. Put your budget into validated distribution and real product development, not into bloated software subscriptions."
         ]
       }
