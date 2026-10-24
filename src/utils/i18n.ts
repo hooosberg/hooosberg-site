@@ -1267,6 +1267,80 @@ export type LocalizedArticle = Omit<Article, "category"> & {
   category: string;
 };
 
+type EnglishCustomArticleOverride = Partial<LocalizedArticle>;
+
+const englishCustomArticleOverrides: Record<string, EnglishCustomArticleOverride> = {
+  "ai-subscription-twenty-dollar-strategy": {
+    title: "Why I Stopped Paying $150/mo for AI Subscriptions and Locked My Budget to $20/mo: The Solo Developer's 90/10 Playbook",
+    excerpt: "Stop subscription-stacking ChatGPT Plus, Claude Pro, and Cursor. Here is the exact $20/month battle-tested setup: one powerhouse model for 10% core architectural logic, and free/local models for 90% routine chores.",
+    tags: ["AI Subscriptions", "Budget Guide", "Indie Hacker", "Google Antigravity", "WorkBuddy"],
+    body: [
+      "In indie hacker circles and AI communities, I constantly see developers suffering from severe 'subscription anxiety': holding active subscriptions to ChatGPT Plus ($20), Claude Pro ($20), Cursor Pro ($20), and Midjourney ($30), burning over a hundred or even two hundred dollars every single month.",
+      "Yet an honest look at daily billing and usage logs reveals a painful truth: most of those expensive frontier quotas sit idle. You pay for top-tier reasoning, but use it to translate simple words or rename a variable in a single script. It's using a sledgehammer to crack a nut.",
+      "In this in-depth guide, I share the exact 'Frugal /Month AI Rule' running in my daily production workflow: keeping monthly costs strictly under $20 while boosting output and eliminating rate limits and ban headaches."
+    ],
+    sections: [
+      {
+        heading: "1. The 'Subscription Stacking' Trap Costing Solo Builders Hundreds",
+        paragraphs: [
+          "When entering AI productivity, many builders fall into the 'collector trap'. Let's do the real math:",
+          "• Chat & Brainstorming: ChatGPT Plus ($20/mo);",
+          "• Coding & Refactoring: Claude Pro ($20/mo) or Cursor Pro ($20/mo);",
+          "• Visuals & Assets: Midjourney ($30/mo);",
+          "• Auxiliary Plugins & Cloud Services: Easily reaching $100–$200/mo combined.",
+          "For solo founders, freelancers, or bootstrapped teams, that's $1,500–$2,500+ in fixed annual burn. Even worse: quotas reset monthly with zero rollover. And during peak hours, users face aggressive rate limits, silent model downgrades, or sudden account freezes from payment risk-control algorithms."
+        ]
+      },
+      {
+        heading: "2. The Core Rule: The 90/10 Split for Pragmatic Builders",
+        paragraphs: [
+          "Solving this problem isn't about refusing to spend money; it's about establishing clear 'task tiering'. In my daily development, tasks are strictly categorized into two buckets:",
+          "1. The 10% Core Engineering (High-stakes tasks): Multi-system architecture, complex algorithm debugging, deep cross-file refactoring, and critical product decisions. These require the world's most capable frontier reasoning models (like Claude 3.5 Sonnet / Opus, Gemini Pro).",
+          "2. The 90% Daily Chores (All routed to free/local models): Lightweight scripting, regex generation, format conversions (JSON/CSV/Excel), spellchecking, and boilerplate scraping. Modern free open models handle these with 100% precision, costing literally zsh."
+        ]
+      },
+      {
+        heading: "3. The Paid Powerhouse ($20/mo): Why Google Antigravity Beats Native Claude Pro",
+        paragraphs: [
+          "With a strict $20 budget, subscribing to a single closed-source platform (like standalone Claude Pro or ChatGPT Plus) locks you into one vendor with high platform risk.",
+          "My primary daily driver is the Google AI ecosystem package (~$19.99/mo):",
+          "• Dual Model Pool Architecture: Beyond flagship Gemini models, it provides integrated quota access to top reasoning models like Claude 3.5 Sonnet / Opus;",
+          "• Massive Context Window: When feeding hundreds of thousands of lines of source code or full product specifications, the 1M+ token window provides an unmatched structural advantage;",
+          "• Rock-Solid Infrastructure: As an enterprise-grade cloud environment, it avoids the random IP bans and access throttling typical of smaller wrapper services."
+        ]
+      },
+      {
+        heading: "4. Why I Paused My Standalone Claude Pro Subscription",
+        paragraphs: [
+          "Like many developers, I consider Claude 3.5 Sonnet an extraordinary coding model. Yet I paused my official Claude Pro subscription due to three painful bottlenecks:",
+          "• Aggressive Rate Limits: During intense coding flow, hitting 'You've reached your usage limit, please wait 3 hours' breaks engineering momentum completely;",
+          "• Peak-Hour Throttling: To handle compute congestion, sessions can experience subtle context compression and degraded reasoning coherence;",
+          "• Payment & Account Risk: Overseas developers frequently encounter arbitrary card declines or algorithmic account terminations without refunds. Aggregated enterprise environments provide a much more stable and cost-effective alternative."
+        ]
+      },
+      {
+        heading: "5. The Free Daily Drivers: Squeezing WorkBuddy Global & Local Models",
+        paragraphs: [
+          "With the $20 powerhouse handling the 10% hard problems, how is the remaining 90% handled for free?",
+          "• Tencent WorkBuddy (Global Edition): Offers high-speed, queue-free access to models like Hy3, Step-5, and DeepSeek without requiring proxy networks, executing directly against local desktop files;",
+          "• Tier-1 Open Models: Models like Qwen, Kimi, and Doubao excel at structured document processing and domain-specific search;",
+          "• Local Small Models (Ollama + Qwen2.5-Coder): When working offline or with sensitive internal code, running 7B/14B models on local hardware delivers sub-second response times for inline completions."
+        ]
+      },
+      {
+        heading: "6. The Bootstrapper's AI Stack Checklist",
+        paragraphs: [
+          "Here is the summarized minimal viable AI setup for solo developers, bootstrappers, and content creators:",
+          "1. Paid Tier ($20/mo): One frontier aggregator powerhouse (handling the 10% critical architectural core);",
+          "2. Free Tier (zsh/mo): WorkBuddy Global + leading open models + local LLMs (handling 90% of daily chores);",
+          "3. Tooling Tier (zsh/mo): AgentLimb open-source bridge (driving real Chrome for local MCP browser automation without expensive RPA fees).",
+          "In the early days of bootstrapping, cash flow is life. Put your budget into validated distribution and real product development, not into bloated software subscriptions."
+        ]
+      }
+    ]
+  }
+};
+
 type EnglishVideoOverride = Pick<LocalizedArticle, "title" | "excerpt" | "body" | "sections">;
 
 const englishVideoArticleOverrides: Record<string, EnglishVideoOverride> = {
@@ -1828,6 +1902,17 @@ export function getLocalizedArticle(article: Article, locale: Locale): Localized
       category,
       tags,
       videoMeta: article.videoUrl ? "Bilibili · WorkBuddy video lesson" : article.videoMeta,
+      productLabel: localizedProducts.map((product) => product.displayName).join(", ") || undefined,
+    };
+  }
+
+  const customOverride = englishCustomArticleOverrides[article.slug];
+  if (customOverride) {
+    return {
+      ...article,
+      ...customOverride,
+      category,
+      tags: customOverride.tags ?? tags,
       productLabel: localizedProducts.map((product) => product.displayName).join(", ") || undefined,
     };
   }
