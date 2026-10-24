@@ -8,14 +8,12 @@ import { buildItemListJsonLd, buildSectionCollectionJsonLd } from "../../utils/s
 const articlesPerPage = 15;
 const workbuddy = learningSeries.find((series) => series.id === "workbuddy")!;
 const cola = learningSeries.find((series) => series.id === "cola")!;
-const otherGroups = diarySections.filter((section) => section.kind !== "video").map((section) => ({
-  ...section,
-  articles: articlesByDate.filter((article) => article.diaryKind === section.kind),
-}));
+const comprehensiveArticles = articlesByDate.filter((article) => article.diaryKind !== "video");
+const comprehensivePageCount = Math.ceil(comprehensiveArticles.length / articlesPerPage);
 const courseArticles = new Map(videoTutorialNoteArticles.map((article) => [article.slug, article]));
-const pageDescription = "WorkBuddy 办公教程与 Codex 编程教程合集；另收纳产品、阅读、随想和资源笔记。";
+const pageDescription = "WorkBuddy 办公教程与 Codex 编程教程合集；收纳 AI 综合学习、浏览器自动化实战、产品研发、阅读与随想笔记。";
 const jsonLd = [
-  buildSectionCollectionJsonLd({ locale: "zh-CN", path: "/blog", name: "湖森堡 AI 自动化办公绿皮书", description: pageDescription, topics: ["AI automation", "WorkBuddy", "Codex", "AI办公智能体", "Claude Code"] }),
+  buildSectionCollectionJsonLd({ locale: "zh-CN", path: "/blog", name: "湖森堡 AI 自动化办公绿皮书", description: pageDescription, topics: ["AI automation", "WorkBuddy", "Codex", "AI办公智能体", "Claude Code", "AI综合学习"] }),
   buildItemListJsonLd("https://hooosberg.com/blog#learning-notes", videoTutorialNoteArticles.map((article) => ({ name: article.title, url: `/blog/${article.slug}`, description: article.excerpt }))),
 ];
 ---
@@ -30,7 +28,7 @@ const jsonLd = [
     <div class="learning-switch" role="tablist" aria-label="学习路线">
       <button class="learning-tab" type="button" role="tab" aria-selected="true" data-learning-tab="workbuddy" data-title="WorkBuddy AI办公教程" data-subtitle="涵盖豆包办公、千问办公等国产办公 AI 教程，系统掌握 Excel、PPT、Word 自动化实战。">WorkBuddy AI办公教程</button>
       <button class="learning-tab" type="button" role="tab" aria-selected="false" data-learning-tab="cola" data-title="Codex编程教程" data-subtitle="包含 AI 资讯、Codex、Gemini 与 ChatGPT 等海外 AI 工具编程教程与实战。">Codex编程教程</button>
-      <button class="learning-tab" type="button" role="tab" aria-selected="false" data-learning-tab="other" data-title="其他笔记" data-subtitle="收纳真实产品研发、深度阅读、人文随想与精选开发资源笔记。">其他笔记</button>
+      <button class="learning-tab" type="button" role="tab" aria-selected="false" data-learning-tab="other" data-title="AI综合学习" data-subtitle="涵盖独立实战、浏览器自动化、真实产品研发、深度阅读与随想笔记，按标签灵活检索，最新文章置顶呈现。">AI综合学习</button>
     </div>
 
     <section class="learning-panel" data-learning-panel="workbuddy">
@@ -82,21 +80,31 @@ const jsonLd = [
     </section>
 
     <section class="learning-panel" data-learning-panel="other" hidden>
-      <div class="other-notes-heading"><div><h2>其他笔记</h2><p>把产品开发、读书、随想和资源统一收纳在这里。</p></div></div>
-      <div class="other-note-switch" role="tablist" aria-label="其他笔记类型">
-        {otherGroups.map((group, index) => <button type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} data-other-tab={group.kind}>{group.label}<small>{group.articles.length} 篇</small></button>)}
+      <div class="other-notes-heading">
+        <div>
+          <h2>AI综合学习</h2>
+          <p>涵盖独立实战、浏览器自动化、真实产品研发、深度阅读与随想笔记，扁平化呈现，最新篇章排在最前。</p>
+        </div>
       </div>
       <div class="article-list article-list--other">
-        {otherGroups.flatMap((group, groupIndex) => group.articles.map((article, articleIndex) => <a class="article-row" href={`/blog/${article.slug}?kind=${group.kind}`} data-other-row={group.kind} data-other-page={Math.floor(articleIndex / articlesPerPage) + 1} hidden={groupIndex !== 0 || articleIndex >= articlesPerPage}>
-          <span class="article-row__category">{article.productLabel ?? article.category}</span><span class="article-row__title">{article.title}</span><span class="article-row__excerpt">{article.excerpt}</span><span class="article-row__date">{article.date}</span>
-        </a>))}
+        {comprehensiveArticles.map((article, articleIndex) => (
+          <a class="article-row" href={`/blog/${article.slug}`} data-comp-row data-comp-page={Math.floor(articleIndex / articlesPerPage) + 1} hidden={articleIndex >= articlesPerPage}>
+            <span class="article-row__category">{article.tags[0] ?? article.category}</span>
+            <span class="article-row__title">{article.title}</span>
+            <span class="article-row__excerpt">{article.excerpt}</span>
+            <span class="article-row__date">{article.date}</span>
+          </a>
+        ))}
       </div>
-      {otherGroups.map((group, groupIndex) => {
-        const pageCount = Math.ceil(group.articles.length / articlesPerPage);
-        return <nav class="diary-pagination" aria-label={`${group.label}分页`} data-other-pagination={group.kind} hidden={groupIndex !== 0 || pageCount <= 1}>
-          {Array.from({ length: pageCount }, (_, pageIndex) => <button class="diary-page-button" type="button" data-other-page-button data-other-kind={group.kind} data-other-page={pageIndex + 1} aria-current={pageIndex === 0 ? "page" : undefined}>{pageIndex + 1}</button>)}
-        </nav>;
-      })}
+      {comprehensivePageCount > 1 && (
+        <nav class="diary-pagination" aria-label="AI综合学习分页" data-comp-pagination>
+          {Array.from({ length: comprehensivePageCount }, (_, pageIndex) => (
+            <button class="diary-page-button" type="button" data-comp-page-button data-comp-page={pageIndex + 1} aria-current={pageIndex === 0 ? "page" : undefined}>
+              {pageIndex + 1}
+            </button>
+          ))}
+        </nav>
+      )}
     </section>
   </section>
 </BaseLayout>
@@ -107,17 +115,16 @@ const jsonLd = [
     const heroSubtitle = document.getElementById("learning-hero-subtitle");
     const panels = Array.from(document.querySelectorAll("[data-learning-panel]"));
     const tabs = Array.from(document.querySelectorAll("[data-learning-tab]"));
-    const otherTabs = Array.from(document.querySelectorAll("[data-other-tab]"));
-    const otherRows = Array.from(document.querySelectorAll("[data-other-row]"));
-    const otherPaginations = Array.from(document.querySelectorAll("[data-other-pagination]"));
-    const otherPageButtons = Array.from(document.querySelectorAll("[data-other-page-button]"));
+    const compRows = Array.from(document.querySelectorAll("[data-comp-row]"));
+    const compPageButtons = Array.from(document.querySelectorAll("[data-comp-page-button]"));
 
     const setPanel = (name) => {
+      const targetName = (name === "comprehensive") ? "other" : name;
       panels.forEach((panel) => {
-        panel.hidden = panel.dataset.learningPanel !== name;
+        panel.hidden = panel.dataset.learningPanel !== targetName;
       });
       tabs.forEach((tab) => {
-        const isSelected = tab.dataset.learningTab === name;
+        const isSelected = tab.dataset.learningTab === targetName;
         tab.setAttribute("aria-selected", String(isSelected));
         if (isSelected) {
           const tabTitle = tab.dataset.title || tab.textContent.trim();
@@ -127,26 +134,24 @@ const jsonLd = [
         }
       });
       const url = new URL(window.location.href);
-      url.searchParams.set("section", name);
+      url.searchParams.set("section", targetName);
       window.history.replaceState({}, "", `${url.pathname}${url.search}`);
     };
 
-    const setOther = (kind, page = 1) => {
-      otherTabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.otherTab === kind)));
-      otherRows.forEach((row) => {
-        row.hidden = row.dataset.otherRow !== kind || Number(row.dataset.otherPage || "1") !== page;
+    const setCompPage = (page = 1) => {
+      compRows.forEach((row) => {
+        row.hidden = Number(row.dataset.compPage || "1") !== page;
       });
-      otherPaginations.forEach((nav) => {
-        nav.hidden = nav.dataset.otherPagination !== kind || nav.querySelectorAll("button").length < 2;
+      compPageButtons.forEach((button) => {
+        button.setAttribute("aria-current", String(Number(button.dataset.compPage) === page));
       });
-      otherPageButtons.forEach((button) => button.setAttribute("aria-current", String(button.dataset.otherKind === kind && Number(button.dataset.otherPage) === page)));
     };
 
     tabs.forEach((tab) => tab.addEventListener("click", () => setPanel(tab.dataset.learningTab)));
-    otherTabs.forEach((tab) => tab.addEventListener("click", () => setOther(tab.dataset.otherTab, 1)));
-    otherPageButtons.forEach((button) => button.addEventListener("click", () => setOther(button.dataset.otherKind, Number(button.dataset.otherPage))));
+    compPageButtons.forEach((button) => button.addEventListener("click", () => setCompPage(Number(button.dataset.compPage))));
 
-    const initial = new URLSearchParams(window.location.search).get("section");
+    const rawInitial = new URLSearchParams(window.location.search).get("section");
+    const initial = (rawInitial === "comprehensive") ? "other" : rawInitial;
     if (initial && tabs.some((tab) => tab.dataset.learningTab === initial)) {
       setPanel(initial);
     } else {
@@ -160,7 +165,7 @@ const jsonLd = [
         }
       }
     }
-    setOther(otherTabs[0]?.dataset.otherTab, 1);
+    setCompPage(1);
   })();
 </script>
 
