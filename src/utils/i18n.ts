@@ -464,9 +464,9 @@ const productEnglish: Record<string, EnglishProductOverride> = {
     summary: "AgentLimb is a Chrome extension plus a local MCP host for universal browser control. Any MCP-capable agent — Claude Code, Codex, Cursor, Tencent WorkBuddy — pairs by copying one prompt with automatic authorization by default, drives multiple Chrome profiles with targeted routing, supports native HTTP Tool RPC calls, and reuses local Markdown site memory (~/.agentlimb/memory) — 100% local.",
     audience: "Developers and heavy AI users who need agents to work with real websites, logged-in sessions, and multi-account workflows.",
     platforms: ["Chrome / Edge / Brave / Vivaldi and other Chromium browsers", "Standard MCP", "Windows + macOS + Linux", "Local loopback"],
-    status: ["Open source", "0.6.7", "Local-first", "Actively maintained"],
+    status: ["Open source", "0.6.8", "Local-first", "Actively maintained"],
     privacyNote: "The extension and the local host run entirely on your machine. The MCP host listens only on 127.0.0.1, pairing trust and chat records live in the extension's private storage, site memory stores plain Markdown playbooks with automatic credential redaction, and page data is never uploaded — no cloud, no tracking.",
-    features: ["One copied prompt to connect (auto-authorized by default)", "Multi-account Chrome profile routing", "Native HTTP Tool RPC (call tools without stdio)", "Transient tab-marker perception (auto-ungroup on finish)", "Pluggable local site memory (learn once, reuse across AIs)", "The side panel is the AI's reply window", "17 standard tools"],
+    features: ["One copied prompt to connect (auto-authorized by default)", "Multi-account Chrome profile routing", "Native HTTP Tool RPC (call tools without stdio)", "Smooth multi-step lifecycle (anti-flicker tab marker)", "Pluggable local site memory (learn once, reuse across AIs)", "The side panel is the AI's reply window", "17 standard tools"],
     courseHooks: ["Browser automation", "MCP toolchains", "Site memory playbooks", "AI operating real websites"],
   },
   domprompter: {
@@ -796,15 +796,15 @@ function buildEnglishDetail(product: Product, override: EnglishProductOverride) 
     return {
       overview: [
         "AgentLimb is positioned as a universal web-control extension for every platform and every AI tool. It is not tied to one vendor: any agent that speaks standard MCP — Claude Code, Codex, Cursor, Trae, Windsurf, Tencent WorkBuddy, or any model that can run local commands — drives your real browser through it, locating elements, filling forms, clicking, taking screenshots and extracting data on the sessions you are already logged into. No headless browser, no re-login.",
-        "0.6.7 brings real-time multi-terminal matching and universal transient tab awareness: settings and side-panel device indicators dynamically sync multi-terminal connections (instantly disappearing upon disconnect), while the Tab Marker puts active tabs into an orange 'AgentLimb' group with '⏳ AgentLimb' during operations and automatically ungroups them when done. Users can switch tabs, watch movies, or draft documents without focus interruption.",
+        "0.6.8 introduces a smooth multi-step task lifecycle with anti-flicker tab marking: decoupling single-tool execution from the overall task duration keeps tabs stably inside the orange 'AgentLimb' group with '⏳ AgentLimb' across thinking gaps and sequential steps, completely eliminating flickering. Combined with dynamic multi-terminal matching (devices disappear instantly on disconnect) and smooth auto-ungrouping upon task completion (say/stop), background focus isolation ensures users stay uninterrupted.",
         "Targeted multi-profile routing, native HTTP Tool RPC (POST /api/tool), site memory playbooks, and auto-authorization are fully preserved with dynamic port probing (8765–8770) and Python client integration.",
-        "Under the hood it is a zero-dependency Node host plus one MV3 extension: local SSE push instead of polling, per-tab persistent CDP attach, an accessibility tree resident from document_start, adaptive JPEG screenshots, O(1) single-file site memory lookups (~10ms), and code-level credential redaction, guarded by 112 unit and protocol tests passing 100%."
+        "Under the hood it is a zero-dependency Node host plus one MV3 extension: local SSE push instead of polling, per-tab persistent CDP attach, an accessibility tree resident from document_start, adaptive JPEG screenshots, O(1) single-file site memory lookups (~10ms), and code-level credential redaction, guarded by 113 unit and protocol tests passing 100%."
       ],
       proofPoints: [
         { label: "Pairing & auth", value: "< 1s · Auto-authorized", note: "Connecting hosts are trusted automatically by default (strict copy-window mode optional in Advanced); a second AI is discovered in under a second." },
         { label: "Multi-profile", value: "Profile-aware routing", note: "Optional browser argument targets specific profiles by label, email substring, or ID with automatic disambiguation." },
         { label: "HTTP Tool RPC", value: "POST /api/tool · Fast", note: "Zero-stdio local HTTP RPC for external Python/Node automation scripts, resilient against port drift." },
-        { label: "Engineering guards", value: "112 automated tests", note: "Full coverage across wire protocol, multi-browser routing, transient tab markers, HTTP RPC endpoints, and site memory chaos suites." },
+        { label: "Engineering guards", value: "113 automated tests", note: "Full coverage across wire protocol, multi-browser routing, smooth multi-step lifecycle, HTTP RPC endpoints, and site memory chaos suites." },
       ],
       valueProps: [
         { title: "Pluggable site memory that compounds", body: "Exploring a site's DOM for the first time is expensive. Site memory saves direct URLs, selectors, confirmation pitfalls, and verification checks into a local Markdown folder, and automatically nudges the AI in navigate / tab_new and say results. Decoupled from the extension, no Skill to install, reusable by every AI tool." },

@@ -174,9 +174,9 @@ export const products: Product[] = [
     tagline: "给任意支持 MCP 的智能体装上操作浏览器的手：多账号独立路由、HTTP RPC 原生调用、自带外挂式网站记忆。",
     summary: "AgentLimb 是一个 Chrome 扩展加本地 MCP 宿主的通用浏览器控制方案：任意支持 MCP 的 AI（Claude Code、Codex、Cursor、腾讯 WorkBuddy 等）复制一条提示词即可接入并默认自动授权，支持多 Chrome Profile 独立路由与 HTTP Tool RPC 原生调用，自带本地 Markdown 网站记忆（操作过一次的网站下次直接照手册走，不用重新摸索），后台标签操控、不抢焦点，全程 100% 本地。",
     platforms: ["Chrome / Edge / Brave / Vivaldi 等 Chromium 浏览器", "标准 MCP", "Windows + macOS + Linux", "本地回环"],
-    status: ["开源", "0.6.7", "本地优先", "活跃维护"],
+    status: ["开源", "0.6.8", "本地优先", "活跃维护"],
     audience: "需要让 AI 操作真实网页、已登录会话和多账号流程的开发者和 AI 重度用户。",
-    primaryAction: { label: "下载最新版 (v0.6.7)", url: "https://github.com/hooosberg/AgentLimb/releases/latest" },
+    primaryAction: { label: "下载最新版 (v0.6.8)", url: "https://github.com/hooosberg/AgentLimb/releases/latest" },
     secondaryAction: { label: "GitHub 源码与 Star", url: "https://github.com/hooosberg/AgentLimb" },
     repo: "https://github.com/hooosberg/AgentLimb",
     website: "https://agentlimb.com/",
@@ -185,21 +185,21 @@ export const products: Product[] = [
     priority: "P0",
     learnSlug: "agentlimb-browser-memory",
     privacy: privacyLocal("扩展与本地宿主全部运行在本机：MCP 宿主只监听 127.0.0.1 回环端口，配对信任与聊天记录只存在扩展私有存储，网站记忆为本机纯 Markdown 手册且自动脱敏凭据，页面数据不上传，无云端、无追踪。"),
-    features: ["复制一条提示词即接入（默认安装即授权）", "多 Chrome 账号与 Profile 独立路由", "HTTP Tool RPC 原生支持（免 stdio 调用）", "全域标签操作瞬态感知（操作完自动解散）", "外挂式网站记忆（操作一次，跨 AI 复用）", "侧栏是 AI 的回复窗", "17 个标准工具"],
+    features: ["复制一条提示词即接入（默认安装即授权）", "多 Chrome 账号与 Profile 独立路由", "HTTP Tool RPC 原生支持（免 stdio 调用）", "多步任务平滑感知（杜绝动作间歇闪烁）", "外挂式网站记忆（操作一次，跨 AI 复用）", "侧栏是 AI 的回复窗", "17 个标准工具"],
     buildNotes: ["AI 自动化课程的技术锚点。", "可解释 MCP、本地桥接、网站记忆（Site memory）与多客户端信任管理。"],
     courseHooks: ["浏览器自动化", "MCP 工具链", "网站记忆沉淀", "AI 操作真实网页"],
     detail: {
       overview: [
         "AgentLimb 的定位是「全平台全软件的网页控制通用插件」。它不绑定某一家 AI 工具：任何支持标准 MCP 的智能体——Claude Code、Codex、Cursor、Trae、Windsurf、腾讯 WorkBuddy，或任何能跑本地命令的模型——都能通过它驱动你的真实浏览器，定位元素、填表、点击、截图、抓取数据，全程复用已登录的会话，不需要无头浏览器，也不需要重新登录。",
-        "0.6.7 带来了多终端动态匹配与全域标签操作视觉感知升级：设置与侧栏左上角实时同步多终端在线情况，设备断开连接即刻消失，计数器准确反映在线现状；引入全域标签标记器（Tab Marker），无论是新建标签还是直接操作已有标签，操作期间均自动纳入橙色「AgentLimb」分组并打上「⏳ AgentLimb」沙漏，操作完成后自动解散分组（恢复未归组状态），纯作为操作过程中的动态状态行为；配合后台焦点隔离与 agentTabId 粘性锚定，用户前台切换标签看电影、写文档完全不被抢焦点、零打扰。",
+        "0.6.8 升级了多步任务生命周期平滑感知与防闪烁机制：彻底解耦「单步工具忙碌」与「任务整体过程」，在 AI 思考与连续动作间歇全程稳固保持橙色「AgentLimb」分组与「⏳ AgentLimb」沙漏，彻底告别动作做完就解散、下一步又建组的反复闪烁感；配合动态多终端匹配，设置与侧栏实时同步终端在线状态（断开即刻消失），操作全部完成后自动平滑解散分组，纯作为任务期间的瞬态感知，后台焦点隔离确保用户日常看电影写文档零打扰。",
         "多 Profile 独立路由、HTTP Tool RPC 原生端点、网站记忆与自动授权完整保留：所有工具支持按 Profile 精确路由；本地 Bridge 开放 POST /api/tool，自带 Python 客户端与 8765~8770 动态探针；每个网站沉淀本地 Markdown 手册（~/.agentlimb/memory），工具返回结果自动注入，装好宿主连上即自动受信，跨会话自动重连。",
-        "工程上它是一个零依赖的纯 Node 本地宿主加一枚 MV3 扩展：本地 SSE 推送替代轮询、按标签持久 CDP attach、document_start 常驻无障碍树、自适应 JPEG 截图、网站记忆读取 O(1) 单文件命中（约 10ms），112 项自动化单测加三套混沌测试全绿守护。"
+        "工程上它是一个零依赖的纯 Node 本地宿主加一枚 MV3 扩展：本地 SSE 推送替代轮询、按标签持久 CDP attach、document_start 常驻无障碍树、自适应 JPEG 截图、网站记忆读取 O(1) 单文件命中（约 10ms），113 项自动化单测加三套混沌测试全绿守护。"
       ],
       proofPoints: [
         { label: "配对与授权", value: "< 1 秒 · 安装即授权", note: "宿主连上即自动受信（可在高级设置切回严格窗口）；已有 AI 在线时第二个 AI 也能秒级接入。" },
         { label: "多账号路由", value: "多 Profile · 自动消歧", note: "可选 browser 参数支持按名称、邮箱或 ID 路由，多开时自动注入在线列表提示。" },
         { label: "HTTP RPC", value: "POST /api/tool · 毫秒级", note: "外部 Python 脚本与自动化进程免 stdio 直接调用，自带 8765~8770 探针抗端口漂移。" },
-        { label: "工程守卫", value: "112 项自动化单测全绿", note: "全覆盖协议交互、多账号路由、全域标签瞬态标记、HTTP RPC 与网站记忆混沌测试。" }
+        { label: "工程守卫", value: "113 项自动化单测全绿", note: "全覆盖协议交互、多账号路由、多步任务平滑感知、HTTP RPC 与网站记忆混沌测试。" }
       ],
       valueProps: [
         { title: "多 Chrome 账号独立路由，各司其职", body: "国内账号、海外工作账号、多窗口 Profile 互不干扰。工具调用带上 browser 参数即可精准派发，AI 操作复杂跨账号任务再也不会串号。" },
@@ -1012,7 +1012,7 @@ const productTimelineNotes: Record<string, string> = {
   packpour: "失败复盘",
   beraw: "浏览器工具",
   domprompter: "失败复盘",
-  agentlimb: "活跃维护 · 0.6.7",
+  agentlimb: "活跃维护 · 0.6.8",
   "codex-quota-calendar": "Codex 工具",
   uixskills: "失败复盘",
   dailyzikr: "支持页迁移",
