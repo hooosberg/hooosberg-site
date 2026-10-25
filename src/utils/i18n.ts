@@ -1271,70 +1271,35 @@ type EnglishCustomArticleOverride = Partial<LocalizedArticle>;
 
 const englishCustomArticleOverrides: Record<string, EnglishCustomArticleOverride> = {
   "ai-subscription-twenty-dollar-strategy": {
-    title: "Why I Stopped Paying $150/mo for AI Subscriptions and Locked My Budget to $20/mo: The Solo Developer's 90/10 Playbook",
-    excerpt: "Stop subscription-stacking ChatGPT Plus, Claude Pro, and Cursor. Here is the exact $20/month battle-tested setup: one powerhouse model for 10% core architectural logic, and free/local models for 90% routine chores.",
-    tags: ["AI Subscriptions", "Budget Guide", "Indie Hacker", "Google Antigravity", "WorkBuddy"],
+    title: "Why I Stopped Paying $150/mo for AI Subscriptions and Locked My Budget to $20/mo",
+    excerpt: "Stop subscription-stacking ChatGPT Plus and native Claude Pro. Here is the real-world $20/month developer setup powered by Gemini 4 Argon, Claude Sonnet 5.5 / Opus 5.5, and free local/cloud models for routine chores.",
+    tags: ["AI Subscriptions", "Budget Guide", "Indie Hacker", "Antigravity", "WorkBuddy"],
     body: [
-      "In indie hacker circles and AI communities, I constantly see developers suffering from severe 'subscription anxiety': holding active subscriptions to ChatGPT Plus ($20), Claude Pro ($20), Cursor Pro ($20), and Midjourney ($30), burning over a hundred or even two hundred dollars every single month.",
-      "Yet an honest look at daily billing and usage logs reveals a painful truth: most of those expensive frontier quotas sit idle. You pay for top-tier reasoning, but use it to translate simple words or rename a variable in a single script. It's using a sledgehammer to crack a nut.",
-      "In this in-depth guide, I share the exact 'Frugal /Month AI Rule' running in my daily production workflow: keeping monthly costs strictly under $20 while boosting output and eliminating rate limits and ban headaches."
+      "In indie hacker circles and developer communities, I constantly see builders suffering from severe 'subscription anxiety': holding active subscriptions to ChatGPT Plus, Claude Pro, and Cursor, burning over a hundred or two hundred dollars every single month while expensive frontier quotas sit idle.",
+      "Here is the exact setup running in my daily production workflow: locking total monthly spend strictly under $20, eliminating rate limits and ban headaches entirely."
     ],
     sections: [
       {
-        heading: "1. The 'Subscription Stacking' Trap Costing Solo Builders Hundreds",
+        heading: "1. Why I Stopped Subscribing to Native Claude Pro",
         paragraphs: [
-          "When entering AI productivity, many builders fall into the 'collector trap'. Let's do the real math:",
-          "• Chat & Brainstorming: ChatGPT Plus ($20/mo);",
-          "• Coding & Refactoring: Claude Pro ($20/mo) or Cursor Pro ($20/mo);",
-          "• Visuals & Assets: Midjourney ($30/mo);",
-          "• Auxiliary Plugins & Cloud Services: Easily reaching $100–$200/mo combined.",
-          "For solo founders, freelancers, or bootstrapped teams, that's $1,500–$2,500+ in fixed annual burn. Even worse: quotas reset monthly with zero rollover. And during peak hours, users face aggressive rate limits, silent model downgrades, or sudden account freezes from payment risk-control algorithms."
+          "For developers outside officially favored payment regions, native Claude web subscriptions lead to constant headaches: arbitrary account bans or hitting strict '3-hour usage limits' right in the middle of deep engineering flow.",
+          "My $20 powerhouse budget goes to the Google Antigravity ecosystem: it gives access to the latest Gemini 4 Argon alongside dedicated pools for Claude Sonnet 5.5 and Claude Opus 5.5 (tracked separately in View Usage). It provides enterprise stability, legal compliance, and zero ban anxiety."
         ]
       },
       {
-        heading: "2. The Core Rule: The 90/10 Split for Pragmatic Builders",
+        heading: "2. Routing the Remaining 90% Chores for Free",
         paragraphs: [
-          "Solving this problem isn't about refusing to spend money; it's about establishing clear 'task tiering'. In my daily development, tasks are strictly categorized into two buckets:",
-          "1. The 10% Core Engineering (High-stakes tasks): Multi-system architecture, complex algorithm debugging, deep cross-file refactoring, and critical product decisions. These require the world's most capable frontier reasoning models (like Claude 3.5 Sonnet / Opus, Gemini Pro).",
-          "2. The 90% Daily Chores (All routed to free/local models): Lightweight scripting, regex generation, format conversions (JSON/CSV/Excel), spellchecking, and boilerplate scraping. Modern free open models handle these with 100% precision, costing literally $0."
+          "Whenever tasks don't require bleeding-edge frontier reasoning, routine scripting and data parsing are completely offloaded to zero-cost tools:",
+          "• Tencent WorkBuddy (Global Edition): Built-in Step-5 and Hunyuan models match DeepSeek-tier coding performance, completely free without queueing directly on desktop files;",
+          "• Tier-1 domestic models (Doubao, Kimi) handle quick document summaries and structured text formatting;",
+          "• Local small models via Ollama run offline completions with sub-second latency."
         ]
       },
       {
-        heading: "3. The Paid Powerhouse ($20/mo): Multi-Model Synergy Over Single-Vendor Lock-in",
+        heading: "3. Minimal Viable AI Stack for Solo Builders",
         paragraphs: [
-          "With a strict $20 budget, relying solely on a single consumer web chat (like a standalone Claude Pro subscription) is fragile: you hit arbitrary 3-hour rate limits right in the middle of deep engineering flow.",
-          "A pragmatic builder setup allocates that $20 powerhouse budget into flexible, complementary capabilities:",
-          "• Reasoning & Context Synergy: Claude 3.5 Sonnet handles mission-critical algorithmic refactoring, while Gemini 1.5/2.0 Pro's 1M+ context window digests complete codebases without context degradation;",
-          "• Eliminating Web UI Rate Limits: Accessing models through developer API tiers or enterprise workspaces provides elastic capacity without sudden midday timeouts;",
-          "• Superior Uptime & Stability: Enterprise tooling avoids consumer-tier card rejections and sudden algorithmic account bans, ensuring uninterrupted engineering runway."
-        ]
-      },
-      {
-        heading: "4. Why I Paused My Standalone Claude Pro Subscription",
-        paragraphs: [
-          "Like many developers, I consider Claude 3.5 Sonnet an extraordinary coding model. Yet I paused my official Claude Pro subscription due to three painful bottlenecks:",
-          "• Aggressive Rate Limits: During intense coding flow, hitting 'You've reached your usage limit, please wait 3 hours' breaks engineering momentum completely;",
-          "• Peak-Hour Throttling: To handle compute congestion, sessions can experience subtle context compression and degraded reasoning coherence;",
-          "• Payment & Account Risk: Overseas developers frequently encounter arbitrary card declines or algorithmic account terminations without refunds. Aggregated enterprise environments provide a much more stable and cost-effective alternative."
-        ]
-      },
-      {
-        heading: "5. The Free Daily Drivers: Squeezing WorkBuddy Global & Local Models",
-        paragraphs: [
-          "With the $20 powerhouse handling the 10% hard problems, how is the remaining 90% handled for free?",
-          "• Tencent WorkBuddy (Global Edition): Offers high-speed, queue-free access to models like Hy3, Step-5, and DeepSeek without requiring proxy networks, executing directly against local desktop files;",
-          "• Tier-1 Open Models: Models like Qwen, Kimi, and Doubao excel at structured document processing and domain-specific search;",
-          "• Local Small Models (Ollama + Qwen2.5-Coder): When working offline or with sensitive internal code, running 7B/14B models on local hardware delivers sub-second response times for inline completions."
-        ]
-      },
-      {
-        heading: "6. The Bootstrapper's AI Stack Checklist",
-        paragraphs: [
-          "Here is the summarized minimal viable AI setup for solo developers, bootstrappers, and content creators:",
-          "1. Paid Tier ($20/mo): One frontier aggregator powerhouse (handling the 10% critical architectural core);",
-          "2. Free Tier ($0/mo): WorkBuddy Global + leading open models + local LLMs (handling 90% of daily chores);",
-          "3. Tooling Tier ($0/mo): AgentLimb open-source bridge (driving real Chrome for local MCP browser automation without expensive RPA fees).",
-          "In the early days of bootstrapping, cash flow is life. Put your budget into validated distribution and real product development, not into bloated software subscriptions."
+          "In the early days of bootstrapping, cash flow is life. You don't need a bloated $100–$200/mo stack. A single $20 powerhouse for 10% critical logic paired with free tools for 90% of routine tasks is all you need.",
+          "I document daily developer workflows and notes on my personal site (hooosberg.com). Feel free to check it out and connect!"
         ]
       }
     ]
