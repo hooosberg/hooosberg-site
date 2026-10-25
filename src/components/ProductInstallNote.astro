@@ -1,0 +1,19 @@
+---
+type Props = {
+  title: string;
+  body: string;
+  label?: string;
+};
+
+const { title, body, label = "安装前提" } = Astro.props;
+// 正文里用反引号包住的片段（路径、报错原文）渲染成等宽代码，便于扫读。
+const segments = body.split(/(`[^`]+`)/g).filter(Boolean);
+const isCode = (segment: string) => segment.length > 2 && segment.startsWith("`") && segment.endsWith("`");
+---
+
+<aside class="product-install-note" aria-label={label}>
+  <p class="product-install-note__title">{title}</p>
+  <p class="product-install-note__body">
+    {segments.map((segment) => (isCode(segment) ? <code>{segment.slice(1, -1)}</code> : segment))}
+  </p>
+</aside>

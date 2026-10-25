@@ -4,6 +4,7 @@ import BlockPuzzlePreview from "../../components/BlockPuzzlePreview.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProductActionButton from "../../components/ProductActionButton.astro";
 import ProductIcon from "../../components/ProductIcon.astro";
+import ProductInstallNote from "../../components/ProductInstallNote.astro";
 import { getArticlesForProduct } from "../../data/articles";
 import { getProductTimelineNote, products, type Product, type ProductAction } from "../../data/products";
 import { buildBreadcrumbJsonLd, buildProductJsonLd, buildProductWebPageJsonLd } from "../../utils/structuredData";
@@ -171,6 +172,10 @@ const pageTitle = product.slug === "witnote"
     </div>
 
     {product.slug === "sumi-block-puzzle" && <BlockPuzzlePreview locale="zh-CN" />}
+
+    {product.installNote && (
+      <ProductInstallNote title={product.installNote.title} body={product.installNote.body} />
+    )}
 
     <section class="product-overview">
       <div class="product-overview__copy">

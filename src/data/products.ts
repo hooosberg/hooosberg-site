@@ -28,6 +28,11 @@ export type Product = {
   features: string[];
   buildNotes: string[];
   courseHooks: string[];
+  /** 安装前必须先知道的硬条件（平台特有路径、内核版本等）。有值才在产品页顶部渲染成提示条。 */
+  installNote?: {
+    title: string;
+    body: string;
+  };
   detail?: {
     overview?: string[];
     proofPoints?: { label: string; value: string; note: string }[];
@@ -174,9 +179,9 @@ export const products: Product[] = [
     tagline: "给任意支持 MCP 的智能体装上操作浏览器的手：多账号独立路由、HTTP RPC 原生调用、自带外挂式网站记忆。",
     summary: "AgentLimb 是一个 Chrome 扩展加本地 MCP 宿主的通用浏览器控制方案：任意支持 MCP 的 AI（Claude Code、Codex、Cursor、腾讯 WorkBuddy 等）复制一条提示词即可接入并默认自动授权，支持多 Chrome Profile 独立路由与 HTTP Tool RPC 原生调用，自带本地 Markdown 网站记忆（操作过一次的网站下次直接照手册走，不用重新摸索），后台标签操控、不抢焦点，全程 100% 本地。",
     platforms: ["Chrome / Edge / Brave / Vivaldi 等 Chromium 浏览器", "标准 MCP", "Windows + macOS + Linux", "本地回环"],
-    status: ["开源", "0.6.8", "本地优先", "活跃维护"],
+    status: ["开源", "0.6.9", "本地优先", "活跃维护"],
     audience: "需要让 AI 操作真实网页、已登录会话和多账号流程的开发者和 AI 重度用户。",
-    primaryAction: { label: "下载最新版 (v0.6.8)", url: "https://github.com/hooosberg/AgentLimb/releases/latest" },
+    primaryAction: { label: "下载最新版 (v0.6.9)", url: "https://github.com/hooosberg/AgentLimb/releases/latest" },
     secondaryAction: { label: "GitHub 源码与 Star", url: "https://github.com/hooosberg/AgentLimb" },
     repo: "https://github.com/hooosberg/AgentLimb",
     website: "https://agentlimb.com/",
@@ -188,12 +193,16 @@ export const products: Product[] = [
     features: ["复制一条提示词即接入（默认安装即授权）", "多 Chrome 账号与 Profile 独立路由", "HTTP Tool RPC 原生支持（免 stdio 调用）", "多步任务平滑感知（杜绝动作间歇闪烁）", "外挂式网站记忆（操作一次，跨 AI 复用）", "侧栏是 AI 的回复窗", "17 个标准工具"],
     buildNotes: ["AI 自动化课程的技术锚点。", "可解释 MCP、本地桥接、网站记忆（Site memory）与多客户端信任管理。"],
     courseHooks: ["浏览器自动化", "MCP 工具链", "网站记忆沉淀", "AI 操作真实网页"],
+    installNote: {
+      title: "装之前先过两关：Windows 路径要纯英文，浏览器内核要 116+",
+      body: "插件目录必须解压到纯英文路径（例如 `C:\\AgentLimb`）再加载。Windows 上路径含中文——最常见是中文用户名，如 `C:\\Users\\张三\\Desktop`——会让 Chrome 直接拒绝加载，报 `Could not load javascript 'kernel/control/content/a11y-tree.js' for script.`；路径带空格不影响，macOS 与 Linux 没有这个限制。浏览器需 Chromium 116 及以上：侧栏是配对与授权的唯一入口，内核低于 116 打不开。",
+    },
     detail: {
       overview: [
         "AgentLimb 的定位是「全平台全软件的网页控制通用插件」。它不绑定某一家 AI 工具：任何支持标准 MCP 的智能体——Claude Code、Codex、Cursor、Trae、Windsurf、腾讯 WorkBuddy，或任何能跑本地命令的模型——都能通过它驱动你的真实浏览器，定位元素、填表、点击、截图、抓取数据，全程复用已登录的会话，不需要无头浏览器，也不需要重新登录。",
         "0.6.8 升级了多步任务生命周期平滑感知与防闪烁机制：彻底解耦「单步工具忙碌」与「任务整体过程」，在 AI 思考与连续动作间歇全程稳固保持橙色「AgentLimb」分组与「⏳ AgentLimb」沙漏，彻底告别动作做完就解散、下一步又建组的反复闪烁感；配合动态多终端匹配，设置与侧栏实时同步终端在线状态（断开即刻消失），操作全部完成后自动平滑解散分组，纯作为任务期间的瞬态感知，后台焦点隔离确保用户日常看电影写文档零打扰。",
         "多 Profile 独立路由、HTTP Tool RPC 原生端点、网站记忆与自动授权完整保留：所有工具支持按 Profile 精确路由；本地 Bridge 开放 POST /api/tool，自带 Python 客户端与 8765~8770 动态探针；每个网站沉淀本地 Markdown 手册（~/.agentlimb/memory），工具返回结果自动注入，装好宿主连上即自动受信，跨会话自动重连。",
-        "工程上它是一个零依赖的纯 Node 本地宿主加一枚 MV3 扩展：本地 SSE 推送替代轮询、按标签持久 CDP attach、document_start 常驻无障碍树、自适应 JPEG 截图、网站记忆读取 O(1) 单文件命中（约 10ms），113 项自动化单测加三套混沌测试全绿守护。"
+        "工程上它是一个零依赖的纯 Node 本地宿主加一枚 MV3 扩展：本地 SSE 推送替代轮询、按标签持久 CDP attach、document_start 常驻无障碍树、自适应 JPEG 截图、网站记忆读取 O(1) 单文件命中（约 10ms），113 项自动化单测加三套混沌测试全绿守护。0.6.9 另附 Windows 兼容性自检脚本（node scripts/windows-compat-test.mjs），一条命令检查系统版本、已装浏览器内核、扩展能否真正加载并连上桥接。"
       ],
       proofPoints: [
         { label: "配对与授权", value: "< 1 秒 · 安装即授权", note: "宿主连上即自动受信（可在高级设置切回严格窗口）；已有 AI 在线时第二个 AI 也能秒级接入。" },
@@ -214,7 +223,7 @@ export const products: Product[] = [
         { title: "一段提示词接入 + 默认自动授权", body: "复制提示词交给 AI，AI 根据扩展 ID 指纹反查安装目录，自动完成宿主安装与 MCP 配置。默认开启自动授权，连上即受信；已授权 AI 随时可在「已连接」列表中移除。" },
         { title: "侧栏 = AI 的回复窗", body: "已配对后侧栏展示当前 AI 的回复与连接状态：每条回复通过 say 工具回到这里，操作过程折叠成简洁的「正在操作」；你在侧栏发消息还会自动附带当前标签页的文本快照与压缩截图。" },
         { title: "真实浏览器，后台操作 + 极简沙漏", body: "AI 操作你正在使用的 Chrome：登录态、Cookie、多 Profile 全部保留。新标签一律在橙色「AgentLimb」分组后台打开，运作时分组芯片变为「⏳ AgentLimb」，通过焦点模拟操控后台标签，不抢焦点。" },
-        { title: "17 个标准工具与工程守卫", body: "tabs_context、read_page、find、computer、form_input、navigate、javascript_eval、browser_batch（单次最多 20 步）、read_console_messages、read_network_requests、wait、say、site_memory、ping 等；110 项单测 + 配对/面板/记忆三套混沌测试。" }
+        { title: "17 个标准工具与工程守卫", body: "tabs_context、read_page、find、computer、form_input、navigate、javascript_eval、browser_batch（单次最多 20 步）、read_console_messages、read_network_requests、wait、say、site_memory、ping 等；113 项单测 + 配对/面板/记忆三套混沌测试。" }
       ],
       principles: [
         { title: "只记知识，不记流水账", body: "「我点了这里又点了那里」的录像没人会读第二遍，还会拖慢检索。网站记忆只存 8 节操作知识，精确命中单文件（~10ms），运行日志只供人复盘、永不进检索热路径。" },
@@ -1012,7 +1021,7 @@ const productTimelineNotes: Record<string, string> = {
   packpour: "失败复盘",
   beraw: "浏览器工具",
   domprompter: "失败复盘",
-  agentlimb: "活跃维护 · 0.6.8",
+  agentlimb: "活跃维护 · 0.6.9",
   "codex-quota-calendar": "Codex 工具",
   uixskills: "失败复盘",
   dailyzikr: "支持页迁移",

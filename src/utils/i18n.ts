@@ -442,6 +442,7 @@ type EnglishProductOverride = {
   privacyNote: string;
   features: string[];
   courseHooks: string[];
+  installNote?: { title: string; body: string };
   failure?: boolean;
 };
 
@@ -464,10 +465,14 @@ const productEnglish: Record<string, EnglishProductOverride> = {
     summary: "AgentLimb is a Chrome extension plus a local MCP host for universal browser control. Any MCP-capable agent — Claude Code, Codex, Cursor, Tencent WorkBuddy — pairs by copying one prompt with automatic authorization by default, drives multiple Chrome profiles with targeted routing, supports native HTTP Tool RPC calls, and reuses local Markdown site memory (~/.agentlimb/memory) — 100% local.",
     audience: "Developers and heavy AI users who need agents to work with real websites, logged-in sessions, and multi-account workflows.",
     platforms: ["Chrome / Edge / Brave / Vivaldi and other Chromium browsers", "Standard MCP", "Windows + macOS + Linux", "Local loopback"],
-    status: ["Open source", "0.6.8", "Local-first", "Actively maintained"],
+    status: ["Open source", "0.6.9", "Local-first", "Actively maintained"],
     privacyNote: "The extension and the local host run entirely on your machine. The MCP host listens only on 127.0.0.1, pairing trust and chat records live in the extension's private storage, site memory stores plain Markdown playbooks with automatic credential redaction, and page data is never uploaded — no cloud, no tracking.",
     features: ["One copied prompt to connect (auto-authorized by default)", "Multi-account Chrome profile routing", "Native HTTP Tool RPC (call tools without stdio)", "Smooth multi-step lifecycle (anti-flicker tab marker)", "Pluggable local site memory (learn once, reuse across AIs)", "The side panel is the AI's reply window", "17 standard tools"],
     courseHooks: ["Browser automation", "MCP toolchains", "Site memory playbooks", "AI operating real websites"],
+    installNote: {
+      title: "Two gates before you install: a plain-English path on Windows, and Chromium 116+",
+      body: "Unzip the extension into a plain-English path (for example `C:\\AgentLimb`) before loading it. On Windows, a path containing non-ASCII characters — most often a Chinese user name such as `C:\\Users\\张三\\Desktop` — makes Chrome refuse to load it with `Could not load javascript 'kernel/control/content/a11y-tree.js' for script.` Spaces are fine, and macOS and Linux are unaffected. You also need Chromium 116 or newer: the side panel is the only entry point for pairing and authorization, and it cannot open below 116.",
+    },
   },
   domprompter: {
     category: "Postmortem: AI frontend helper",
@@ -681,9 +686,14 @@ const productEnglish: Record<string, EnglishProductOverride> = {
 function localizeAction(action: ProductAction | undefined, locale: Locale) {
   if (!action || locale === "zh-CN") return action;
 
+  // 版本号会随发版变化，不写死进 label 映射表。
+  const versionedDownload = action.label.match(/^下载最新版\s*\((v[\d.]+)\)$/);
+
   return {
     ...action,
-    label: productActionLabelMap[action.label] ?? action.label,
+    label: versionedDownload
+      ? `Download latest (${versionedDownload[1]})`
+      : productActionLabelMap[action.label] ?? action.label,
   };
 }
 
@@ -798,7 +808,7 @@ function buildEnglishDetail(product: Product, override: EnglishProductOverride) 
         "AgentLimb is positioned as a universal web-control extension for every platform and every AI tool. It is not tied to one vendor: any agent that speaks standard MCP — Claude Code, Codex, Cursor, Trae, Windsurf, Tencent WorkBuddy, or any model that can run local commands — drives your real browser through it, locating elements, filling forms, clicking, taking screenshots and extracting data on the sessions you are already logged into. No headless browser, no re-login.",
         "0.6.8 introduces a smooth multi-step task lifecycle with anti-flicker tab marking: decoupling single-tool execution from the overall task duration keeps tabs stably inside the orange 'AgentLimb' group with '⏳ AgentLimb' across thinking gaps and sequential steps, completely eliminating flickering. Combined with dynamic multi-terminal matching (devices disappear instantly on disconnect) and smooth auto-ungrouping upon task completion (say/stop), background focus isolation ensures users stay uninterrupted.",
         "Targeted multi-profile routing, native HTTP Tool RPC (POST /api/tool), site memory playbooks, and auto-authorization are fully preserved with dynamic port probing (8765–8770) and Python client integration.",
-        "Under the hood it is a zero-dependency Node host plus one MV3 extension: local SSE push instead of polling, per-tab persistent CDP attach, an accessibility tree resident from document_start, adaptive JPEG screenshots, O(1) single-file site memory lookups (~10ms), and code-level credential redaction, guarded by 113 unit and protocol tests passing 100%."
+        "Under the hood it is a zero-dependency Node host plus one MV3 extension: local SSE push instead of polling, per-tab persistent CDP attach, an accessibility tree resident from document_start, adaptive JPEG screenshots, O(1) single-file site memory lookups (~10ms), and code-level credential redaction, guarded by 113 unit and protocol tests passing 100%. 0.6.9 also ships a Windows compatibility self-check (node scripts/windows-compat-test.mjs) that reports the OS build, the installed browser kernels, and whether the extension really loads and reaches the bridge."
       ],
       proofPoints: [
         { label: "Pairing & auth", value: "< 1s · Auto-authorized", note: "Connecting hosts are trusted automatically by default (strict copy-window mode optional in Advanced); a second AI is discovered in under a second." },
@@ -818,7 +828,7 @@ function buildEnglishDetail(product: Product, override: EnglishProductOverride) 
         { title: "Any MCP agent", body: "Standard MCP over stdio only: Claude Code, Codex, Cursor, Trae, Windsurf, Tencent WorkBuddy, or any model that can run local commands. The installer only deploys ~/.agentlimb and prints the mcpServers block; enabling and trusting MCP stays with each app." },
         { title: "The side panel is the AI's reply window", body: "Once paired, the panel shows the current AI's replies and connection state. Every reply arrives through say, and panel messages automatically attach a text snapshot and compressed screenshot of the active tab." },
         { title: "Real browser, background tabs & minimal hourglass", body: "The agent operates the Chrome you are using, with logins, cookies and multiple profiles intact. New tabs open in the background inside the orange 'AgentLimb' tab group — which turns into '⏳ AgentLimb' while busy — driven through simulated focus." },
-        { title: "17 standard tools & engineering guards", body: "tabs_context, read_page, find, computer, form_input, navigate, javascript_eval, browser_batch (up to 20 actions), read_console_messages, read_network_requests, wait, say, site_memory, ping and more — backed by 107 unit tests and pairing/panel/memory chaos suites." },
+        { title: "17 standard tools & engineering guards", body: "tabs_context, read_page, find, computer, form_input, navigate, javascript_eval, browser_batch (up to 20 actions), read_console_messages, read_network_requests, wait, say, site_memory, ping and more — backed by 113 unit tests and pairing/panel/memory chaos suites." },
       ],
       principles: [
         { title: "Store knowledge, drop the transcript", body: "Action-by-action logs are never read twice and slow down search. Site memory keeps only an 8-section playbook with O(1) single-file reads (~10ms), while one-line session logs stay out of the hot path." },
@@ -924,6 +934,7 @@ export function getLocalizedProduct(product: Product, locale: Locale): Product {
       note: override.privacyNote,
     },
     features: override.features,
+    installNote: override.installNote,
     buildNotes: [
       "Public build notes are translated into a reusable product diary.",
       "The English version focuses on context, decisions, implementation, launch, and lessons.",
