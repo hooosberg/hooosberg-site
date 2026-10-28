@@ -664,6 +664,71 @@ export const products: Product[] = [
     },
   },
   {
+    slug: "cold-static",
+    name: "Cold Static: Bunker Survival",
+    displayName: "Cold Static: Bunker Survival 末日地堡",
+    category: "末日生存解谜游戏",
+    tagline: "无广告、无账号、无内购抽卡的末日地堡电台生存解谜，调谐短波频率，在极寒暴雪中坚守最后一盏灯。",
+    summary: "离线 iPhone 末日地堡电台生存解谜游戏。调频短波电台接收微弱信号，在避难所内合成物资抵御严寒与夜间袭击，寻找失散的女儿。免费试玩前5天，一次性买断解锁完整主线与无尽模式。",
+    platforms: ["iPhone", "iOS", "游戏"],
+    status: ["App Store 筹备中", "免费试玩 + 一次买断", "无广告", "无追踪"],
+    audience: "喜欢硬核末日生存、卡牌合成与沉浸式电台叙事，反感广告弹窗和体力限制的玩家。",
+    primaryAction: { label: "即将登陆 App Store", disabled: true },
+    repo: "",
+    website: undefined,
+    hideSourceLinks: true,
+    icon: "/product-icons/cold-static.png",
+    accent: "#4ef472",
+    priority: "P0",
+    learnSlug: "cold-static-bunker-survival",
+    privacy: privacyLocal("正常游玩不需要网络，零数据收集（Data Not Collected）；付费解锁通过 Apple StoreKit 完成。"),
+    features: [
+      "短波调频电台：旋钮微调频段，实时解析杂音与摩斯电码",
+      "物资制作与生存：17 种配方合成取暖、照明与加固工具",
+      "双螺旋叙事与多结局：寻女线与末日世界观交织，6 种结局分支",
+      "无尽极寒模式：通关后开启无限生存挑战，抗击递增寒潮",
+      "全量素材自研生成：24 色经典像素画风与纯正弦波数学合成音效",
+      "无广告 SDK、无账号体系、无第三方追踪、离线畅玩"
+    ],
+    buildNotes: [
+      "“安静生存”：离线、无账号、无广告，专注纯粹氛围与数值解谜。",
+      "前 5 天完整免费试玩，第 6 天起一次性买断（Tier 3），无消耗型内购与订阅。",
+      "全量视觉素材与合成音效由自研 AI 工具链量化生成，保持复古 CRT 质感。"
+    ],
+    courseHooks: ["iOS 独立游戏", "SwiftUI 像素渲染", "StoreKit 2 买断制", "离线极简设计"],
+    detail: {
+      overview: [
+        "Cold Static: Bunker Survival（最后一盏灯）是一款面向 iPhone 的离线末日地堡生存解谜游戏。玩家身处被永夜极寒笼罩的地下掩体中，通过旋转调谐短波电台接收外界断续信号，合理规划体力制作物资，在有限的燃油和电力下抵御夜晚的风暴与未知袭击。",
+        "游戏遵循极简与纯粹的单机原则：彻底剔除广告 SDK、登录账号和体力限制。前 5 天序章提供完整合成与生存体验，后续主线与无尽极寒模式通过一次性买断解锁，不设任何数值付费坑。",
+        "本页面同时满足玩家了解游戏特色、App Store 审核（隐私声明、商业化边界与官方技术支持）及独立开发者课程案例的完整要求。"
+      ],
+      proofPoints: [
+        { label: "玩法", value: "电台调频 + 物资合成", note: "旋转旋钮调频监听摩斯电文，通过有限槽位合成生存工具。" },
+        { label: "隐私", value: "Data Not Collected", note: "正常游玩无账号、无广告 SDK、不联网上传任何数据。" },
+        { label: "商业化", value: "免费试玩 + 一次买断", note: "前 5 天免费游玩；Tier 3 一次性买断解锁 15 天主线与无尽模式。" },
+        { label: "语言", value: "3 UI Languages", note: "首发支持英文、繁体中文、日文原生界面与电文叙事。" }
+      ],
+      valueProps: [
+        { title: "给玩家的是沉浸式的末日坚守", body: "没有体力条、没有开屏弹窗和看广告复活。戴上耳机，只有短波电台的静电沙沙声和风雪敲打掩体闸门的声音。" },
+        { title: "给审核的是清晰的合规边界", body: "零数据收集承诺，StoreKit 2 一次性非消耗型内购，离线单机运行，完全符合 Apple 审核规范。" },
+        { title: "给课程的是现代独立游戏案例", body: "展示如何利用 SwiftUI、纯确定性规则引擎、自研 24 色像素量化管线与 StoreKit 2 打造轻量高质量移动游戏。" }
+      ],
+      featureDetails: [
+        { title: "CRT 示波器与短波电台", body: "高精度像素着色器与动态波形显示，还原旋钮微调频段、寻找信号峰值的复古通信体验。" },
+        { title: "严密的避难所资源循环", body: "燃油维持温度、电力维持照明、闸门抵挡威胁，每项资源环环相扣，考验每日行动力（AP）分配。" },
+        { title: "双螺旋剧情叙事", body: "寻女电报暗号与世界沦陷真相两条线索平行交织，15 天抉择引向 6 种完全不同的终局。" },
+        { title: "确定性规则与保底机制", body: "纯规则驱动，无黑盒发牌，提供合理的探索容错与无尽生存挑战。" }
+      ],
+      principles: [
+        { title: "不做清单大于功能列表", body: "坚决不做开屏广告、不做强制联网、不做抽卡开箱、不做无意义日常任务。" },
+        { title: "让每一次决策都有因果", body: "数值与读数在行动前透明呈现，胜负取决于玩家的资源统筹而非运气。" },
+        { title: "自研资产与纯净体验", body: "原创自制视觉与程序合成音频，给玩家提供纯粹不受外部商业干扰的完整体验。" }
+      ],
+      diaryIntro:
+        "Cold Static: Bunker Survival 目前处于 App Store 筹备中，开发日记整理了从立项调研、去大模型轻量化决策、SwiftUI CRT 着色器渲染到 StoreKit 2 合规落地的完整历程。"
+    }
+  },
+  {
     slug: "trekreel",
     name: "TrekReel",
     displayName: "TrekReel",
@@ -986,6 +1051,7 @@ export const featuredProducts = products.filter((product) => product.priority ==
 
 // 展示顺序：**新上线 / 新加的 App 一律放在最前面**（首页“最新产品”取前 6 个，产品列表页按这个顺序排）。
 const latestProductSlugs = [
+  "cold-static",
   "sumi-block-puzzle",
   "sumi-freecell",
   "sumi-klondike-solitaire",
@@ -1008,6 +1074,7 @@ const latestProductSlugs = [
 ] as const;
 
 const productTimelineNotes: Record<string, string> = {
+  "cold-static": "即将上架",
   "sumi-block-puzzle": "筹备中",
   docktouchbar: "刚发布",
   "sumi-mahjong": "最近上架",
@@ -1031,6 +1098,21 @@ const productTimelineNotes: Record<string, string> = {
 export const productProgressSyncedAt = "2026-06-26";
 
 export const productProgressItems: ProductProgressItem[] = [
+  {
+    productSlug: "cold-static",
+    label: "Cold Static",
+    phase: "封板待审",
+    status: "Ready",
+    next: "上架材料整理与提审",
+    source: "2026-10-28 闭环",
+    progress: 95,
+    tone: "live",
+    segments: [
+      { kind: "research", start: "2026-10-23", end: "2026-10-24" },
+      { kind: "build", start: "2026-10-24", end: "2026-10-28" },
+      { kind: "review", start: "2026-10-28", end: "2026-10-30" },
+    ],
+  },
   {
     productSlug: "mood-button",
     phase: "App Store",
