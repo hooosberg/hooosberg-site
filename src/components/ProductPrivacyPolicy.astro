@@ -16,7 +16,8 @@ const isLeanTake = product.slug === "leantake";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
 const isTrekReel = product.slug === "trekreel";
-const updatedDate = isSumiBlockPuzzle ? "2026-10-14" : isSumiFreeCell ? "2026-10-12" : isLeanTake ? "2026-10-22" : isTrekReel ? "2026-09-30" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : isSumiKlondike ? "2026-10-10" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const isColdStatic = product.slug === "cold-static";
+const updatedDate = isColdStatic ? "2026-10-28" : isSumiBlockPuzzle ? "2026-10-14" : isSumiFreeCell ? "2026-10-12" : isLeanTake ? "2026-10-22" : isTrekReel ? "2026-09-30" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : isSumiKlondike ? "2026-10-10" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const distributionText = product.hideSourceLinks
   ? `This privacy policy applies to ${product.displayName}. Product delivery for this app happens through the App Store and the linked Hooosberg product website.`
   : isWitNote
@@ -321,6 +322,32 @@ const platformServicesText = product.hideSourceLinks
         <section>
           <h2>Deletion and Retention</h2>
           <p>Because Rushi does not create a Hooosberg account or server profile, there is no server-side user account for Hooosberg to delete. Local reading state, mala counts, settings, copy-practice works, and local unlock state can be removed by deleting the app from the device. Apple may retain purchase, refund, crash, or store activity records under Apple's own policies and user settings.</p>
+        </section>
+      </>
+    )}
+
+    {isColdStatic && (
+      <>
+        <section>
+          <h2>Cold Static: Bunker Survival Data Flow</h2>
+          <p>Cold Static: Bunker Survival is an offline narrative survival puzzle game. It has no account system, no advertising SDKs, no third-party analytics or tracking SDKs, no social feed, and no remote game server. Normal gameplay works completely offline without requiring an internet connection.</p>
+          <div class="privacy-list">
+            <div class="privacy-row"><strong>Game progress and shelter state</strong><span>Stored locally on your device so you can resume your bunker survival at any time. Saves are not uploaded to Hooosberg.</span></div>
+            <div class="privacy-row"><strong>Days survived and crafting inventory</strong><span>Stored locally on your device. They are not uploaded and are never used for advertising or profiling.</span></div>
+            <div class="privacy-row"><strong>Settings and audio preferences</strong><span>Stored locally to remember CRT scanline effects, audio volume, language, and gameplay preferences.</span></div>
+            <div class="privacy-row"><strong>Full game unlock state</strong><span>Stored locally after Apple StoreKit 2 confirms an optional one-time purchase or purchase restoration.</span></div>
+            <div class="privacy-row"><strong>Personal identifiers</strong><span>Cold Static does not request or collect your name, email, phone number, location, contacts, photos, microphone, camera, or social account access.</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>In-App Purchases</h2>
+          <p>The first 5 days of the game are available as a full free trial. The optional non-consumable one-time purchase Unlock Full Game unlocks the remaining 15-day storyline and Endless Freeze Mode through Apple StoreKit 2. The purchase is not an auto-renewable subscription, does not contain consumable microtransactions, supports Family Sharing, and never charges for future content updates. Hooosberg does not receive your Apple ID, payment method, billing address, or App Store account credentials. Restore Purchases uses Apple's native StoreKit 2 flow.</p>
+        </section>
+
+        <section>
+          <h2>Deletion and Retention</h2>
+          <p>Because Cold Static: Bunker Survival does not create a Hooosberg account or server profile, there is no server-side player account for Hooosberg to delete. Local bunker saves, statistics, and preferences can be completely removed by deleting the app from your device. Apple may retain purchase, refund, crash, or store activity records under Apple's own privacy policies and user settings. If you contact developer support by email, information you send is used solely to respond to your inquiry.</p>
         </section>
       </>
     )}

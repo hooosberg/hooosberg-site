@@ -681,6 +681,25 @@ const productEnglish: Record<string, EnglishProductOverride> = {
     courseHooks: ["AI design protocol", "Structured output", "Frontend implementation"],
     failure: true,
   },
+  "cold-static": {
+    displayName: "Cold Static: Bunker Survival",
+    category: "Post-apocalyptic survival puzzle",
+    tagline: "An ad-free, account-free shortwave radio bunker survival puzzle. Tune the frequencies and hold the last light against the freezing snow.",
+    summary: "An offline bunker survival puzzle game for iPhone. Tune shortwave frequencies to intercept faint radio signals, craft resources to withstand sub-zero cold and nocturnal intrusions, and search for your missing daughter. Free trial for the first 5 days; a one-time purchase unlocks the full storyline and endless mode.",
+    audience: "Players who enjoy atmospheric post-apocalyptic survival, resource crafting, and immersive radio narrative with zero ads or energy gates.",
+    platforms: ["iPhone", "iOS", "Game"],
+    status: ["App Store coming soon", "Free trial + one-time unlock", "No ads", "No tracking"],
+    privacyNote: "Normal gameplay runs offline with zero data collection (Data Not Collected). Purchases and restores use Apple StoreKit. No ads, accounts, or third-party analytics.",
+    features: [
+      "Shortwave frequency tuner: Dial frequencies to decode static noise, radio voice, and Morse code in real time",
+      "Shelter crafting and survival: 17 recipes to craft heating fuel, illumination, tools, and door reinforcements",
+      "Twin-thread narrative and multiple endings: Intertwined father-daughter search and apocalypse worldbuilding with 6 endings",
+      "Endless freeze mode: Survive against escalating blizzard cold waves after clearing the story",
+      "In-house retro assets: 24-color pixel art aesthetics with pure sine-wave synthesized audio and CRT shader",
+      "No ad SDKs, no user accounts, no third-party trackers, fully offline"
+    ],
+    courseHooks: ["iOS indie game", "SwiftUI pixel rendering", "StoreKit 2 one-time purchase", "Offline minimalist design"],
+  },
 };
 
 function localizeAction(action: ProductAction | undefined, locale: Locale) {
@@ -723,6 +742,39 @@ function buildEnglishDetail(product: Product, override: EnglishProductOverride) 
         { title: "Your game stays local", body: override.privacyNote },
       ],
       diaryIntro: "Notes on block placement, tactile materials, hand-painted settings and a quiet no-ads game.",
+    };
+  }
+
+  if (product.slug === "cold-static") {
+    return {
+      overview: [
+        "Cold Static: Bunker Survival is an offline bunker survival puzzle game for iPhone. In a subterranean bunker surrounded by perpetual freezing darkness, you tune a shortwave radio to receive fragmented signals, manage daily action points to craft supplies, and survive nocturnal hazards and cold under limited fuel and power.",
+        "The game is built on a quiet, pure single-player philosophy: zero ad SDKs, no account system, and no energy timers. Days 1 through 5 provide the complete prologue, crafting, and survival loop for free. The remaining days and the Endless Mode are unlocked with a single one-time purchase (Tier 3), without consumable microtransactions or subscriptions.",
+        "This page serves players exploring game features, App Store review requirements (privacy disclosures, commercial boundaries, and developer support), and independent game design case studies.",
+      ],
+      proofPoints: [
+        { label: "Gameplay", value: "Radio tuning + crafting", note: "Dial frequencies to intercept Morse signals and craft tools in limited inventory slots." },
+        { label: "Privacy", value: "Data Not Collected", note: "Runs offline with no account, no ad SDK, and no telemetry or cloud upload." },
+        { label: "Pricing", value: "Free trial + one-time unlock", note: "First 5 days free; one-time Tier 3 unlock for the full 15-day story and Endless Mode." },
+        { label: "Languages", value: "3 UI Languages", note: "English, Traditional Chinese, and Japanese native UI and radio messages." },
+      ],
+      valueProps: [
+        { title: "Immersive bunker vigilance", body: "No energy bars, no popup ads, no pay-to-revive. Put on your headphones to hear the hum of CRT monitors, the static of shortwave radio, and the blizzards howling against the hatch." },
+        { title: "Clear compliance boundaries", body: "Zero data collection disclosure, StoreKit 2 one-time non-consumable purchase, offline execution, fully compliant with Apple App Store guidelines." },
+        { title: "A modern indie game case study", body: "Shows how to build a high-polish, lightweight mobile game using SwiftUI, deterministic rule engines, a 24-color pixel asset pipeline, and StoreKit 2." },
+      ],
+      featureDetails: [
+        { title: "CRT oscilloscope and shortwave radio", body: "Pixel shaders and dynamic waveforms simulate dialing vintage radio bands and searching for signal peaks." },
+        { title: "Interlocked shelter resource loops", body: "Fuel preserves temperature, electricity powers lighting, and hatch integrity resists intrusion. Every action point (AP) matters." },
+        { title: "Twin-thread narrative", body: "Search for your daughter's signal while piecing together how the surface fell. 15 days of decisions lead to 6 distinct endings." },
+        { title: "Deterministic rules", body: "Rule-driven systems with transparent feedback and bad-luck protection; outcome depends on player resource management rather than blind chance." },
+      ],
+      principles: [
+        { title: "Not-to-do list comes first", body: "No launch ads, no forced internet connection, no gacha loot boxes, no arbitrary daily quest checklists." },
+        { title: "Transparent cause and effect", body: "Numbers and environmental readings are clearly displayed before taking action, so players can make reasoned survival choices." },
+        { title: "Clean in-house assets", body: "Original visual artwork and procedural audio synthesis provide an authentic aesthetic untainted by generic asset flips." },
+      ],
+      diaryIntro: "The Cold Static build diary documents the entire journey from initial market research and lightweight AI decisions to SwiftUI CRT shader implementation and StoreKit 2 App Store compliance.",
     };
   }
 

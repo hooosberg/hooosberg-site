@@ -479,6 +479,8 @@ main.main--ai-directory {
   background: var(--surface-solid, #ffffff);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(20px);
+  box-sizing: border-box;
+  max-width: calc(100vw - 28px);
 }
 
 .language-dropdown__item {
@@ -4726,6 +4728,8 @@ main.main--ai-directory {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.65;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .product-facts dd a {
@@ -7047,7 +7051,7 @@ main.main--ai-directory {
   }
 
   .site-header__inner {
-    grid-template-columns: 34px minmax(0, 1fr) 34px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     grid-template-areas:
       "language brand theme"
       "nav nav nav";
@@ -7128,6 +7132,29 @@ main.main--ai-directory {
     height: 34px;
   }
 
+  .language-dropdown {
+    grid-area: language;
+    justify-self: start;
+    position: relative;
+  }
+
+  .language-dropdown__toggle {
+    height: 34px;
+    padding: 0 8px;
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  .language-dropdown__menu {
+    left: 0;
+    right: auto;
+    width: max-content;
+    max-width: calc(100vw - 28px);
+    grid-template-columns: repeat(2, minmax(105px, 1fr));
+    box-sizing: border-box;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+  }
+
   .language-switch {
     grid-area: language;
     justify-self: start;
@@ -7157,7 +7184,9 @@ main.main--ai-directory {
   }
 
   .product-landing__hero h1 {
-    font-size: 40px;
+    font-size: clamp(28px, 8vw, 40px);
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .article-detail h1,

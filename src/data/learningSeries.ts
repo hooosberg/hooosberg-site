@@ -109,6 +109,7 @@ export const learningSeries: LearningSeries[] = [
       { number: 33, title: "第 33 课：豆包办公＋开源公文 Skill", outcome: "把开源公文 Skill 装进 AI 生成规范公文 Word。", articleSlug: "video-workbuddy-lesson33-doubao-gongwen-skill", hasDownload: true },
       { number: 34, title: "第 34 课：AI Agent 时代的知识库", outcome: "理解底层文件、中层 Agent 与上层工具的极简架构。", articleSlug: "video-workbuddy-lesson34-folder-as-knowledge-base", hasDownload: true },
       { number: 42, title: "第 42 课：终极白嫖！数十款顶级模型接入 WorkBuddy（OpenCode＋Zen-Gate）", outcome: "用自然语言让 WorkBuddy 自动配置 OpenCode 与 Zen-Gate 开源网关，零代码白嫖数十款顶级免费模型并反代接入日常办公。", articleSlug: "video-workbuddy-lesson42-opencode-zengate-free-models", hasDownload: true },
+      { number: 43, title: "第 43 课：手机秒变远程桌面！腾讯 WorkBuddy 远程遥控实测与配置避坑", outcome: "手把手实操配置电脑授权、手机独立 App 直连本地桌面与触控操作，掌握通勤监控 AI 任务技巧，避开 Windows 暂无入口等核心大坑。", articleSlug: "video-workbuddy-lesson43-remote-desktop" },
     ],
   },
   {

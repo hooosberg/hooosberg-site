@@ -19,6 +19,9 @@ const failureProductPages = [
   new URL("../dist/apps/glotshot/index.html", import.meta.url),
   new URL("../dist/apps/uixskills/index.html", import.meta.url),
 ];
+const coldStaticEnglishPage = new URL("../dist/en/apps/cold-static/index.html", import.meta.url);
+const coldStaticEnglishPrivacyPage = new URL("../dist/en/privacy/cold-static/index.html", import.meta.url);
+const coldStaticEnglishTermsPage = new URL("../dist/en/terms/cold-static/index.html", import.meta.url);
 
 test("homepage and product catalog use Chinese product card copy", async () => {
   const [homeHtml, appsHtml] = await Promise.all([
@@ -182,5 +185,41 @@ test("failure case products render as honest postmortems", async () => {
     "AI 能力变化",
   ]) {
     assert.match(combinedDetails, new RegExp(phrase), `failure detail pages should explain the postmortem: ${phrase}`);
+  }
+});
+
+test("Cold Static English pages (landing, privacy, terms) are fully English with zero Chinese leaks", async () => {
+  const [landingHtml, privacyHtml, termsHtml] = await Promise.all([
+    readFile(coldStaticEnglishPage, "utf8"),
+    readFile(coldStaticEnglishPrivacyPage, "utf8"),
+    readFile(coldStaticEnglishTermsPage, "utf8"),
+  ]);
+
+  // Privacy policy specific checks
+  assert.match(privacyHtml, /<h1>Cold Static: Bunker Survival Privacy Policy<\/h1>/);
+  assert.match(privacyHtml, /<h2>Cold Static: Bunker Survival Data Flow<\/h2>/);
+  assert.match(privacyHtml, /Offline narrative survival puzzle game/i);
+  assert.match(privacyHtml, /Unlock Full Game/);
+
+  // Terms of service specific checks
+  assert.match(termsHtml, /<h1>Cold Static: Bunker Survival Terms of Service<\/h1>/);
+  assert.match(termsHtml, /Cold Static: Bunker Survival provides the first 5 days/);
+
+  // Landing page specific checks
+  assert.match(landingHtml, /<h1>Cold Static: Bunker Survival<\/h1>/);
+  assert.match(landingHtml, /Post-apocalyptic survival puzzle/);
+  assert.match(landingHtml, /Coming to the App Store/);
+
+  // Check all three for Chinese character leaks in body text
+  for (const [name, html] of [
+    ["landing", landingHtml],
+    ["privacy", privacyHtml],
+    ["terms", termsHtml],
+  ]) {
+    // Check that common Chinese leaks do not exist in the main article/section content
+    assert.doesNotMatch(html, /末日地堡/, `${name} should not contain '末日地堡'`);
+    assert.doesNotMatch(html, /末日生存解谜游戏/, `${name} should not contain '末日生存解谜游戏'`);
+    assert.doesNotMatch(html, /正常游玩不需要网络/, `${name} should not contain Chinese privacy note`);
+    assert.doesNotMatch(html, /调频短波电台/, `${name} should not contain Chinese description`);
   }
 });

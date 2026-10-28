@@ -14,7 +14,8 @@ const isSumiKlondike = product.slug === "sumi-klondike-solitaire";
 const isLeanTake = product.slug === "leantake";
 const isRushi = product.slug === "rushi";
 const isWitNote = product.slug === "witnote";
-const updatedDate = isSumiBlockPuzzle ? "2026-10-14" : isSumiFreeCell ? "2026-10-12" : isLeanTake ? "2026-10-02" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : isSumiKlondike ? "2026-10-10" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
+const isColdStatic = product.slug === "cold-static";
+const updatedDate = isColdStatic ? "2026-10-28" : isSumiBlockPuzzle ? "2026-10-14" : isSumiFreeCell ? "2026-10-12" : isLeanTake ? "2026-10-02" : product.slug === "docktouchbar" ? "2026-09-26" : isWitNote ? "2026-09-24" : isRushi ? "2026-07-01" : isSumiKlondike ? "2026-10-10" : product.slug === "sumi-mahjong" || product.slug === "mood-button" ? "2026-06-26" : "2026-06-19";
 const scopeText = product.hideSourceLinks
   ? "The product page, App Store download link, privacy policy, terms, and support contact define the current public product scope."
   : isWitNote
@@ -52,7 +53,9 @@ const thirdPartyText = product.hideSourceLinks
 
     <section>
       <h2>Use of the Product</h2>
-      {isLeanTake ? (
+      {isColdStatic ? (
+        <p>Cold Static: Bunker Survival is an offline narrative survival puzzle game. Do not misuse the app, reverse engineer it, extract or redistribute its artwork, CRT shaders, synthesized audio, Morse scripts, radio narratives, icons, screenshots, code, or other bundled assets, or use it in ways that violate applicable law, platform rules, or third-party rights.</p>
+      ) : isLeanTake ? (
         <p>LeanTake is a screen recorder for Mac. You are responsible for what you record and for having the right to record it: obtain consent from people who appear or speak in your recording, and respect the copyright, confidentiality, and platform rules that apply to the content on your screen and in your system audio. Do not use LeanTake to record in ways that violate applicable law or the rights of others. Do not reverse engineer the app, or extract or redistribute its artwork, sounds, icons, or other bundled assets.</p>
       ) : isSumiKlondike ? (
         <p>Sumi Klondike Solitaire is a casual solitaire game. Do not misuse the app, reverse engineer it, extract or redistribute its artwork, skins, audio, icons, screenshots, code, or other bundled assets, or use it in ways that violate applicable law, platform rules, or third-party rights.</p>
@@ -70,7 +73,9 @@ const thirdPartyText = product.hideSourceLinks
     <section>
       <h2>User Content and Local Data</h2>
       <p>{product.privacy.note}</p>
-      {isLeanTake ? (
+      {isColdStatic ? (
+        <p>Game saves, radio logs, crafting inventory, and local unlock state are stored on your device. You are responsible for your device security, backups, and iOS settings. Deleting the app removes local app data according to iOS behavior.</p>
+      ) : isLeanTake ? (
         <p>LeanTake saves recordings to the folder you choose on your Mac, and keeps settings, profiles, and a local diagnostic log on your Mac. You are responsible for device security, backups, and the files you create. Deleting the app does not delete recordings you saved to your own folders.</p>
       ) : isSumiKlondike ? (
         <p>Game saves, statistics, preferences, and local skin unlock state are stored on the device. You are responsible for your device security, backups, and iOS settings. Deleting the app may remove local app data according to iOS behavior.</p>
@@ -109,11 +114,17 @@ const thirdPartyText = product.hideSourceLinks
       {isWitNote && (
         <p>The local Markdown workspace and basic local model experience are available according to the current app build. The optional non-consumable WitNote Pro lifetime purchase, shared across Mac, iPad, and iPhone, unlocks format conversion and export through Apple StoreKit. WitNote does not offer an auto-renewable subscription. Restore Purchases uses Apple's StoreKit flow; refunds, billing issues, and purchase records are handled by Apple under App Store rules.</p>
       )}
+      {isColdStatic && (
+        <p>Cold Static: Bunker Survival provides the first 5 days of prologue and survival for free. The optional non-consumable one-time purchase unlocks the full 15-day story and Endless Freeze Mode through Apple StoreKit 2. It is an optional one-time purchase, not a subscription. Prices are displayed in Apple StoreKit prior to purchase. Restore Purchases is available in the game settings. Billing and refunds follow Apple's standard terms. The app is licensed under <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Apple's standard EULA</a>.</p>
+      )}
     </section>
 
     <section>
       <h2>Third-Party Services</h2>
       <p>{thirdPartyText}</p>
+      {isColdStatic && (
+        <p>Cold Static: Bunker Survival does not include advertising networks, third-party analytics trackers, cloud accounts, or remote servers. Apple platform services (App Store, StoreKit 2) remain subject to Apple's terms and policies. Bundled artwork, shaders, audio, and story assets remain subject to their respective rights and may not be extracted or reused outside the app.</p>
+      )}
       {isLeanTake && (
         <p>LeanTake does not include advertising networks, third-party analytics SDKs, cloud accounts, or third-party AI services. It uses Apple platform services such as ScreenCaptureKit, AVFoundation, App Store, and StoreKit, which remain subject to Apple's own terms and policies.</p>
       )}
