@@ -1372,6 +1372,110 @@ const englishCustomArticleOverrides: Record<string, EnglishCustomArticleOverride
 type EnglishVideoOverride = Pick<LocalizedArticle, "title" | "excerpt" | "body" | "sections">;
 
 const englishVideoArticleOverrides: Record<string, EnglishVideoOverride> = {
+  "video-codex-antigravity-gemini-38-pro-hidden-model": {
+    "title": "Exclusive | Google Antigravity Is Quietly Running a Gemini 3.8 Pro: Flagship Performance at Flash Pricing",
+    "excerpt": "A Gemini 3.8 Pro model that Google has never announced is running inside Antigravity. It is absent from the model dropdown, yet the backend deep coder mechanism calls it, and billing follows Gemini 3.8 Flash rates. Here are both invocation methods, copyable prompts, the cheap-model-orchestrating-expensive-model mechanism, and the risk that it disappears.",
+    "body": [
+      "While running a project inside Google Antigravity, I ran into a model name I had never seen before: Gemini 3.8 Pro.",
+      "The reason it stood out is simple. Google publicly ships Pro models only up to 3.1, the model list is all Flash, and there is almost no documentation on 3.8 Pro anywhere, including the official docs. Yet it runs, and it runs well: it can stay on a complex task for over an hour and finish it in unusual detail.",
+      "This note records how I found it, the two ways to invoke it, how billing actually works, and how it compares with the top-tier coding models. Every prompt below is copyable. One warning up front: this looks like a temporary quirk in the billing path. Google can change it at any time, so treat it as a short window rather than a long-term plan."
+    ],
+    "sections": [
+      {
+        "heading": "1. The short version",
+        "paragraphs": [
+          "In one sentence: Antigravity has an unannounced Gemini 3.8 Pro model in its backend. It appears in no visible model list, but the internal deep coder mechanism calls it, and billing is charged at Gemini 3.8 Flash rates.",
+          "Three points matter. It is not an announced release, so you cannot find it in the UI. Its actual capability is flagship level: long context, deep reasoning, and long-running tasks. Its price is Flash level, which means the cost pressure is close to zero.",
+          "In practice you are spending a cheap model's budget on a flagship model's compute. That gap is not marketing; it comes from the meter being attached to the wrong side of the call."
+        ]
+      },
+      {
+        "heading": "2. Why the dropdown has no Pro entry",
+        "paragraphs": [
+          "The first instinct is to open the model dropdown at the bottom or top right of the interface and look for 3.8 Pro. It is not there, and that is not a version problem.",
+          "That dropdown belongs to the primary agent, which is tuned for high-throughput, low-latency day-to-day interaction, such as Gemini 3.8 Flash (High). The Pro engine is not exposed at that layer. It is offered as a dedicated high-compute engine for background subagents.",
+          "Once you accept that split, invocation becomes obvious: you are not switching to Pro, you are asking the primary agent to subcontract a task to a Pro subagent. The prompt below makes an assistant explain that structure back to you."
+        ],
+        "codeBlocks": [
+          "Explain why my model dropdown does not list Gemini 3.8 Pro.\n\nStructure your answer as follows:\n1. How models are allocated between the primary agent and background subagents;\n2. Why Pro-tier models are not exposed in the outer dropdown but offered as a subagent engine;\n3. Which invocation methods exist and which tasks each suits;\n4. Re-explain it with a subcontracting analogy I can repeat to someone else."
+        ]
+      },
+      {
+        "heading": "3. Method one: ask the chat to call the backend Pro model",
+        "paragraphs": [
+          "No settings, no plugins. State clearly that the task should be handled by the pro model, and the system launches the high-spec model in the background through its subagent call, then summarizes the result back to you.",
+          "The important part is describing the task, not just saying pro. My habit is to give the goal, constraints, and acceptance criteria first, then request the backend pro model for the judgement step, so the subagent is not wasted on small talk.",
+          "This suits work where being wrong is expensive: design review, architecture decisions, hard bug isolation, and cross-checking long documents."
+        ],
+        "codeBlocks": [
+          "For this task, call the backend pro model (subagent) for deep reasoning instead of the default fast model.\n\n[Goal]\n(State the outcome you need)\n\n[Materials]\n(List files, code, data, and existing conclusions)\n\n[Constraints]\n(What must not change, and which rules must hold)\n\n[Output]\n1. Conclusion first, then the reasoning;\n2. Mark anything uncertain instead of inventing it;\n3. End with a next-step checklist I can execute directly."
+        ]
+      },
+      {
+        "heading": "4. Method two: the /boost slash command",
+        "paragraphs": [
+          "Type /boost in the input box. It triggers multi-perspective, multi-round verification and deeper reasoning, and the underlying scheduler brings in top-tier compute, including the Pro engine.",
+          "In practice /boost fits work that must be right the first time: refactoring a module, reworking a whole system design, or having several viewpoints attack the same plan. Using it to polish a sentence is a waste.",
+          "One useful habit: after /boost, do not dump the entire requirement at once. Give the goal and boundaries, let it produce a plan, approve the plan, and only then let it run. Long tasks are far less likely to drift that way."
+        ],
+        "codeBlocks": [
+          "/boost Handle the following task with multiple perspectives and multi-round verification.\n\n[Task]\n(One sentence on what to do)\n\n[Context]\n(Current state, stack, what was already tried, why it failed)\n\n[Boundaries]\n(What must not change, behaviour to preserve, performance and compatibility limits)\n\nOutput an execution plan for my approval before changing any code. The plan must include:\n- the steps and the acceptance criteria for each step;\n- the risks you expect and how to roll back;\n- what information you still need from me."
+        ]
+      },
+      {
+        "heading": "5. How it works: a cheap model directing an expensive one",
+        "paragraphs": [
+          "Models calling other models is not new. What is new here is the direction.",
+          "The usual pattern is a flagship model supervising a cheap one: the expensive model decides, and translation, summarization, and formatting go to a small model. This is the reverse. A cheap model such as Flash does the scheduling and subcontracts the heavy lifting to Pro.",
+          "Why is that cheaper? Because the meter sits on the scheduler. The cheap model decomposes the task, writes the instructions, and checks the result, while the expensive model is only pulled in for the parts that genuinely need compute, and settlement still uses the cheap model's rate. It is like hiring an inexpensive contractor who brings in a specialist, while the invoice is still written at the contractor's day rate.",
+          "The trade-off is time. The task in the video ran for over an hour, and in exchange the completion quality was high and the error rate was low. For work where the result matters more than the clock, that is a good trade."
+        ]
+      },
+      {
+        "heading": "6. Billing: why it is charged at Flash rates",
+        "paragraphs": [
+          "I checked this repeatedly. The high-spec model has no separate meter. When it is called, the system bills it the way it bills Gemini 3.8 Flash, the cheapest tier available.",
+          "Measured result: after a week of continuous use, my quota was still at 17 percent. The same volume on a genuine flagship model would have burned a 20-dollar subscription in a single day, which is exactly why I started looking for cheaper paths.",
+          "But be clear about what this is. It is not a published pricing policy; it is a state of affairs that does not make economic sense. The only coherent explanation is a gap in the billing path. It works today, which says nothing about next week."
+        ]
+      },
+      {
+        "heading": "7. How it compares with Codex and Claude Code flagships",
+        "paragraphs": [
+          "Public information on 3.8 Pro is scarce, so this is my own hands-on judgement. After a full day of use, my conclusion is that it is at least on par with the current top models in Codex and Claude Code, and better in some dimensions.",
+          "The clearest advantage is context length. Cross-referencing long documents, or loading many files from a mid-sized project at once, did not produce the usual forgetting-what-came-earlier effect. By feel, that context window ranks among the largest available.",
+          "The second advantage is completion quality. Flash tends to drift halfway through complex work and guess at details. 3.8 Pro works each step through properly, slower but not sloppy, and the error rate is very low.",
+          "One pure guess, with no evidence behind it: I suspect the model currently marketed as Gemini 4 may be 3.8 Pro underneath with a different label. That is an impression, not a finding."
+        ]
+      },
+      {
+        "heading": "8. Risk: this is a bug, and it can be patched",
+        "paragraphs": [
+          "Plainly: the billing does not make sense, so this is most likely a bug rather than an official benefit.",
+          "Three consequences follow. The more people know about it, the faster it gets fixed. The pricing rules are not final, so it could switch to Pro rates at any time. And it should not sit inside a production workflow, because a pipeline that runs today can fail tomorrow.",
+          "The sensible use is a window of opportunity: experiments where success is valuable and failure costs little, not client deliverables."
+        ]
+      },
+      {
+        "heading": "9. Three ways to actually save money",
+        "paragraphs": [
+          "First, use it as a fallback when the flagship quota runs out. A 20-dollar subscription usually empties before the weekend; instead of paying more, switch to cheap-model orchestration plus the backend Pro engine and keep doing heavy work.",
+          "Second, separate scheduling from execution. Let the cheap model decompose tasks, write instructions, and verify results, and only pull the expensive model in at the points that need deep reasoning. The same quota lasts longer and drifts less.",
+          "Third, give it the long-context work. Reading an entire codebase, cross-checking dozens of documents, and staying consistent across a long conversation are where it is strongest, and where it saves you the most time."
+        ]
+      },
+      {
+        "heading": "10. FAQ",
+        "paragraphs": [
+          "Which subscription do I need? I use the 20-dollar Antigravity plan with no extra payment. Lower tiers are untested, and the mechanism may not be visible there.",
+          "Is there account risk? I cannot promise otherwise. This is an undocumented mechanism and I have no official information about how the platform treats it.",
+          "Can I rely on it long term? No. Treat it as a window, not as infrastructure.",
+          "What is its relationship to Gemini 4? I offered a guess above. It is an impression without evidence, not a conclusion.",
+          "Finally: this note describes the state of things in late October 2026. If the mechanism has changed by the time you read it, that means it was patched, which is the expected outcome."
+        ]
+      }
+    ]
+  },
   "video-workbuddy-lesson1-excel-automation": {
     title: "Lesson 1 | Learn AI Office Automation with an Excel Scheduling Case",
     excerpt: "Use a scheduling workbook to learn the safe order for AI-assisted spreadsheet work: inspect, plan, process, and verify.",

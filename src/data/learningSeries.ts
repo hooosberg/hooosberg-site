@@ -138,6 +138,13 @@ export const learningSeries: LearningSeries[] = [
         isPinned: true,
         hasDownload: false,
       },
+      {
+        number: 30,
+        title: "独家揭秘｜谷歌 Antigravity 藏了个 Gemini 3.8 Pro：Flash 的价格跑顶配模型",
+        outcome: "实测后台隐藏模型 Gemini 3.8 Pro：按 Flash 单价计费却具备顶配性能，附两种调用提示词与低模指挥高模省钱攻略。",
+        articleSlug: "video-codex-antigravity-gemini-38-pro-hidden-model",
+        hasDownload: false,
+      },
       // 最新发布倒序排列（编号倒序：最新一课编号最大，与 WorkBuddy 对齐）
       {
         number: 28,
