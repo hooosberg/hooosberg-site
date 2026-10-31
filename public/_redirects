@@ -1,4 +1,4 @@
 /review/* /404 404!
 /review* /404 404!
-/en/review/* /en/404 404!
-/en/review* /en/404 404!
+/en/review/* /404 404!
+/en/review* /404 404!
